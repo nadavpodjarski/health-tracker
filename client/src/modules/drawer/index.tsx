@@ -1,5 +1,7 @@
 import React, { FC, useState } from "react";
+import SelectLanguage from "./languages-select";
 import clsx from "clsx";
+
 import {
   createStyles,
   makeStyles,
@@ -110,7 +112,7 @@ const MiniDrawer: FC = ({ children }) => {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar>
+        <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -119,6 +121,7 @@ const MiniDrawer: FC = ({ children }) => {
           >
             <MenuIcon />
           </IconButton>
+          <SelectLanguage />
         </Toolbar>
       </AppBar>
       <Drawer

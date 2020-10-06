@@ -1,0 +1,12 @@
+{
+  "hebrew": {
+    "const": "hebrew",
+    "flag": "",
+    "direction": "rtl"
+  },
+  "english": {
+    "const": "english",
+    "flag": "",
+    "direction": "ltr"
+  }
+}
