@@ -17,7 +17,7 @@ export const languagesReducer = (state = initialState, action: Action) => {
       return {
         ...state,
         chosenLanguage: Object.entries(languages).find(
-          (lang) => lang[0] === action.payload
+          (lang) => lang[1].const === action.payload
         )?.[1],
       };
     default:

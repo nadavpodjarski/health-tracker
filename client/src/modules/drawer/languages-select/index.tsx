@@ -47,7 +47,9 @@ export default function ControlledOpenSelect() {
   };
 
   const renderLangs = (languages: any) => {
-    const languagesKeys = Object.keys(languages);
+    const languagesKeys = Object.entries(languages).map(
+      (lang: any) => lang[1].const
+    );
 
     return languagesKeys.map((lang, i) => {
       return (

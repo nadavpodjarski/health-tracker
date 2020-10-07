@@ -1,12 +1,10 @@
 {
   "hebrew": {
-    "const": "hebrew",
-    "flag": "",
+    "const": "עברית",
     "direction": "rtl"
   },
   "english": {
     "const": "english",
-    "flag": "",
     "direction": "ltr"
   }
 }
