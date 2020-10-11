@@ -1,5 +1,5 @@
-import * as types from "../types/languages";
-import languages from "../../../main/languages/languages.json";
+import * as types from "../types";
+import languages from "../../../main/languages/languagesMeta.json";
 
 const initialState = {
   chosenLanguage: languages.hebrew,

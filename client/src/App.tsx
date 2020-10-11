@@ -1,19 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
+import firebase from './main/firebase'
+import { useDispatch } from 'react-redux'
+import { setUser } from './redux/auth/actions'
 import "./App.css";
-import Drawer from "./modules/drawer";
-import Routes from "./main/routes";
-import { Provider } from "react-redux";
-import store from "./main/store";
+
+import AppRoutes from "./main/routes";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        dispatch(setUser(user));
+      }
+    })
+
+  }, [])
+
+
   return (
-    <Provider store={store}>
-      <div className="App">
-        <Drawer>
-          <Routes />
-        </Drawer>
-      </div>
-    </Provider>
+    <div className="App">
+      <AppRoutes />
+    </div>
   );
 }
 

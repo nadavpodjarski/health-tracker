@@ -1,4 +1,4 @@
-import * as types from "../types/languages";
+import * as types from "../types";
 
 export const setLanguage = (lang: any) => {
   return {

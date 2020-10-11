@@ -5,11 +5,11 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
-import languages from "../../../main/languages/languages.json";
+import languages from "../languagesMeta.json";
 import { Typography } from "@material-ui/core";
 
 import { useDispatch, useSelector } from "react-redux";
-import * as languagesActions from "../../../redux/languages/actions/languages";
+import * as languagesActions from "../../../redux/languages/actions";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

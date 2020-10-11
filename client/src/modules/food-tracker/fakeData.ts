@@ -1,5 +1,7 @@
 export const data = [
-  { dish: "ארוחת בוקר" },
-  { dishComponents: ["ביצים", "לחם מלא", "קפה שחור"] },
-  { time: "10:30" },
+  {
+    dish: "ארוחת בוקר",
+    dishComponents: ["ביצים", "לחם מלא", "קפה שחור"],
+    time: Date.now()
+  },
 ];
