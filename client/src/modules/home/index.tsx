@@ -33,7 +33,9 @@ import MenuRoutes from "../../main/routes/menuRoutes";
 import { langs } from "../../main/languages/app-dictionary";
 import SelectLanguage from "../../main/languages/languages-select";
 
-import * as utils from '../../utilities'
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/auth/actions';
+
 
 const drawerWidth = 240;
 
@@ -109,8 +111,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Home: FC = ({ children }) => {
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch()
 
   const { chosenLanguage } = useSelector((state: any) => state.languages);
 
@@ -137,7 +139,7 @@ const Home: FC = ({ children }) => {
             <MenuIcon />
           </IconButton>
           <div style={{ display: "flex" }}>
-            <Button onClick={utils.firebaseLogout}>
+            <Button onClick={() => dispatch(logout)}>
               Logout
           </Button>
             <SelectLanguage />

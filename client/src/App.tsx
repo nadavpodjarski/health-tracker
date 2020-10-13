@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import firebase from './main/firebase'
 import { useDispatch } from 'react-redux'
-import { userLoggedIn, userLoggedOut } from './redux/auth/actions'
+import { onAuthStateChange } from './redux/auth/actions'
 import "./App.css";
 
 import AppRoutes from "./main/routes";
@@ -15,16 +14,7 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-
-    // firebase auth state change handler
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        dispatch(userLoggedIn(user))
-        history.push(routes.home)
-      } else {
-        dispatch(userLoggedOut())
-      }
-    })
+    dispatch(onAuthStateChange(history, routes.home))
   }, [])
 
   return (
