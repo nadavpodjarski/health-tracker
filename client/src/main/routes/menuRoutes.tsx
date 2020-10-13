@@ -8,8 +8,8 @@ const SportTracker = lazy(() => import("../../modules/sport-tracker"));
 
 const MenuRoutes = () => {
   return (
-    <Switch>
-      <Suspense fallback={"Loading..."}>
+    <Suspense fallback={"Loading..."}>
+      <Switch>
         <Route path={routes.profile} component={Profile} />
 
         <Route path={routes.foodTracker} component={FoodTracker} />
@@ -19,8 +19,8 @@ const MenuRoutes = () => {
         <Route>
           <Redirect to={{ pathname: routes.foodTracker }} />
         </Route>
-      </Suspense>
-    </Switch>
+      </Switch>
+    </Suspense>
   );
 };
 

@@ -1,6 +1,5 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import {
-  BrowserRouter as Router,
   Route,
   Redirect,
   Switch,
@@ -8,37 +7,40 @@ import {
 import { routes } from "../../main/routes/constants";
 import PrivateRoute from "../../common/components/private-route";
 
-import Home from "../../modules/home";
-import SignIn from "../../modules/sing-in";
-import LandingPage from "../../modules/landing-page";
 
 import { useSelector } from 'react-redux'
+import Loader from '../../common/components/loader'
 
+const SignIn = lazy(() => import('../../modules/sing-in'))
+const Home = lazy(() => import('../../modules/home'))
 
 const AppRoutes = () => {
 
-  const { currentUser } = useSelector((state: any) => state.auth)
+  const { currentUser, isLoading } = useSelector((state: any) => state.auth)
 
   return (
-    <Router>
-      <Switch>
-        <Route path={routes.landingPage} component={LandingPage} />
-        <Route path={routes.signIn} component={SignIn} />
+    <>
+      {!isLoading ?
+        <Suspense fallback="">
+          <Switch>
+            <Route path={routes.signIn} component={SignIn} />
+            {/*Private Route*/}
+            <PrivateRoute
+              redirectTo={routes.signIn}
+              path={routes.home}
+              component={Home}
+              isLoggedIn={!!currentUser}
+            />
+            {/*Default Route*/}
+            <Route>
+              <Redirect to={routes.home} />
+            </Route>
+          </Switch>
+        </Suspense>
+        : <Loader />}
+    </>
 
-        {/*Private Route*/}
-        <PrivateRoute
-          redirectTo={routes.signIn}
-          path={routes.home}
-          component={Home}
-          isLoggedIn={!!currentUser}
-        />
 
-        {/*Default Route*/}
-        <Route>
-          <Redirect to={routes.home} />
-        </Route>
-      </Switch>
-    </Router>
   );
 };
 

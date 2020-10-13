@@ -4,5 +4,4 @@ export const routes = {
   sportTracker: "/sport-tracker",
   signIn: "/sign-in",
   home: "/",
-  landingPage: "/lp",
 };

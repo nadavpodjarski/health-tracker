@@ -21,6 +21,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import Button from "@material-ui/core/Button";
+
 
 import FastfoodIcon from "@material-ui/icons/Fastfood";
 import SportsHandballIcon from "@material-ui/icons/SportsHandball";
@@ -28,8 +30,10 @@ import SportsHandballIcon from "@material-ui/icons/SportsHandball";
 import { routes } from "../../main/routes/constants";
 import MenuRoutes from "../../main/routes/menuRoutes";
 
-import { langs } from "../../main/languages/app-dictionary/index";
+import { langs } from "../../main/languages/app-dictionary";
 import SelectLanguage from "../../main/languages/languages-select";
+
+import * as utils from '../../utilities'
 
 const drawerWidth = 240;
 
@@ -132,7 +136,12 @@ const Home: FC = ({ children }) => {
           >
             <MenuIcon />
           </IconButton>
-          <SelectLanguage />
+          <div style={{ display: "flex" }}>
+            <Button onClick={utils.firebaseLogout}>
+              Logout
+          </Button>
+            <SelectLanguage />
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer

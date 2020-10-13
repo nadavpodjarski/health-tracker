@@ -2,7 +2,8 @@ import React from "react";
 import firebase from "../../main/firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { Paper, makeStyles, Theme } from "@material-ui/core";
-import { routes } from '../../main/routes/constants'
+
+
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     height: "100vh",
@@ -40,21 +41,29 @@ const SigIn = () => {
       firebase?.auth?.GoogleAuthProvider?.PROVIDER_ID,
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
     ],
-    signInSuccessUrl: routes.home
+    callbacks: {
+      signInSuccessWithAuthResult: (authResult: any) => {
+        return false
+      }
+    }
   };
 
+
   return (
-    <div className={classes.root}>
-      <div className={classes.leftScreen}></div>
-      <div className={classes.rightScreen}>
-        <Paper elevation={6}>
-          <StyledFirebaseAuth
-            uiConfig={UIConfig}
-            firebaseAuth={firebase.auth()}
-          />
-        </Paper>
-      </div>
-    </div>
+    <>
+      {
+        <div className={classes.root}>
+          <div className={classes.leftScreen}></div>
+          <div className={classes.rightScreen}>
+            <Paper elevation={6}>
+              <StyledFirebaseAuth
+                uiConfig={UIConfig}
+                firebaseAuth={firebase.auth()}
+              />
+            </Paper>
+          </div>
+        </div>
+      }</>
   );
 };
 

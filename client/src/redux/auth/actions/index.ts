@@ -1,8 +1,20 @@
 import * as types from "../types";
 
-export const setUser = (user: any) => {
+export const userLoggedIn = (user: any) => {
   return {
-    type: types.SET_USER,
+    type: types.USER_LOGIN,
     payload: user,
   };
 };
+
+
+export const userLoggedOut = () => {
+  return {
+    type: types.USER_LOGOUT
+  }
+}
+
+
+
+
+
