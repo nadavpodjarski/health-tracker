@@ -11,7 +11,7 @@ import PrivateRoute from "../../common/components/private-route";
 import { useSelector } from 'react-redux'
 import Loader from '../../common/components/loader'
 
-const SignIn = lazy(() => import('../../modules/sing-in'))
+const SignIn = lazy(() => import('../../modules/sign-in'))
 const Home = lazy(() => import('../../modules/home'))
 
 const AppRoutes = () => {
