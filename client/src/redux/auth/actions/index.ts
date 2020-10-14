@@ -1,6 +1,9 @@
 import * as types from "../types";
-import firebase from '../../../main/firebase'
+import { useFirebaseAuth } from '../../../main/firebase/useFirebaseAuth'
 import { Dispatch } from "react";
+
+
+const { firebaseAuth } = useFirebaseAuth()
 
 
 export const userLoggedIn = (user: any) => {
@@ -10,9 +13,6 @@ export const userLoggedIn = (user: any) => {
   };
 };
 
-export const logout = () => {
-  firebase.auth().signOut()
-}
 
 export const userLoggedOut = () => {
   return {
@@ -20,8 +20,12 @@ export const userLoggedOut = () => {
   }
 }
 
+export const logout = () => {
+  firebaseAuth().signOut()
+}
+
 export const onAuthStateChange = (history: any, route: string) => (dispatch: Dispatch<any>) => {
-  firebase.auth().onAuthStateChanged(user => {
+  firebaseAuth().onAuthStateChanged(user => {
     if (user) {
       dispatch(userLoggedIn(user))
       history.push(route)

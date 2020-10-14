@@ -1,6 +1,5 @@
 import React from "react";
 
-import StickeyHeader from "../../common/components/sticky-header";
 import MainHeader from "../../common/components/tracker-main-header";
 
 import { useModal } from "../../common/hooks/useModal";

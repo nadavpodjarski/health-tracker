@@ -1,13 +1,14 @@
 import React from "react";
 import { data } from "./fakeData";
 
-import StickeyHeader from "../../common/components/sticky-header";
 import MainHeader from "../../common/components/tracker-main-header";
 
 import { useModal } from "../../common/hooks/useModal";
 import { langs } from "../../main/languages/app-dictionary";
 
 import AddDishModalContent from "./AddDishModalContent";
+
+import PinnedList from '../../common/components/tracker-list'
 
 import { useSelector } from "react-redux";
 
@@ -25,7 +26,7 @@ const FoodTracker = () => {
         {/*Header*/}
         <MainHeader title={moduleTitle} direction={direction} />
         {/*Body*/}
-
+        <PinnedList />
         <OpenModalButton style={{ fontSize: "24px" }}>
           {modalButtonText}
         </OpenModalButton>
