@@ -1,6 +1,6 @@
 import React, { FC, CSSProperties, useState } from "react";
 import { Button } from "@material-ui/core";
-import SpringModal from "../components/spring-modal";
+import SpringModal from "../../components/spring-modal";
 
 
 /**
@@ -25,10 +25,10 @@ export const useModal = () => {
 
   /**
    *  @description  modal
-   */  
+   */
   const Modal: FC = ({ children }) => (
     <SpringModal {...{ open, handleOpen }}>{children}</SpringModal>
   );
 
-  return [ OpenModalButton, Modal ] as const
+  return [OpenModalButton, Modal] as const
 };

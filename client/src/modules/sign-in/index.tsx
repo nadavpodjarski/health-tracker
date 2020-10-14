@@ -1,7 +1,7 @@
 import React from "react";
 import firebase from "../../main/firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { Paper, makeStyles, Theme } from "@material-ui/core";
+import { Paper, makeStyles, Theme, Typography } from "@material-ui/core";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -14,8 +14,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: "100%",
     width: "50%",
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
     background: "rgba(0,0,0,0.7)",
     [theme.breakpoints.down("sm")]: {
       display: "none",
@@ -53,7 +51,9 @@ const SigIn = () => {
     <>
       {
         <div className={classes.root}>
-          <div className={classes.leftScreen}></div>
+          <div className={classes.leftScreen}>
+            <div style={{ height: "200px", width: "100%", padding: "0 24px", textAlign: "left", display: "flex", alignItems: "center" }}><Typography variant="h3" style={{ color: "white", fontWeight: 700, whiteSpace: "nowrap" }} >Follow Your Guts</Typography></div>
+          </div>
           <div className={classes.rightScreen}>
             <Paper elevation={6}>
               <StyledFirebaseAuth

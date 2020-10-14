@@ -6,13 +6,17 @@ import { Provider } from "react-redux";
 import store from "./main/store";
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom'
+import { ThemeProvider } from '@material-ui/core'
+import { theme } from './main/theme'
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
+      <ThemeProvider theme={theme} >
+        <Router>
+          <App />
+        </Router>
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

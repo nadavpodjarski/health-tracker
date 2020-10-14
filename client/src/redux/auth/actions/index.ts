@@ -1,8 +1,6 @@
 import * as types from "../types";
 import firebase from '../../../main/firebase'
 import { Dispatch } from "react";
-import { RouteComponentProps } from 'react-router-dom'
-
 
 
 export const userLoggedIn = (user: any) => {

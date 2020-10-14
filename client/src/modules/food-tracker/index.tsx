@@ -26,7 +26,7 @@ const FoodTracker = () => {
         <MainHeader title={moduleTitle} direction={direction} />
         {/*Body*/}
 
-        <OpenModalButton style={{ background: "blue", color: "white" }}>
+        <OpenModalButton style={{ fontSize: "24px" }}>
           {modalButtonText}
         </OpenModalButton>
       </div>

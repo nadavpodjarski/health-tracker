@@ -2,7 +2,6 @@ import React from "react";
 
 import StickeyHeader from "../../common/components/sticky-header";
 import MainHeader from "../../common/components/tracker-main-header";
-import Modal from "../../common/components/spring-modal";
 
 import { useModal } from "../../common/hooks/useModal";
 import { langs } from "../../main/languages/app-dictionary";

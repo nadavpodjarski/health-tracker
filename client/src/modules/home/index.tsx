@@ -138,8 +138,8 @@ const Home: FC = ({ children }) => {
           >
             <MenuIcon />
           </IconButton>
-          <div style={{ display: "flex" }}>
-            <Button onClick={() => dispatch(logout)}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Button style={{ height: "36px" }} onClick={() => dispatch(logout)}>
               Logout
           </Button>
             <SelectLanguage />
@@ -161,7 +161,7 @@ const Home: FC = ({ children }) => {
       >
         <div className={classes.toolbar} />
         <Divider />
-        <List>
+        <List component="nav">
           <ListItem button component={NavLink} to={routes.foodTracker}>
             <ListItemIcon>
               <FastfoodIcon />
