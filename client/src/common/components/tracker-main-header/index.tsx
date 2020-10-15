@@ -8,11 +8,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: "flex",
     alignItems: "center",
     [theme.breakpoints.down("sm")]: {
-      maxWidth: "90%",
       height: "100px",
     },
   },
   title: {
+    fontWeight: "bold",
     [theme.breakpoints.down("sm")]: {
       fontSize: "24px",
     },

@@ -7,12 +7,20 @@ export const colors = {
     maxYellowRed: "#FFBF46",
     nyanza: "#E4FDE1",
     mediumSeaGreen: "#06BA63",
-    forestGreen: "#103900"
+    forestGreen: "#103900",
+    tourquize: "#00D9C0",
+    radicalRed: "#FF4365",
+    englishRed: "#9F4A54",
+    rosyBrown: "#AC8887",
+    ming: "#15616D",
+    amberSAE: "#FF7D00",
+    kobe: "#78290F"
+
 }
 
 let theme = createMuiTheme({
     palette: {
-        primary: { main: colors.steelTeal },
+        type: "light"
     },
     typography: {
         fontFamily: "Poppins, Arial",
@@ -20,21 +28,6 @@ let theme = createMuiTheme({
     },
     overrides: {
         // Style sheet name ⚛️
-
-        MuiButton: {
-            root: {
-                color: "white",
-                border: "1px solid white",
-                background: colors.mediumSeaGreen,
-                "&:hover": {
-                    border: `1px solid ${colors.pistachio}`,
-                    color: colors.davysGrey,
-                }
-            },
-
-
-        },
-        MuiListItem: { root: { "&$selected": { color: "red" } } },
         MuiListItemIcon: {
             root: {
                 color: "inherit"
