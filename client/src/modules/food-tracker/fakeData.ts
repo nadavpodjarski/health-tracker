@@ -1,7 +1,7 @@
 export const data = [
-  {
-    dish: "ארוחת בוקר",
-    dishComponents: ["ביצים", "לחם מלא", "קפה שחור"],
+  [{
+    meal: "ארוחת בוקר",
+    mealComponents: ["ביצים", "לחם מלא", "קפה שחור"],
     time: Date.now()
-  },
+  }],
 ];

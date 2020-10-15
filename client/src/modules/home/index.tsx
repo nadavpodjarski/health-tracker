@@ -1,13 +1,11 @@
 import React, { FC, useState } from "react";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-
+import NavLink from "../../common/components/nav-link";
 import clsx from "clsx";
 
 import {
   createStyles,
   makeStyles,
-  useTheme,
   Theme,
 } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";

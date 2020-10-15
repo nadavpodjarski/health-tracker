@@ -1,6 +1,6 @@
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
-const colorScheme = {
+export const colors = {
     steelTeal: "#648381",
     davysGrey: "#575761",
     pistachio: "#8ACB88",
@@ -12,7 +12,7 @@ const colorScheme = {
 
 let theme = createMuiTheme({
     palette: {
-        primary: { main: colorScheme.steelTeal },
+        primary: { main: colors.steelTeal },
     },
     typography: {
         fontFamily: "Poppins, Arial",
@@ -20,18 +20,30 @@ let theme = createMuiTheme({
     },
     overrides: {
         // Style sheet name ⚛️
+
         MuiButton: {
             root: {
                 color: "white",
                 border: "1px solid white",
-                background: colorScheme.mediumSeaGreen,
+                background: colors.mediumSeaGreen,
                 "&:hover": {
-                    border: `1px solid ${colorScheme.pistachio}`,
-                    color: colorScheme.davysGrey,
+                    border: `1px solid ${colors.pistachio}`,
+                    color: colors.davysGrey,
                 }
             },
+
+
         },
+        MuiListItem: { root: { "&$selected": { color: "red" } } },
+        MuiListItemIcon: {
+            root: {
+                color: "inherit"
+            }
+        }
+
+
     },
+
 
 });
 

@@ -9,11 +9,10 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             width: '100%',
-            maxWidth: 360,
             backgroundColor: theme.palette.background.paper,
             position: 'relative',
             overflow: 'auto',
-            maxHeight: 300,
+            maxHeight: 500,
         },
         listSection: {
             backgroundColor: 'inherit',
@@ -29,7 +28,7 @@ const PinnedSubheaderList = () => {
     const classes = useStyles();
 
     return (
-        <List className={classes.root} subheader={<li />}>
+        <List className={classes.root}>
             {[0, 1, 2, 3, 4].map((sectionId) => (
                 <li key={`section-${sectionId}`} className={classes.listSection}>
                     <ul className={classes.ul}>

@@ -8,7 +8,7 @@ export const langs = {
     },
     sportTracker: {
       [languages.hebrew.const]: " מעקב ספורט",
-      [languages.english.const]: "Sport tracker",
+      [languages.english.const]: "Sport Tracker",
     },
   },
   foodTracker: {
@@ -18,7 +18,7 @@ export const langs = {
     },
     modalButton: {
       [languages.hebrew.const]: "הוסף ארוחה",
-      [languages.english.const]: "Add Dish",
+      [languages.english.const]: "Add Meal",
     },
     modalMealsSelect: {
       [languages.hebrew.const]: [

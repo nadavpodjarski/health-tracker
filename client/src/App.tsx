@@ -15,6 +15,7 @@ function App() {
 
   useEffect(() => {
     dispatch(onAuthStateChange(history, routes.home))
+    // eslint-disable-next-line
   }, [])
 
   return (
