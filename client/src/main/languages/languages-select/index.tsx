@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 
 import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+import { Popover, IconButton, Avatar, Tooltip, Button, Icon } from '@material-ui/core'
 
 import languages from "../languagesMeta.json";
 import { Typography } from "@material-ui/core";
 
 import { useDispatch, useSelector } from "react-redux";
 import * as languagesActions from "../../../redux/languages/actions";
+import { flags } from '../languages-select/flags'
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,28 +23,24 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ControlledOpenSelect() {
   const classes = useStyles();
-
-  const [open, setOpen] = React.useState(false);
   const [langs, setlangs] = useState<any>();
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const dispatch = useDispatch();
-  const languageState = useSelector((state: any) => state.languages);
+
+  const { chosenLanguage } = useSelector((state: any) => state.languages);
 
   useEffect(() => {
     setlangs(renderLangs(languages));
   }, []);
 
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    const { value } = event.target;
-    dispatch(languagesActions.setLanguage(value));
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
+    setAnchorEl(null);
   };
 
   const renderLangs = (languages: any) => {
@@ -54,28 +51,38 @@ export default function ControlledOpenSelect() {
     return languagesKeys.map((lang, i) => {
       return (
         <MenuItem key={`lang_${i}`} value={lang}>
-          <Typography style={{ textTransform: "uppercase" }}>{lang}</Typography>
+          <Typography style={{ textTransform: "uppercase" }} onClick={() => {
+            dispatch(languagesActions.setLanguage(lang));
+            handleClose()
+          }} >{lang}</Typography>
         </MenuItem>
       );
     });
   };
 
+  const open = Boolean(anchorEl);
+
   return (
     <div>
-      <FormControl className={classes.formControl}>
-        <Select
-          open={open}
-          onClose={handleClose}
-          onOpen={handleOpen}
-          value={languageState?.chosenLanguage?.const}
-          variant="outlined"
-          onChange={handleChange}
-          displayEmpty={false}
-          style={{ height: "42px" }}
-        >
-          {langs}
-        </Select>
-      </FormControl>
+      <Tooltip title="Languages">
+        <Avatar src={flags[chosenLanguage.const]} component={Icon} onClick={handleClick} style={{ cursor: "pointer", marginRight: "16px" }} />
+      </Tooltip>
+      <Popover
+        id={"LanguagesMenu"}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        {langs}
+      </Popover>
     </div>
   );
 }

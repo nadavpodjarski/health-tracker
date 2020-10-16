@@ -19,7 +19,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import Button from "@material-ui/core/Button";
 
 
 import FastfoodIcon from "@material-ui/icons/Fastfood";
@@ -30,9 +29,9 @@ import MenuRoutes from "../../main/routes/menuRoutes";
 
 import { langs } from "../../main/languages/app-dictionary";
 import SelectLanguage from "../../main/languages/languages-select";
-
+import SignOutButton from './components/sign-out-button'
 import { useDispatch } from 'react-redux';
-import { logout } from '../../redux/auth/actions';
+
 
 
 const drawerWidth = 240;
@@ -137,10 +136,10 @@ const Home: FC = ({ children }) => {
             <MenuIcon />
           </IconButton>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <Button style={{ height: "36px" }} onClick={() => dispatch(logout)}>
-              Logout
-          </Button>
+
             <SelectLanguage />
+            <SignOutButton />
+
           </div>
         </Toolbar>
       </AppBar>
