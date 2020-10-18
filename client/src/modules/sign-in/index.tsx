@@ -3,7 +3,6 @@ import { useFirebaseAuth } from "../../main/firebase/useFirebaseAuth";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { Paper, makeStyles, Theme, Typography } from "@material-ui/core";
 
-
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     height: "100vh",
@@ -33,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const SigIn = () => {
   const classes = useStyles();
-  const { firebaseAuth } = useFirebaseAuth()
+  const { firebaseAuth } = useFirebaseAuth();
   const UIConfig = {
     signInFlow: "popup",
     signInOptions: [
@@ -42,18 +41,37 @@ const SigIn = () => {
     ],
     callbacks: {
       signInSuccessWithAuthResult: (authResult: any) => {
-        return false
-      }
-    }
+        return false;
+      },
+    },
   };
-
 
   return (
     <>
       {
         <div className={classes.root}>
           <div className={classes.leftScreen}>
-            <div style={{ height: "200px", width: "100%", padding: "0 24px", textAlign: "left", display: "flex", alignItems: "center" }}><Typography variant="h3" style={{ color: "white", fontWeight: 700, whiteSpace: "nowrap" }} >Follow Your Gut</Typography></div>
+            <div
+              style={{
+                height: "200px",
+                width: "100%",
+                padding: "0 24px",
+                textAlign: "left",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                variant="h3"
+                style={{
+                  color: "white",
+                  fontWeight: 700,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Follow Your Gut
+              </Typography>
+            </div>
           </div>
           <div className={classes.rightScreen}>
             <Paper elevation={6}>
@@ -64,7 +82,8 @@ const SigIn = () => {
             </Paper>
           </div>
         </div>
-      }</>
+      }
+    </>
   );
 };
 

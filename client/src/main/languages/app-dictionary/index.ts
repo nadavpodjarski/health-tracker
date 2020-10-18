@@ -4,11 +4,11 @@ export const dictionary = {
   menu: {
     foodTracker: {
       [languages.hebrew.const]: "מעקב אוכל",
-      [languages.english.const]: "Food Tracker",
+      [languages.english.const]: "Food",
     },
     sportTracker: {
       [languages.hebrew.const]: " מעקב ספורט",
-      [languages.english.const]: "Sport Tracker",
+      [languages.english.const]: "Sport",
     },
   },
   foodTracker: {
@@ -22,15 +22,16 @@ export const dictionary = {
     },
     modalMealsSelect: {
       [languages.hebrew.const]: [
-        {const:"ארוחת בוקר",value:"breakfast"},
-        {const:"ארוחת צהריים", value:"lunch"},
-        {const:"ארוחת ערב",value:"dinner"} ,
-        {const:"ארוחה קלה/נשנוש",value:"snack"}      ],
+        { const: "ארוחת בוקר", value: "breakfast" },
+        { const: "ארוחת צהריים", value: "lunch" },
+        { const: "ארוחת ערב", value: "dinner" },
+        { const: "ארוחה קלה/נשנוש", value: "snack" },
+      ],
       [languages.english.const]: [
-        {const:"Breakfast", value:"breakfast"},
-        {const:"Lunch",value:"lunch"},
-        {const: "Dinner", value:"dinner"},
-        {const:"Easy meal/Snack", value:"snack"},
+        { const: "Breakfast", value: "breakfast" },
+        { const: "Lunch", value: "lunch" },
+        { const: "Dinner", value: "dinner" },
+        { const: "Easy meal/Snack", value: "snack" },
       ],
     },
   },

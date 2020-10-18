@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 
 import MainHeader from "../../common/components/tracker-main-header";
 import { useModal } from "../../common/hooks/useModal";
@@ -7,89 +7,106 @@ import { dictionary } from "../../main/languages/app-dictionary";
 import AddMealModalContent from "./components/modal-content";
 
 import { useSelector } from "react-redux";
-import { colors } from '../../main/theme'
+import { colors } from "../../main/theme";
 
+import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
+import { Paper } from "@material-ui/core";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListSubheader from "@material-ui/core/ListSubheader";
 
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import { Paper } from '@material-ui/core'
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
+import FilterOptions from "./components/filter-options";
 
-import FilterOptions from './components/filter-options'
-
-import { useDispatch} from 'react-redux'
-import * as foodActions from '../../redux/trackers/food/actions'
+import { useDispatch } from "react-redux";
+import * as foodActions from "../../redux/trackers/food/actions";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     moduleRoot: {
-      display: "flex", flexDirection: "column", flex: 1, minHeight: 0
+      display: "flex",
+      flexDirection: "column",
+      flex: 1,
+      minHeight: 0,
     },
     foodList: {
       backgroundColor: theme.palette.background.paper,
-      position: 'relative',
-      overflow: 'auto',
+      position: "relative",
+      overflow: "auto",
       flex: 1,
       minHeight: 0,
-      marginBottom: theme.spacing(1)
+      marginBottom: theme.spacing(1),
     },
     listSection: {
-      backgroundColor: 'inherit',
+      backgroundColor: "inherit",
     },
     ul: {
-      backgroundColor: 'inherit',
+      backgroundColor: "inherit",
       padding: 0,
     },
-  }),
+  })
 );
-
-
 
 const FoodTracker = () => {
   const { chosenLanguage } = useSelector((state: any) => state?.languages);
+  const { startAt, endAt } = useSelector((state: any) => state?.trackers.food);
   const [OpenModalButton, handleOpen, AddMealModal] = useModal();
 
-  const classes = useStyles()
-  const dispatch = useDispatch()
+  const classes = useStyles();
+  const dispatch = useDispatch();
 
   const direction = chosenLanguage?.direction;
   const moduleTitle = dictionary.foodTracker.mainHeader[chosenLanguage?.const];
-  const modalButtonText = dictionary.foodTracker.modalButton[chosenLanguage?.const];
+  const modalButtonText =
+    dictionary.foodTracker.modalButton[chosenLanguage?.const];
 
   useEffect(() => {
-    dispatch(foodActions.fetchAllMeals())
-    },[])
+    dispatch(foodActions.fetchAllMeals());
+  }, [startAt, endAt]);
 
   const onStartDateChange = (date: Date | null) => {
-    console.log(date)
-  }
+    console.log(date?.getTime());
+  };
 
   const onEndDateChange = (date: Date | null) => {
-    console.log(date)
-  }
-
+    console.log(date?.getTime());
+  };
 
   return (
     <div className={classes.moduleRoot}>
       {/*Header*/}
       <MainHeader title={moduleTitle} direction={direction} />
 
-     {/*Open Modal Button*/}
-      <div style={{ display: "flex", alignItems: "flex-start", height: "100px", direction: direction }}>
-        <OpenModalButton style={{ fontSize: "24px", background: colors.tourquize, color: "white" }}>
+      {/*Open Modal Button*/}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "flex-start",
+          height: "100px",
+          direction: direction,
+        }}
+      >
+        <OpenModalButton
+          style={{
+            fontSize: "24px",
+            background: colors.tourquize,
+            color: "white",
+          }}
+        >
           {modalButtonText}
         </OpenModalButton>
       </div>
 
-
       {/*Filter options*/}
       <FilterOptions {...{ onStartDateChange, onEndDateChange, direction }} />
 
-
       {/*Food List*/}
-      <List className={classes.foodList} component={Paper} elevation={3} subheader={<li />} >
+      <List
+        className={classes.foodList}
+        component={Paper}
+        elevation={3}
+        subheader={<li />}
+      >
         {[0, 1, 2, 3, 4].map((sectionId) => (
           <li key={`section-${sectionId}`} className={classes.listSection}>
             <ul className={classes.ul}>
@@ -104,16 +121,11 @@ const FoodTracker = () => {
         ))}
       </List>
 
-
-      {/*Add Meal Modal*/}      
-      <AddMealModal width={1200} >
-        <AddMealModalContent direction={direction} handleOpen={handleOpen}  />
+      {/*Add Meal Modal*/}
+      <AddMealModal width={1200}>
+        <AddMealModalContent direction={direction} handleOpen={handleOpen} />
       </AddMealModal>
     </div>
-
-
-
-
   );
 };
 

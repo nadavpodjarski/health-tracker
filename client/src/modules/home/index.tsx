@@ -3,11 +3,7 @@ import { useSelector } from "react-redux";
 import NavLink from "../../common/components/nav-link";
 import clsx from "clsx";
 
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-} from "@material-ui/core/styles";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -20,7 +16,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
-
 import FastfoodIcon from "@material-ui/icons/Fastfood";
 import SportsHandballIcon from "@material-ui/icons/SportsHandball";
 
@@ -29,9 +24,7 @@ import MenuRoutes from "../../main/routes/menuRoutes";
 
 import { dictionary } from "../../main/languages/app-dictionary";
 import SelectLanguage from "../../common/components/languages-avatar";
-import SignOutButton from './components/sign-out-button'
-
-
+import SignOutButton from "./components/sign-out-button";
 
 const drawerWidth = 240;
 
@@ -136,10 +129,8 @@ const Home: FC = ({ children }) => {
             <MenuIcon />
           </IconButton>
           <div style={{ display: "flex", alignItems: "center" }}>
-
             {/* <SelectLanguage /> */}
             <SignOutButton />
-
           </div>
         </Toolbar>
       </AppBar>
