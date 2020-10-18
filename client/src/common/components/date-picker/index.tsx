@@ -1,6 +1,5 @@
 import 'date-fns';
 import React, { FC } from 'react';
-import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import {
     MuiPickersUtilsProvider,
@@ -22,7 +21,6 @@ const BasicDatePicker: FC<{ onChange: (date: Date | null) => void, label?: strin
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <DatePicker
                 showTodayButton
-                style={{ maxWidth: "100px" }}
                 margin="normal"
                 disableFuture
                 id="date-picker-dialog"

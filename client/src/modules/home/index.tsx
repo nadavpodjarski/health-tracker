@@ -27,10 +27,9 @@ import SportsHandballIcon from "@material-ui/icons/SportsHandball";
 import { routes } from "../../main/routes/constants";
 import MenuRoutes from "../../main/routes/menuRoutes";
 
-import { langs } from "../../main/languages/app-dictionary";
-import SelectLanguage from "../../main/languages/languages-select";
+import { dictionary } from "../../main/languages/app-dictionary";
+import SelectLanguage from "../../common/components/languages-avatar";
 import SignOutButton from './components/sign-out-button'
-import { useDispatch } from 'react-redux';
 
 
 
@@ -101,6 +100,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       maxWidth: `calc( 1200px + ${theme.spacing(4)}px )`,
       height: "100%",
+      display: "flex",
+      flexDirection: "column",
       padding: `0 ${theme.spacing(2)}px`,
     },
   })
@@ -109,7 +110,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const Home: FC = ({ children }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const dispatch = useDispatch()
 
   const { chosenLanguage } = useSelector((state: any) => state.languages);
 
@@ -137,7 +137,7 @@ const Home: FC = ({ children }) => {
           </IconButton>
           <div style={{ display: "flex", alignItems: "center" }}>
 
-            <SelectLanguage />
+            {/* <SelectLanguage /> */}
             <SignOutButton />
 
           </div>
@@ -164,7 +164,7 @@ const Home: FC = ({ children }) => {
               <FastfoodIcon />
             </ListItemIcon>
             <ListItemText>
-              {langs.menu.foodTracker[chosenLanguage?.const]}
+              {dictionary.menu.foodTracker[chosenLanguage?.const]}
             </ListItemText>
           </ListItem>
           <ListItem button component={NavLink} to={routes.sportTracker}>
@@ -172,7 +172,7 @@ const Home: FC = ({ children }) => {
               <SportsHandballIcon />
             </ListItemIcon>
             <ListItemText>
-              {langs.menu.sportTracker[chosenLanguage?.const]}
+              {dictionary.menu.sportTracker[chosenLanguage?.const]}
             </ListItemText>
           </ListItem>
         </List>

@@ -11,7 +11,7 @@ const SignOutButton = () => {
     const dispatch = useDispatch()
     return (
         <Tooltip title="Sign out" >
-            <IconButton style={{ height: "36px" }} onClick={() => dispatch(logout)}>
+            <IconButton onClick={() => dispatch(logout)}>
                 <PowerSettingsNewIcon />
             </IconButton>
         </Tooltip>

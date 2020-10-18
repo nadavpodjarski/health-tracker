@@ -1,4 +1,23 @@
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { MuiPickersOverrides } from '@material-ui/pickers/typings/overrides';
+
+type overridesNameToClassKey = {
+    [P in keyof Required<MuiPickersOverrides>]: keyof MuiPickersOverrides[P];
+};
+
+interface CustomType  {
+    MuiPickersBasePicker: {
+      pickerView: {
+        maxWidth?:string
+      };
+    };
+  };
+
+declare module '@material-ui/core/styles/overrides' {
+     interface ComponentNameToClassKey extends CustomType {} 
+     export interface ComponentNameToClassKey extends overridesNameToClassKey {}
+  }
+
 
 export const colors = {
     steelTeal: "#648381",
@@ -32,12 +51,12 @@ let theme = createMuiTheme({
             root: {
                 color: "inherit"
             }
+        },
+        MuiPickersBasePicker:{
+           pickerView:{maxWidth:"350px"}
         }
-
-
+      
     },
-
-
 });
 
 

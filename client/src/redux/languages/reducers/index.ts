@@ -2,7 +2,7 @@ import * as types from "../types";
 import languages from "../../../main/languages/languagesMeta.json";
 
 const initialState = {
-  chosenLanguage: languages.hebrew,
+  chosenLanguage: languages.english,
   languages: languages,
 };
 

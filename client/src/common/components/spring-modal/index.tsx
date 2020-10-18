@@ -14,7 +14,12 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
+      overflow:"none"
     },
+    paperWidthSm:{
+      width: ({width}:any) => width,
+      maxWidth: ({width}:any) => width
+    }
   })
 );
 
@@ -52,21 +57,20 @@ const Fade = React.forwardRef<HTMLDivElement, FadeProps>(function Fade(
   );
 });
 
-const SpringModal: FC<{ open: boolean; handleOpen: () => void }> = ({
+const SpringModal: FC<{ open: boolean; handleOpen: () => void, width:number | string }> = ({
   children,
   open,
   handleOpen,
+  width
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({width});
 
   return (
-    <div>
-      <Dialog open={open} onClose={handleOpen}>
-        <Fade in={open}>
-          <div className={classes.paper}>{children}</div>
-        </Fade>
-      </Dialog>
-    </div>
+    <Dialog open={open} onClose={handleOpen} classes={{paperWidthSm:classes.paperWidthSm}}>
+      <Fade in={open}>
+        <div className={classes.paper}>{children}</div>
+      </Fade>
+    </Dialog>
   );
 };
 

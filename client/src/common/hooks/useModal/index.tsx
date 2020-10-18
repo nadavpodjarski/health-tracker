@@ -4,11 +4,15 @@ import SpringModal from "../../components/spring-modal";
 
 
 /**
- * @returns [ Open modal button , Modal ]
+ * @returns [ Open modal button ,handleOpen, Modal ]
  */
 export const useModal = () => {
   const [open, setOpen] = useState(false);
 
+
+  /**
+   *  @description  modal open / close handler
+   */
   const handleOpen = () => {
     setOpen((prevState) => !prevState);
   };
@@ -26,9 +30,9 @@ export const useModal = () => {
   /**
    *  @description  modal
    */
-  const Modal: FC = ({ children }) => (
-    <SpringModal {...{ open, handleOpen }}>{children}</SpringModal>
+  const Modal: FC<{width:number | string}> = ({ children, width }) => (
+    <SpringModal {...{ open, handleOpen, width }}>{children}</SpringModal>
   );
 
-  return [OpenModalButton, Modal] as const
+  return [OpenModalButton, handleOpen, Modal] as const
 };

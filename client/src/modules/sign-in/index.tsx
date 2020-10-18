@@ -53,7 +53,7 @@ const SigIn = () => {
       {
         <div className={classes.root}>
           <div className={classes.leftScreen}>
-            <div style={{ height: "200px", width: "100%", padding: "0 24px", textAlign: "left", display: "flex", alignItems: "center" }}><Typography variant="h3" style={{ color: "white", fontWeight: 700, whiteSpace: "nowrap" }} >Follow Your Guts</Typography></div>
+            <div style={{ height: "200px", width: "100%", padding: "0 24px", textAlign: "left", display: "flex", alignItems: "center" }}><Typography variant="h3" style={{ color: "white", fontWeight: 700, whiteSpace: "nowrap" }} >Follow Your Gut</Typography></div>
           </div>
           <div className={classes.rightScreen}>
             <Paper elevation={6}>

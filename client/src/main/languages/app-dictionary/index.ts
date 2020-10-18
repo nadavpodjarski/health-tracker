@@ -1,6 +1,6 @@
 import languages from "../languagesMeta.json";
 
-export const langs = {
+export const dictionary = {
   menu: {
     foodTracker: {
       [languages.hebrew.const]: "מעקב אוכל",
@@ -22,16 +22,15 @@ export const langs = {
     },
     modalMealsSelect: {
       [languages.hebrew.const]: [
-        "ארוחת בוקר",
-        "ארוחת צהריים",
-        "ארוחת ערב",
-        "ארוחה קלה/נשנוש",
-      ],
+        {const:"ארוחת בוקר",value:"breakfast"},
+        {const:"ארוחת צהריים", value:"lunch"},
+        {const:"ארוחת ערב",value:"dinner"} ,
+        {const:"ארוחה קלה/נשנוש",value:"snack"}      ],
       [languages.english.const]: [
-        "Breakfast",
-        "Lunch",
-        "Dinner",
-        "Easy meal/Snack",
+        {const:"Breakfast", value:"breakfast"},
+        {const:"Lunch",value:"lunch"},
+        {const: "Dinner", value:"dinner"},
+        {const:"Easy meal/Snack", value:"snack"},
       ],
     },
   },
