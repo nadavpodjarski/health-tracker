@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 
 import MainHeader from "../../common/components/tracker-main-header";
 import { useModal } from "../../common/hooks/useModal";
@@ -18,6 +18,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 
 import FilterOptions from './components/filter-options'
+
+import { useDispatch} from 'react-redux'
+import * as foodActions from '../../redux/trackers/food/actions'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,10 +52,15 @@ const FoodTracker = () => {
   const [OpenModalButton, handleOpen, AddMealModal] = useModal();
 
   const classes = useStyles()
+  const dispatch = useDispatch()
 
   const direction = chosenLanguage?.direction;
   const moduleTitle = dictionary.foodTracker.mainHeader[chosenLanguage?.const];
   const modalButtonText = dictionary.foodTracker.modalButton[chosenLanguage?.const];
+
+  useEffect(() => {
+    dispatch(foodActions.fetchAllMeals())
+    },[])
 
   const onStartDateChange = (date: Date | null) => {
     console.log(date)

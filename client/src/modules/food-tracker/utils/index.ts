@@ -7,4 +7,5 @@ const mealComponent = (uuid:any) => {
     }
 }
 
+export const uuid = uuidv4
 export const makeNewMealComponent = mealComponent(uuidv4)

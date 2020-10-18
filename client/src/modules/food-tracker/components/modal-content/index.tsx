@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { Direction } from "../../../../main/types";
 import { Select, Button, IconButton, Typography, Grid, MenuItem, TextareaAutosize } from '@material-ui/core'
 import MealComponent from '../meal-component'
@@ -9,24 +9,26 @@ import { dictionary } from '../../../../main/languages/app-dictionary';
 import * as utils from '../../utils'
 
 import {useDatePicker} from '../../../../common/hooks/useDatePicker'
-import {useSelector} from 'react-redux'
+
+import {useSelector, useDispatch} from 'react-redux'
+import * as foodActions from '../../../../redux/trackers/food/actions'
 
 const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({ direction, handleOpen }) => {
+    const dispatch = useDispatch()
     const {DateTimePicker} = useDatePicker();
     const {chosenLanguage} = useSelector((state:any) => state.languages)
     const [state, setState] = useState({
-        mealtype: dictionary.foodTracker.modalMealsSelect[chosenLanguage.const][0].value,
-        mealComponents: [utils.makeNewMealComponent()],
+        type: dictionary.foodTracker.modalMealsSelect[chosenLanguage.const][0].value,
+        components: [utils.makeNewMealComponent()],
         comments:"",
         timestamp: Date.now(),
     });
-
 
     const addMealComponentHandler = () => {
         const newComponent = utils.makeNewMealComponent()
         setState(prevState => ({
             ...prevState,
-            mealComponents: [newComponent, ...prevState.mealComponents] 
+            components: [newComponent, ...prevState.components] 
         }))
     }
 
@@ -34,7 +36,7 @@ const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({ direc
         const newComponent = utils.makeNewMealComponent()
         setState(prevState => ({
             ...prevState,
-            mealComponents: prevState.mealComponents.length > 1 ? [...prevState.mealComponents.filter(comp => comp.id !== id)] : [newComponent]
+            components: prevState.components.length > 1 ? [...prevState.components.filter(comp => comp.id !== id)] : [newComponent]
         }))
     }
 
@@ -44,13 +46,15 @@ const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({ direc
         value: unknown;
     }>), id: string) => {
         const {name:property, value}  = event.target;
-        const mealComponents = [...state.mealComponents]
-        const selectedComponent = mealComponents.find(comp => comp.id === id);
-        Object.assign(selectedComponent, { [property as string]: value });
-        setState(prevState => ({
-            ...prevState,
-            mealComponents
-        }))
+        if(typeof property === "string"){
+            const components = [...state.components]
+            const selectedComponent = components.find(comp => comp.id === id);
+            Object.assign(selectedComponent, { [property]: value });
+            setState(prevState => ({
+                ...prevState,
+                components
+            }))
+    }
     }
 
     const changeCommentsHandler = (event:(React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) ) => {
@@ -67,7 +71,7 @@ const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({ direc
     }>) => {
        setState(prevState => ({
            ...prevState,
-           mealtype:event.target.value as string
+           type:event.target.value as string
        }))
     }
 
@@ -83,8 +87,10 @@ const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({ direc
     }
 
     const doneHandler = () => {
-        handleOpen();
-        console.log(state)
+        if(state.components[0].food || state.components.length > 1){
+            dispatch(foodActions.addMeal(state))
+            handleOpen()
+        }
     }
 
     return (
@@ -93,7 +99,7 @@ const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({ direc
             {/*Meal Type*/}
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 0" }}>
                 <Typography variant="h4" style={{ fontWeight: "bold" }} >Select Meal</Typography>
-                <Select variant="outlined" value={state.mealtype} onChange={mealTypeChangeHandler}>
+                <Select variant="outlined" value={state.type} onChange={mealTypeChangeHandler}>
               {dictionary.foodTracker.modalMealsSelect[chosenLanguage.const].map(item => {
                   return <MenuItem value={item.value} >{item.const}</MenuItem>
                     })}
@@ -111,7 +117,7 @@ const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({ direc
             </div>
 
             <Grid container spacing={3}>
-            {state.mealComponents.map((comp, i) => {
+            {state.components.map((comp, i) => {
                 return <Grid item xs={12} md={6}><MealComponent direction={direction} component={comp} deleteHandler={(event) => deleteMealComponentHandler(comp.id)} onChange={(event) => changeMealComponentHandler(event, comp.id)} /></Grid>
             })}
             </Grid>
