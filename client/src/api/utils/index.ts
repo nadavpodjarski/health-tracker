@@ -5,12 +5,13 @@ export const collections = {
   sport: "sport",
   symptoms: "symptoms",
   mental: "mental",
+  users: "users"
 };
 
 export const makeAuthor = (currentUser: any) => {
   return {
     uid: currentUser.uid,
-    displayName: currentUser.displayName,
+    displayName: currentUser.displayName
   };
 };
 

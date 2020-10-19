@@ -20,7 +20,8 @@
     "@types/uuid": "^8.3.0",
     "axios": "^0.20.0",
     "date-fns": "^2.16.1",
-    "firebase": "^7.22.1",
+    "firebase": "^7.24.0",
+    "firesql": "^2.0.2",
     "install": "^0.13.0",
     "npm": "^6.14.8",
     "react": "^16.13.1",
@@ -34,6 +35,8 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
+    "rxfire": "^3.13.5",
+    "rxjs": "^6.6.3",
     "typescript": "^3.7.5",
     "uuid": "^8.3.1"
   },

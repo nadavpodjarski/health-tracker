@@ -1,49 +1,74 @@
+import { Dispatch } from "react";
 import * as api from "../../../../api/food-tracker";
 import * as types from "../types";
 
-export const fetchAllMeals = () => (dispatch: any, getStore: any) => {
-  const { currentUser } = getStore().auth;
+export const setStartTime = (time: string | number) => (
+  dispatch: Dispatch<any>
+) => {
   dispatch({
-    type: types.GET_MEALS,
+    type: types.SET_START_AT,
+    payload: time
   });
+};
+
+export const setEndTime = (time: string | number) => (
+  dispatch: Dispatch<any>
+) => {
+  dispatch({
+    type: types.SET_END_AT,
+    payload: time
+  });
+};
+
+export const fetchAllMeals = () => (dispatch: Dispatch<any>, getStore: any) => {
+  const { currentUser } = getStore().auth;
+  const { startAt, endAt } = getStore().trackers.food;
+
+  dispatch({
+    type: types.GET_MEALS
+  });
+
   api
-    .getMeals(currentUser)
+    .getMeals(currentUser, startAt, endAt)
     .then((listener) => {
       listener.onSnapshot((snapshot: any) => {
         const docs = snapshot.docs.map((doc: any) => ({
           id: doc.id,
-          data: doc.data(),
+          data: doc.data()
         }));
         dispatch({
           type: types.GET_MEALS_SUCCESS,
-          payload: docs,
+          payload: docs
         });
       });
     })
     .catch((err) => {
       dispatch({
         type: types.REQUEST_ERR,
-        payload: err,
+        payload: err
       });
     });
 };
 
-export const addMeal = (meal: any) => (dispatch: any, getStore: any) => {
+export const addMeal = (meal: any) => (
+  dispatch: Dispatch<any>,
+  getStore: any
+) => {
   const { currentUser } = getStore().auth;
   dispatch({
-    type: types.ADD_MEAL,
+    type: types.ADD_MEAL
   });
   api
     .postMeal(meal, currentUser)
     .then(() => {
       dispatch({
-        type: types.ADD_MEAL_SUCCESS,
+        type: types.ADD_MEAL_SUCCESS
       });
     })
     .catch((err) => {
       dispatch({
         type: types.REQUEST_ERR,
-        payload: err,
+        payload: err
       });
       console.log(err);
     });

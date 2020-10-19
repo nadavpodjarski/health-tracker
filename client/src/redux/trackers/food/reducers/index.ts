@@ -2,10 +2,12 @@ import * as types from "../types";
 
 const initialState = {
   meals: [],
-  startAt: null,
-  endAt: null,
+  startAt: new Date(new Date().toLocaleDateString()).getTime(),
+  endAt: new Date(
+    new Date(new Date().getTime() + 86400000).toLocaleDateString()
+  ).getTime(),
   isLoading: false,
-  err: null,
+  err: null
 };
 
 export const foodTrackReducer = (state = initialState, action: any) => {
@@ -13,34 +15,34 @@ export const foodTrackReducer = (state = initialState, action: any) => {
     case types.GET_MEALS:
       return {
         ...state,
-        isLoading: true,
+        isLoading: true
       };
     case types.SET_START_AT:
       return {
         ...state,
-        startAt: action.payload,
+        startAt: action.payload
       };
     case types.GET_MEALS_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        meals: action.payload,
+        meals: action.payload
       };
     case types.ADD_MEAL:
       return {
         ...state,
-        isLoading: true,
+        isLoading: true
       };
     case types.ADD_MEAL_SUCCESS:
       return {
         ...state,
-        isLoading: false,
+        isLoading: false
       };
     case types.REQUEST_ERR:
       return {
         ...state,
         isLoading: false,
-        err: action.payload,
+        err: action.payload
       };
     default:
       return state;

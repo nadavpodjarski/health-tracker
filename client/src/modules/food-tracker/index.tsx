@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexDirection: "column",
       flex: 1,
-      minHeight: 0,
+      minHeight: 0
     },
     foodList: {
       backgroundColor: theme.palette.background.paper,
@@ -35,15 +35,15 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: "auto",
       flex: 1,
       minHeight: 0,
-      marginBottom: theme.spacing(1),
+      marginBottom: theme.spacing(1)
     },
     listSection: {
-      backgroundColor: "inherit",
+      backgroundColor: "inherit"
     },
     ul: {
       backgroundColor: "inherit",
-      padding: 0,
-    },
+      padding: 0
+    }
   })
 );
 
@@ -65,11 +65,22 @@ const FoodTracker = () => {
   }, [startAt, endAt]);
 
   const onStartDateChange = (date: Date | null) => {
-    console.log(date?.getTime());
+    const localDateString = date?.toLocaleDateString();
+    if (localDateString) {
+      const startTime = new Date(localDateString).getTime();
+      console.log(startTime);
+    }
   };
 
   const onEndDateChange = (date: Date | null) => {
-    console.log(date?.getTime());
+    const localDateString = date?.toLocaleDateString();
+    if (localDateString) {
+      let endTime = new Date(localDateString).getTime();
+      if (endTime === startAt) {
+        endTime += 86400000;
+        console.log(endTime);
+      }
+    }
   };
 
   return (
@@ -83,14 +94,14 @@ const FoodTracker = () => {
           display: "flex",
           alignItems: "flex-start",
           height: "100px",
-          direction: direction,
+          direction: direction
         }}
       >
         <OpenModalButton
           style={{
             fontSize: "24px",
             background: colors.tourquize,
-            color: "white",
+            color: "white"
           }}
         >
           {modalButtonText}
