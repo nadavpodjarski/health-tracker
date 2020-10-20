@@ -1,22 +1,4 @@
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
-import { MuiPickersOverrides } from "@material-ui/pickers/typings/overrides";
-
-type overridesNameToClassKey = {
-  [P in keyof Required<MuiPickersOverrides>]: keyof MuiPickersOverrides[P];
-};
-
-interface CustomType {
-  MuiPickersBasePicker: {
-    pickerView: {
-      maxWidth?: string;
-    };
-  };
-}
-
-declare module "@material-ui/core/styles/overrides" {
-  interface ComponentNameToClassKey extends CustomType {}
-  export interface ComponentNameToClassKey extends overridesNameToClassKey {}
-}
 
 export const colors = {
   steelTeal: "#648381",
@@ -32,28 +14,28 @@ export const colors = {
   rosyBrown: "#AC8887",
   ming: "#15616D",
   amberSAE: "#FF7D00",
-  kobe: "#78290F",
+  kobe: "#78290F"
 };
 
 let theme = createMuiTheme({
   palette: {
-    type: "light",
+    type: new Date().getHours() >= 18 ? "dark" : "light"
   },
   typography: {
     fontFamily: "Poppins, Arial",
-    fontSize: 16,
+    fontSize: 16
   },
   overrides: {
     // Style sheet name ⚛️
     MuiListItemIcon: {
       root: {
-        color: "inherit",
-      },
-    },
-    MuiPickersBasePicker: {
-      pickerView: { maxWidth: "350px" },
-    },
-  },
+        color: "inherit"
+      }
+    }
+    // MuiPickersBasePicker: {
+    //   pickerView: { maxWidth: "350px" }
+    // }
+  }
 });
 
 theme = responsiveFontSizes(theme);

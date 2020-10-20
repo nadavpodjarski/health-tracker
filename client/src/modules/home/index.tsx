@@ -33,52 +33,52 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       display: "flex",
       justifyContent: "center",
-      height: "100vh",
+      height: "100vh"
     },
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
       transition: theme.transitions.create(["width", "margin"], {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
+        duration: theme.transitions.duration.leavingScreen
       }),
       background: "white",
-      color: "black",
+      color: "black"
     },
     appBarShift: {
       marginLeft: 0,
-      width: `100%`,
+      width: `100%`
     },
     menuButton: {
-      marginRight: 36,
+      marginRight: 36
     },
     hide: {
-      display: "none",
+      display: "none"
     },
     drawer: {
       width: drawerWidth,
       flexShrink: 1,
-      whiteSpace: "nowrap",
+      whiteSpace: "nowrap"
     },
     drawerOpen: {
       width: drawerWidth,
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
+        duration: theme.transitions.duration.enteringScreen
+      })
     },
     drawerClose: {
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
+        duration: theme.transitions.duration.leavingScreen
       }),
       overflowX: "hidden",
       width: theme.spacing(7) + 1,
       [theme.breakpoints.up("sm")]: {
-        width: "72px",
+        width: "72px"
       },
       [theme.breakpoints.down("sm")]: {
-        width: "0",
-      },
+        width: "0"
+      }
     },
 
     toolbar: {
@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "flex-end",
       padding: theme.spacing(0, 1),
       // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
+      ...theme.mixins.toolbar
     },
     content: {
       flexGrow: 1,
@@ -95,8 +95,8 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "100%",
       display: "flex",
       flexDirection: "column",
-      padding: `0 ${theme.spacing(2)}px`,
-    },
+      padding: `0 ${theme.spacing(2)}px`
+    }
   })
 );
 
@@ -116,7 +116,7 @@ const Home: FC = ({ children }) => {
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
+          [classes.appBarShift]: open
         })}
       >
         <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
@@ -138,13 +138,13 @@ const Home: FC = ({ children }) => {
         variant="permanent"
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
+          [classes.drawerClose]: !open
         })}
         classes={{
           paper: clsx({
             [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          }),
+            [classes.drawerClose]: !open
+          })
         }}
       >
         <div className={classes.toolbar} />

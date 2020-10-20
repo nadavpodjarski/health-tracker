@@ -1,42 +1,44 @@
-import React, {  useState, FC } from "react";
-import { DateTimePicker , MuiPickersUtilsProvider} from "@material-ui/pickers";
-import DateFnsUtils from '@date-io/date-fns';
-import {makeStyles, Theme} from '@material-ui/core'
-import 'date-fns';
+import React, { useState, FC } from "react";
+import {
+  LocalizationProvider,
+  MobileDateTimePicker
+} from "@material-ui/pickers";
+import DateFnsUtils from "@material-ui/pickers/adapter/date-fns";
+import { makeStyles, Theme, TextField } from "@material-ui/core";
+import "date-fns";
 
+const useStyles = makeStyles((theme: Theme) => ({
+  dateRoot: {
+    width: "350px"
+  }
+}));
 
-const useStyles = makeStyles((theme:Theme) => ({
-    dateRoot:{
-        width:"350px",
-    }
-}))
+const BasicDateTimePicker: FC<{
+  onChange: (date: Date | null) => void;
+  label?: string;
+}> = ({ onChange, label }) => {
+  const classes = useStyles();
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
+  const handleDateChange = (date: Date | null) => {
+    onChange(date);
+    setSelectedDate(date);
+  };
 
-const  BasicDateTimePicker:FC<{ onChange: (date: Date | null) => void, label?: string }> = ({onChange, label}) => {
-    const classes = useStyles()
-    const [selectedDate, setSelectedDate] = useState<Date | null>(
-        new Date(),
-    );
-
-    const handleDateChange = (date: Date | null) => {
-        onChange(date)
-        setSelectedDate(date);
-    };
-  
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <DateTimePicker
-        showTodayButton
+    <LocalizationProvider dateAdapter={DateFnsUtils}>
+      <MobileDateTimePicker
         disableFuture
-        ampm={false}
-        label={label}
-        DialogProps={{PaperProps:{classes:{root:classes.dateRoot }}}}
-        inputVariant="outlined"
         value={selectedDate}
         onChange={handleDateChange}
+        label={label}
+        ampm={false}
+        inputFormat="dd/MM/yyyy - HH:mm"
+        DialogProps={{ PaperProps: { classes: { root: classes.dateRoot } } }}
+        renderInput={(props) => <TextField {...props} variant="outlined" />}
       />
-    </MuiPickersUtilsProvider>
+    </LocalizationProvider>
   );
-}
+};
 
 export default BasicDateTimePicker;

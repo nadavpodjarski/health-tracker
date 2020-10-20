@@ -10,7 +10,6 @@ export const UPDATE_MEAL_SUCCESS = "UPDATE_MEAL_SUCCESS";
 export const GET_MEALS = "GET_MEALS";
 export const GET_MEALS_SUCCESS = "GET_MEALS_SUCCESS";
 
-export const SET_START_AT = "SET_START_AT";
-export const SET_END_AT = "SET_END_AT";
+export const SET_DATE_RANGE = "SET_DATE_RANGE";
 
 export const REQUEST_ERR = "REQUEST_ERR";

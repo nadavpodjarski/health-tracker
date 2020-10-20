@@ -1,41 +1,36 @@
 import { Dispatch } from "react";
 import * as api from "../../../../api/food-tracker";
 import * as types from "../types";
+import * as apiUtils from "../../../../api/utils";
+import * as _ from "lodash";
+import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 
-export const setStartTime = (time: string | number) => (
+export const setDateRange = (dateRange: DateRange) => (
   dispatch: Dispatch<any>
 ) => {
   dispatch({
-    type: types.SET_START_AT,
-    payload: time
+    type: types.SET_DATE_RANGE,
+    payload: dateRange
   });
 };
 
-export const setEndTime = (time: string | number) => (
-  dispatch: Dispatch<any>
+export const fetchMeals = (dateRange: { startAt: string; endAt: string }) => (
+  dispatch: Dispatch<any>,
+  getStore: any
 ) => {
-  dispatch({
-    type: types.SET_END_AT,
-    payload: time
-  });
-};
-
-export const fetchAllMeals = () => (dispatch: Dispatch<any>, getStore: any) => {
   const { currentUser } = getStore().auth;
-  const { startAt, endAt } = getStore().trackers.food;
-
   dispatch({
     type: types.GET_MEALS
   });
 
+  if (!dateRange.startAt || !dateRange.endAt) return;
+
   api
-    .getMeals(currentUser, startAt, endAt)
+    .getMeals(currentUser, dateRange.startAt, dateRange.endAt)
     .then((listener) => {
       listener.onSnapshot((snapshot: any) => {
-        const docs = snapshot.docs.map((doc: any) => ({
-          id: doc.id,
-          data: doc.data()
-        }));
+        const tempArr = snapshot.docs.map(apiUtils.makeDoc);
+        const docs = _.groupBy(tempArr, "data.meal.date");
         dispatch({
           type: types.GET_MEALS_SUCCESS,
           payload: docs
@@ -55,9 +50,11 @@ export const addMeal = (meal: any) => (
   getStore: any
 ) => {
   const { currentUser } = getStore().auth;
+
   dispatch({
     type: types.ADD_MEAL
   });
+
   api
     .postMeal(meal, currentUser)
     .then(() => {

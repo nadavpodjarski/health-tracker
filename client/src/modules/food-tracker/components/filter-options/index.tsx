@@ -2,33 +2,30 @@ import React, { FC } from "react";
 import { Direction } from "../../../../main/types";
 import { useDatePicker } from "../../../../common/hooks/useDatePicker";
 import { Paper } from "@material-ui/core";
+import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 
 const FilterOptions: FC<
   {
-    onStartDateChange: (date: Date | null) => void;
-    onEndDateChange: (date: Date | null) => void;
+    onDateRangeChange: (date: DateRange) => void;
   } & Direction
-> = ({ direction, onEndDateChange, onStartDateChange }) => {
-  const { DatePicker } = useDatePicker();
+> = ({ direction, onDateRangeChange }) => {
+  const { DateRangePicker } = useDatePicker();
 
   return (
-    <Paper
-      style={{
-        display: "flex",
-        direction: direction,
-        margin: "16px 0",
-        padding: "0 8px",
-        alignItems: "center",
-      }}
-      elevation={1}
-    >
-      <div>
-        <DatePicker onChange={onStartDateChange} label="From" />
-      </div>
-      <div style={{ padding: "0 24px" }}>
-        <DatePicker onChange={onEndDateChange} label="To" />
-      </div>
-    </Paper>
+    <>
+      <Paper
+        style={{
+          display: "flex",
+          direction: direction,
+          margin: "16px 0",
+          padding: "0 8px",
+          alignItems: "center"
+        }}
+        elevation={1}
+      >
+        <DateRangePicker onChange={onDateRangeChange} />
+      </Paper>
+    </>
   );
 };
 

@@ -7,23 +7,24 @@ import {
   Typography,
   Grid,
   MenuItem,
-  TextareaAutosize,
+  TextareaAutosize
 } from "@material-ui/core";
 import MealComponent from "../meal-component";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import { colors } from "../../../../main/theme";
 
 import { dictionary } from "../../../../main/languages/app-dictionary";
-import * as utils from "../../utils";
+import * as foodUtils from "../../utils";
 
 import { useDatePicker } from "../../../../common/hooks/useDatePicker";
 
 import { useSelector, useDispatch } from "react-redux";
 import * as foodActions from "../../../../redux/trackers/food/actions";
+import * as appUtils from "../../../../utilities";
 
 const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({
   direction,
-  handleOpen,
+  handleOpen
 }) => {
   const dispatch = useDispatch();
   const { DateTimePicker } = useDatePicker();
@@ -31,16 +32,17 @@ const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({
   const [state, setState] = useState({
     type:
       dictionary.foodTracker.modalMealsSelect[chosenLanguage.const][0].value,
-    components: [utils.makeNewMealComponent()],
+    components: [foodUtils.makeNewMealComponent()],
     comments: "",
-    timestamp: Date.now(),
+    date: appUtils.makeLocaleDateString(new Date()),
+    time: appUtils.makeLocaleTimeString(new Date())
   });
 
   const addMealComponentHandler = () => {
-    const newComponent = utils.makeNewMealComponent();
+    const newComponent = foodUtils.makeNewMealComponent();
     setState((prevState) => ({
       ...prevState,
-      components: [newComponent, ...prevState.components],
+      components: [newComponent, ...prevState.components]
     }));
   };
 
@@ -48,7 +50,7 @@ const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({
     if (state.components.length === 1) handleOpen();
     setState((prevState) => ({
       ...prevState,
-      components: [...prevState.components.filter((comp) => comp.id !== id)],
+      components: [...prevState.components.filter((comp) => comp.id !== id)]
     }));
   };
 
@@ -68,7 +70,7 @@ const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({
       Object.assign(selectedComponent, { [property]: value });
       setState((prevState) => ({
         ...prevState,
-        components,
+        components
       }));
     }
   };
@@ -79,7 +81,7 @@ const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({
     const { value } = event.target;
     setState((prevState) => ({
       ...prevState,
-      comments: value,
+      comments: value
     }));
   };
 
@@ -89,18 +91,21 @@ const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({
       value: unknown;
     }>
   ) => {
-    setState((prevState) => ({
-      ...prevState,
-      type: event.target.value as string,
-    }));
+    const { value } = event.target;
+    if (typeof value === "string") {
+      setState((prevState) => ({
+        ...prevState,
+        type: value
+      }));
+    }
   };
 
   const mealTimeChangeHandler = (date: Date | null) => {
-    const mealTimeStamp = date?.getTime();
-    if (mealTimeStamp) {
+    if (date) {
       setState((prevState) => ({
         ...prevState,
-        timestamp: mealTimeStamp,
+        date: appUtils.makeLocaleDateString(date),
+        time: appUtils.makeLocaleTimeString(date)
       }));
     }
   };
@@ -120,7 +125,7 @@ const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "16px 0",
+          padding: "16px 0"
         }}
       >
         <Typography variant="h4" style={{ fontWeight: "bold" }}>
@@ -179,7 +184,7 @@ const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({
               fontSize: "18px",
               minHeight: "100px",
               fontFamily: "Poppins",
-              maxHeight: "100px",
+              maxHeight: "100px"
             }}
             onChange={(event) => changeCommentsHandler(event)}
           />
@@ -206,10 +211,10 @@ const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({
         <Grid item container xs={6} justify="flex-end">
           <Button
             style={{
-              background: "white",
+              background: "inherit",
               color: colors.tourquize,
               border: `1px solid ${colors.tourquize}`,
-              width: "80px",
+              width: "80px"
             }}
             onClick={handleOpen}
           >
@@ -221,7 +226,7 @@ const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({
             style={{
               background: colors.tourquize,
               color: "white",
-              width: "100px",
+              width: "100px"
             }}
             onClick={() => doneHandler()}
           >

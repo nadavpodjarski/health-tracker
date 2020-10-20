@@ -20,6 +20,8 @@ import FilterOptions from "./components/filter-options";
 
 import { useDispatch } from "react-redux";
 import * as foodActions from "../../redux/trackers/food/actions";
+import * as appUtils from "../../utilities";
+import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,7 +51,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const FoodTracker = () => {
   const { chosenLanguage } = useSelector((state: any) => state?.languages);
-  const { startAt, endAt } = useSelector((state: any) => state?.trackers.food);
+  const { dateRange, isLoading } = useSelector(
+    (state: any) => state?.trackers.food
+  );
   const [OpenModalButton, handleOpen, AddMealModal] = useModal();
 
   const classes = useStyles();
@@ -61,26 +65,11 @@ const FoodTracker = () => {
     dictionary.foodTracker.modalButton[chosenLanguage?.const];
 
   useEffect(() => {
-    dispatch(foodActions.fetchAllMeals());
-  }, [startAt, endAt]);
+    dispatch(foodActions.fetchMeals(dateRange));
+  }, [dateRange]);
 
-  const onStartDateChange = (date: Date | null) => {
-    const localDateString = date?.toLocaleDateString();
-    if (localDateString) {
-      const startTime = new Date(localDateString).getTime();
-      console.log(startTime);
-    }
-  };
-
-  const onEndDateChange = (date: Date | null) => {
-    const localDateString = date?.toLocaleDateString();
-    if (localDateString) {
-      let endTime = new Date(localDateString).getTime();
-      if (endTime === startAt) {
-        endTime += 86400000;
-        console.log(endTime);
-      }
-    }
+  const onDateRangeChange = (date: DateRange) => {
+    dispatch(foodActions.setDateRange(date));
   };
 
   return (
@@ -109,7 +98,7 @@ const FoodTracker = () => {
       </div>
 
       {/*Filter options*/}
-      <FilterOptions {...{ onStartDateChange, onEndDateChange, direction }} />
+      <FilterOptions {...{ onDateRangeChange, direction }} />
 
       {/*Food List*/}
       <List
@@ -118,18 +107,33 @@ const FoodTracker = () => {
         elevation={3}
         subheader={<li />}
       >
-        {[0, 1, 2, 3, 4].map((sectionId) => (
-          <li key={`section-${sectionId}`} className={classes.listSection}>
-            <ul className={classes.ul}>
-              <ListSubheader>{`I'm sticky ${sectionId}`}</ListSubheader>
-              {[0, 1, 2].map((item) => (
-                <ListItem key={`item-${sectionId}-${item}`}>
-                  <ListItemText primary={`Item ${item}`} />
-                </ListItem>
-              ))}
-            </ul>
-          </li>
-        ))}
+        {!isLoading ? (
+          <>
+            {[0, 1, 2, 3, 4].map((sectionId) => (
+              <li key={`section-${sectionId}`} className={classes.listSection}>
+                <ul className={classes.ul}>
+                  <ListSubheader>{`I'm sticky ${sectionId}`}</ListSubheader>
+                  {[0, 1, 2].map((item) => (
+                    <ListItem key={`item-${sectionId}-${item}`}>
+                      <ListItemText primary={`Item ${item}`} />
+                    </ListItem>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </>
+        ) : (
+          <ListItem
+            style={{
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            Loading...
+          </ListItem>
+        )}
       </List>
 
       {/*Add Meal Modal*/}

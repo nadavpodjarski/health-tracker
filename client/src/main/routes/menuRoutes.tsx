@@ -8,7 +8,7 @@ const SportTracker = lazy(() => import("../../modules/sport-tracker"));
 
 const MenuRoutes = () => {
   return (
-    <Suspense fallback={"Loading..."}>
+    <Suspense fallback={""}>
       <Switch>
         <Route path={routes.profile} component={Profile} />
 

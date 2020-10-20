@@ -1,11 +1,9 @@
 import * as types from "../types";
+import * as appUtils from "../../../../utilities";
 
 const initialState = {
   meals: [],
-  startAt: new Date(new Date().toLocaleDateString()).getTime(),
-  endAt: new Date(
-    new Date(new Date().getTime() + 86400000).toLocaleDateString()
-  ).getTime(),
+  dateRange: appUtils.parseDateRange([new Date(), new Date()]),
   isLoading: false,
   err: null
 };
@@ -17,11 +15,12 @@ export const foodTrackReducer = (state = initialState, action: any) => {
         ...state,
         isLoading: true
       };
-    case types.SET_START_AT:
+    case types.SET_DATE_RANGE: {
       return {
         ...state,
-        startAt: action.payload
+        dateRange: appUtils.parseDateRange(action.payload)
       };
+    }
     case types.GET_MEALS_SUCCESS:
       return {
         ...state,

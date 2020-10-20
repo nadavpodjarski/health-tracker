@@ -15,9 +15,7 @@ export const makeAuthor = (currentUser: any) => {
   };
 };
 
-export const verifyOwnership = (currentUser: any, doc: any) => {
-  return currentUser.uid === doc.author.uid;
-};
+export const makeDoc = (doc: any) => ({ id: doc.id, data: doc.data() });
 
 export const uuid = () => {
   return uuidv4();
