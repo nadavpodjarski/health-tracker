@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import DateFnsUtils from "@material-ui/pickers/adapter/date-fns";
 import {
@@ -11,25 +11,23 @@ import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 const DateRangePicker: FC<{ onChange: (date: DateRange) => void }> = ({
   onChange
 }) => {
-  const [value, setValue] = React.useState<any>([Date.now(), Date.now()]);
+  const [value, setValue] = useState<any>([Date.now(), Date.now()]);
 
-  const onCloseHandler = () => {
-    onChange(value);
-  };
-
-  const onChangeHandler = (date: DateRange) => {
+  const onAcceptHandler = (date: DateRange) => {
     if (date) {
+      onChange(date);
       setValue(date);
     }
   };
+
   return (
     <LocalizationProvider dateAdapter={DateFnsUtils}>
       <MobileDateRangePicker
         disableFuture
         value={value}
-        onClose={onCloseHandler}
+        onAccept={(date: any) => onAcceptHandler(date)}
         inputFormat="dd/MM/yyyy"
-        onChange={onChangeHandler}
+        onChange={() => {}}
         allowSameDateSelection={true}
         renderInput={(startProps, endProps) => (
           <div
