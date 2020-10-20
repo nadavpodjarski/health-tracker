@@ -20,7 +20,6 @@ import FilterOptions from "./components/filter-options";
 
 import { useDispatch } from "react-redux";
 import * as foodActions from "../../redux/trackers/food/actions";
-import * as appUtils from "../../utilities";
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 
 const useStyles = makeStyles((theme: Theme) =>
