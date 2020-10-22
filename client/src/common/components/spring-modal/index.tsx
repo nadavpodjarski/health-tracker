@@ -8,17 +8,17 @@ const useStyles = makeStyles((theme: Theme) =>
     modal: {
       display: "flex",
       alignItems: "center",
-      justifyContent: "center",
+      justifyContent: "center"
     },
     paper: {
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
-      overflow:"none"
+      overflow: "none"
     },
-    paperWidthSm:{
-      width: ({width}:any) => width,
-      maxWidth: ({width}:any) => width
+    paperWidthSm: {
+      width: ({ width }: any) => width,
+      maxWidth: ({ width }: any) => width
     }
   })
 );
@@ -47,7 +47,7 @@ const Fade = React.forwardRef<HTMLDivElement, FadeProps>(function Fade(
       if (!open && onExited) {
         onExited();
       }
-    },
+    }
   });
 
   return (
@@ -57,16 +57,19 @@ const Fade = React.forwardRef<HTMLDivElement, FadeProps>(function Fade(
   );
 });
 
-const SpringModal: FC<{ open: boolean; handleOpen: () => void, width:number | string }> = ({
-  children,
-  open,
-  handleOpen,
-  width
-}) => {
-  const classes = useStyles({width});
+const SpringModal: FC<{
+  open: boolean;
+  handleOpen: () => void;
+  width: number | string;
+}> = ({ children, open, handleOpen, width }) => {
+  const classes = useStyles({ width });
 
   return (
-    <Dialog open={open} onClose={handleOpen} classes={{paperWidthSm:classes.paperWidthSm}}>
+    <Dialog
+      open={open}
+      onClose={handleOpen}
+      classes={{ paperWidthSm: classes.paperWidthSm }}
+    >
       <Fade in={open}>
         <div className={classes.paper}>{children}</div>
       </Fade>

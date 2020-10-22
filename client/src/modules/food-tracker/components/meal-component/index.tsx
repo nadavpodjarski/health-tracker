@@ -5,40 +5,37 @@ import {
   Select,
   MenuItem,
   IconButton,
-  Divider,
+  Divider
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { Direction } from "../../../../main/types";
 
-const MealComponent: FC<
-  Direction & {
-    component: any;
-    deleteHandler: (
-      event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ) => void | undefined;
-    onChange: (
-      event:
-        | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-        | React.ChangeEvent<{
-            name?: string | undefined;
-            value: unknown;
-          }>
-    ) => void;
-  }
-> = ({ component, deleteHandler, onChange, direction }) => {
-  const metrics = ["gr", "oz", "ml"];
+const metrics = ["gr", "oz", "ml"];
+
+const MealComponent: FC<{
+  component: any;
+  deleteHandler: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void | undefined;
+  onChange: (
+    event:
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | React.ChangeEvent<{
+          name?: string | undefined;
+          value: unknown;
+        }>
+  ) => void;
+}> = ({ component, deleteHandler, onChange }) => {
   return (
     <Grid
       container
       spacing={1}
       alignItems="center"
-      style={{ paddingTop: "8px", direction: direction }}
+      style={{ paddingTop: "8px" }}
     >
       <Grid item xs={6} sm={6}>
         <TextField
           onChange={onChange}
           name="food"
-          style={{ direction: direction }}
           value={component.food}
           variant="outlined"
           placeholder="Food"
@@ -48,7 +45,6 @@ const MealComponent: FC<
         <TextField
           onChange={onChange}
           name="amount"
-          style={{ direction: direction }}
           value={component.amount}
           variant="outlined"
           placeholder="Amount"
@@ -60,7 +56,7 @@ const MealComponent: FC<
           name="metric"
           value={component.metric}
           variant="outlined"
-          style={{ width: "100%", direction: direction }}
+          style={{ width: "100%" }}
         >
           {metrics.map((metric) => {
             return <MenuItem value={metric}>{metric}</MenuItem>;

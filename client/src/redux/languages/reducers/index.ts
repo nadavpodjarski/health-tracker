@@ -1,9 +1,9 @@
 import * as types from "../types";
-import languages from "../../../main/languages/languagesMeta.json";
+import languages from "../../../main/languages-not-in-use-yet/languagesMeta.json";
 
 const initialState = {
   chosenLanguage: languages.english,
-  languages: languages,
+  languages: languages
 };
 
 type Action = {
@@ -18,7 +18,7 @@ export const languagesReducer = (state = initialState, action: Action) => {
         ...state,
         chosenLanguage: Object.entries(languages).find(
           (lang) => lang[1].const === action.payload
-        )?.[1],
+        )?.[1]
       };
     default:
       return state;

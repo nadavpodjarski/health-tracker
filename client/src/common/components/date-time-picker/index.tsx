@@ -30,7 +30,8 @@ const BasicDateTimePicker: FC<{
       <MobileDateTimePicker
         disableFuture
         value={selectedDate}
-        onChange={handleDateChange}
+        onChange={() => {}}
+        onAccept={handleDateChange}
         label={label}
         ampm={false}
         inputFormat="dd/MM/yyyy - HH:mm"

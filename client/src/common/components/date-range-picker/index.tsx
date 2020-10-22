@@ -31,7 +31,7 @@ const DateRangePicker: FC<{ onChange: (date: DateRange) => void }> = ({
         allowSameDateSelection={true}
         renderInput={(startProps, endProps) => (
           <div
-            style={{ padding: "16px 0", display: "flex", alignItems: "center" }}
+            style={{ padding: "16px", display: "flex", alignItems: "center" }}
           >
             <TextField
               {...startProps}

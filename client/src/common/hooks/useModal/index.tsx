@@ -18,11 +18,17 @@ export const useModal = () => {
   /**
    *  @description  open modal button
    */
-  const OpenModalButton: FC<{ style?: CSSProperties }> = ({
+  const OpenModalButton: FC<{ style?: CSSProperties; className?: string }> = ({
     children,
     style,
+    className
   }) => (
-    <Button style={style} type="button" onClick={handleOpen}>
+    <Button
+      style={style}
+      type="button"
+      className={className}
+      onClick={handleOpen}
+    >
       {children}
     </Button>
   );

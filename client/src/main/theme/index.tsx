@@ -19,7 +19,7 @@ export const colors = {
 
 let theme = createMuiTheme({
   palette: {
-    type: new Date().getHours() >= 18 ? "dark" : "light"
+    type: "light"
   },
   typography: {
     fontFamily: "Poppins, Arial",

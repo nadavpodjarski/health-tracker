@@ -22,8 +22,7 @@ import SportsHandballIcon from "@material-ui/icons/SportsHandball";
 import { routes } from "../../main/routes/constants";
 import MenuRoutes from "../../main/routes/menuRoutes";
 
-import { dictionary } from "../../main/languages/app-dictionary";
-import SelectLanguage from "../../common/components/languages-avatar";
+import { dictionary } from "../../main/languages-not-in-use-yet/app-dictionary";
 import SignOutButton from "./components/sign-out-button";
 
 const drawerWidth = 240;

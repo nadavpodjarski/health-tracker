@@ -1,5 +1,4 @@
 import React, { FC, useState } from "react";
-import { Direction } from "../../../../main/types";
 import {
   Select,
   Button,
@@ -13,25 +12,28 @@ import MealComponent from "../meal-component";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import { colors } from "../../../../main/theme";
 
-import { dictionary } from "../../../../main/languages/app-dictionary";
 import * as foodUtils from "../../utils";
 
 import { useDatePicker } from "../../../../common/hooks/useDatePicker";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as foodActions from "../../../../redux/trackers/food/actions";
 import * as appUtils from "../../../../utilities";
 
-const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({
-  direction,
+const mealTypes = [
+  { const: "Breakfast", value: "breakfast" },
+  { const: "Lunch", value: "lunch" },
+  { const: "Dinner", value: "dinner" },
+  { const: "Easy meal/Snack", value: "snack" }
+];
+
+const AddDishModalContent: FC<{ handleOpen: () => void }> = ({
   handleOpen
 }) => {
   const dispatch = useDispatch();
   const { DateTimePicker } = useDatePicker();
-  const { chosenLanguage } = useSelector((state: any) => state.languages);
   const [state, setState] = useState({
-    type:
-      dictionary.foodTracker.modalMealsSelect[chosenLanguage.const][0].value,
+    type: mealTypes[0].value,
     components: [foodUtils.makeNewMealComponent()],
     comments: "",
     date: appUtils.makeLocaleDateString(new Date()),
@@ -136,11 +138,9 @@ const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({
           value={state.type}
           onChange={mealTypeChangeHandler}
         >
-          {dictionary.foodTracker.modalMealsSelect[chosenLanguage.const].map(
-            (item) => {
-              return <MenuItem value={item.value}>{item.const}</MenuItem>;
-            }
-          )}
+          {mealTypes.map((item) => {
+            return <MenuItem value={item.value}>{item.const}</MenuItem>;
+          })}
         </Select>
       </div>
 
@@ -159,7 +159,6 @@ const AddDishModalContent: FC<Direction & { handleOpen: () => void }> = ({
           return (
             <Grid item xs={12} md={6}>
               <MealComponent
-                direction={direction}
                 component={comp}
                 deleteHandler={(event) => deleteMealComponentHandler(comp.id)}
                 onChange={(event) => changeMealComponentHandler(event, comp.id)}

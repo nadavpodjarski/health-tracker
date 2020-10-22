@@ -17,7 +17,7 @@ const MenuRoutes = () => {
 
         {/*Default Route*/}
         <Route>
-          <Redirect to={{ pathname: routes.foodTracker }} />
+          <Redirect to={routes.foodTracker} />
         </Route>
       </Switch>
     </Suspense>

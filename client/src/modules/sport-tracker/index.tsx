@@ -3,22 +3,17 @@ import React from "react";
 import MainHeader from "../../common/components/tracker-main-header";
 
 import { useModal } from "../../common/hooks/useModal";
-import { dictionary } from "../../main/languages/app-dictionary";
-
-import { useSelector } from "react-redux";
 
 const FoodTracker = () => {
-  const { chosenLanguage } = useSelector((state: any) => state?.languages);
   const [OpenModalButton, handleOpen, AddSportModal] = useModal();
 
-  const direction = chosenLanguage?.direction;
-  const moduleTitle = dictionary.sportTracker.mainHeader[chosenLanguage?.const];
-  const modalButtonText = dictionary.sportTracker.modalButton[chosenLanguage?.const];
+  const moduleTitle = "Sport Track";
+  const modalButtonText = "Add Activity";
 
   return (
     <div>
       {/*Header*/}
-      <MainHeader title={moduleTitle} direction={direction} />
+      <MainHeader title={moduleTitle} />
       {/*Body*/}
 
       {/*Add Sport Modal*/}

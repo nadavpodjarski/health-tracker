@@ -5,9 +5,12 @@ const foodCollection = apiUtils.collections.food;
 
 const { db } = useDatabase();
 
-export const getMeals = async (currentUser: any, startAt: any, endAt: any) => {
+export const getMeals = async (
+  currentUser: any,
+  startAt: string,
+  endAt: string
+) => {
   try {
-    console.log(startAt, endAt);
     return db
       .collection(foodCollection)
       .where("author.uid", "==", currentUser.uid)

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 
 import MainHeader from "../../common/components/tracker-main-header";
 import { useModal } from "../../common/hooks/useModal";
-import { dictionary } from "../../main/languages/app-dictionary";
 
 import AddMealModalContent from "./components/modal-content";
 
@@ -36,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: "auto",
       flex: 1,
       minHeight: 0,
+      scrollbarWidth: "none",
       marginBottom: theme.spacing(1)
     },
     listSection: {
@@ -44,6 +44,17 @@ const useStyles = makeStyles((theme: Theme) =>
     ul: {
       backgroundColor: "inherit",
       padding: 0
+    },
+    openModalButton: {
+      fontSize: "24px",
+      background: colors.tourquize,
+      color: "white",
+      "&:hover": {
+        background: colors.tourquize
+      },
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "16px"
+      }
     }
   })
 );
@@ -58,10 +69,8 @@ const FoodTracker = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const direction = chosenLanguage?.direction;
-  const moduleTitle = dictionary.foodTracker.mainHeader[chosenLanguage?.const];
-  const modalButtonText =
-    dictionary.foodTracker.modalButton[chosenLanguage?.const];
+  const moduleTitle = "Food Track";
+  const modalButtonText = "Add Meal";
 
   useEffect(() => {
     dispatch(foodActions.fetchMeals(dateRange));
@@ -74,30 +83,23 @@ const FoodTracker = () => {
   return (
     <div className={classes.moduleRoot}>
       {/*Header*/}
-      <MainHeader title={moduleTitle} direction={direction} />
+      <MainHeader title={moduleTitle} />
 
       {/*Open Modal Button*/}
       <div
         style={{
           display: "flex",
           alignItems: "flex-start",
-          height: "100px",
-          direction: direction
+          height: "100px"
         }}
       >
-        <OpenModalButton
-          style={{
-            fontSize: "24px",
-            background: colors.tourquize,
-            color: "white"
-          }}
-        >
+        <OpenModalButton className={classes.openModalButton}>
           {modalButtonText}
         </OpenModalButton>
       </div>
 
       {/*Filter options*/}
-      <FilterOptions {...{ onDateRangeChange, direction }} />
+      <FilterOptions {...{ onDateRangeChange }} />
 
       {/*Food List*/}
       <List
@@ -137,7 +139,7 @@ const FoodTracker = () => {
 
       {/*Add Meal Modal*/}
       <AddMealModal width={1200}>
-        <AddMealModalContent direction={direction} handleOpen={handleOpen} />
+        <AddMealModalContent handleOpen={handleOpen} />
       </AddMealModal>
     </div>
   );
