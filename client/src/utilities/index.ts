@@ -1,5 +1,7 @@
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 import { ParsedDateRange } from "../types";
+import { v4 as uuidv4 } from "uuid";
+
 export const makeLocaleDateString = (date: Date) => {
   if (!date) return null;
   return date.toLocaleDateString("en-GB");
@@ -16,3 +18,5 @@ export const parseDateRange = (dateRange: DateRange): ParsedDateRange => {
     endAt: makeLocaleDateString(dateRange[1] as Date)
   };
 };
+
+export const uuid = () => uuidv4();

@@ -1,11 +1,10 @@
-import { v4 as uuidv4 } from "uuid";
 import { MealComponent } from "../../types/food";
+import { uuid } from "../";
 
-const mealComponent = (uuid: any): (() => MealComponent) => {
+const mealComponent = (uuid: () => string): (() => MealComponent) => {
   return () => {
     return { id: uuid(), food: "", amount: "", metric: "gr" };
   };
 };
 
-export const uuid = uuidv4;
-export const makeNewMealComponent = mealComponent(uuidv4);
+export const makeNewMealComponent = mealComponent(uuid);

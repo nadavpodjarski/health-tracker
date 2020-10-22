@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
-
 export const collections = {
   food: "food",
   sport: "sport",
@@ -16,7 +14,3 @@ export const makeAuthor = (currentUser: any) => {
 };
 
 export const makeDoc = (doc: any) => ({ id: doc.id, data: doc.data() });
-
-export const uuid = () => {
-  return uuidv4();
-};
