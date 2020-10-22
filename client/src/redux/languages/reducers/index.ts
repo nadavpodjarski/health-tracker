@@ -1,6 +1,6 @@
 import * as types from "../constants";
 import languages from "../../../main/languages-not-in-use-yet/languagesMeta.json";
-import { Action } from "../../../main/types/redux";
+import { Action } from "../../../types/redux";
 
 const initialState = {
   chosenLanguage: languages.english,

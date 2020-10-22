@@ -1,10 +1,11 @@
 import { Dispatch } from "react";
 import * as api from "../../../../api/food-tracker";
 import * as types from "../constants";
-import * as apiUtils from "../../../../api/utils";
+import * as apiUtils from "../../../../utilities/api";
 import * as _ from "lodash";
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
-import { ParsedDateRange } from "../../../../main/types";
+import { ParsedDateRange } from "../../../../types";
+
 export const setDateRange = (dateRange: DateRange) => (
   dispatch: Dispatch<any>
 ) => {
@@ -23,7 +24,7 @@ export const fetchMeals = (dateRange: ParsedDateRange) => (
     type: types.GET_MEALS
   });
 
-  if (!dateRange?.startAt || !dateRange?.endAt) return;
+  if (!dateRange.startAt || !dateRange.endAt) return;
 
   api
     .getMeals(currentUser, dateRange.startAt, dateRange.endAt)

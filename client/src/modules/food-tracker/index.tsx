@@ -19,8 +19,7 @@ import FilterOptions from "./components/filter-options";
 import { useDispatch, useSelector } from "react-redux";
 import * as foodActions from "../../redux/trackers/food/actions";
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
-import { MealsByDate } from "../../main/types/food";
-import { IStore } from "../../main/types/redux";
+import { IStore } from "../../types/redux";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -109,7 +108,7 @@ const FoodTracker = () => {
       >
         {!isLoading ? (
           <>
-            {meals.map((mealsByDate: MealsByDate, i: number) => {
+            {meals.map((mealsByDate, i) => {
               return (
                 <li key={`section-${i}`} className={classes.listSection}>
                   <ul className={classes.ul}>

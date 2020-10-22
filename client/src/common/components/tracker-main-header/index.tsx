@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Typography, makeStyles, Theme } from "@material-ui/core";
-import { Direction } from "../../../main/types";
+import { Direction } from "../../../types";
 
 const useStyles = makeStyles((theme: Theme) => ({
   header: {

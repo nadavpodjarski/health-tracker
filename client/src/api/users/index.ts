@@ -1,5 +1,5 @@
 import { useDatabase } from "../../main/firebase/useDatabase";
-import * as utils from "../utils";
+import * as utils from "../../utilities/api";
 
 const { db } = useDatabase();
 

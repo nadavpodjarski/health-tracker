@@ -1,6 +1,6 @@
 import * as types from "../constants";
 import * as appUtils from "../../../../utilities";
-import { IFoodState, Action } from "../../../../main/types/redux";
+import { IFoodState, Action } from "../../../../types/redux";
 
 const initialState = {
   meals: [],

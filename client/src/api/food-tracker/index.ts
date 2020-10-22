@@ -1,5 +1,5 @@
 import { useDatabase } from "../../main/firebase/useDatabase";
-import * as apiUtils from "../utils";
+import * as apiUtils from "../../utilities/api";
 
 const foodCollection = apiUtils.collections.food;
 

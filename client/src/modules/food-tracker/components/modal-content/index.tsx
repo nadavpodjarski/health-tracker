@@ -12,7 +12,7 @@ import MealComponent from "../meal-component";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import { colors } from "../../../../main/theme";
 
-import * as foodUtils from "../../utils";
+import * as foodUtils from "../../../../utilities/food";
 
 import { useDatePicker } from "../../../../common/hooks/useDatePicker";
 
@@ -20,7 +20,7 @@ import { useDispatch } from "react-redux";
 import * as foodActions from "../../../../redux/trackers/food/actions";
 import * as appUtils from "../../../../utilities";
 
-import { Meal, MealTypes } from "../../../../main/types/food";
+import { Meal, MealTypes } from "../../../../types/food";
 
 const mealTypes = [
   { const: "Breakfast", value: "breakfast" },

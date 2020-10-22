@@ -1,5 +1,5 @@
 import { Meals } from "../food";
-import { ParsedDateRange } from "../";
+import { ParsedDateRange } from "..";
 
 export interface IAuth {
   currentUser: any;
