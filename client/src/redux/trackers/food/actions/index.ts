@@ -1,10 +1,10 @@
 import { Dispatch } from "react";
 import * as api from "../../../../api/food-tracker";
-import * as types from "../types";
+import * as types from "../constants";
 import * as apiUtils from "../../../../api/utils";
 import * as _ from "lodash";
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
-
+import { DateRange as dRAnge } from "../../../../main/types";
 export const setDateRange = (dateRange: DateRange) => (
   dispatch: Dispatch<any>
 ) => {
@@ -14,7 +14,7 @@ export const setDateRange = (dateRange: DateRange) => (
   });
 };
 
-export const fetchMeals = (dateRange: { startAt: string; endAt: string }) => (
+export const fetchMeals = (dateRange: dRAnge) => (
   dispatch: Dispatch<any>,
   getStore: any
 ) => {
@@ -23,7 +23,7 @@ export const fetchMeals = (dateRange: { startAt: string; endAt: string }) => (
     type: types.GET_MEALS
   });
 
-  if (!dateRange.startAt || !dateRange.endAt) return;
+  if (!dateRange?.startAt || !dateRange?.endAt) return;
 
   api
     .getMeals(currentUser, dateRange.startAt, dateRange.endAt)
@@ -33,7 +33,7 @@ export const fetchMeals = (dateRange: { startAt: string; endAt: string }) => (
         const docs = _.groupBy(tempArr, "data.meal.date");
         dispatch({
           type: types.GET_MEALS_SUCCESS,
-          payload: docs
+          payload: Object.entries(docs)
         });
       });
     })

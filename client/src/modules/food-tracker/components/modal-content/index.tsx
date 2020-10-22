@@ -20,6 +20,8 @@ import { useDispatch } from "react-redux";
 import * as foodActions from "../../../../redux/trackers/food/actions";
 import * as appUtils from "../../../../utilities";
 
+import { Meal, MealTypes } from "../../../../main/types/food";
+
 const mealTypes = [
   { const: "Breakfast", value: "breakfast" },
   { const: "Lunch", value: "lunch" },
@@ -32,8 +34,8 @@ const AddDishModalContent: FC<{ handleOpen: () => void }> = ({
 }) => {
   const dispatch = useDispatch();
   const { DateTimePicker } = useDatePicker();
-  const [state, setState] = useState({
-    type: mealTypes[0].value,
+  const [state, setState] = useState<Meal>({
+    type: mealTypes[0].value as MealTypes,
     components: [foodUtils.makeNewMealComponent()],
     comments: "",
     date: appUtils.makeLocaleDateString(new Date()),
@@ -94,10 +96,10 @@ const AddDishModalContent: FC<{ handleOpen: () => void }> = ({
     }>
   ) => {
     const { value } = event.target;
-    if (typeof value === "string") {
+    if (typeof value == "string") {
       setState((prevState) => ({
         ...prevState,
-        type: value
+        type: value as MealTypes
       }));
     }
   };

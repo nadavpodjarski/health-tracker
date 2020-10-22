@@ -1,14 +1,10 @@
-import * as types from "../types";
+import * as types from "../constants";
 import languages from "../../../main/languages-not-in-use-yet/languagesMeta.json";
+import { Action } from "../../../main/types/redux";
 
 const initialState = {
   chosenLanguage: languages.english,
   languages: languages
-};
-
-type Action = {
-  type: string;
-  payload: any;
 };
 
 export const languagesReducer = (state = initialState, action: Action) => {

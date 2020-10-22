@@ -1,4 +1,4 @@
-import * as types from "../types";
+import * as types from "../constants";
 import { useFirebaseAuth } from "../../../main/firebase/useFirebaseAuth";
 import { Dispatch } from "react";
 import * as api from "../../../api/users";

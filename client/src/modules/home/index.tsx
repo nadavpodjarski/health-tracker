@@ -1,5 +1,4 @@
 import React, { FC, useState } from "react";
-import { useSelector } from "react-redux";
 import NavLink from "../../common/components/nav-link";
 import clsx from "clsx";
 
@@ -103,8 +102,6 @@ const Home: FC = ({ children }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
-  const { chosenLanguage } = useSelector((state: any) => state.languages);
-
   const handleDrawerOpen = () => {
     setOpen((prevState) => !prevState);
   };
@@ -153,17 +150,13 @@ const Home: FC = ({ children }) => {
             <ListItemIcon>
               <FastfoodIcon />
             </ListItemIcon>
-            <ListItemText>
-              {dictionary.menu.foodTracker[chosenLanguage?.const]}
-            </ListItemText>
+            <ListItemText>Food Tracker</ListItemText>
           </ListItem>
           <ListItem button component={NavLink} to={routes.sportTracker}>
             <ListItemIcon>
               <SportsHandballIcon />
             </ListItemIcon>
-            <ListItemText>
-              {dictionary.menu.sportTracker[chosenLanguage?.const]}
-            </ListItemText>
+            <ListItemText>Sport Tracker</ListItemText>
           </ListItem>
         </List>
       </Drawer>

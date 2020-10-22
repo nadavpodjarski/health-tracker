@@ -5,7 +5,6 @@ import { useModal } from "../../common/hooks/useModal";
 
 import AddMealModalContent from "./components/modal-content";
 
-import { useSelector } from "react-redux";
 import { colors } from "../../main/theme";
 
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
@@ -17,9 +16,11 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 
 import FilterOptions from "./components/filter-options";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as foodActions from "../../redux/trackers/food/actions";
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
+import { MealsByDate } from "../../main/types/food";
+import { IStore } from "../../main/types/redux";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,11 +59,9 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 );
-
 const FoodTracker = () => {
-  const { chosenLanguage } = useSelector((state: any) => state?.languages);
-  const { dateRange, isLoading } = useSelector(
-    (state: any) => state?.trackers.food
+  const { isLoading, meals, dateRange } = useSelector(
+    (state: IStore) => state.food
   );
   const [OpenModalButton, handleOpen, AddMealModal] = useModal();
 
@@ -110,18 +109,20 @@ const FoodTracker = () => {
       >
         {!isLoading ? (
           <>
-            {[0, 1, 2, 3, 4].map((sectionId) => (
-              <li key={`section-${sectionId}`} className={classes.listSection}>
-                <ul className={classes.ul}>
-                  <ListSubheader>{`I'm sticky ${sectionId}`}</ListSubheader>
-                  {[0, 1, 2].map((item) => (
-                    <ListItem key={`item-${sectionId}-${item}`}>
-                      <ListItemText primary={`Item ${item}`} />
-                    </ListItem>
-                  ))}
-                </ul>
-              </li>
-            ))}
+            {meals.map((mealsByDate: MealsByDate, i: number) => {
+              return (
+                <li key={`section-${i}`} className={classes.listSection}>
+                  <ul className={classes.ul}>
+                    <ListSubheader>{`${mealsByDate[0]}`}</ListSubheader>
+                    {mealsByDate[1].map((item: any, i: number) => (
+                      <ListItem key={`item-${i}`}>
+                        <ListItemText primary={`${item.data.meal.time}`} />
+                      </ListItem>
+                    ))}
+                  </ul>
+                </li>
+              );
+            })}
           </>
         ) : (
           <ListItem
