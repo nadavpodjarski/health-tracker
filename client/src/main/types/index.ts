@@ -10,7 +10,7 @@ export type Direction = {
     | undefined;
 };
 
-export type DateRange = {
+export type ParsedDateRange = {
   startAt: string | null;
   endAt: string | null;
 };

@@ -1,5 +1,5 @@
 import { Meals } from "../food";
-import { DateRange } from "../";
+import { ParsedDateRange } from "../";
 
 export interface IAuth {
   currentUser: any;
@@ -8,7 +8,7 @@ export interface IAuth {
 
 export interface IFoodState {
   meals: Meals;
-  dateRange: DateRange;
+  dateRange: ParsedDateRange;
   isLoading: boolean;
   err: any;
 }

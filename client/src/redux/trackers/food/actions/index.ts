@@ -4,7 +4,7 @@ import * as types from "../constants";
 import * as apiUtils from "../../../../api/utils";
 import * as _ from "lodash";
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
-import { DateRange as dRAnge } from "../../../../main/types";
+import { ParsedDateRange } from "../../../../main/types";
 export const setDateRange = (dateRange: DateRange) => (
   dispatch: Dispatch<any>
 ) => {
@@ -14,7 +14,7 @@ export const setDateRange = (dateRange: DateRange) => (
   });
 };
 
-export const fetchMeals = (dateRange: dRAnge) => (
+export const fetchMeals = (dateRange: ParsedDateRange) => (
   dispatch: Dispatch<any>,
   getStore: any
 ) => {
