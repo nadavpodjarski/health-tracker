@@ -1,4 +1,9 @@
-export type MealTypes = "breakfast" | "lunch" | "dinner" | "snack";
+export enum MealTypes {
+  breakfast = "Breakfast",
+  lunch = "Lunch",
+  dinner = "Dinner",
+  snack = "Snack"
+}
 
 export type MealComponent = {
   id: string;
@@ -17,7 +22,8 @@ export type Meal = {
 
 export type MealDoc = {
   id: string;
-  data: Meal & {
+  data: {
+    meal: Meal;
     author: {
       uid: string;
       displayName: string;

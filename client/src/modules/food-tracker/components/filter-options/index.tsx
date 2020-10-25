@@ -2,10 +2,12 @@ import React, { FC } from "react";
 import { useDatePicker } from "../../../../common/hooks/useDatePicker";
 import { Paper } from "@material-ui/core";
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
+import { ParsedDateRange } from "../../../../types";
 
 const FilterOptions: FC<{
   onDateRangeChange: (date: DateRange) => void;
-}> = ({ onDateRangeChange }) => {
+  dateRange: ParsedDateRange;
+}> = ({ onDateRangeChange, dateRange }) => {
   const { DateRangePicker } = useDatePicker();
 
   return (
@@ -19,7 +21,11 @@ const FilterOptions: FC<{
         }}
         elevation={1}
       >
-        <DateRangePicker onChange={onDateRangeChange} />
+        <DateRangePicker
+          onChange={onDateRangeChange}
+          startAt={dateRange.startAt}
+          endAt={dateRange.endAt}
+        />
       </Paper>
     </>
   );
