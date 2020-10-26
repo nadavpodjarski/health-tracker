@@ -32,7 +32,7 @@ export const postMeal = async (meal: any, currentUser: any) => {
   }
 };
 
-export const deleteMeal = async (docId: string, currentUser: any) => {
+export const deleteMeal = async (docId: string) => {
   try {
     db.collection(foodCollection).doc(docId).delete();
   } catch (err) {

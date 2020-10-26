@@ -52,7 +52,6 @@ const DateRangePicker: FC<{
           >
             <TextField
               {...startProps}
-              value={startAt}
               label="Start"
               helperText=""
               style={{ maxWidth: "150px" }}
@@ -60,7 +59,6 @@ const DateRangePicker: FC<{
             <DateRangeDelimiter> to </DateRangeDelimiter>
             <TextField
               {...endProps}
-              value={endAt}
               label="End"
               helperText=""
               style={{ maxWidth: "150px" }}

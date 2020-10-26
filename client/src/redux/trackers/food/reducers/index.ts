@@ -14,6 +14,14 @@ export const foodTrackReducer = (
   action: Action
 ): IFoodState => {
   switch (action.type) {
+    case types.DELETE_MEAL:
+      return {
+        ...state
+      };
+    case types.DELETE_MEAL_SUCCESS:
+      return {
+        ...state
+      };
     case types.GET_MEALS:
       return {
         ...state,

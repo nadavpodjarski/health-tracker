@@ -3,9 +3,10 @@ import React from "react";
 import MainHeader from "../../common/components/tracker-main-header";
 
 import { useModal } from "../../common/hooks/useModal";
+import { Button } from "@material-ui/core";
 
 const FoodTracker = () => {
-  const [OpenModalButton, handleOpen, AddSportModal] = useModal();
+  const [handleOpen, AddSportModal] = useModal();
 
   const moduleTitle = "Sport Track";
   const modalButtonText = "Add Activity";
@@ -17,9 +18,9 @@ const FoodTracker = () => {
       {/*Body*/}
 
       {/*Add Sport Modal*/}
-      <OpenModalButton style={{ background: "red", color: "white" }}>
+      <Button style={{ background: "red", color: "white" }}>
         {modalButtonText}
-      </OpenModalButton>
+      </Button>
       <AddSportModal width={1200}>
         <div>
           <h1>Add Sport</h1>

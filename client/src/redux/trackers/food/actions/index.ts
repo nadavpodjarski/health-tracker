@@ -6,6 +6,26 @@ import * as _ from "lodash";
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 import { ParsedDateRange } from "../../../../types";
 
+export const deleteMeal = (docId: string) => (dispatch: Dispatch<any>) => {
+  dispatch({
+    type: types.DELETE_MEAL
+  });
+  api
+    .deleteMeal(docId)
+    .then((res) => {
+      dispatch({
+        type: types.DELETE_MEAL_SUCCESS
+      });
+      console.log(docId, "Deleted");
+    })
+    .catch((err) => {
+      dispatch({
+        type: types.REQUEST_ERR,
+        payload: err
+      });
+    });
+};
+
 export const setDateRange = (dateRange: DateRange) => (
   dispatch: Dispatch<any>
 ) => {

@@ -1,12 +1,16 @@
 import React, { FC } from "react";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-import { IconButton } from "@material-ui/core";
+import { IconButton, Tooltip } from "@material-ui/core";
 
-const DeleteButton: FC<{ onClick?: () => void }> = ({ onClick }) => {
+const DeleteButton: FC<{
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+}> = ({ onClick }) => {
   return (
-    <IconButton onClick={onClick}>
-      <HighlightOffIcon />
-    </IconButton>
+    <Tooltip title="Delete">
+      <IconButton onClick={onClick}>
+        <HighlightOffIcon />
+      </IconButton>
+    </Tooltip>
   );
 };
 

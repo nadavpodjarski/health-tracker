@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       display: "flex",
       justifyContent: "center",
-      height: "100vh"
+      height: "100%"
     },
     appBar: {
       zIndex: theme.zIndex.drawer + 1,

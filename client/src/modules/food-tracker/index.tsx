@@ -7,7 +7,7 @@ import FilterOptions from "./components/filter-options";
 
 import { colors } from "../../main/theme";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-
+import { Button } from "@material-ui/core";
 import { useModal } from "../../common/hooks/useModal";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -40,7 +40,7 @@ const FoodTracker = () => {
   const { isLoading, meals, dateRange } = useSelector(
     (state: IStore) => state.food
   );
-  const [OpenModalButton, handleOpen, AddMealModal] = useModal();
+  const [handleOpen, AddMealModal] = useModal();
 
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -53,6 +53,8 @@ const FoodTracker = () => {
   }, [dateRange]);
 
   const onDateRangeChange = (date: DateRange) => {
+    if (!date[0]) date[0] = new Date();
+    if (!date[1]) date[1] = new Date();
     dispatch(foodActions.setDateRange(date));
   };
 
@@ -69,9 +71,9 @@ const FoodTracker = () => {
           height: "100px"
         }}
       >
-        <OpenModalButton className={classes.openModalButton}>
+        <Button onClick={handleOpen} className={classes.openModalButton}>
           {modalButtonText}
-        </OpenModalButton>
+        </Button>
       </div>
 
       {/*Filter options*/}

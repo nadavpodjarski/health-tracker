@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import {
   List,
   Typography,
@@ -7,10 +7,17 @@ import {
   Grid,
   makeStyles,
   Theme,
-  Paper
+  Paper,
+  Button,
+  Divider
 } from "@material-ui/core";
 import { Meals } from "../../../../types/food";
 import ListActionButtons from "../list-action-button";
+import Loader from "../../../../common/components/loader";
+import { useModal } from "../../../../common/hooks/useModal";
+import { colors } from "../../../../main/theme";
+import { useDispatch } from "react-redux";
+import * as foodActions from "../../../../redux/trackers/food/actions";
 const useStyles = makeStyles((theme: Theme) => ({
   foodList: {
     backgroundColor: theme.palette.background.paper,
@@ -19,7 +26,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     flex: 1,
     minHeight: 0,
     scrollbarWidth: "none",
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(1),
+    padding: "0 16px"
   },
   listSection: {
     backgroundColor: "inherit",
@@ -36,6 +44,29 @@ const MealsList: FC<{ isLoading: boolean; meals: Meals }> = ({
   meals
 }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const [chosenMealToBeDeleted, setChosenMealToBeDeleted] = useState<string>(
+    ""
+  );
+
+  const [deleteModalOpener, DeleteModal] = useModal();
+
+  const setDeleteMeal = (docId: string) => {
+    setChosenMealToBeDeleted(docId);
+    deleteModalOpener();
+  };
+
+  const onConfirmDelete = (docId: string) => {
+    deleteModalOpener();
+    dispatch(foodActions.deleteMeal(docId));
+    setChosenMealToBeDeleted("");
+  };
+
+  const onCancelDelete = () => {
+    deleteModalOpener();
+    setChosenMealToBeDeleted("");
+  };
+
   return (
     <List
       className={classes.foodList}
@@ -62,15 +93,15 @@ const MealsList: FC<{ isLoading: boolean; meals: Meals }> = ({
                           {item.data.meal.type}
                         </Typography>
                       </Grid>
-                      <Grid
-                        item
-                        xs={6}
-                        container
-                        style={{ overflowX: "auto", fontSize: "16px" }}
-                      >
+                      <Grid item xs={6} container style={{ overflowX: "auto" }}>
                         {item.data.meal.components.map((component) => {
                           return (
-                            <Grid item xs={6} sm={4}>
+                            <Grid
+                              item
+                              xs={6}
+                              sm={4}
+                              style={{ overflow: "auto" }}
+                            >
                               <Typography noWrap>
                                 {` ${component.food} ${component.amount}${component.metric} `}
                               </Typography>
@@ -78,11 +109,14 @@ const MealsList: FC<{ isLoading: boolean; meals: Meals }> = ({
                           );
                         })}
                       </Grid>
-                      <Grid item xs={2} container justify="center">
+                      <Grid item xs={1} container justify="center">
                         {item.data.meal.time}
                       </Grid>
-                      <Grid item xs={1}>
-                        <ListActionButtons />
+                      <Grid item xs={2}>
+                        <ListActionButtons
+                          comments={item.data.meal.comments}
+                          onDelete={(event) => setDeleteMeal(item.id)}
+                        />
                       </Grid>
                     </ListItem>
                   ))}
@@ -100,9 +134,41 @@ const MealsList: FC<{ isLoading: boolean; meals: Meals }> = ({
             justifyContent: "center"
           }}
         >
-          Loading...
+          <Loader />
         </ListItem>
       )}
+      {/*Delete Modal*/}
+      <DeleteModal width={450}>
+        <Typography style={{ margin: "16px 0" }} variant="h6" noWrap>
+          Are you sure you want to delete ?
+        </Typography>
+        <Divider style={{ background: colors.tourquize, margin: "16px 0" }} />
+        <Grid container style={{ marginTop: "50px" }} spacing={2}>
+          <Grid item xs={6} container justify="flex-end">
+            <Button
+              style={{
+                background: colors.tourquize,
+                color: "white"
+              }}
+              onClick={onCancelDelete}
+            >
+              Cancel
+            </Button>
+          </Grid>
+          <Grid item xs={6} container>
+            <Button
+              style={{
+                background: "inherit",
+                color: colors.tourquize,
+                border: `1px solid ${colors.tourquize}`
+              }}
+              onClick={() => onConfirmDelete(chosenMealToBeDeleted)}
+            >
+              Confirm
+            </Button>
+          </Grid>
+        </Grid>
+      </DeleteModal>
     </List>
   );
 };
