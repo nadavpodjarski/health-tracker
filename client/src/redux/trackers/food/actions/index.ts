@@ -5,6 +5,7 @@ import * as apiUtils from "../../../../utilities/api";
 import * as _ from "lodash";
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 import { ParsedDateRange } from "../../../../types";
+import * as uiActions from "../../../ui/actions";
 
 export const deleteMeal = (docId: string) => (dispatch: Dispatch<any>) => {
   dispatch({
@@ -16,13 +17,19 @@ export const deleteMeal = (docId: string) => (dispatch: Dispatch<any>) => {
       dispatch({
         type: types.DELETE_MEAL_SUCCESS
       });
-      console.log(docId, "Deleted");
+      dispatch(
+        uiActions.setSnackBar({
+          type: "info",
+          msg: "Meal Deleted Succefully"
+        })
+      );
     })
     .catch((err) => {
       dispatch({
         type: types.REQUEST_ERR,
         payload: err
       });
+      dispatch(uiActions.setSnackBar({ type: "error", msg: err.msg }));
     });
 };
 
@@ -82,12 +89,21 @@ export const addMeal = (meal: any) => (
       dispatch({
         type: types.ADD_MEAL_SUCCESS
       });
+      dispatch(
+        uiActions.setSnackBar({
+          type: "success",
+          msg: "Meal Added Successfully"
+        })
+      );
     })
     .catch((err) => {
       dispatch({
         type: types.REQUEST_ERR,
         payload: err
       });
-      console.log(err);
+      uiActions.setSnackBar({
+        type: "error",
+        msg: err.msg
+      });
     });
 };
