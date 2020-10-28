@@ -26,15 +26,11 @@ let theme = createMuiTheme({
     fontSize: 16
   },
   overrides: {
-    // Style sheet name ⚛️
     MuiListItemIcon: {
       root: {
         color: "inherit"
       }
     }
-    // MuiPickersBasePicker: {
-    //   pickerView: { maxWidth: "350px" }
-    // }
   }
 });
 

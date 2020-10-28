@@ -6,6 +6,7 @@ import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 import { ParsedDateRange } from "../../../../types";
 import * as uiActions from "../../../ui/actions";
 import { Meal } from "../../../../types/food";
+import moment from "moment";
 
 export const deleteMeal = (docId: string) => async (
   dispatch: Dispatch<any>,
@@ -83,13 +84,16 @@ export const addMeal = (meal: Meal) => async (
     dispatch({
       type: types.ADD_MEAL_SUCCESS
     });
+
     dispatch(
       uiActions.setSnackBar({
         type: "success",
         msg: res.data
       })
     );
-    dispatch(fetchMeals(dateRange));
+    if (meal.date >= dateRange.startAt) {
+      dispatch(fetchMeals(dateRange));
+    }
   } catch (err) {
     dispatch({
       type: types.REQUEST_ERR,

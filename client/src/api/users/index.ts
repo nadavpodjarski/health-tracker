@@ -7,7 +7,7 @@ export const addUser = async (token: string) => {
     const res = await axios.post("/add-user", {
       data: ""
     });
-    return res;
+    return res.data;
   } catch (err) {
     throw err;
   }

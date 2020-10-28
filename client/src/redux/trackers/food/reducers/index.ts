@@ -41,13 +41,11 @@ export const foodTrackReducer = (
       };
     case types.ADD_MEAL:
       return {
-        ...state,
-        isLoading: true
+        ...state
       };
     case types.ADD_MEAL_SUCCESS:
       return {
-        ...state,
-        isLoading: false
+        ...state
       };
     case types.REQUEST_ERR:
       return {

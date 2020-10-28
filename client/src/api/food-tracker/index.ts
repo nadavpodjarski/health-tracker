@@ -25,7 +25,6 @@ export const postMeal = async (meal: Meal) => {
 
 export const deleteMeal = async (docId: string) => {
   try {
-    console.log(docId);
     return await axios.delete("/food/delete-meal", { params: { docId } });
   } catch (err) {
     throw err;
