@@ -17,7 +17,7 @@ foodRouter.post("/food/add-meal", async (req: any, res) => {
       meal: mealData
     });
     await db.collection("food").insertOne(meal);
-    res.json("Meal Deleted Successfully");
+    res.json("Meal Added Successfully");
   } catch (err) {
     console.log(err.stack);
     res.sendStatus(500);
