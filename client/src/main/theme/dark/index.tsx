@@ -17,9 +17,9 @@ export const colors = {
   kobe: "#78290F"
 };
 
-let theme = createMuiTheme({
+let lightTheme = createMuiTheme({
   palette: {
-    type: "light"
+    type: "dark"
   },
   typography: {
     fontFamily: "Poppins, Arial",
@@ -34,6 +34,6 @@ let theme = createMuiTheme({
   }
 });
 
-theme = responsiveFontSizes(theme);
+lightTheme = responsiveFontSizes(lightTheme);
 
-export { theme };
+export { lightTheme };

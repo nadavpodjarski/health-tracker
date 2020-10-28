@@ -11,7 +11,7 @@ const Loader = () => {
         alignItems: "center"
       }}
     >
-      <CircularProgress />
+      <CircularProgress disableShrink />
     </div>
   );
 };

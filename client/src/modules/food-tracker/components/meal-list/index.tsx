@@ -20,7 +20,7 @@ import Time from "./Time";
 
 import { Meal, Meals } from "../../../../types/food";
 import { useModal } from "../../../../common/hooks/useModal";
-import { colors } from "../../../../main/theme";
+import { colors } from "../../../../main/theme/colors";
 
 import { useDispatch } from "react-redux";
 import * as foodActions from "../../../../redux/trackers/food/actions";

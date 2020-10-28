@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import MealComponent from "../meal-component";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import { colors } from "../../../../main/theme";
+import { colors } from "../../../../main/theme/colors";
 
 import * as foodUtils from "../../../../utilities/food";
 import { useDatePicker } from "../../../../common/hooks/useDatePicker";

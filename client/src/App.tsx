@@ -8,6 +8,9 @@ import { useHistory } from "react-router-dom";
 import { routes } from "./main/routes/constants";
 import SnackBar from "./common/components/snack-bar";
 
+import { lightTheme } from "./main/theme/light";
+import { ThemeProvider } from "@material-ui/core";
+
 function App() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -18,13 +21,15 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <AppRoutes />
-      <SnackBar
-        position={{ vertical: "bottom", horizontal: "left" }}
-        duration={3000}
-      />
-    </div>
+    <ThemeProvider theme={lightTheme}>
+      <div className="App">
+        <AppRoutes />
+        <SnackBar
+          position={{ vertical: "bottom", horizontal: "left" }}
+          duration={3000}
+        />
+      </div>
+    </ThemeProvider>
   );
 }
 export default App;

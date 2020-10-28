@@ -7,7 +7,7 @@ import {
   Typography,
   Divider
 } from "@material-ui/core";
-import { colors } from "../../../../../main/theme";
+import { colors } from "../../../../../main/theme/colors";
 import { makeStyles, Theme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => ({

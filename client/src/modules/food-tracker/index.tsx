@@ -5,7 +5,7 @@ import MainHeader from "../../common/components/tracker-main-header";
 import MealsList from "./components/meal-list";
 import FilterOptions from "./components/filter-options";
 
-import { colors } from "../../main/theme";
+import { colors } from "../../main/theme/colors";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 import { useModal } from "../../common/hooks/useModal";
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: 0
     },
     openModalButton: {
-      fontSize: "24px",
+      fontSize: "20px",
       background: colors.tourquize,
       color: "white",
       "&:hover": {

@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink as Link, NavLinkProps } from "react-router-dom";
-import { colors } from "../../../main/theme";
+import { colors } from "../../../main/theme/colors";
 
 const NavLink = ({ ...rest }: NavLinkProps) => {
   return (
