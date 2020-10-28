@@ -1,5 +1,4 @@
-import React, { FC, CSSProperties, useState } from "react";
-import { Button } from "@material-ui/core";
+import React, { FC, useState } from "react";
 import SpringModal from "../../components/spring-modal";
 
 /**

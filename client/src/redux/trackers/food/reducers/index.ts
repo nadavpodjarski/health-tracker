@@ -3,7 +3,7 @@ import * as appUtils from "../../../../utilities";
 import { IFoodState, Action } from "../../../../types/redux";
 
 const initialState = {
-  meals: [],
+  foodTrack: [],
   dateRange: appUtils.parseDateRange([new Date(), new Date()]),
   isLoading: false,
   err: null
@@ -37,7 +37,7 @@ export const foodTrackReducer = (
       return {
         ...state,
         isLoading: false,
-        meals: action.payload
+        foodTrack: action.payload
       };
     case types.ADD_MEAL:
       return {

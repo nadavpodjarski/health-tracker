@@ -3,12 +3,12 @@ import { ParsedDateRange } from "../types";
 import { v4 as uuidv4 } from "uuid";
 
 export const makeLocaleDateString = (date: Date) => {
-  if (!date) return null;
+  if (!date) return "";
   return date.toLocaleDateString("en-GB");
 };
 
 export const makeLocaleTimeString = (date: Date) => {
-  if (!date) return null;
+  if (!date) return "";
   return date.toLocaleTimeString("en-GB");
 };
 

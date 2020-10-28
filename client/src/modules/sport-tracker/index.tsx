@@ -18,7 +18,10 @@ const FoodTracker = () => {
       {/*Body*/}
 
       {/*Add Sport Modal*/}
-      <Button style={{ background: "red", color: "white" }}>
+      <Button
+        onClick={handleOpen}
+        style={{ background: "red", color: "white" }}
+      >
         {modalButtonText}
       </Button>
       <AddSportModal width={1200}>

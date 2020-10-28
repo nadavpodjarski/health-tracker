@@ -1,14 +1,14 @@
-import { useDatabase } from "../../main/firebase/useDatabase";
-import * as utils from "../../utilities/api";
+import axios from "axios";
+import * as apiUtils from "../../utilities/api";
 
-const { db } = useDatabase();
-
-const usersCollection = utils.collections.users;
-
-export const addUser = (currentUser: any) => {
-  db.collection(usersCollection).doc().set({
-    displayName: currentUser.displayName,
-    uid: currentUser.uid,
-    email: currentUser.email
-  });
+export const addUser = async (token: string) => {
+  apiUtils.setAuthToken(token);
+  try {
+    const res = await axios.post("/add-user", {
+      data: ""
+    });
+    return res;
+  } catch (err) {
+    throw err;
+  }
 };

@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 const FoodTracker = () => {
-  const { isLoading, meals, dateRange } = useSelector(
+  const { isLoading, foodTrack, dateRange } = useSelector(
     (state: IStore) => state.food
   );
   const [handleOpen, AddMealModal] = useModal();
@@ -80,7 +80,7 @@ const FoodTracker = () => {
       <FilterOptions {...{ onDateRangeChange, dateRange }} />
 
       {/*Food List*/}
-      <MealsList isLoading={isLoading} meals={meals} />
+      <MealsList isLoading={isLoading} foodTrack={foodTrack} />
 
       {/*Add Meal Modal*/}
       <AddMealModal width={1200}>

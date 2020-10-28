@@ -1,36 +1,39 @@
 import { Dispatch } from "react";
 import * as api from "../../../../api/food-tracker";
 import * as types from "../constants";
-import * as apiUtils from "../../../../utilities/api";
 import * as _ from "lodash";
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 import { ParsedDateRange } from "../../../../types";
 import * as uiActions from "../../../ui/actions";
+import { Meal } from "../../../../types/food";
 
-export const deleteMeal = (docId: string) => (dispatch: Dispatch<any>) => {
+export const deleteMeal = (docId: string) => async (
+  dispatch: Dispatch<any>,
+  getStore: any
+) => {
+  const { dateRange } = getStore().food;
   dispatch({
     type: types.DELETE_MEAL
   });
-  api
-    .deleteMeal(docId)
-    .then((res) => {
-      dispatch({
-        type: types.DELETE_MEAL_SUCCESS
-      });
-      dispatch(
-        uiActions.setSnackBar({
-          type: "info",
-          msg: "Meal Deleted Succefully"
-        })
-      );
-    })
-    .catch((err) => {
-      dispatch({
-        type: types.REQUEST_ERR,
-        payload: err
-      });
-      dispatch(uiActions.setSnackBar({ type: "error", msg: err.msg }));
+  try {
+    const res = await api.deleteMeal(docId);
+    dispatch({
+      type: types.DELETE_MEAL_SUCCESS
     });
+    dispatch(
+      uiActions.setSnackBar({
+        type: "info",
+        msg: res.data
+      })
+    );
+    dispatch(fetchMeals(dateRange));
+  } catch (err) {
+    dispatch({
+      type: types.REQUEST_ERR,
+      payload: err.message
+    });
+    dispatch(uiActions.setSnackBar({ type: "error", msg: err.msg }));
+  }
 };
 
 export const setDateRange = (dateRange: DateRange) => (
@@ -42,68 +45,59 @@ export const setDateRange = (dateRange: DateRange) => (
   });
 };
 
-export const fetchMeals = (dateRange: ParsedDateRange) => (
-  dispatch: Dispatch<any>,
-  getStore: any
+export const fetchMeals = (dateRange: ParsedDateRange) => async (
+  dispatch: Dispatch<any>
 ) => {
-  const { currentUser } = getStore().auth;
   dispatch({
     type: types.GET_MEALS
   });
 
   if (!dateRange.startAt || !dateRange.endAt) return;
 
-  api
-    .getMeals(currentUser, dateRange.startAt, dateRange.endAt)
-    .then((listener) => {
-      listener.onSnapshot((snapshot: any) => {
-        const tempArr = snapshot.docs.map(apiUtils.makeDoc);
-        const docs = _.groupBy(tempArr, "data.meal.date");
-        dispatch({
-          type: types.GET_MEALS_SUCCESS,
-          payload: Object.entries(docs)
-        });
-      });
-    })
-    .catch((err) => {
-      dispatch({
-        type: types.REQUEST_ERR,
-        payload: err
-      });
+  try {
+    const res = await api.getMeals(dateRange.startAt, dateRange.endAt);
+    dispatch({
+      type: types.GET_MEALS_SUCCESS,
+      payload: res
     });
+  } catch (err) {
+    dispatch({
+      type: types.REQUEST_ERR,
+      payload: err.message
+    });
+    dispatch(uiActions.setSnackBar({ type: "error", msg: err.message }));
+  }
 };
 
-export const addMeal = (meal: any) => (
+export const addMeal = (meal: Meal) => async (
   dispatch: Dispatch<any>,
   getStore: any
 ) => {
-  const { currentUser } = getStore().auth;
-
+  const { dateRange } = getStore().food;
   dispatch({
     type: types.ADD_MEAL
   });
 
-  api
-    .postMeal(meal, currentUser)
-    .then(() => {
-      dispatch({
-        type: types.ADD_MEAL_SUCCESS
-      });
-      dispatch(
-        uiActions.setSnackBar({
-          type: "success",
-          msg: "Meal Added Successfully"
-        })
-      );
-    })
-    .catch((err) => {
-      dispatch({
-        type: types.REQUEST_ERR,
-        payload: err
-      });
-      uiActions.setSnackBar({
-        type: "error",
-        msg: err.msg
-      });
+  try {
+    const res = await api.postMeal(meal);
+    dispatch({
+      type: types.ADD_MEAL_SUCCESS
     });
+    dispatch(
+      uiActions.setSnackBar({
+        type: "success",
+        msg: res.data
+      })
+    );
+    dispatch(fetchMeals(dateRange));
+  } catch (err) {
+    dispatch({
+      type: types.REQUEST_ERR,
+      payload: err
+    });
+    uiActions.setSnackBar({
+      type: "error",
+      msg: err
+    });
+  }
 };

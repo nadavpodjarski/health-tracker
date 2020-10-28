@@ -13,25 +13,18 @@ export type MealComponent = {
 };
 
 export type Meal = {
-  date: string | null;
-  time: string | null;
+  date: string;
+  time: string;
   components: MealComponent[];
   type: MealTypes;
   comments: string;
 };
 
 export type MealDoc = {
+  meal: Meal;
   id: string;
-  data: {
-    meal: Meal;
-    author: {
-      uid: string;
-      displayName: string;
-    };
-    createdAt: string;
-  };
 };
 
-export type MealsByDate = [string, MealDoc[]];
+export type MealsByDate = { _id: string; meals: MealDoc[] };
 
 export type Meals = MealsByDate[];

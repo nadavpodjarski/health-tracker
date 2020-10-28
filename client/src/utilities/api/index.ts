@@ -1,16 +1,8 @@
-export const collections = {
-  food: "food",
-  sport: "sport",
-  symptoms: "symptoms",
-  mental: "mental",
-  users: "users"
-};
+import axios from "axios";
 
-export const makeAuthor = (currentUser: any) => {
-  return {
-    uid: currentUser.uid,
-    displayName: currentUser.displayName
-  };
-};
+export const setAuthToken = (token: string) =>
+  (axios.defaults.headers.common["Authorization"] = `Bearer ${token}`);
 
-export const makeDoc = (doc: any) => ({ id: doc.id, data: doc.data() });
+export const removeAuthToken = () => {
+  delete axios.defaults.headers.common["Authorization"];
+};

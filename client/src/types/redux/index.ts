@@ -8,7 +8,7 @@ export interface IAuth {
 }
 
 export interface IFoodState {
-  meals: Meals;
+  foodTrack: Meals;
   dateRange: ParsedDateRange;
   isLoading: boolean;
   err: any;

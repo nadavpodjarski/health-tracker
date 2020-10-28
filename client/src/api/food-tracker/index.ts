@@ -1,32 +1,23 @@
-import { useDatabase } from "../../main/firebase/useDatabase";
-import * as apiUtils from "../../utilities/api";
+import axios from "axios";
+import { Meal } from "../../types/food";
 
-const foodCollection = apiUtils.collections.food;
-
-const { db } = useDatabase();
-
-export const getMeals = async (
-  currentUser: any,
-  startAt: string,
-  endAt: string
-) => {
+export const getMeals = async (startAt: string, endAt: string) => {
   try {
-    return db
-      .collection(foodCollection)
-      .where("author.uid", "==", currentUser.uid)
-      .orderBy("meal.date")
-      .startAt(startAt)
-      .endAt(endAt);
+    const res = await axios.get("/food/get-meals", {
+      params: {
+        startAt,
+        endAt
+      }
+    });
+    return res.data;
   } catch (err) {
     throw err;
   }
 };
 
-export const postMeal = async (meal: any, currentUser: any) => {
+export const postMeal = async (meal: Meal) => {
   try {
-    const author = apiUtils.makeAuthor(currentUser);
-    const doc = { author, meal, createdAt: Date.now() };
-    db.collection(foodCollection).doc().set(doc);
+    return await axios.post("/food/add-meal", { data: meal });
   } catch (err) {
     throw err;
   }
@@ -34,12 +25,16 @@ export const postMeal = async (meal: any, currentUser: any) => {
 
 export const deleteMeal = async (docId: string) => {
   try {
-    db.collection(foodCollection).doc(docId).delete();
+    console.log(docId);
+    return await axios.delete("/food/delete-meal", { params: { docId } });
   } catch (err) {
     throw err;
   }
 };
 
-export const putMeal = async (meal: any, currentUser: any) => {
-  return "";
+export const putMeal = async (meal: Meal) => {
+  try {
+  } catch (err) {
+    throw err;
+  }
 };

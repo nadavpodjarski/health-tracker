@@ -13,7 +13,6 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import { colors } from "../../../../main/theme";
 
 import * as foodUtils from "../../../../utilities/food";
-
 import { useDatePicker } from "../../../../common/hooks/useDatePicker";
 
 import { useDispatch } from "react-redux";
