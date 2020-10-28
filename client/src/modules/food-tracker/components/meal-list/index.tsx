@@ -97,8 +97,8 @@ const MealsList: FC<{ isLoading: boolean; foodTrack: Meals }> = ({
                     <ListItem
                       key={`item-${i}`}
                       component={Grid}
-                      container
                       spacing={3}
+                      divider
                     >
                       <Grid item xs={3}>
                         <Type type={item.meal.type} />
