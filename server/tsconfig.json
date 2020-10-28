@@ -11,9 +11,12 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
-    "target": "es5",
+    "target": "es2017",
     "moduleResolution": "node",
     "types": ["node"],
-    "typeRoots": ["node_modules/@types"]
+    "declarationMap": true,
+    "typeRoots": ["@types", "node_modules/@types"],
+    "outDir": "./build",
+    "incremental": true
   }
 }

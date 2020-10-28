@@ -4,7 +4,7 @@ import { db } from "../../db";
 
 const usersRouter = Router();
 
-usersRouter.post("/add-user", async (req: any, res) => {
+usersRouter.post("/add-user", async (req, res) => {
   let user = await db.collection("users").findOne({ email: req.user.email });
 
   if (!user) {

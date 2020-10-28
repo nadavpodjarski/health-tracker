@@ -5,7 +5,7 @@ import { ObjectId } from "bson";
 
 const foodRouter = Router();
 
-foodRouter.post("/food/add-meal", async (req: any, res) => {
+foodRouter.post("/food/add-meal", async (req, res) => {
   const { data: mealData } = req.body;
 
   try {
@@ -24,7 +24,7 @@ foodRouter.post("/food/add-meal", async (req: any, res) => {
   }
 });
 
-foodRouter.get("/food/get-meals", async (req: any, res) => {
+foodRouter.get("/food/get-meals", async (req, res) => {
   const { startAt, endAt } = req.query;
 
   try {
@@ -55,7 +55,7 @@ foodRouter.get("/food/get-meals", async (req: any, res) => {
   }
 });
 
-foodRouter.delete("/food/delete-meal", async (req: any, res) => {
+foodRouter.delete("/food/delete-meal", async (req, res) => {
   const { docId } = req.query;
   try {
     const doc = await db
