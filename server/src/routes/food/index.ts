@@ -63,7 +63,7 @@ foodRouter.delete("/food/delete-meal", async (req: any, res) => {
       .findOne({ _id: new ObjectId(docId as string) });
 
     if (doc.author.uid !== req.user.uid)
-      res.status(403).json({ err: "Doc not verified" });
+      res.status(403).json("unauthorized request");
 
     db.collection("food").deleteOne(doc);
 

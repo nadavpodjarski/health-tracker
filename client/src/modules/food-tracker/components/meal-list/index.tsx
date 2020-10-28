@@ -18,7 +18,7 @@ import Type from "./Type";
 import Components from "./Components";
 import Time from "./Time";
 
-import { Meals } from "../../../../types/food";
+import { Meal, Meals } from "../../../../types/food";
 import { useModal } from "../../../../common/hooks/useModal";
 import { colors } from "../../../../main/theme";
 
@@ -52,33 +52,38 @@ const MealsList: FC<{ isLoading: boolean; foodTrack: Meals }> = ({
 }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [chosenMealToBeDeleted, setChosenMealToBeDeleted] = useState<string>(
-    ""
-  );
+  const [deleteModalToggler, DeleteModal] = useModal();
 
-  const [deleteModalOpener, DeleteModal] = useModal();
+  const [mealToBeDeleted, setMealToBeDeleted] = useState<string>("");
+  const [mealToBeUpdated, setMealToBeUpdated] = useState<Meal>();
 
   const setDeleteMeal = (docId: string) => {
-    setChosenMealToBeDeleted(docId);
-    deleteModalOpener();
+    setMealToBeDeleted(docId);
+    deleteModalToggler();
   };
 
   const onConfirmDelete = (docId: string) => {
-    deleteModalOpener();
+    deleteModalToggler();
     dispatch(foodActions.deleteMeal(docId));
-    setChosenMealToBeDeleted("");
+    setMealToBeDeleted("");
   };
 
   const onCancelDelete = () => {
-    deleteModalOpener();
-    setChosenMealToBeDeleted("");
+    deleteModalToggler();
+    setMealToBeDeleted("");
   };
+
+  const setUpdateMeal = (meal: Meal) => {};
+
+  const onCofirmUpdate = (meal: Meal) => {};
+
+  const onCancelUpdate = () => {};
 
   return (
     <List
       className={classes.foodList}
       component={Paper}
-      elevation={3}
+      elevation={1}
       subheader={<li />}
     >
       {!isLoading ? (
@@ -154,7 +159,7 @@ const MealsList: FC<{ isLoading: boolean; foodTrack: Meals }> = ({
                 color: colors.ming,
                 border: `1px solid ${colors.ming}`
               }}
-              onClick={() => onConfirmDelete(chosenMealToBeDeleted)}
+              onClick={() => onConfirmDelete(mealToBeDeleted)}
             >
               Confirm
             </Button>

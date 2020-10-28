@@ -40,7 +40,7 @@ const FoodTracker = () => {
   const { isLoading, foodTrack, dateRange } = useSelector(
     (state: IStore) => state.food
   );
-  const [handleOpen, AddMealModal] = useModal();
+  const [addMealModalToogler, AddMealModal] = useModal();
 
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -71,7 +71,10 @@ const FoodTracker = () => {
           height: "100px"
         }}
       >
-        <Button onClick={handleOpen} className={classes.openModalButton}>
+        <Button
+          onClick={addMealModalToogler}
+          className={classes.openModalButton}
+        >
           {modalButtonText}
         </Button>
       </div>
@@ -84,7 +87,7 @@ const FoodTracker = () => {
 
       {/*Add Meal Modal*/}
       <AddMealModal width={1200}>
-        <AddMealModalContent handleOpen={handleOpen} />
+        <AddMealModalContent addMealModalToogler={addMealModalToogler} />
       </AddMealModal>
     </div>
   );

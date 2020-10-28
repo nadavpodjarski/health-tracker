@@ -28,8 +28,8 @@ const mealTypes = [
   { const: "Easy meal/Snack", value: "snack" }
 ];
 
-const AddDishModalContent: FC<{ handleOpen: () => void }> = ({
-  handleOpen
+const AddDishModalContent: FC<{ addMealModalToogler: () => void }> = ({
+  addMealModalToogler
 }) => {
   const dispatch = useDispatch();
   const { DateTimePicker } = useDatePicker();
@@ -50,7 +50,7 @@ const AddDishModalContent: FC<{ handleOpen: () => void }> = ({
   };
 
   const deleteMealComponentHandler = (id: string) => {
-    if (state.components.length === 1) handleOpen();
+    if (state.components.length === 1) addMealModalToogler();
     setState((prevState) => ({
       ...prevState,
       components: [...prevState.components.filter((comp) => comp.id !== id)]
@@ -116,7 +116,7 @@ const AddDishModalContent: FC<{ handleOpen: () => void }> = ({
   const doneHandler = () => {
     if (state.components[0].food || state.components.length > 1) {
       dispatch(foodActions.addMeal(state));
-      handleOpen();
+      addMealModalToogler();
     }
   };
 
@@ -216,7 +216,7 @@ const AddDishModalContent: FC<{ handleOpen: () => void }> = ({
               border: `1px solid ${colors.tourquize}`,
               width: "80px"
             }}
-            onClick={handleOpen}
+            onClick={addMealModalToogler}
           >
             Cancel
           </Button>

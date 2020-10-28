@@ -59,15 +59,15 @@ const Fade = React.forwardRef<HTMLDivElement, FadeProps>(function Fade(
 
 const SpringModal: FC<{
   open: boolean;
-  handleOpen: () => void;
+  modalToggler: () => void;
   width: number | string;
-}> = ({ children, open, handleOpen, width }) => {
+}> = ({ children, open, modalToggler, width }) => {
   const classes = useStyles({ width });
 
   return (
     <Dialog
       open={open}
-      onClose={handleOpen}
+      onClose={modalToggler}
       classes={{ paperWidthSm: classes.paperWidthSm }}
     >
       <Fade in={open}>

@@ -10,7 +10,7 @@ export const useModal = () => {
   /**
    *  @description  modal open / close handler
    */
-  const handleOpen = () => {
+  const modalToggler = () => {
     setOpen((prevState) => !prevState);
   };
 
@@ -18,8 +18,8 @@ export const useModal = () => {
    *  @description  modal
    */
   const Modal: FC<{ width: number | string }> = ({ children, width }) => (
-    <SpringModal {...{ open, handleOpen, width }}>{children}</SpringModal>
+    <SpringModal {...{ open, modalToggler, width }}>{children}</SpringModal>
   );
 
-  return [handleOpen, Modal] as const;
+  return [modalToggler, Modal] as const;
 };
