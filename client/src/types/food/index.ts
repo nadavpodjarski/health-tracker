@@ -1,8 +1,8 @@
 export enum MealTypes {
-  breakfast = "Breakfast",
-  lunch = "Lunch",
-  dinner = "Dinner",
-  snack = "Snack"
+  Breakfast,
+  Lunch,
+  Dinner,
+  "Easy meal/Snack"
 }
 
 export type MealComponent = {
@@ -13,8 +13,7 @@ export type MealComponent = {
 };
 
 export type Meal = {
-  date: string;
-  time: string;
+  date: Date;
   components: MealComponent[];
   type: MealTypes;
   comments: string;

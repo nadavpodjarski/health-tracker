@@ -7,27 +7,27 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     height: "100vh",
     width: "100%",
-    display: "flex",
+    display: "flex"
   },
   leftScreen: {
     height: "100%",
-    width: "50%",
+    width: "70%",
     display: "flex",
     background: "rgba(0,0,0,0.7)",
     [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
+      display: "none"
+    }
   },
   rightScreen: {
     height: "100%",
-    width: "50%",
+    width: "30%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     [theme.breakpoints.down("sm")]: {
-      width: "100%",
-    },
-  },
+      width: "100%"
+    }
+  }
 }));
 
 const SigIn = () => {
@@ -37,13 +37,13 @@ const SigIn = () => {
     signInFlow: "popup",
     signInOptions: [
       firebaseAuth?.GoogleAuthProvider?.PROVIDER_ID,
-      firebaseAuth?.FacebookAuthProvider.PROVIDER_ID,
+      firebaseAuth?.FacebookAuthProvider.PROVIDER_ID
     ],
     callbacks: {
       signInSuccessWithAuthResult: (authResult: any) => {
         return false;
-      },
-    },
+      }
+    }
   };
 
   return (
@@ -58,7 +58,7 @@ const SigIn = () => {
                 padding: "0 24px",
                 textAlign: "left",
                 display: "flex",
-                alignItems: "center",
+                alignItems: "center"
               }}
             >
               <Typography
@@ -66,7 +66,7 @@ const SigIn = () => {
                 style={{
                   color: "white",
                   fontWeight: 700,
-                  whiteSpace: "nowrap",
+                  whiteSpace: "nowrap"
                 }}
               >
                 Follow Your Gut

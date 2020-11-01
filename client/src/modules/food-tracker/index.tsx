@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import AddMealModalContent from "./components/modal-content";
+import AddMealModalContent from "./components/add-meal-modal-content";
 import MainHeader from "../../common/components/tracker-main-header";
 import MealsList from "./components/meal-list";
 import FilterOptions from "./components/filter-options";
@@ -36,11 +36,12 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 );
+
 const FoodTracker = () => {
   const { isLoading, foodTrack, dateRange } = useSelector(
     (state: IStore) => state.food
   );
-  const [addMealModalToogler, AddMealModal] = useModal();
+  const [addMealModalToggler, AddMealModal] = useModal();
 
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -68,11 +69,11 @@ const FoodTracker = () => {
         style={{
           display: "flex",
           alignItems: "flex-start",
-          height: "100px"
+          height: "80px"
         }}
       >
         <Button
-          onClick={addMealModalToogler}
+          onClick={addMealModalToggler}
           className={classes.openModalButton}
         >
           {modalButtonText}
@@ -87,7 +88,7 @@ const FoodTracker = () => {
 
       {/*Add Meal Modal*/}
       <AddMealModal width={1200}>
-        <AddMealModalContent addMealModalToogler={addMealModalToogler} />
+        <AddMealModalContent addMealModalToggler={addMealModalToggler} />
       </AddMealModal>
     </div>
   );

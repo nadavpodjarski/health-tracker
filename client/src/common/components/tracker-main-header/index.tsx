@@ -4,7 +4,7 @@ import { Direction } from "../../../types";
 
 const useStyles = makeStyles((theme: Theme) => ({
   header: {
-    height: "200px",
+    height: "150px",
     display: "flex",
     alignItems: "center",
     [theme.breakpoints.down("sm")]: {

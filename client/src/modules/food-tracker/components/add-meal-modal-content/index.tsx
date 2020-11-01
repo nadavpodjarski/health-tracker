@@ -17,19 +17,20 @@ import { useDatePicker } from "../../../../common/hooks/useDatePicker";
 
 import { useDispatch } from "react-redux";
 import * as foodActions from "../../../../redux/trackers/food/actions";
+import moment from "moment";
 import * as appUtils from "../../../../utilities";
 
 import { Meal, MealTypes } from "../../../../types/food";
 
 const mealTypes = [
-  { const: "Breakfast", value: "breakfast" },
-  { const: "Lunch", value: "lunch" },
-  { const: "Dinner", value: "dinner" },
-  { const: "Easy meal/Snack", value: "snack" }
+  { const: "Breakfast", value: 0 },
+  { const: "Lunch", value: 1 },
+  { const: "Dinner", value: 2 },
+  { const: "Easy meal/Snack", value: 3 }
 ];
 
-const AddDishModalContent: FC<{ addMealModalToogler: () => void }> = ({
-  addMealModalToogler
+const AddDishModalContent: FC<{ addMealModalToggler: () => void }> = ({
+  addMealModalToggler
 }) => {
   const dispatch = useDispatch();
   const { DateTimePicker } = useDatePicker();
@@ -37,8 +38,7 @@ const AddDishModalContent: FC<{ addMealModalToogler: () => void }> = ({
     type: mealTypes[0].value as MealTypes,
     components: [foodUtils.makeNewMealComponent()],
     comments: "",
-    date: appUtils.makeLocaleDateString(new Date()),
-    time: appUtils.makeLocaleTimeString(new Date())
+    date: moment().toDate()
   });
 
   const addMealComponentHandler = () => {
@@ -50,7 +50,7 @@ const AddDishModalContent: FC<{ addMealModalToogler: () => void }> = ({
   };
 
   const deleteMealComponentHandler = (id: string) => {
-    if (state.components.length === 1) addMealModalToogler();
+    if (state.components.length === 1) addMealModalToggler();
     setState((prevState) => ({
       ...prevState,
       components: [...prevState.components.filter((comp) => comp.id !== id)]
@@ -95,28 +95,25 @@ const AddDishModalContent: FC<{ addMealModalToogler: () => void }> = ({
     }>
   ) => {
     const { value } = event.target;
-    if (typeof value == "string") {
-      setState((prevState) => ({
-        ...prevState,
-        type: value as MealTypes
-      }));
-    }
+    setState((prevState) => ({
+      ...prevState,
+      type: value as MealTypes
+    }));
   };
 
   const mealTimeChangeHandler = (date: Date | null) => {
     if (date) {
       setState((prevState) => ({
         ...prevState,
-        date: appUtils.makeLocaleDateString(date),
-        time: appUtils.makeLocaleTimeString(date)
+        date
       }));
     }
   };
 
-  const doneHandler = () => {
+  const doneHandler = async () => {
     if (state.components[0].food || state.components.length > 1) {
       dispatch(foodActions.addMeal(state));
-      addMealModalToogler();
+      addMealModalToggler();
     }
   };
 
@@ -216,7 +213,7 @@ const AddDishModalContent: FC<{ addMealModalToogler: () => void }> = ({
               border: `1px solid ${colors.tourquize}`,
               width: "80px"
             }}
-            onClick={addMealModalToogler}
+            onClick={addMealModalToggler}
           >
             Cancel
           </Button>
@@ -230,7 +227,7 @@ const AddDishModalContent: FC<{ addMealModalToogler: () => void }> = ({
             }}
             onClick={() => doneHandler()}
           >
-            Done
+            {"Done"}
           </Button>
         </Grid>
       </Grid>

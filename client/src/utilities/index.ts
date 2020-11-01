@@ -15,8 +15,8 @@ export const makeLocaleTimeString = (date: Date) => {
 
 export const parseDateRange = (dateRange: DateRange): ParsedDateRange => {
   return {
-    startAt: makeLocaleDateString(dateRange[0] as Date),
-    endAt: makeLocaleDateString(dateRange[1] as Date)
+    startAt: dateRange[0] as Date,
+    endAt: dateRange[1] as Date
   };
 };
 

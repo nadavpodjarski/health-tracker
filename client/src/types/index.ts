@@ -11,6 +11,6 @@ export type Direction = {
 };
 
 export type ParsedDateRange = {
-  startAt: string | null;
-  endAt: string | null;
+  startAt: Date | null;
+  endAt: Date | null;
 };

@@ -6,8 +6,6 @@ import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 import { ParsedDateRange } from "../../../../types";
 import * as uiActions from "../../../ui/actions";
 import { Meal } from "../../../../types/food";
-import moment from "moment";
-
 export const deleteMeal = (docId: string) => async (
   dispatch: Dispatch<any>,
   getStore: any
@@ -64,9 +62,9 @@ export const fetchMeals = (dateRange: ParsedDateRange) => async (
   } catch (err) {
     dispatch({
       type: types.REQUEST_ERR,
-      payload: err.message
+      payload: err.response.data
     });
-    dispatch(uiActions.setSnackBar({ type: "error", msg: err.message }));
+    dispatch(uiActions.setSnackBar({ type: "error", msg: err.response.data }));
   }
 };
 
@@ -97,11 +95,14 @@ export const addMeal = (meal: Meal) => async (
   } catch (err) {
     dispatch({
       type: types.REQUEST_ERR,
-      payload: err
+      payload: err.response.data
     });
-    uiActions.setSnackBar({
-      type: "error",
-      msg: err
-    });
+
+    dispatch(
+      uiActions.setSnackBar({
+        type: "error",
+        msg: err.response.data
+      })
+    );
   }
 };

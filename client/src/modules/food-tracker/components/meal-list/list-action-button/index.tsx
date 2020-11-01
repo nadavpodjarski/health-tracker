@@ -5,18 +5,21 @@ import DeleteButton from "./DeleteButton";
 import CommentsButton from "./CommentsButton";
 const ListActionButtons: FC<{
   comments: string;
-  onDelete: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-}> = ({ comments, onDelete }) => {
+  deleteHandler: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+  editHandler: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+}> = ({ comments, deleteHandler, editHandler }) => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={4}>
         <CommentsButton {...{ comments }} />
       </Grid>
       <Grid item xs={4}>
-        <EditButton />
+        <EditButton onClick={editHandler} />
       </Grid>
       <Grid item xs={4}>
-        <DeleteButton onClick={(event) => onDelete(event)} />
+        <DeleteButton onClick={(event) => deleteHandler(event)} />
       </Grid>
     </Grid>
   );

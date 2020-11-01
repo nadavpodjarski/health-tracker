@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
-      justifyContent: "center",
       height: "100%"
     },
     appBar: {
@@ -89,7 +88,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       flexGrow: 1,
-      maxWidth: `calc( 1200px + ${theme.spacing(4)}px )`,
+      justifyContent: "center",
       height: "100%",
       display: "flex",
       flexDirection: "column",

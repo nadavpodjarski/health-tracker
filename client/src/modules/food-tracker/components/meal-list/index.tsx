@@ -1,15 +1,12 @@
 import React, { FC, useState } from "react";
 import {
   List,
-  Typography,
   ListSubheader,
   ListItem,
-  Grid,
   makeStyles,
   Theme,
   Paper,
-  Button,
-  Divider
+  ListItemText
 } from "@material-ui/core";
 
 import ListActionButtons from "./list-action-button";
@@ -17,24 +14,28 @@ import Loader from "../../../../common/components/loader";
 import Type from "./Type";
 import Components from "./Components";
 import Time from "./Time";
+import DeleteModalContent from "../delete-modal-content";
+import EditModalContent from "../edit-meal-modal-content";
 
 import { Meal, Meals } from "../../../../types/food";
 import { useModal } from "../../../../common/hooks/useModal";
-import { colors } from "../../../../main/theme/colors";
 
 import { useDispatch } from "react-redux";
 import * as foodActions from "../../../../redux/trackers/food/actions";
+import moment from "moment";
 
 const useStyles = makeStyles((theme: Theme) => ({
   foodList: {
     backgroundColor: theme.palette.background.paper,
     position: "relative",
-    overflow: "auto",
+    overflowY: "auto",
+    overflowX: "hidden",
     flex: 1,
     minHeight: 0,
     scrollbarWidth: "none",
     marginBottom: theme.spacing(1),
-    padding: "0 16px"
+    padding: "0 16px",
+    maxWidth: "100%"
   },
   listSection: {
     backgroundColor: "inherit",
@@ -53,9 +54,10 @@ const MealsList: FC<{ isLoading: boolean; foodTrack: Meals }> = ({
   const classes = useStyles();
   const dispatch = useDispatch();
   const [deleteModalToggler, DeleteModal] = useModal();
+  const [editModalToggler, EditModal] = useModal();
 
   const [mealToBeDeleted, setMealToBeDeleted] = useState<string>("");
-  const [mealToBeUpdated, setMealToBeUpdated] = useState<Meal>();
+  const [mealToBeUpdated, setMealToBeUpdated] = useState<Meal | null>();
 
   const setDeleteMeal = (docId: string) => {
     setMealToBeDeleted(docId);
@@ -73,11 +75,17 @@ const MealsList: FC<{ isLoading: boolean; foodTrack: Meals }> = ({
     setMealToBeDeleted("");
   };
 
-  const setUpdateMeal = (meal: Meal) => {};
+  const setUpdateMeal = (meal: Meal) => {
+    setMealToBeUpdated(meal);
+    editModalToggler();
+  };
 
   const onCofirmUpdate = (meal: Meal) => {};
 
-  const onCancelUpdate = () => {};
+  const onCancelUpdate = () => {
+    editModalToggler();
+    setMealToBeUpdated(null);
+  };
 
   return (
     <List
@@ -96,25 +104,42 @@ const MealsList: FC<{ isLoading: boolean; foodTrack: Meals }> = ({
                   {mealsByDate.meals.map((item, i: number) => (
                     <ListItem
                       key={`item-${i}`}
-                      component={Grid}
-                      spacing={3}
                       divider
+                      style={{
+                        padding: "18px 12px"
+                      }}
                     >
-                      <Grid item xs={3}>
+                      {/* <Grid container spacing={2} alignItems="center">
+                        <Grid item xs={3}> */}
+                      <ListItemText
+                        style={{ minWidth: "250px", maxWidth: "250px" }}
+                      >
                         <Type type={item.meal.type} />
-                      </Grid>
-                      <Grid item xs={6} container style={{ overflowX: "auto" }}>
+                      </ListItemText>
+                      {/* </Grid>
+                        <Grid item xs={7} container spacing={1}> */}
+                      <ListItemText style={{ flex: 1, minWidth: "400px" }}>
                         <Components components={item.meal.components} />
-                      </Grid>
-                      <Grid item xs={1} container justify="center">
-                        <Time time={item.meal.time} />
-                      </Grid>
-                      <Grid item xs={2}>
+                      </ListItemText>
+                      {/* </Grid>
+                        <Grid item xs={1} container justify="center"> */}
+                      <ListItemText style={{ maxWidth: "50px" }}>
+                        <Time time={item.meal.date} />
+                      </ListItemText>
+                      {/* </Grid>
+                        <Grid item xs={1}> */}
+                      <ListItemText
+                        style={{ marginRight: 0, maxWidth: "150px" }}
+                      >
                         <ListActionButtons
                           comments={item.meal.comments}
-                          onDelete={(event) => setDeleteMeal(item.id)}
+                          deleteHandler={(event) => setDeleteMeal(item.id)}
+                          editHandler={(event) => setUpdateMeal(item.meal)}
                         />
-                      </Grid>
+                      </ListItemText>
+
+                      {/* </Grid>
+                      </Grid> */}
                     </ListItem>
                   ))}
                 </ul>
@@ -134,38 +159,22 @@ const MealsList: FC<{ isLoading: boolean; foodTrack: Meals }> = ({
           <Loader />
         </ListItem>
       )}
+
       {/*Delete Modal*/}
-      <DeleteModal width={450}>
-        <Typography style={{ margin: "16px 0" }} variant="h6" noWrap>
-          Are you sure you want to delete ?
-        </Typography>
-        <Divider style={{ background: colors.ming, margin: "16px 0" }} />
-        <Grid container style={{ marginTop: "50px" }} spacing={2}>
-          <Grid item xs={6} container justify="flex-end">
-            <Button
-              style={{
-                background: colors.ming,
-                color: "white"
-              }}
-              onClick={onCancelDelete}
-            >
-              Cancel
-            </Button>
-          </Grid>
-          <Grid item xs={6} container>
-            <Button
-              style={{
-                background: "inherit",
-                color: colors.ming,
-                border: `1px solid ${colors.ming}`
-              }}
-              onClick={() => onConfirmDelete(mealToBeDeleted)}
-            >
-              Confirm
-            </Button>
-          </Grid>
-        </Grid>
+      <DeleteModal width={500}>
+        <DeleteModalContent
+          onCancelDelete={onCancelDelete}
+          onConfirmDelete={() => onConfirmDelete(mealToBeDeleted)}
+        />
       </DeleteModal>
+
+      {/*Edit Modal*/}
+      <EditModal width={400}>
+        <EditModalContent
+          onCancelEdit={onCancelUpdate}
+          mealToBeUpdated={mealToBeUpdated}
+        />
+      </EditModal>
     </List>
   );
 };

@@ -9,19 +9,19 @@ import {
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 import moment from "moment";
 
-const parseTimes = (startAt: string, endAt: string) => {
-  const parsedStart = moment(startAt, ["DD/MM/YYYY"]).valueOf();
-  const parsedEnd = moment(endAt, ["DD/MM/YYYY"]).valueOf();
+const parseTimes = (startAt: Date, endAt: Date) => {
+  const parsedStart = moment(startAt).valueOf();
+  const parsedEnd = moment(endAt).valueOf();
   return [parsedStart, parsedEnd];
 };
 
 const DateRangePicker: FC<{
   onChange: (date: DateRange) => void;
-  startAt: string | null;
-  endAt: string | null;
+  startAt: Date | null;
+  endAt: Date | null;
 }> = ({ onChange, startAt, endAt }) => {
   const [value, setValue] = useState<any>(
-    parseTimes(startAt as string, endAt as string)
+    parseTimes(startAt as Date, endAt as Date)
   );
 
   useEffect(() => {

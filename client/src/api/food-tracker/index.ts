@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Meal } from "../../types/food";
 
-export const getMeals = async (startAt: string, endAt: string) => {
+export const getMeals = async (startAt: Date, endAt: Date) => {
   try {
     const res = await axios.get("/food/get-meals", {
       params: {
