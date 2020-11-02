@@ -5,7 +5,8 @@ import * as nutritionUtils from "../../../../utilities/nutrition";
 const EditModalContent: FC<{
   onCancelEdit: () => void;
   mealToBeUpdated: Meal;
-}> = ({ onCancelEdit, mealToBeUpdated }) => {
+  onEditMeal: () => void;
+}> = ({ onCancelEdit, mealToBeUpdated, onEditMeal }) => {
   const [state, setState] = useState<Meal>(mealToBeUpdated);
 
   const addMealIngredientHandler = () => {

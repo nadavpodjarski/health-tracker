@@ -8,7 +8,11 @@ const MealIngredients: FC<{
   ingredients: Ingredient[];
   onAddMealIngredient: () => void;
   onDeleteMealIngredient: (id: string) => void;
-  onChangeMealIngredient: (property: string, value: string, id: string) => void;
+  onChangeMealIngredient: (
+    property: string,
+    value: string,
+    index: number
+  ) => void;
 }> = ({
   ingredients,
   onAddMealIngredient,
@@ -22,24 +26,26 @@ const MealIngredients: FC<{
           name?: string | undefined;
           value: unknown;
         }>,
-    id: string
+    index: number
   ) => {
     const { name: property, value } = event.target;
     if (typeof property === "string") {
-      onChangeMealIngredient(property, value as string, id);
+      onChangeMealIngredient(property, value as string, index);
     }
   };
 
   return (
     <>
-      <div>
-        <Typography>Add Ingredient</Typography>
-        <div>
+      <Grid container alignItems="center" spacing={1}>
+        <Grid item>
+          <Typography>Add Ingredient</Typography>
+        </Grid>
+        <Grid item>
           <IconButton onClick={onAddMealIngredient}>
             <AddCircleOutlineIcon />
           </IconButton>
-        </div>
-      </div>
+        </Grid>
+      </Grid>
 
       <Grid container spacing={3}>
         {ingredients.map((ing, i) => {
@@ -48,7 +54,7 @@ const MealIngredients: FC<{
               <MealIngredient
                 ingredient={ing}
                 onDelete={(event) => onDeleteMealIngredient(ing.id)}
-                onChange={(event) => onChange(event, ing.id)}
+                onChange={(event) => onChange(event, i)}
               />
             </Grid>
           );

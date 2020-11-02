@@ -11,26 +11,27 @@ const nutritionRouter = Router();
 nutritionRouter.post("/nutrition/add-meal", async (req, res) => {
   const { data: mealData } = req.body;
 
-  const isMealTypeExist = await db.collection("nutrition").findOne({
-    "author.uid": req.user.uid,
-    "meal.type": mealData.type,
-    "meal.date": {
-      $gte: helpers.getStartDayDate(mealData.date),
-      $lte: helpers.getEndDayDate(mealData.date)
-    }
-  });
-
-  if (isMealTypeExist && mealData.type !== MealTypes["Easy meal/Snack"]) {
-    return res
-      .status(400)
-      .json(
-        `${MealTypes[mealData.type]} on ${helpers.formatDate(
-          mealData.date
-        )} Already exist`
-      );
-  }
-
   try {
+    if (mealData.type !== MealTypes["Easy meal/Snack"]) {
+      const isMealTypeExist = !!(await db.collection("nutrition").findOne({
+        "author.uid": req.user.uid,
+        "meal.type": mealData.type,
+        "meal.date": {
+          $gte: helpers.getStartDayDate(mealData.date),
+          $lte: helpers.getEndDayDate(mealData.date)
+        }
+      }));
+
+      if (isMealTypeExist) {
+        return res
+          .status(400)
+          .json(
+            `${MealTypes[mealData.type]} on ${helpers.formatDate(
+              mealData.date
+            )} Already exist`
+          );
+      }
+    }
     mealData.date = helpers.stringToDate(mealData.date);
     const meal = new MealModel({
       author: {
@@ -58,35 +59,36 @@ nutritionRouter.get("/nutrition/get-meals", async (req, res) => {
   const end = helpers.getEndDayDate(endAt as string);
 
   try {
-    const meals = db.collection("nutrition").aggregate([
-      {
-        $match: {
-          $and: [
-            {
-              "meal.date": { $gte: start, $lte: end }
+    const meals = await db
+      .collection("nutrition")
+      .aggregate([
+        {
+          $match: {
+            $and: [
+              {
+                "meal.date": { $gte: start, $lte: end }
+              },
+              { "author.uid": req.user.uid }
+            ]
+          }
+        },
+
+        {
+          $group: {
+            _id: {
+              $dateToString: {
+                format: "%d/%m/%Y",
+                date: "$meal.date"
+              }
             },
-            { "author.uid": req.user.uid }
-          ]
-        }
-      },
+            meals: { $push: { meal: "$meal", id: "$_id" } }
+          }
+        },
+        { $sort: { "meals.meal.date": -1 } }
+      ])
+      .toArray();
 
-      {
-        $group: {
-          _id: {
-            $dateToString: {
-              format: "%d/%m/%Y",
-              date: "$meal.date"
-            }
-          },
-          meals: { $push: { meal: "$meal", id: "$_id" } }
-        }
-      },
-      { $sort: { "meals.meal.date": -1 } }
-    ]);
-
-    const parsedMeals = await meals.toArray();
-
-    return res.json(parsedMeals);
+    return res.json(meals);
   } catch (err) {
     console.log(err.stack);
     return res.status(500).json("Something went worng while fetching meals");

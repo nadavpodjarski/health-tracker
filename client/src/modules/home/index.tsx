@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme: Theme) =>
       overflowX: "hidden",
       width: theme.spacing(7) + 1,
       [theme.breakpoints.up("sm")]: {
-        width: "72px"
+        minWidth: "72px"
       },
       [theme.breakpoints.down("sm")]: {
         width: "0"

@@ -73,6 +73,17 @@ export const addMeal = (meal: Meal) => async (
   getStore: any
 ) => {
   const { dateRange } = getStore().nutrition;
+
+  if (!meal.ingredients[0].item || !meal.ingredients.length) {
+    dispatch(
+      uiActions.setSnackBar({
+        type: "warning",
+        msg: "Unable to submit empty meal"
+      })
+    );
+    return;
+  }
+
   dispatch({
     type: types.ADD_MEAL
   });
@@ -92,6 +103,7 @@ export const addMeal = (meal: Meal) => async (
     if (meal.date >= dateRange.startAt) {
       dispatch(fetchMeals(dateRange));
     }
+    return res;
   } catch (err) {
     dispatch({
       type: types.REQUEST_ERR,

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Dispatch } from "react";
 
 import AddMealModalContent from "./components/add-meal-modal-content";
 import MainHeader from "../../common/components/tracker-main-header";
@@ -9,7 +9,7 @@ import { colors } from "../../main/theme/colors";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 import { useModal } from "../../common/hooks/useModal";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, useStore } from "react-redux";
 
 import * as nutritionActions from "../../redux/trackers/nutrition/actions";
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
@@ -52,6 +52,7 @@ const Nutrition = () => {
 
   useEffect(() => {
     dispatch(nutritionActions.fetchMeals(dateRange));
+    //eslint-disable-next-line
   }, [dateRange]);
 
   const onDateRangeChange = (date: DateRange) => {
@@ -60,8 +61,9 @@ const Nutrition = () => {
     dispatch(nutritionActions.setDateRange(date));
   };
 
-  const onAddMeal = (meal: Meal) => {
-    dispatch(nutritionActions.addMeal(meal));
+  const onAddMeal = async (meal: Meal) => {
+    const res = dispatch(nutritionActions.addMeal(meal));
+    return res;
   };
 
   const onDeleteMeal = (docId: string) => {

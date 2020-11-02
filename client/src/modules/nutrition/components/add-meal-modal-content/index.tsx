@@ -1,9 +1,7 @@
 import React, { FC, useState } from "react";
 
-import * as nutritionUtils from "../../../../utilities/nutrition";
-
 import { Meal, MealTypes } from "../../../../types/nutrition";
-import { useStyles } from "./styles";
+import * as nutritionUtils from "../../../../utilities/nutrition";
 
 import SelectMealType from "./components/select-type";
 import MealIngredients from "./components/ingredients";
@@ -13,10 +11,9 @@ import AddMealActionButtons from "./components/action-buttons";
 
 const AddMealModalContent: FC<{
   addMealModalToggler: () => void;
-  onAddMeal: (meal: Meal) => void;
+  onAddMeal: (meal: Meal) => Promise<any>;
 }> = ({ addMealModalToggler, onAddMeal }) => {
   const [state, setState] = useState<Meal>(nutritionUtils.makeNewMeal());
-  const classes = useStyles();
 
   // Add meal ingredient
   const onAddMealIngredient = () => {
@@ -29,7 +26,7 @@ const AddMealModalContent: FC<{
 
   // Delete meal ingredient
   const onDeleteMealIngredient = (id: string) => {
-    if (state.ingredients.length === 1) addMealModalToggler();
+    if (state.ingredients.length === 1) return addMealModalToggler();
     setState((prevState) => ({
       ...prevState,
       ingredients: [...prevState.ingredients.filter((ing) => ing.id !== id)]
@@ -40,11 +37,10 @@ const AddMealModalContent: FC<{
   const onChangeMealIngredient = (
     property: string,
     value: string,
-    id: string
+    index: number
   ) => {
     const ingredients = [...state.ingredients];
-    const selectedIngredient = ingredients.find((ing) => ing.id === id);
-    Object.assign(selectedIngredient, { [property]: value });
+    Object.assign(ingredients[index], { [property]: value });
     setState((prevState) => ({
       ...prevState,
       ingredients
@@ -52,18 +48,18 @@ const AddMealModalContent: FC<{
   };
 
   // onChange Comments
-  const onChangeComments = (value: string) => {
+  const onChangeComments = (comments: string) => {
     setState((prevState) => ({
       ...prevState,
-      comments: value
+      comments
     }));
   };
 
   // onChange meal type
-  const onChangeMealType = (value: MealTypes) => {
+  const onChangeMealType = (type: MealTypes) => {
     setState((prevState) => ({
       ...prevState,
-      type: value
+      type
     }));
   };
 
@@ -76,11 +72,9 @@ const AddMealModalContent: FC<{
   };
 
   // Confirm add
-  const onConfirm = () => {
-    if (state.ingredients[0].item || state.ingredients.length > 1) {
-      onAddMeal(state);
-      addMealModalToggler();
-    }
+  const onConfirm = async () => {
+    onAddMeal(state);
+    addMealModalToggler();
   };
 
   return (

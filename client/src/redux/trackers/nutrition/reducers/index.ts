@@ -37,7 +37,8 @@ export const nutritionReducer = (
       return {
         ...state,
         isLoading: false,
-        nutrition: action.payload
+        nutrition: action.payload,
+        err: null
       };
     case types.ADD_MEAL:
       return {

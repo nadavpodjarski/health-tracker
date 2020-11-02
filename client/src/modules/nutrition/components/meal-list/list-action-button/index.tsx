@@ -11,7 +11,7 @@ const ListActionButtons: FC<{
   editHandler: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }> = ({ comments, deleteHandler, editHandler }) => {
   return (
-    <Grid container spacing={2}>
+    <>
       <Grid item xs={4}>
         <CommentsButton {...{ comments }} />
       </Grid>
@@ -21,7 +21,7 @@ const ListActionButtons: FC<{
       <Grid item xs={4}>
         <DeleteButton onClick={(event) => deleteHandler(event)} />
       </Grid>
-    </Grid>
+    </>
   );
 };
 

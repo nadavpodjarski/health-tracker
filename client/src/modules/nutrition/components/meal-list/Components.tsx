@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Typography } from "@material-ui/core";
 import { MealIngredient } from "../../../../types/nutrition";
-import { makeStyles, Theme } from "@material-ui/core";
+import { makeStyles, Theme, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => ({
   span: {
@@ -20,13 +20,13 @@ const Components: FC<{ ingredients: MealIngredient[] }> = ({ ingredients }) => {
     <>
       {ingredients.map((ingredient, i) => {
         return (
-          // <Grid item style={{ margin: "8px 0px" }}>
-          <Typography component="span" className={classes.span}>
-            {`${ingredient.item} ${ingredient.amount}${
-              ingredient.amount ? ingredient.metric : ""
-            }`}
-          </Typography>
-          // </Grid>
+          <Grid item style={{ margin: "8px 0px" }}>
+            <Typography component="span" className={classes.span}>
+              {`${ingredient.item} ${ingredient.amount}${
+                ingredient.amount ? ingredient.metric : ""
+              }`}
+            </Typography>
+          </Grid>
         );
       })}
     </>
