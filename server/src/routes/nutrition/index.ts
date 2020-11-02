@@ -81,7 +81,7 @@ nutritionRouter.get("/nutrition/get-meals", async (req, res) => {
           meals: { $push: { meal: "$meal", id: "$_id" } }
         }
       },
-      { $sort: { _id: -1 } }
+      { $sort: { "meals.meal.date": -1 } }
     ]);
 
     const parsedMeals = await meals.toArray();

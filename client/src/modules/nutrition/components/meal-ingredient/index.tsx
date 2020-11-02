@@ -8,12 +8,12 @@ import {
   Divider
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { MealIngredient } from "../../../../types/nutrition";
+import { MealIngredient as Ingredient } from "../../../../types/nutrition";
 
 const metrics = ["gr", "oz", "ml"];
 
-const MealComponent: FC<{
-  ingredient: MealIngredient;
+const MealIngredient: FC<{
+  ingredient: Ingredient;
   deleteHandler: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void | undefined;
@@ -77,4 +77,4 @@ const MealComponent: FC<{
   );
 };
 
-export default MealComponent;
+export default MealIngredient;

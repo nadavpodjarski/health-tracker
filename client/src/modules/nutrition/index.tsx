@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as nutritionActions from "../../redux/trackers/nutrition/actions";
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 import { IStore } from "../../types/redux";
+import { Meal } from "../../types/nutrition";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Nutrition = () => {
-  const { isLoading, foodTrack, dateRange } = useSelector(
+  const { isLoading, nutrition, dateRange } = useSelector(
     (state: IStore) => state.nutrition
   );
   const [addMealModalToggler, AddMealModal] = useModal();
@@ -58,6 +59,16 @@ const Nutrition = () => {
     if (!date[1]) date[1] = new Date();
     dispatch(nutritionActions.setDateRange(date));
   };
+
+  const onAddMeal = (meal: Meal) => {
+    dispatch(nutritionActions.addMeal(meal));
+  };
+
+  const onDeleteMeal = (docId: string) => {
+    dispatch(nutritionActions.deleteMeal(docId));
+  };
+
+  const onEditMeal = (meal: Meal) => {};
 
   return (
     <div className={classes.moduleRoot}>
@@ -84,11 +95,18 @@ const Nutrition = () => {
       <FilterOptions {...{ onDateRangeChange, dateRange }} />
 
       {/*Food List*/}
-      <MealsList isLoading={isLoading} foodTrack={foodTrack} />
+      <MealsList
+        onDeleteMeal={onDeleteMeal}
+        isLoading={isLoading}
+        meals={nutrition}
+      />
 
       {/*Add Meal Modal*/}
       <AddMealModal width={1200}>
-        <AddMealModalContent addMealModalToggler={addMealModalToggler} />
+        <AddMealModalContent
+          addMealModalToggler={addMealModalToggler}
+          onAddMeal={onAddMeal}
+        />
       </AddMealModal>
     </div>
   );

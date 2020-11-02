@@ -20,9 +20,6 @@ import EditModalContent from "../edit-meal-modal-content";
 import { Meal, Meals } from "../../../../types/nutrition";
 import { useModal } from "../../../../common/hooks/useModal";
 
-import { useDispatch } from "react-redux";
-import * as nutritionActions from "../../../../redux/trackers/nutrition/actions";
-
 const useStyles = makeStyles((theme: Theme) => ({
   foodList: {
     backgroundColor: theme.palette.background.paper,
@@ -46,12 +43,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const MealsList: FC<{ isLoading: boolean; foodTrack: Meals }> = ({
-  isLoading,
-  foodTrack
-}) => {
+const MealsList: FC<{
+  isLoading: boolean;
+  meals: Meals;
+  onDeleteMeal: (dicId: string) => void;
+}> = ({ isLoading, meals, onDeleteMeal }) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const [deleteModalToggler, DeleteModal] = useModal();
   const [editModalToggler, EditModal] = useModal();
 
@@ -65,7 +62,7 @@ const MealsList: FC<{ isLoading: boolean; foodTrack: Meals }> = ({
 
   const onConfirmDelete = (docId: string) => {
     deleteModalToggler();
-    dispatch(nutritionActions.deleteMeal(docId));
+    onDeleteMeal(docId);
     setMealToBeDeleted("");
   };
 
@@ -95,7 +92,7 @@ const MealsList: FC<{ isLoading: boolean; foodTrack: Meals }> = ({
     >
       {!isLoading ? (
         <>
-          {foodTrack?.map((mealsByDate, i) => {
+          {meals?.map((mealsByDate, i) => {
             return (
               <li key={`section-${i}`} className={classes.listSection}>
                 <ul className={classes.ul}>
@@ -171,7 +168,7 @@ const MealsList: FC<{ isLoading: boolean; foodTrack: Meals }> = ({
       <EditModal width={400}>
         <EditModalContent
           onCancelEdit={onCancelUpdate}
-          mealToBeUpdated={mealToBeUpdated}
+          mealToBeUpdated={mealToBeUpdated as Meal}
         />
       </EditModal>
     </List>
