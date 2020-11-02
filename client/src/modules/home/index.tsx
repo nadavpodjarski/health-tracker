@@ -16,12 +16,11 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
 import FastfoodIcon from "@material-ui/icons/Fastfood";
-import SportsHandballIcon from "@material-ui/icons/SportsHandball";
+import EmojiSymbolsIcon from "@material-ui/icons/EmojiSymbols";
 
 import { routes } from "../../main/routes/constants";
 import MenuRoutes from "../../main/routes/menuRoutes";
 
-import { dictionary } from "../../main/languages-not-in-use-yet/app-dictionary";
 import SignOutButton from "./components/sign-out-button";
 
 const drawerWidth = 240;
@@ -145,17 +144,17 @@ const Home: FC = ({ children }) => {
         <div className={classes.toolbar} />
         <Divider />
         <List component="nav">
-          <ListItem button component={NavLink} to={routes.foodTracker}>
+          <ListItem button component={NavLink} to={routes.nutrition}>
             <ListItemIcon>
               <FastfoodIcon />
             </ListItemIcon>
-            <ListItemText>Food Tracker</ListItemText>
+            <ListItemText>Nutrition</ListItemText>
           </ListItem>
-          <ListItem button component={NavLink} to={routes.sportTracker}>
+          <ListItem button component={NavLink} to={routes.symptoms}>
             <ListItemIcon>
-              <SportsHandballIcon />
+              <EmojiSymbolsIcon />
             </ListItemIcon>
-            <ListItemText>Sport Tracker</ListItemText>
+            <ListItemText>Symptoms</ListItemText>
           </ListItem>
         </List>
       </Drawer>

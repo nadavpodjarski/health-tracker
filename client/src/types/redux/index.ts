@@ -1,4 +1,4 @@
-import { Meals } from "../food";
+import { Meals } from "../nutrition";
 import { ParsedDateRange } from "..";
 import { SnackBarAlert } from "../ui";
 
@@ -7,7 +7,7 @@ export interface IAuth {
   isLoading: boolean;
 }
 
-export interface IFoodState {
+export interface INutrition {
   foodTrack: Meals;
   dateRange: ParsedDateRange;
   isLoading: boolean;
@@ -16,7 +16,7 @@ export interface IFoodState {
 
 export interface IStore {
   auth: IAuth;
-  food: IFoodState;
+  nutrition: INutrition;
   ui: IUiState;
 }
 

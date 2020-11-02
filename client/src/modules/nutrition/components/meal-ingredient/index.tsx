@@ -8,11 +8,12 @@ import {
   Divider
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { MealIngredient } from "../../../../types/nutrition";
 
 const metrics = ["gr", "oz", "ml"];
 
 const MealComponent: FC<{
-  component: any;
+  ingredient: MealIngredient;
   deleteHandler: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void | undefined;
@@ -24,7 +25,7 @@ const MealComponent: FC<{
           value: unknown;
         }>
   ) => void;
-}> = ({ component, deleteHandler, onChange }) => {
+}> = ({ ingredient, deleteHandler, onChange }) => {
   return (
     <Grid
       container
@@ -35,8 +36,8 @@ const MealComponent: FC<{
       <Grid item xs={6} sm={6}>
         <TextField
           onChange={onChange}
-          name="food"
-          value={component.food}
+          name="item"
+          value={ingredient.item}
           variant="outlined"
           placeholder="Food"
         />
@@ -45,7 +46,7 @@ const MealComponent: FC<{
         <TextField
           onChange={onChange}
           name="amount"
-          value={component.amount}
+          value={ingredient.amount}
           variant="outlined"
           placeholder="Amount"
         />
@@ -54,7 +55,7 @@ const MealComponent: FC<{
         <Select
           onChange={onChange}
           name="metric"
-          value={component.metric}
+          value={ingredient.metric}
           variant="outlined"
           style={{ width: "100%" }}
         >

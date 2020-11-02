@@ -5,16 +5,16 @@ export enum MealTypes {
   "Easy meal/Snack"
 }
 
-export type MealComponent = {
+export type MealIngredient = {
   id: string;
-  food: string;
+  item: string;
   amount: number | string;
   metric: "gr" | "oz" | "ml";
 };
 
 export type Meal = {
   date: Date;
-  components: MealComponent[];
+  ingredients: MealIngredient[];
   type: MealTypes;
   comments: string;
 };

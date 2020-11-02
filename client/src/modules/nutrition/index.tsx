@@ -11,7 +11,7 @@ import { Button } from "@material-ui/core";
 import { useModal } from "../../common/hooks/useModal";
 import { useDispatch, useSelector } from "react-redux";
 
-import * as foodActions from "../../redux/trackers/food/actions";
+import * as nutritionActions from "../../redux/trackers/nutrition/actions";
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 import { IStore } from "../../types/redux";
 
@@ -37,26 +37,26 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const FoodTracker = () => {
+const Nutrition = () => {
   const { isLoading, foodTrack, dateRange } = useSelector(
-    (state: IStore) => state.food
+    (state: IStore) => state.nutrition
   );
   const [addMealModalToggler, AddMealModal] = useModal();
 
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const moduleTitle = "Food Track";
+  const moduleTitle = "Nutrition";
   const modalButtonText = "Add Meal";
 
   useEffect(() => {
-    dispatch(foodActions.fetchMeals(dateRange));
+    dispatch(nutritionActions.fetchMeals(dateRange));
   }, [dateRange]);
 
   const onDateRangeChange = (date: DateRange) => {
     if (!date[0]) date[0] = new Date();
     if (!date[1]) date[1] = new Date();
-    dispatch(foodActions.setDateRange(date));
+    dispatch(nutritionActions.setDateRange(date));
   };
 
   return (
@@ -94,4 +94,4 @@ const FoodTracker = () => {
   );
 };
 
-export default FoodTracker;
+export default Nutrition;

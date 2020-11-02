@@ -1,7 +1,8 @@
 export const routes = {
-  foodTracker: `/food-tracker`,
+  nutrition: `/nutrition`,
   profile: "/profile",
-  sportTracker: "/sport-tracker",
+  sport: "/sport",
+  symptoms: "/symptoms",
   signIn: "/sign-in",
-  home: "/",
+  home: "/"
 };

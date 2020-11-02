@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Typography } from "@material-ui/core";
-import { MealTypes } from "../../../../types/food";
+import { MealTypes } from "../../../../types/nutrition";
 import { colors } from "../../../../main/theme/colors";
 
 const typeColors = {

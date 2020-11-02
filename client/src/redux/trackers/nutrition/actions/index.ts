@@ -1,16 +1,16 @@
 import { Dispatch } from "react";
-import * as api from "../../../../api/food-tracker";
+import * as api from "../../../../api/nutrition";
 import * as types from "../constants";
-import * as _ from "lodash";
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 import { ParsedDateRange } from "../../../../types";
 import * as uiActions from "../../../ui/actions";
-import { Meal } from "../../../../types/food";
+import { Meal } from "../../../../types/nutrition";
+
 export const deleteMeal = (docId: string) => async (
   dispatch: Dispatch<any>,
   getStore: any
 ) => {
-  const { dateRange } = getStore().food;
+  const { dateRange } = getStore().nutrition;
   dispatch({
     type: types.DELETE_MEAL
   });
@@ -72,7 +72,7 @@ export const addMeal = (meal: Meal) => async (
   dispatch: Dispatch<any>,
   getStore: any
 ) => {
-  const { dateRange } = getStore().food;
+  const { dateRange } = getStore().nutrition;
   dispatch({
     type: types.ADD_MEAL
   });

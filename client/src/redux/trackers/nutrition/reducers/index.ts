@@ -1,6 +1,6 @@
 import * as types from "../constants";
 import * as appUtils from "../../../../utilities";
-import { IFoodState, Action } from "../../../../types/redux";
+import { INutrition, Action } from "../../../../types/redux";
 
 const initialState = {
   foodTrack: [],
@@ -9,10 +9,10 @@ const initialState = {
   err: null
 };
 
-export const foodTrackReducer = (
+export const nutritionReducer = (
   state = initialState,
   action: Action
-): IFoodState => {
+): INutrition => {
   switch (action.type) {
     case types.DELETE_MEAL:
       return {

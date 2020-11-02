@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import { Grid, Typography } from "@material-ui/core";
-import { MealComponent } from "../../../../types/food";
+import { Typography } from "@material-ui/core";
+import { MealIngredient } from "../../../../types/nutrition";
 import { makeStyles, Theme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -14,16 +14,16 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const Components: FC<{ components: MealComponent[] }> = ({ components }) => {
+const Components: FC<{ ingredients: MealIngredient[] }> = ({ ingredients }) => {
   const classes = useStyles();
   return (
     <>
-      {components.map((component, i) => {
+      {ingredients.map((ingredient, i) => {
         return (
           // <Grid item style={{ margin: "8px 0px" }}>
           <Typography component="span" className={classes.span}>
-            {`${component.food} ${component.amount}${
-              component.amount ? component.metric : ""
+            {`${ingredient.item} ${ingredient.amount}${
+              ingredient.amount ? ingredient.metric : ""
             }`}
           </Typography>
           // </Grid>

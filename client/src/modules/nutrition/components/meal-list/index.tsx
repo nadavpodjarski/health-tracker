@@ -17,12 +17,11 @@ import Time from "./Time";
 import DeleteModalContent from "../delete-modal-content";
 import EditModalContent from "../edit-meal-modal-content";
 
-import { Meal, Meals } from "../../../../types/food";
+import { Meal, Meals } from "../../../../types/nutrition";
 import { useModal } from "../../../../common/hooks/useModal";
 
 import { useDispatch } from "react-redux";
-import * as foodActions from "../../../../redux/trackers/food/actions";
-import moment from "moment";
+import * as nutritionActions from "../../../../redux/trackers/nutrition/actions";
 
 const useStyles = makeStyles((theme: Theme) => ({
   foodList: {
@@ -66,7 +65,7 @@ const MealsList: FC<{ isLoading: boolean; foodTrack: Meals }> = ({
 
   const onConfirmDelete = (docId: string) => {
     deleteModalToggler();
-    dispatch(foodActions.deleteMeal(docId));
+    dispatch(nutritionActions.deleteMeal(docId));
     setMealToBeDeleted("");
   };
 
@@ -119,7 +118,7 @@ const MealsList: FC<{ isLoading: boolean; foodTrack: Meals }> = ({
                       {/* </Grid>
                         <Grid item xs={7} container spacing={1}> */}
                       <ListItemText style={{ flex: 1, minWidth: "400px" }}>
-                        <Components components={item.meal.components} />
+                        <Components ingredients={item.meal.ingredients} />
                       </ListItemText>
                       {/* </Grid>
                         <Grid item xs={1} container justify="center"> */}
@@ -164,7 +163,7 @@ const MealsList: FC<{ isLoading: boolean; foodTrack: Meals }> = ({
       <DeleteModal width={500}>
         <DeleteModalContent
           onCancelDelete={onCancelDelete}
-          onConfirmDelete={() => onConfirmDelete(mealToBeDeleted)}
+          onConfirmDelete={(event) => onConfirmDelete(mealToBeDeleted)}
         />
       </DeleteModal>
 

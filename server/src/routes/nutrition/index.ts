@@ -1,36 +1,37 @@
 import { db } from "../../db";
 import { Router } from "express";
-import { MealModel } from "../../models/food";
+import { MealModel } from "../../models/nutrition";
 import { ObjectId } from "bson";
-import moment from "moment";
+import * as helpers from "../../helpers";
 
-const foodRouter = Router();
+const nutritionRouter = Router();
 
-foodRouter.post("/food/add-meal", async (req, res) => {
+//------------ADD Meal-----------//
+
+nutritionRouter.post("/nutrition/add-meal", async (req, res) => {
   const { data: mealData } = req.body;
 
-  const isMealTypeExist = await db.collection("food").findOne({
+  const isMealTypeExist = await db.collection("nutrition").findOne({
     "author.uid": req.user.uid,
     "meal.type": mealData.type,
     "meal.date": {
-      $gte: moment(mealData.date).startOf("D").toDate(),
-      $lte: moment(mealData.date).endOf("D").toDate()
+      $gte: helpers.getStartDayDate(mealData.date),
+      $lte: helpers.getEndDayDate(mealData.date)
     }
   });
-
-  mealData.date = moment(mealData.date).toDate();
 
   if (isMealTypeExist && mealData.type !== MealTypes["Easy meal/Snack"]) {
     return res
       .status(400)
       .json(
-        `${MealTypes[mealData.type]} on ${moment(mealData.date).format(
-          "DD/MM/YYYY"
+        `${MealTypes[mealData.type]} on ${helpers.formatDate(
+          mealData.date
         )} Already exist`
       );
   }
 
   try {
+    mealData.date = helpers.stringToDate(mealData.date);
     const meal = new MealModel({
       author: {
         uid: req.user.uid,
@@ -38,7 +39,9 @@ foodRouter.post("/food/add-meal", async (req, res) => {
       },
       meal: mealData
     });
-    await db.collection("food").insertOne(meal);
+
+    await db.collection("nutrition").insertOne(meal);
+
     return res.status(200).json("Meal Added Successfully");
   } catch (err) {
     console.log(err.stack);
@@ -46,19 +49,16 @@ foodRouter.post("/food/add-meal", async (req, res) => {
   }
 });
 
-foodRouter.get("/food/get-meals", async (req, res) => {
+//---------- GET Meals ------ //
+
+nutritionRouter.get("/nutrition/get-meals", async (req, res) => {
   const { startAt, endAt } = req.query;
 
-  const start = moment(startAt as string)
-    .startOf("day")
-    .toDate();
-
-  const end = moment(endAt as string)
-    .endOf("day")
-    .toDate();
+  const start = helpers.getStartDayDate(startAt as string);
+  const end = helpers.getEndDayDate(endAt as string);
 
   try {
-    const meals = db.collection("food").aggregate([
+    const meals = db.collection("nutrition").aggregate([
       {
         $match: {
           $and: [
@@ -93,17 +93,19 @@ foodRouter.get("/food/get-meals", async (req, res) => {
   }
 });
 
-foodRouter.delete("/food/delete-meal", async (req, res) => {
+//-------------DELETE Meal----------//
+
+nutritionRouter.delete("/nutrition/delete-meal", async (req, res) => {
   const { docId } = req.query;
   try {
     const doc = await db
-      .collection("food")
+      .collection("nutrition")
       .findOne({ _id: new ObjectId(docId as string) });
 
     if (doc.author.uid !== req.user.uid)
       return res.status(403).json("unauthorized request");
 
-    db.collection("food").deleteOne(doc);
+    db.collection("nutrition").deleteOne(doc);
 
     return res.json("Meal Deleted Successfully");
   } catch (err) {
@@ -112,7 +114,8 @@ foodRouter.delete("/food/delete-meal", async (req, res) => {
   }
 });
 
-foodRouter.put("/food/update-meal", (req, res) => {});
+//---------UPDATE Meal---------//
+nutritionRouter.put("/nutrition/update-meal", (req, res) => {});
 
 enum MealTypes {
   Breakfast,
@@ -121,4 +124,4 @@ enum MealTypes {
   "Easy meal/Snack"
 }
 
-export default foodRouter;
+export default nutritionRouter;

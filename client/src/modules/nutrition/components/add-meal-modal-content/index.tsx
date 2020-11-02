@@ -8,19 +8,18 @@ import {
   MenuItem,
   TextareaAutosize
 } from "@material-ui/core";
-import MealComponent from "../meal-component";
+import MealComponent from "../meal-ingredient";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import { colors } from "../../../../main/theme/colors";
 
-import * as foodUtils from "../../../../utilities/food";
+import * as nutritionUtils from "../../../../utilities/nutrition";
 import { useDatePicker } from "../../../../common/hooks/useDatePicker";
 
 import { useDispatch } from "react-redux";
-import * as foodActions from "../../../../redux/trackers/food/actions";
+import * as nutritionActions from "../../../../redux/trackers/nutrition/actions";
 import moment from "moment";
-import * as appUtils from "../../../../utilities";
 
-import { Meal, MealTypes } from "../../../../types/food";
+import { Meal, MealTypes } from "../../../../types/nutrition";
 
 const mealTypes = [
   { const: "Breakfast", value: 0 },
@@ -36,28 +35,28 @@ const AddDishModalContent: FC<{ addMealModalToggler: () => void }> = ({
   const { DateTimePicker } = useDatePicker();
   const [state, setState] = useState<Meal>({
     type: mealTypes[0].value as MealTypes,
-    components: [foodUtils.makeNewMealComponent()],
+    ingredients: [nutritionUtils.makeNewMealIngredient()],
     comments: "",
     date: moment().toDate()
   });
 
-  const addMealComponentHandler = () => {
-    const newComponent = foodUtils.makeNewMealComponent();
+  const addMealIngredientHandler = () => {
+    const newIngredient = nutritionUtils.makeNewMealIngredient();
     setState((prevState) => ({
       ...prevState,
-      components: [newComponent, ...prevState.components]
+      ingredients: [newIngredient, ...prevState.ingredients]
     }));
   };
 
-  const deleteMealComponentHandler = (id: string) => {
-    if (state.components.length === 1) addMealModalToggler();
+  const deleteMealIngredientHandler = (id: string) => {
+    if (state.ingredients.length === 1) addMealModalToggler();
     setState((prevState) => ({
       ...prevState,
-      components: [...prevState.components.filter((comp) => comp.id !== id)]
+      ingredients: [...prevState.ingredients.filter((ing) => ing.id !== id)]
     }));
   };
 
-  const changeMealComponentHandler = (
+  const changeMealIngredientHandler = (
     event:
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
       | React.ChangeEvent<{
@@ -68,12 +67,12 @@ const AddDishModalContent: FC<{ addMealModalToggler: () => void }> = ({
   ) => {
     const { name: property, value } = event.target;
     if (typeof property === "string") {
-      const components = [...state.components];
-      const selectedComponent = components.find((comp) => comp.id === id);
-      Object.assign(selectedComponent, { [property]: value });
+      const ingredients = [...state.ingredients];
+      const selectedIngredient = ingredients.find((ing) => ing.id === id);
+      Object.assign(selectedIngredient, { [property]: value });
       setState((prevState) => ({
         ...prevState,
-        components
+        ingredients
       }));
     }
   };
@@ -111,8 +110,8 @@ const AddDishModalContent: FC<{ addMealModalToggler: () => void }> = ({
   };
 
   const doneHandler = async () => {
-    if (state.components[0].food || state.components.length > 1) {
-      dispatch(foodActions.addMeal(state));
+    if (state.ingredients[0].item || state.ingredients.length > 1) {
+      dispatch(nutritionActions.addMeal(state));
       addMealModalToggler();
     }
   };
@@ -144,22 +143,22 @@ const AddDishModalContent: FC<{ addMealModalToggler: () => void }> = ({
 
       {/*Meal Components*/}
       <div style={{ display: "flex", alignItems: "center", padding: "8px 0" }}>
-        <Typography>Add Component</Typography>
+        <Typography>Add Ingredient</Typography>
         <div>
-          <IconButton onClick={addMealComponentHandler}>
+          <IconButton onClick={addMealIngredientHandler}>
             <AddCircleOutlineIcon />
           </IconButton>
         </div>
       </div>
 
       <Grid container spacing={3}>
-        {state.components.map((comp, i) => {
+        {state.ingredients.map((ing, i) => {
           return (
             <Grid item xs={12} md={6}>
               <MealComponent
-                component={comp}
-                deleteHandler={(event) => deleteMealComponentHandler(comp.id)}
-                onChange={(event) => changeMealComponentHandler(event, comp.id)}
+                ingredient={ing}
+                deleteHandler={(event) => deleteMealIngredientHandler(ing.id)}
+                onChange={(event) => changeMealIngredientHandler(event, ing.id)}
               />
             </Grid>
           );
