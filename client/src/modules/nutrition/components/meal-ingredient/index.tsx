@@ -14,7 +14,7 @@ const metrics = ["gr", "oz", "ml"];
 
 const MealIngredient: FC<{
   ingredient: Ingredient;
-  deleteHandler: (
+  onDelete: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void | undefined;
   onChange: (
@@ -25,7 +25,7 @@ const MealIngredient: FC<{
           value: unknown;
         }>
   ) => void;
-}> = ({ ingredient, deleteHandler, onChange }) => {
+}> = ({ ingredient, onDelete, onChange }) => {
   return (
     <Grid
       container
@@ -66,7 +66,7 @@ const MealIngredient: FC<{
       </Grid>
       <Grid item xs={6} sm={1}>
         {" "}
-        <IconButton onClick={deleteHandler}>
+        <IconButton onClick={onDelete}>
           <DeleteIcon />
         </IconButton>{" "}
       </Grid>

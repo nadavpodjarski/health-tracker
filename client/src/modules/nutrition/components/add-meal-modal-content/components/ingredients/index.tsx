@@ -47,7 +47,7 @@ const MealIngredients: FC<{
             <Grid item xs={12} md={6}>
               <MealIngredient
                 ingredient={ing}
-                deleteHandler={(event) => onDeleteMealIngredient(ing.id)}
+                onDelete={(event) => onDeleteMealIngredient(ing.id)}
                 onChange={(event) => onChange(event, ing.id)}
               />
             </Grid>
