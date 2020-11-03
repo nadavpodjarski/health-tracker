@@ -15,13 +15,9 @@ export const nutritionReducer = (
 ): INutrition => {
   switch (action.type) {
     case types.DELETE_MEAL:
-      return {
-        ...state
-      };
+      return state;
     case types.DELETE_MEAL_SUCCESS:
-      return {
-        ...state
-      };
+      return state;
     case types.GET_MEALS:
       return {
         ...state,
@@ -41,9 +37,7 @@ export const nutritionReducer = (
         err: null
       };
     case types.ADD_MEAL:
-      return {
-        ...state
-      };
+      return state;
     case types.ADD_MEAL_SUCCESS:
       return {
         ...state,

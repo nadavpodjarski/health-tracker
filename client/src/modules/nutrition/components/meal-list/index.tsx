@@ -6,14 +6,13 @@ import {
   makeStyles,
   Theme,
   Paper,
-  ListItemText,
   Grid
 } from "@material-ui/core";
 
 import ListActionButtons from "./list-action-button";
 import Loader from "../../../../common/components/loader";
 import Type from "./Type";
-import Components from "./Components";
+import Ingredients from "./Ingredients";
 import Time from "./Time";
 import DeleteModalContent from "../delete-modal-content";
 import EditModalContent from "../edit-meal-modal-content";
@@ -48,28 +47,27 @@ const useStyles = makeStyles((theme: Theme) => ({
 const MealsList: FC<{
   isLoading: boolean;
   meals: Meals;
-  onDeleteMeal: (dicId: string) => void;
+  onDeleteMeal: (docId: string) => Promise<any>;
 }> = ({ isLoading, meals, onDeleteMeal }) => {
-  const classes = useStyles();
-  const [deleteModalToggler, DeleteModal] = useModal();
-  const [editModalToggler, EditModal] = useModal();
-
   const [mealToBeDeleted, setMealToBeDeleted] = useState<string>("");
   const [mealToBeUpdated, setMealToBeUpdated] = useState<Meal | null>();
+
+  const [editModalToggler, EditModal] = useModal();
+  const [deleteModalToggler, DeleteModal] = useModal();
+
+  const classes = useStyles();
 
   const setDeleteMeal = (docId: string) => {
     setMealToBeDeleted(docId);
     deleteModalToggler();
   };
 
-  const onConfirmDelete = (docId: string) => {
-    deleteModalToggler();
-    onDeleteMeal(docId);
+  const onConfirmDelete = async (docId: string) => {
+    await onDeleteMeal(docId);
     setMealToBeDeleted("");
   };
 
   const onCancelDelete = () => {
-    deleteModalToggler();
     setMealToBeDeleted("");
   };
 
@@ -80,7 +78,7 @@ const MealsList: FC<{
 
   const onEditMeal = () => {};
 
-  const onCancelUpdate = () => {
+  const onCancelEdit = () => {
     editModalToggler();
     setMealToBeUpdated(null);
   };
@@ -108,7 +106,7 @@ const MealsList: FC<{
                         </Grid>
                         <Grid item xs={8} container spacing={1}>
                           <Grid container spacing={2}>
-                            <Components ingredients={item.meal.ingredients} />
+                            <Ingredients ingredients={item.meal.ingredients} />
                           </Grid>
                         </Grid>
                         <Grid item xs={1} container justify="center">
@@ -152,13 +150,14 @@ const MealsList: FC<{
           <DeleteModalContent
             onCancelDelete={onCancelDelete}
             onConfirmDelete={(event) => onConfirmDelete(mealToBeDeleted)}
+            toggler={deleteModalToggler}
           />
         </DeleteModal>
 
         {/*Edit Modal*/}
         <EditModal width={400}>
           <EditModalContent
-            onCancelEdit={onCancelUpdate}
+            onCancelEdit={onCancelEdit}
             mealToBeUpdated={mealToBeUpdated as Meal}
             onEditMeal={onEditMeal}
           />

@@ -66,8 +66,9 @@ const Nutrition = () => {
     return res;
   };
 
-  const onDeleteMeal = (docId: string) => {
-    dispatch(nutritionActions.deleteMeal(docId));
+  const onDeleteMeal = async (docId: string) => {
+    const res = dispatch(nutritionActions.deleteMeal(docId));
+    return res;
   };
 
   const onEditMeal = (meal: Meal) => {};

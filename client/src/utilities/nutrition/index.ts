@@ -1,18 +1,18 @@
-import { MealIngredient } from "../../types/nutrition";
+import { MealIngredient, Meal } from "../../types/nutrition";
 import { uuid } from "..";
 import moment from "moment";
 import { MealTypes } from "../../types/nutrition";
 
 const mealIngredient = (uuid: () => string): (() => MealIngredient) => {
   return () => {
-    return { id: uuid(), item: "", amount: "", metric: "gr" };
+    return { id: uuid(), item: "", amount: "", unit: "gr" };
   };
 };
 export const mealTypes = [
-  { const: "Breakfast", value: 0 },
-  { const: "Lunch", value: 1 },
-  { const: "Dinner", value: 2 },
-  { const: "Easy meal/Snack", value: 3 }
+  { const: "Breakfast", value: 1 },
+  { const: "Lunch", value: 2 },
+  { const: "Dinner", value: 3 },
+  { const: "Easy meal/Snack", value: 4 }
 ];
 
 export const makeNewMeal = () => {
@@ -25,3 +25,22 @@ export const makeNewMeal = () => {
 };
 
 export const makeNewMealIngredient = mealIngredient(uuid);
+
+export const isValidMeal = (state: Meal) => {
+  let ingredientIndex = 0;
+  const error = {
+    date: !state.date ? "Must Pick A Date" : "",
+    ingredients: !state.ingredients.every((ing, i) => {
+      ingredientIndex = i;
+      return ing.item;
+    })
+      ? {
+          index: ingredientIndex,
+          message: "Cannot Submit Empty Ingredients"
+        }
+      : "",
+    type: !state.type ? "Must Pick A Meal Type" : ""
+  };
+  if (error.date || error.ingredients || error.type) throw error;
+  else return "ok";
+};

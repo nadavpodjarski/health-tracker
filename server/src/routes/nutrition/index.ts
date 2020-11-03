@@ -119,11 +119,11 @@ nutritionRouter.delete("/nutrition/delete-meal", async (req, res) => {
 //---------UPDATE Meal---------//
 nutritionRouter.put("/nutrition/update-meal", (req, res) => {});
 
-enum MealTypes {
-  Breakfast,
-  Lunch,
-  Dinner,
-  "Easy meal/Snack"
+export enum MealTypes {
+  Breakfast = 1,
+  Lunch = 2,
+  Dinner = 3,
+  "Easy meal/Snack" = 4
 }
 
 export default nutritionRouter;

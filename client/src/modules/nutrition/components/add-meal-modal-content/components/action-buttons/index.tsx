@@ -1,11 +1,13 @@
 import React, { FC } from "react";
 import { Grid, Button } from "@material-ui/core";
 import { useStyles } from "../../styles";
+import Loader from "../../../../../../common/components/loader";
 
 const AddMealActionButtons: FC<{
   onCancel: () => void;
   onConfirm: () => void;
-}> = ({ onCancel, onConfirm }) => {
+  isSaving: boolean;
+}> = ({ onCancel, onConfirm, isSaving }) => {
   const classes = useStyles();
   return (
     <Grid container spacing={3}>
@@ -15,8 +17,12 @@ const AddMealActionButtons: FC<{
         </Button>
       </Grid>
       <Grid item container xs={6} justify="flex-start">
-        <Button className={classes.confirmButton} onClick={onConfirm}>
-          {"Done"}
+        <Button
+          className={classes.confirmButton}
+          onClick={onConfirm}
+          endIcon={isSaving ? <Loader color="white" size={20} /> : ""}
+        >
+          {isSaving ? "Saving" : "Done"}
         </Button>
       </Grid>
     </Grid>

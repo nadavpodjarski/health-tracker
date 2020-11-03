@@ -1,15 +1,32 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Grid, Button, Typography, Divider } from "@material-ui/core";
 import { colors } from "../../../../main/theme/colors";
-
+import Loader from "../../../../common/components/loader";
 const DeleteModalContent: FC<{
   onCancelDelete: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void;
   onConfirmDelete: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void;
-}> = ({ onCancelDelete, onConfirmDelete }) => {
+  ) => Promise<any>;
+  toggler: () => void;
+}> = ({ onCancelDelete, onConfirmDelete, toggler }) => {
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
+
+  const onCancel = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    onCancelDelete(event);
+    toggler();
+  };
+
+  const onConfirm = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    setIsDeleting(true);
+    await onConfirmDelete(event);
+    setIsDeleting(false);
+    toggler();
+  };
+
   return (
     <>
       <Typography style={{ margin: "16px 0" }} variant="h6" noWrap>
@@ -23,7 +40,7 @@ const DeleteModalContent: FC<{
               background: colors.ming,
               color: "white"
             }}
-            onClick={onCancelDelete}
+            onClick={onCancel}
           >
             Cancel
           </Button>
@@ -35,9 +52,10 @@ const DeleteModalContent: FC<{
               color: colors.ming,
               border: `1px solid ${colors.ming}`
             }}
-            onClick={onConfirmDelete}
+            endIcon={isDeleting ? <Loader size={20} /> : ""}
+            onClick={onConfirm}
           >
-            Delete
+            {isDeleting ? "Deleting" : "Delete"}
           </Button>
         </Grid>
       </Grid>

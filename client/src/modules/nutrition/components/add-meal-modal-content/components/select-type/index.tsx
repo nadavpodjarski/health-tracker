@@ -10,7 +10,7 @@ const SelectMealType: FC<{
 }> = ({ onChangeMealType, type }) => {
   const classes = useStyles();
 
-  const oncChangeHandler = (
+  const onChangeHandler = (
     event: React.ChangeEvent<{
       name?: string | undefined;
       value: unknown;
@@ -25,7 +25,7 @@ const SelectMealType: FC<{
       <Typography variant="h4" style={{ fontWeight: "bold" }}>
         Select Meal
       </Typography>
-      <Select variant="outlined" value={type} onChange={oncChangeHandler}>
+      <Select variant="outlined" value={type} onChange={onChangeHandler}>
         {nutritionUtils.mealTypes.map((item) => {
           return <MenuItem value={item.value}>{item.const}</MenuItem>;
         })}

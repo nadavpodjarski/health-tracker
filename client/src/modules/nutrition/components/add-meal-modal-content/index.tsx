@@ -14,8 +14,8 @@ const AddMealModalContent: FC<{
   onAddMeal: (meal: Meal) => Promise<any>;
 }> = ({ addMealModalToggler, onAddMeal }) => {
   const [state, setState] = useState<Meal>(nutritionUtils.makeNewMeal());
-
-  // Add meal ingredient
+  const [isSaving, setIsSaving] = useState<boolean>(false);
+  // Add Meal ingredient
   const onAddMealIngredient = () => {
     const newIngredient = nutritionUtils.makeNewMealIngredient();
     setState((prevState) => ({
@@ -24,7 +24,7 @@ const AddMealModalContent: FC<{
     }));
   };
 
-  // Delete meal ingredient
+  // Delete Meal Ingredient
   const onDeleteMealIngredient = (id: string) => {
     if (state.ingredients.length === 1) return addMealModalToggler();
     setState((prevState) => ({
@@ -33,7 +33,7 @@ const AddMealModalContent: FC<{
     }));
   };
 
-  // onChange meal ingredient
+  // onChange Meal Ingredient
   const onChangeMealIngredient = (
     property: string,
     value: string,
@@ -47,7 +47,7 @@ const AddMealModalContent: FC<{
     }));
   };
 
-  // onChange Comments
+  // onChange Meal Comments
   const onChangeComments = (comments: string) => {
     setState((prevState) => ({
       ...prevState,
@@ -55,7 +55,7 @@ const AddMealModalContent: FC<{
     }));
   };
 
-  // onChange meal type
+  // onChange Meal Type
   const onChangeMealType = (type: MealTypes) => {
     setState((prevState) => ({
       ...prevState,
@@ -63,7 +63,7 @@ const AddMealModalContent: FC<{
     }));
   };
 
-  // onChange time
+  // onChange Meal Time
   const onChangeMealTime = (date: Date) => {
     setState((prevState) => ({
       ...prevState,
@@ -71,16 +71,24 @@ const AddMealModalContent: FC<{
     }));
   };
 
-  // Confirm add
+  // Confirm Add Meal
   const onConfirm = async () => {
-    onAddMeal(state);
-    addMealModalToggler();
+    setIsSaving(true);
+    try {
+      await onAddMeal(state);
+      addMealModalToggler();
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       {/*Meal Type*/}
       <SelectMealType type={state.type} onChangeMealType={onChangeMealType} />
+
       {/*Meal Ingredients*/}
       <MealIngredients
         ingredients={state.ingredients}
@@ -99,6 +107,7 @@ const AddMealModalContent: FC<{
       <AddMealActionButtons
         onConfirm={onConfirm}
         onCancel={addMealModalToggler}
+        isSaving={isSaving}
       />
     </div>
   );

@@ -60,7 +60,7 @@ const Fade = React.forwardRef<HTMLDivElement, FadeProps>(function Fade(
 const SpringModal: FC<{
   open: boolean;
   modalToggler: () => void;
-  width: number | string;
+  width?: number | string;
 }> = ({ children, open, modalToggler, width }) => {
   const classes = useStyles({ width });
 

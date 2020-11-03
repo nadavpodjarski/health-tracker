@@ -1,15 +1,15 @@
 export enum MealTypes {
-  Breakfast,
-  Lunch,
-  Dinner,
-  "Easy meal/Snack"
+  Breakfast = 1,
+  Lunch = 2,
+  Dinner = 3,
+  "Easy meal/Snack" = 4
 }
 
 export type MealIngredient = {
   id: string;
   item: string;
   amount: number | string;
-  metric: "gr" | "oz" | "ml";
+  unit: "gr" | "oz" | "ml";
 };
 
 export type Meal = {

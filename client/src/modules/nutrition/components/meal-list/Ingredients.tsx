@@ -14,7 +14,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const Components: FC<{ ingredients: MealIngredient[] }> = ({ ingredients }) => {
+const Ingredients: FC<{ ingredients: MealIngredient[] }> = ({
+  ingredients
+}) => {
   const classes = useStyles();
   return (
     <>
@@ -22,9 +24,11 @@ const Components: FC<{ ingredients: MealIngredient[] }> = ({ ingredients }) => {
         return (
           <Grid item style={{ margin: "8px 0px" }}>
             <Typography component="span" className={classes.span}>
-              {`${ingredient.item} ${ingredient.amount}${
-                ingredient.amount ? ingredient.metric : ""
-              }`}
+              {`${ingredient.item} `}
+              <Typography component="span" style={{ fontWeight: 600 }}>
+                {ingredient.amount}
+                {ingredient.amount ? ingredient.unit : ""}
+              </Typography>
             </Typography>
           </Grid>
         );
@@ -33,4 +37,4 @@ const Components: FC<{ ingredients: MealIngredient[] }> = ({ ingredients }) => {
   );
 };
 
-export default Components;
+export default Ingredients;

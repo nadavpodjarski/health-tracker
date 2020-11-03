@@ -1,20 +1,23 @@
 import { Dispatch } from "react";
-import * as api from "../../../../api/nutrition";
-import * as types from "../constants";
+
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 import { ParsedDateRange } from "../../../../types";
-import * as uiActions from "../../../ui/actions";
 import { Meal } from "../../../../types/nutrition";
+
+import * as utils from "../../../../utilities/nutrition";
+import * as uiActions from "../../../ui/actions";
+import * as api from "../../../../api/nutrition";
+import * as types from "../constants";
 
 export const deleteMeal = (docId: string) => async (
   dispatch: Dispatch<any>,
   getStore: any
 ) => {
   const { dateRange } = getStore().nutrition;
-  dispatch({
-    type: types.DELETE_MEAL
-  });
   try {
+    dispatch({
+      type: types.DELETE_MEAL
+    });
     const res = await api.deleteMeal(docId);
     dispatch({
       type: types.DELETE_MEAL_SUCCESS
@@ -74,25 +77,25 @@ export const addMeal = (meal: Meal) => async (
 ) => {
   const { dateRange } = getStore().nutrition;
 
-  if (!meal.ingredients[0].item || !meal.ingredients.length) {
-    dispatch(
-      uiActions.setSnackBar({
-        type: "warning",
-        msg: "Unable to submit empty meal"
-      })
-    );
-    return;
+  try {
+    utils.isValidMeal(meal);
+  } catch (err) {
+    throw err;
   }
 
-  dispatch({
-    type: types.ADD_MEAL
-  });
-
   try {
+    dispatch({
+      type: types.ADD_MEAL
+    });
     const res = await api.postMeal(meal);
+
     dispatch({
       type: types.ADD_MEAL_SUCCESS
     });
+
+    if (meal.date >= dateRange.startAt) {
+      dispatch(fetchMeals(dateRange));
+    }
 
     dispatch(
       uiActions.setSnackBar({
@@ -100,20 +103,18 @@ export const addMeal = (meal: Meal) => async (
         msg: res.data
       })
     );
-    if (meal.date >= dateRange.startAt) {
-      dispatch(fetchMeals(dateRange));
-    }
+
     return res;
   } catch (err) {
     dispatch({
       type: types.REQUEST_ERR,
-      payload: err.response.data
+      payload: err.response?.data
     });
 
     dispatch(
       uiActions.setSnackBar({
         type: "error",
-        msg: err.response.data
+        msg: err.response?.data
       })
     );
   }

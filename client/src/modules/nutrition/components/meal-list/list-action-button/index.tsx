@@ -19,7 +19,7 @@ const ListActionButtons: FC<{
         <EditButton onClick={editHandler} />
       </Grid>
       <Grid item xs={4}>
-        <DeleteButton onClick={(event) => deleteHandler(event)} />
+        <DeleteButton onClick={deleteHandler} />
       </Grid>
     </>
   );

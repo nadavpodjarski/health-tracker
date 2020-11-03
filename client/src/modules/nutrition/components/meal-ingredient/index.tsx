@@ -10,7 +10,7 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import { MealIngredient as Ingredient } from "../../../../types/nutrition";
 
-const metrics = ["gr", "oz", "ml"];
+const units = ["gr", "oz", "ml"];
 
 const MealIngredient: FC<{
   ingredient: Ingredient;
@@ -54,13 +54,13 @@ const MealIngredient: FC<{
       <Grid item xs={6} sm={2}>
         <Select
           onChange={onChange}
-          name="metric"
-          value={ingredient.metric}
+          name="unit"
+          value={ingredient.unit}
           variant="outlined"
           style={{ width: "100%" }}
         >
-          {metrics.map((metric) => {
-            return <MenuItem value={metric}>{metric}</MenuItem>;
+          {units.map((unit) => {
+            return <MenuItem value={unit}>{unit}</MenuItem>;
           })}
         </Select>
       </Grid>

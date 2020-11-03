@@ -1,17 +1,22 @@
-import React from "react";
+import React, { FC } from "react";
 import { CircularProgress } from "@material-ui/core";
 
-const Loader = () => {
+const Loader: FC<{ color?: string; size?: number }> = ({ color, size }) => {
   return (
     <div
       style={{
         height: "100%",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        color: color
       }}
     >
-      <CircularProgress disableShrink />
+      <CircularProgress
+        disableShrink
+        color={color ? "inherit" : "primary"}
+        size={size}
+      />
     </div>
   );
 };
