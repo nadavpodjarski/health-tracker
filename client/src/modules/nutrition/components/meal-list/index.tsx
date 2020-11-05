@@ -22,6 +22,8 @@ import EditModalContent from "../modals/edit-meal-modal-content";
 import { Meal, Meals, MealDoc } from "../../../../types/nutrition";
 import { useModal } from "../../../../common/hooks/useModal";
 
+import * as _ from "lodash";
+
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
@@ -61,10 +63,9 @@ const MealsList: FC<{
   onEditMeal: (meal: Meal, docId: string) => Promise<any>;
 }> = ({ isLoading, meals, onDeleteMeal, onEditMeal }) => {
   const [mealIdToBeDeleted, setMealIdToBeDeleted] = useState<string>("");
-  const [
-    mealDocToBeUpdated,
-    setMealDocToBeUpdated
-  ] = useState<MealDoc | null>();
+  const [mealDocToBeUpdated, setMealDocToBeUpdated] = useState<MealDoc | null>(
+    null
+  );
 
   const [editModalToggler, EditModal] = useModal();
   const [deleteModalToggler, DeleteModal] = useModal();
@@ -163,7 +164,9 @@ const MealsList: FC<{
                       >
                         <ListActionButtons
                           deleteHandler={(event) => setDeleteMeal(item.id)}
-                          editHandler={(event) => setEditMeal(item)}
+                          editHandler={(event) =>
+                            setEditMeal(_.cloneDeep(item))
+                          }
                         />
                       </Grid>
                     </ListItem>
