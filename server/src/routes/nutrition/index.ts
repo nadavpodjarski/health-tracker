@@ -11,7 +11,10 @@ const nutritionRouter = Router();
 nutritionRouter.post("/nutrition/add-meal", async (req, res) => {
   const { data: mealData } = req.body;
 
+  if (!mealData) return res.status(400).json("Unable To Proccess Request");
+
   try {
+    // Check for existing type
     if (mealData.type !== MealTypes["Easy meal/Snack"]) {
       const isMealTypeExist = !!(await db.collection("nutrition").findOne({
         "author.uid": req.user.uid,
@@ -55,10 +58,13 @@ nutritionRouter.post("/nutrition/add-meal", async (req, res) => {
 nutritionRouter.get("/nutrition/get-meals", async (req, res) => {
   const { startAt, endAt } = req.query;
 
-  const start = helpers.getStartDayDate(startAt as string);
-  const end = helpers.getEndDayDate(endAt as string);
+  if (!startAt || !endAt)
+    return res.status(400).json("Unable To Proccess Request");
 
   try {
+    const start = helpers.getStartDayDate(startAt as string);
+    const end = helpers.getEndDayDate(endAt as string);
+
     const meals = await db
       .collection("nutrition")
       .aggregate([
@@ -99,10 +105,14 @@ nutritionRouter.get("/nutrition/get-meals", async (req, res) => {
 
 nutritionRouter.delete("/nutrition/delete-meal", async (req, res) => {
   const { docId } = req.query;
+
+  if (!docId || typeof docId !== "string")
+    return res.status(400).json("Unable To Proccess Request");
+
   try {
     const doc = await db
       .collection("nutrition")
-      .findOne({ _id: new ObjectId(docId as string) });
+      .findOne({ _id: new ObjectId(docId) });
 
     if (doc.author.uid !== req.user.uid)
       return res.status(403).json("unauthorized request");
@@ -117,20 +127,47 @@ nutritionRouter.delete("/nutrition/delete-meal", async (req, res) => {
 });
 
 //---------UPDATE Meal---------//
+
 nutritionRouter.put("/nutrition/edit-meal", async (req, res) => {
+  const {
+    data: { meal, docId }
+  } = req.body;
+
+  if (!docId || !meal) res.status(400).json("Unable To Proccess Request");
+
   try {
-    const { data: mealDoc } = req.body;
+    // Check for existing type
+    if (meal.type !== MealTypes["Easy meal/Snack"]) {
+      const isMealTypeExist = await db.collection("nutrition").findOne({
+        "author.uid": req.user.uid,
+        "meal.type": meal.type,
+        "meal.date": {
+          $gte: helpers.getStartDayDate(meal.date),
+          $lte: helpers.getEndDayDate(meal.date)
+        }
+      });
 
-    if (!mealDoc.docId || !mealDoc.meal)
-      res.status(400).json("Unable To Update Meal");
+      if (
+        isMealTypeExist &&
+        !new ObjectId(isMealTypeExist?._id).equals(docId)
+      ) {
+        return res
+          .status(400)
+          .json(
+            `${MealTypes[meal.type]} on ${helpers.formatDate(
+              meal.date
+            )} Already exist`
+          );
+      }
+    }
 
-    mealDoc.meal.date = helpers.stringToDate(mealDoc?.meal?.date);
+    meal.date = helpers.stringToDate(meal?.date);
 
     await db.collection("nutrition").updateOne(
-      { _id: new ObjectId(mealDoc.docId), "author.uid": req.user.uid },
+      { _id: new ObjectId(docId), "author.uid": req.user.uid },
       {
         $set: {
-          meal: mealDoc.meal
+          meal: meal
         }
       }
     );

@@ -135,7 +135,7 @@ export const addMeal = (meal: Meal) => async (
     const res = await api.postMeal(meal);
     dispatch(addMealSuccess());
 
-    if (meal.date >= dateRange.startAt) {
+    if (meal.date >= dateRange.startAt && meal.date <= dateRange.endAt) {
       dispatch(fetchMeals(dateRange));
     }
 
@@ -175,6 +175,6 @@ export const editMeal = (meal: Meal, docId: string) => async (
     );
     dispatch(fetchMeals(dateRange));
   } catch (err) {
-    dispatch(requestErr(err.respose?.data));
+    dispatch(requestErr(err.response?.data));
   }
 };
