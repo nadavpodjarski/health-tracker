@@ -59,7 +59,9 @@ const deleteMealSuccess = () => {
 };
 
 const requestErr = (err: any) => (dispatch: Dispatch<any>) => {
-  dispatch(uiActions.setSnackBar({ type: "error", msg: err }));
+  if (typeof err === "string")
+    dispatch(uiActions.setSnackBar({ type: "error", msg: err }));
+
   dispatch({
     type: types.REQUEST_ERR,
     payload: err
@@ -175,6 +177,6 @@ export const editMeal = (meal: Meal, docId: string) => async (
     );
     dispatch(fetchMeals(dateRange));
   } catch (err) {
-    dispatch(requestErr(err.response?.data));
+    dispatch(requestErr(err?.response?.data));
   }
 };
