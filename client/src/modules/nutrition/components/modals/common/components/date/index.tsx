@@ -1,16 +1,19 @@
 import React, { FC } from "react";
 import { Grid, Typography } from "@material-ui/core";
-import { useDatePicker } from "../../../../../../common/hooks/useDatePicker";
+import { useDatePicker } from "../../../../../../../common/hooks/useDatePicker";
 import { useStyles } from "../../styles";
-const MealDatePicker: FC<{ onChangeMealTime: (date: Date) => void }> = ({
-  onChangeMealTime
-}) => {
+
+const MealDatePicker: FC<{
+  onAcceptMealTime: (date: Date) => void;
+  date?: Date;
+}> = ({ onAcceptMealTime, date }) => {
   const { DateTimePicker } = useDatePicker();
 
   const classes = useStyles();
-  const onChange = (date: Date | null) => {
+
+  const onAccept = (date: Date | null) => {
     if (date) {
-      onChangeMealTime(date);
+      onAcceptMealTime(date);
     }
   };
   return (
@@ -24,7 +27,7 @@ const MealDatePicker: FC<{ onChangeMealTime: (date: Date) => void }> = ({
         <Typography>Set Date & Time</Typography>
       </Grid>
       <Grid item style={{ padding: "16px 0" }}>
-        <DateTimePicker onChange={onChange} />
+        <DateTimePicker onAcceptMealTime={onAccept} date={date} />
       </Grid>
     </Grid>
   );

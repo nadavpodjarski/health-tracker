@@ -5,7 +5,7 @@ import { MealTypes } from "../../types/nutrition";
 
 const mealIngredient = (uuid: () => string): (() => MealIngredient) => {
   return () => {
-    return { id: uuid(), item: "", amount: "", unit: "gr" };
+    return { id: uuid(), item: "", amount: "", unit: "g" };
   };
 };
 export const mealTypes = [
@@ -14,6 +14,8 @@ export const mealTypes = [
   { const: "Dinner", value: 3 },
   { const: "Easy meal/Snack", value: 4 }
 ];
+
+export const units = ["g", "oz", "ml"];
 
 export const makeNewMeal = () => {
   return {

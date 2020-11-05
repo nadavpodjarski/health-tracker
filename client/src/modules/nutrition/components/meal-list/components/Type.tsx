@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Typography } from "@material-ui/core";
-import { MealTypes } from "../../../../types/nutrition";
-import { colors } from "../../../../main/theme/colors";
+import { MealTypes } from "../../../../../types/nutrition";
+import { colors } from "../../../../../main/theme/colors";
 
 const typeColors = {
   [MealTypes["Breakfast"]]: [colors.maxYellowRed],
@@ -19,7 +19,8 @@ const Type: FC<{ type: MealTypes }> = ({ type }) => {
         textDecorationThickness: "3px",
         fontWeight: "bold",
         textUnderlinePosition: "under",
-        textDecorationColor: typeColors[type][0]
+        textDecorationColor: typeColors[type][0],
+        whiteSpace: "nowrap"
       }}
     >
       {MealTypes[type]}

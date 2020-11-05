@@ -1,13 +1,13 @@
 import React, { FC, useState } from "react";
 
-import { Meal, MealTypes } from "../../../../types/nutrition";
-import * as nutritionUtils from "../../../../utilities/nutrition";
+import { Meal, MealTypes } from "../../../../../types/nutrition";
+import * as nutritionUtils from "../../../../../utilities/nutrition";
 
-import SelectMealType from "./components/select-type";
-import MealIngredients from "./components/ingredients";
-import MealComments from "./components/comments";
-import MealDatePicker from "./components/date";
-import AddMealActionButtons from "./components/action-buttons";
+import SelectMealType from "../common/components/select-type";
+import MealIngredients from "../common/components/ingredients";
+import MealComments from "../common/components/comments";
+import MealDatePicker from "../common/components/date";
+import AddMealActionButtons from "./action-buttons";
 
 const AddMealModalContent: FC<{
   addMealModalToggler: () => void;
@@ -15,6 +15,7 @@ const AddMealModalContent: FC<{
 }> = ({ addMealModalToggler, onAddMeal }) => {
   const [state, setState] = useState<Meal>(nutritionUtils.makeNewMeal());
   const [isSaving, setIsSaving] = useState<boolean>(false);
+
   // Add Meal ingredient
   const onAddMealIngredient = () => {
     const newIngredient = nutritionUtils.makeNewMealIngredient();
@@ -78,6 +79,7 @@ const AddMealModalContent: FC<{
       await onAddMeal(state);
       addMealModalToggler();
     } catch (err) {
+      // TODO handle err
       console.log(err);
     } finally {
       setIsSaving(false);
@@ -101,7 +103,7 @@ const AddMealModalContent: FC<{
       <MealComments onChangeComments={onChangeComments} />
 
       {/*Meal Date*/}
-      <MealDatePicker onChangeMealTime={onChangeMealTime} />
+      <MealDatePicker onAcceptMealTime={onChangeMealTime} />
 
       {/*Action Buttons*/}
       <AddMealActionButtons

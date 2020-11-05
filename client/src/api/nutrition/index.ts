@@ -31,8 +31,9 @@ export const deleteMeal = async (docId: string) => {
   }
 };
 
-export const putMeal = async (meal: Meal) => {
+export const putMeal = async (meal: Meal, docId: string) => {
   try {
+    return await axios.put("/nutrition/edit-meal", { data: { meal, docId } });
   } catch (err) {
     throw err;
   }

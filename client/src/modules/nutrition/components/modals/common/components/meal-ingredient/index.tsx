@@ -7,10 +7,10 @@ import {
   IconButton,
   Divider
 } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
-import { MealIngredient as Ingredient } from "../../../../types/nutrition";
 
-const units = ["gr", "oz", "ml"];
+import DeleteIcon from "@material-ui/icons/Delete";
+import { MealIngredient as Ingredient } from "../../../../../../../types/nutrition";
+import * as utils from "../../../../../../../utilities/nutrition";
 
 const MealIngredient: FC<{
   ingredient: Ingredient;
@@ -59,16 +59,15 @@ const MealIngredient: FC<{
           variant="outlined"
           style={{ width: "100%" }}
         >
-          {units.map((unit) => {
+          {utils.units.map((unit) => {
             return <MenuItem value={unit}>{unit}</MenuItem>;
           })}
         </Select>
       </Grid>
       <Grid item xs={6} sm={1}>
-        {" "}
         <IconButton onClick={onDelete}>
           <DeleteIcon />
-        </IconButton>{" "}
+        </IconButton>
       </Grid>
       <Grid item xs={12}>
         <Divider style={{ margin: "8px 0" }} />

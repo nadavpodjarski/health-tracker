@@ -1,15 +1,15 @@
-import React, { useEffect, Dispatch } from "react";
+import React, { useEffect } from "react";
 
-import AddMealModalContent from "./components/add-meal-modal-content";
+import AddMealModalContent from "./components/modals/add-meal-modal-content";
 import MainHeader from "../../common/components/tracker-main-header";
 import MealsList from "./components/meal-list";
 import FilterOptions from "./components/filter-options";
 
 import { colors } from "../../main/theme/colors";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import { Button } from "@material-ui/core";
+import { Box, Button } from "@material-ui/core";
 import { useModal } from "../../common/hooks/useModal";
-import { useDispatch, useSelector, useStore } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as nutritionActions from "../../redux/trackers/nutrition/actions";
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
@@ -20,9 +20,18 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     moduleRoot: {
       display: "flex",
-      flexDirection: "column",
       flex: 1,
-      minHeight: 0
+      minHeight: 0,
+      justifyContent: "center",
+      width: "100%"
+    },
+    innerModule: {
+      width: "100%",
+      maxWidth: "1200px",
+      height: "100%",
+      display: "flex",
+      flexDirection: "column",
+      position: "relative"
     },
     openModalButton: {
       fontSize: "20px",
@@ -56,54 +65,50 @@ const Nutrition = () => {
   }, [dateRange]);
 
   const onDateRangeChange = (date: DateRange) => {
-    if (!date[0]) date[0] = new Date();
-    if (!date[1]) date[1] = new Date();
+    date[0] = date[0] || new Date();
+    date[1] = date[1] || new Date();
     dispatch(nutritionActions.setDateRange(date));
   };
 
   const onAddMeal = async (meal: Meal) => {
-    const res = dispatch(nutritionActions.addMeal(meal));
-    return res;
+    return dispatch(nutritionActions.addMeal(meal));
   };
 
   const onDeleteMeal = async (docId: string) => {
-    const res = dispatch(nutritionActions.deleteMeal(docId));
-    return res;
+    return dispatch(nutritionActions.deleteMeal(docId));
   };
 
-  const onEditMeal = (meal: Meal) => {};
+  const onEditMeal = async (meal: Meal, docId: string) => {
+    return dispatch(nutritionActions.editMeal(meal, docId));
+  };
 
   return (
     <div className={classes.moduleRoot}>
-      {/*Header*/}
-      <MainHeader title={moduleTitle} />
+      <Box className={classes.innerModule}>
+        {/*Header*/}
+        <MainHeader title={moduleTitle} />
 
-      {/*Open Modal Button*/}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "flex-start",
-          height: "80px"
-        }}
-      >
-        <Button
-          onClick={addMealModalToggler}
-          className={classes.openModalButton}
-        >
-          {modalButtonText}
-        </Button>
-      </div>
+        {/*Open Modal Button*/}
+        <Box display="flex" alignItems="flex-start" height={80} width="100%">
+          <Button
+            onClick={addMealModalToggler}
+            className={classes.openModalButton}
+          >
+            {modalButtonText}
+          </Button>
+        </Box>
 
-      {/*Filter options*/}
-      <FilterOptions {...{ onDateRangeChange, dateRange }} />
+        {/*Filter options*/}
+        <FilterOptions {...{ onDateRangeChange, dateRange }} />
 
-      {/*Food List*/}
-      <MealsList
-        onDeleteMeal={onDeleteMeal}
-        isLoading={isLoading}
-        meals={nutrition}
-      />
-
+        {/*Food List*/}
+        <MealsList
+          onDeleteMeal={onDeleteMeal}
+          onEditMeal={onEditMeal}
+          isLoading={isLoading}
+          meals={nutrition}
+        />
+      </Box>
       {/*Add Meal Modal*/}
       <AddMealModal width={1200}>
         <AddMealModalContent

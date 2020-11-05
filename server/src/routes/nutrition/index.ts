@@ -91,7 +91,7 @@ nutritionRouter.get("/nutrition/get-meals", async (req, res) => {
     return res.json(meals);
   } catch (err) {
     console.log(err.stack);
-    return res.status(500).json("Something went worng while fetching meals");
+    return res.status(500).json("There was an Error while fetching meals");
   }
 });
 
@@ -112,12 +112,35 @@ nutritionRouter.delete("/nutrition/delete-meal", async (req, res) => {
     return res.json("Meal Deleted Successfully");
   } catch (err) {
     console.log(err.stack);
-    return res.sendStatus(500);
+    return res.status(500).json("There was an Error while deleting meal");
   }
 });
 
 //---------UPDATE Meal---------//
-nutritionRouter.put("/nutrition/update-meal", (req, res) => {});
+nutritionRouter.put("/nutrition/edit-meal", async (req, res) => {
+  try {
+    const { data: mealDoc } = req.body;
+
+    if (!mealDoc.docId || !mealDoc.meal)
+      res.status(400).json("Unable To Update Meal");
+
+    mealDoc.meal.date = helpers.stringToDate(mealDoc?.meal?.date);
+
+    await db.collection("nutrition").updateOne(
+      { _id: new ObjectId(mealDoc.docId), "author.uid": req.user.uid },
+      {
+        $set: {
+          meal: mealDoc.meal
+        }
+      }
+    );
+
+    return res.json("Meal Updated Successfully");
+  } catch (err) {
+    console.log(err.stack);
+    return res.status(500).json("There was an Error while updating meal");
+  }
+});
 
 export enum MealTypes {
   Breakfast = 1,

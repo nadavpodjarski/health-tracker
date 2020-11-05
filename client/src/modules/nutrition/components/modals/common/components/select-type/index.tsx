@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { Typography, Select, MenuItem } from "@material-ui/core";
 import { useStyles } from "../../styles";
-import { MealTypes } from "../../../../../../types/nutrition";
-import * as nutritionUtils from "../../../../../../utilities/nutrition";
+import { MealTypes } from "../../../../../../../types/nutrition";
+import * as nutritionUtils from "../../../../../../../utilities/nutrition";
 
 const SelectMealType: FC<{
   type: MealTypes;
@@ -22,7 +22,7 @@ const SelectMealType: FC<{
 
   return (
     <div className={classes.select}>
-      <Typography variant="h4" style={{ fontWeight: "bold" }}>
+      <Typography variant="h4" className={classes.selectMealTitle}>
         Select Meal
       </Typography>
       <Select variant="outlined" value={type} onChange={onChangeHandler}>

@@ -14,14 +14,17 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const BasicDateTimePicker: FC<{
-  onChange: (date: Date | null) => void;
+  onAcceptMealTime: (date: Date | null) => void;
   label?: string;
-}> = ({ onChange, label }) => {
+  date?: Date | null;
+}> = ({ onAcceptMealTime, label, date }) => {
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | null>(
+    date || new Date()
+  );
 
   const handleDateChange = (date: Date | null) => {
-    onChange(date);
+    onAcceptMealTime(date);
     setSelectedDate(date);
   };
 

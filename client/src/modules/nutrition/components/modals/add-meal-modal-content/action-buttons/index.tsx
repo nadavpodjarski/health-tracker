@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Grid, Button } from "@material-ui/core";
-import { useStyles } from "../../styles";
+import { useStyles } from "../../common/styles";
+
 import Loader from "../../../../../../common/components/loader";
 
 const AddMealActionButtons: FC<{
@@ -18,7 +19,7 @@ const AddMealActionButtons: FC<{
       </Grid>
       <Grid item container xs={6} justify="flex-start">
         <Button
-          className={classes.confirmButton}
+          className={classes.addConfirmButton}
           onClick={onConfirm}
           endIcon={isSaving ? <Loader color="white" size={20} /> : ""}
         >

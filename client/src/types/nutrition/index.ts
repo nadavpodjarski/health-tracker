@@ -9,7 +9,7 @@ export type MealIngredient = {
   id: string;
   item: string;
   amount: number | string;
-  unit: "gr" | "oz" | "ml";
+  unit: "g" | "oz" | "ml";
 };
 
 export type Meal = {

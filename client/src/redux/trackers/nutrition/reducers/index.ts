@@ -43,6 +43,10 @@ export const nutritionReducer = (
         ...state,
         err: null
       };
+    case types.EDIT_MEAL:
+      return state;
+    case types.EDIT_MEAL_SUCCESS:
+      return state;
     case types.REQUEST_ERR:
       return {
         ...state,

@@ -24,6 +24,7 @@ const connect = () => {
 
 connect();
 
-export const db = mongoose.connection.on("error", (err) => {
+export const db = mongoose.connection.on("close", (err) => {
   console.log(err);
+  connect();
 });

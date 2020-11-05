@@ -1,5 +1,6 @@
 import { makeStyles, Theme } from "@material-ui/core";
-import { colors } from "../../../../../main/theme/colors";
+import { colors } from "../../../../../../main/theme/colors";
+
 export const useStyles = makeStyles((theme: Theme) => ({
   select: {
     display: "flex",
@@ -7,6 +8,10 @@ export const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "space-between",
     padding: "16px 0"
   },
+  selectMealTitle: {
+    fontWeight: "bold"
+  },
+
   ingredients: {
     display: "flex",
     alignItems: "center",
@@ -18,7 +23,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
     border: `1px solid ${colors.tourquize}`,
     width: "80px"
   },
-  confirmButton: {
+  addConfirmButton: {
     background: colors.tourquize,
     color: "white",
     width: "100px",
@@ -27,6 +32,16 @@ export const useStyles = makeStyles((theme: Theme) => ({
       color: "white"
     }
   },
+  editConfirmButton: {
+    background: colors.tourquize,
+    color: "white",
+    width: "130px",
+    "&:hover": {
+      background: "rgba(0, 217, 192, 0.7)",
+      color: "white"
+    }
+  },
+
   textArea: {
     minWidth: "100%",
     maxWidth: "100%",

@@ -6,26 +6,27 @@ import {
   makeStyles,
   Theme,
   Paper,
-  Grid
+  Grid,
+  ListItemText
 } from "@material-ui/core";
 
-import ListActionButtons from "./list-action-button";
+import ListActionButtons from "./components/list-action-button";
 import Loader from "../../../../common/components/loader";
-import Type from "./Type";
-import Ingredients from "./Ingredients";
-import Time from "./Time";
-import DeleteModalContent from "../delete-modal-content";
-import EditModalContent from "../edit-meal-modal-content";
+import Type from "./components/Type";
+import Ingredients from "./components/Ingredients";
+import Time from "./components/Time";
 
-import { Meal, Meals } from "../../../../types/nutrition";
+import DeleteModalContent from "../modals/delete-modal-content";
+import EditModalContent from "../modals/edit-meal-modal-content";
+
+import { Meal, Meals, MealDoc } from "../../../../types/nutrition";
 import { useModal } from "../../../../common/hooks/useModal";
 
 const useStyles = makeStyles((theme: Theme) => ({
-  foodList: {
+  root: {
     backgroundColor: theme.palette.background.paper,
     position: "relative",
     overflowY: "auto",
-    overflowX: "hidden",
     flex: 1,
     minHeight: 0,
     scrollbarWidth: "none",
@@ -35,12 +36,21 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   listSection: {
     backgroundColor: "inherit",
-    fontSize: "22px",
-    overflowX: "auto"
+    fontSize: "22px"
   },
   ul: {
     backgroundColor: "inherit",
     padding: 0
+  },
+  actionButtonWrapper: {
+    height: "100%",
+    position: "absolute",
+    right: 8,
+    alignItems: "center",
+    [theme.breakpoints.down("md")]: {
+      alignItems: "flex-start",
+      paddingTop: "16px"
+    }
   }
 }));
 
@@ -48,9 +58,13 @@ const MealsList: FC<{
   isLoading: boolean;
   meals: Meals;
   onDeleteMeal: (docId: string) => Promise<any>;
-}> = ({ isLoading, meals, onDeleteMeal }) => {
-  const [mealToBeDeleted, setMealToBeDeleted] = useState<string>("");
-  const [mealToBeUpdated, setMealToBeUpdated] = useState<Meal | null>();
+  onEditMeal: (meal: Meal, docId: string) => Promise<any>;
+}> = ({ isLoading, meals, onDeleteMeal, onEditMeal }) => {
+  const [mealIdToBeDeleted, setMealIdToBeDeleted] = useState<string>("");
+  const [
+    mealDocToBeUpdated,
+    setMealDocToBeUpdated
+  ] = useState<MealDoc | null>();
 
   const [editModalToggler, EditModal] = useModal();
   const [deleteModalToggler, DeleteModal] = useModal();
@@ -58,112 +72,145 @@ const MealsList: FC<{
   const classes = useStyles();
 
   const setDeleteMeal = (docId: string) => {
-    setMealToBeDeleted(docId);
+    setMealIdToBeDeleted(docId);
     deleteModalToggler();
   };
 
   const onConfirmDelete = async (docId: string) => {
     await onDeleteMeal(docId);
-    setMealToBeDeleted("");
+    setMealIdToBeDeleted("");
+    deleteModalToggler();
   };
 
   const onCancelDelete = () => {
-    setMealToBeDeleted("");
+    setMealIdToBeDeleted("");
+    deleteModalToggler();
   };
 
-  const setEditMeal = (meal: Meal) => {
-    setMealToBeUpdated(meal);
+  const setEditMeal = (item: MealDoc) => {
+    setMealDocToBeUpdated(item);
     editModalToggler();
   };
-
-  const onEditMeal = () => {};
 
   const onCancelEdit = () => {
+    setMealDocToBeUpdated(null);
     editModalToggler();
-    setMealToBeUpdated(null);
+  };
+
+  const onConfirmEdit = async (meal: Meal) => {
+    if (mealDocToBeUpdated?.id) {
+      await onEditMeal(meal, mealDocToBeUpdated.id);
+      setMealDocToBeUpdated(null);
+      editModalToggler();
+    }
   };
 
   return (
-    <Paper elevation={1} className={classes.foodList}>
-      <List style={{ height: "100%", maxWidth: "100%" }} subheader={<li />}>
-        {!isLoading ? (
-          <>
-            {meals?.map((mealsByDate, i) => {
-              return (
-                <li key={`section-${i}`} className={classes.listSection}>
-                  <ul className={classes.ul}>
-                    <ListSubheader>{`${mealsByDate._id}`}</ListSubheader>
-                    {mealsByDate.meals.map((item, i: number) => (
-                      <ListItem
-                        key={`item-${i}`}
-                        divider
-                        style={{
-                          padding: "18px 12px"
-                        }}
-                      >
-                        <Grid item xs={2}>
-                          <Type type={item.meal.type} />
-                        </Grid>
-                        <Grid item xs={8} container spacing={1}>
-                          <Grid container spacing={2}>
-                            <Ingredients ingredients={item.meal.ingredients} />
-                          </Grid>
-                        </Grid>
-                        <Grid item xs={1} container justify="center">
-                          <Time time={item.meal.date} />
-                        </Grid>
-                        <Grid
-                          item
-                          xs={1}
-                          container
-                          justify="space-between"
-                          spacing={2}
+    <List
+      component={Paper}
+      className={classes.root}
+      elevation={1}
+      subheader={<li />}
+    >
+      {!isLoading ? (
+        <>
+          {meals?.map((mealsByDate, i) => {
+            return (
+              <li key={`section-${i}`} className={classes.listSection}>
+                <ul className={classes.ul}>
+                  <ListSubheader>{`${mealsByDate._id}`}</ListSubheader>
+                  {mealsByDate.meals.map((item, i: number) => (
+                    <ListItem
+                      key={`item-${i}`}
+                      style={{
+                        padding: "18px 12px"
+                      }}
+                      divider
+                      component={Grid}
+                      container
+                      justify="space-between"
+                    >
+                      <Grid item xs={6} md={2} style={{ minWidth: "250px" }}>
+                        <ListItemText
+                          secondary={<Time time={item.meal.date} />}
                         >
-                          <ListActionButtons
-                            comments={item.meal.comments}
-                            deleteHandler={(event) => setDeleteMeal(item.id)}
-                            editHandler={(event) => setEditMeal(item.meal)}
-                          />
-                        </Grid>
-                      </ListItem>
-                    ))}
-                  </ul>
-                </li>
-              );
-            })}
-          </>
-        ) : (
-          <ListItem
-            style={{
-              height: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center"
-            }}
-          >
-            <Loader />
-          </ListItem>
-        )}
+                          <Type type={item.meal.type} />
+                        </ListItemText>
+                      </Grid>
 
-        {/*Delete Modal*/}
+                      <Grid
+                        item
+                        container
+                        xs={12}
+                        md={9}
+                        spacing={1}
+                        style={{ whiteSpace: "nowrap" }}
+                      >
+                        <Ingredients ingredients={item.meal.ingredients} />
+                      </Grid>
+
+                      <Grid item container xs={12}>
+                        {item.meal.comments}
+                      </Grid>
+
+                      <Grid
+                        item
+                        container
+                        md={1}
+                        className={classes.actionButtonWrapper}
+                        spacing={2}
+                        justify="flex-end"
+                      >
+                        <ListActionButtons
+                          deleteHandler={(event) => setDeleteMeal(item.id)}
+                          editHandler={(event) => setEditMeal(item)}
+                        />
+                      </Grid>
+                    </ListItem>
+                  ))}
+                </ul>
+              </li>
+            );
+          })}
+        </>
+      ) : (
+        <ListItem
+          style={{
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
+          <Loader title="Fetching Meals" />
+        </ListItem>
+      )}
+
+      {/*Delete Modal*/}
+      {mealIdToBeDeleted ? (
         <DeleteModal width={500}>
           <DeleteModalContent
             onCancelDelete={onCancelDelete}
-            onConfirmDelete={(event) => onConfirmDelete(mealToBeDeleted)}
-            toggler={deleteModalToggler}
+            onConfirmDelete={(event) => onConfirmDelete(mealIdToBeDeleted)}
           />
         </DeleteModal>
+      ) : (
+        ""
+      )}
 
-        {/*Edit Modal*/}
-        <EditModal width={400}>
+      {/*Edit Modal*/}
+      {mealDocToBeUpdated ? (
+        <EditModal width={1200}>
           <EditModalContent
             onCancelEdit={onCancelEdit}
-            mealToBeUpdated={mealToBeUpdated as Meal}
-            onEditMeal={onEditMeal}
+            onConfirmEdit={onConfirmEdit}
+            mealToBeUpdated={mealDocToBeUpdated.meal as Meal}
           />
         </EditModal>
-      </List>
-    </Paper>
+      ) : (
+        ""
+      )}
+    </List>
   );
 };
 

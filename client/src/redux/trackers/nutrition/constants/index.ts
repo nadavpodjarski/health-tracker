@@ -4,8 +4,8 @@ export const ADD_MEAL_SUCCESS = "ADD_MEAL_SUCCESS";
 export const DELETE_MEAL = "DELETE_MEAL";
 export const DELETE_MEAL_SUCCESS = "DELETE_MEAL_SUCCESS";
 
-export const UPDATE_MEAL = "UPDATE_MEAL";
-export const UPDATE_MEAL_SUCCESS = "UPDATE_MEAL_SUCCESS";
+export const EDIT_MEAL = "EDIT_MEAL";
+export const EDIT_MEAL_SUCCESS = "EDIT_MEAL_SUCCESS";
 
 export const GET_MEALS = "GET_MEALS";
 export const GET_MEALS_SUCCESS = "GET_MEALS_SUCCESS";

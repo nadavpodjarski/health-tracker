@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { Typography, IconButton, Grid } from "@material-ui/core";
-import MealIngredient from "../../../meal-ingredient";
+import MealIngredient from "../meal-ingredient";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import { MealIngredient as Ingredient } from "../../../../../../types/nutrition";
+import { MealIngredient as Ingredient } from "../../../../../../../types/nutrition";
 
 const MealIngredients: FC<{
   ingredients: Ingredient[];
@@ -50,7 +50,7 @@ const MealIngredients: FC<{
       <Grid container spacing={3}>
         {ingredients.map((ing, i) => {
           return (
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} key={`add_modal_ingredient-${i}`}>
               <MealIngredient
                 ingredient={ing}
                 onDelete={(event) => onDeleteMealIngredient(ing.id)}
