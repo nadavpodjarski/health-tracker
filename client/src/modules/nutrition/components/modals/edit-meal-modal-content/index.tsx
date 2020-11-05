@@ -28,7 +28,7 @@ const AddMealModalContent: FC<{
 
   // Delete Meal Ingredient
   const onDeleteMealIngredient = (id: string) => {
-    if (state.ingredients.length === 1) return;
+    if (state.ingredients.length === 1) return onCancelEdit();
     setState((prevState) => ({
       ...prevState,
       ingredients: [...prevState.ingredients.filter((ing) => ing.id !== id)]
