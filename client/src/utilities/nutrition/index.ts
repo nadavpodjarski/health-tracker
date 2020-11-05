@@ -34,7 +34,7 @@ export const isValidMeal = (state: Meal) => {
     date: !state.date ? "Must Pick A Date" : "",
     ingredients: !state.ingredients.every((ing, i) => {
       ingredientIndex = i;
-      return ing.item;
+      return ing.item.trim();
     })
       ? {
           index: ingredientIndex,
