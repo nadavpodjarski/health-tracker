@@ -4,6 +4,8 @@ import MealIngredient from "../meal-ingredient";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import { MealIngredient as Ingredient } from "../../../../../../../types/nutrition";
 
+import { uuid } from "../../../../../../../utilities";
+
 const MealIngredients: FC<{
   ingredients: Ingredient[];
   onAddMealIngredient: () => void;
@@ -29,8 +31,8 @@ const MealIngredients: FC<{
     index: number
   ) => {
     const { name: property, value } = event.target;
-    if (typeof property === "string") {
-      onChangeMealIngredient(property, value as string, index);
+    if (typeof property === "string" && typeof value === "string") {
+      onChangeMealIngredient(property, value, index);
     }
   };
 
@@ -50,7 +52,7 @@ const MealIngredients: FC<{
       <Grid container spacing={3}>
         {ingredients.map((ing, i) => {
           return (
-            <Grid item xs={12} md={6} key={`add_modal_ingredient-${i}`}>
+            <Grid item xs={12} md={6} key={`modal_ingredient-${uuid()}`}>
               <MealIngredient
                 ingredient={ing}
                 onDelete={(event) => onDeleteMealIngredient(ing.id)}

@@ -81,7 +81,6 @@ const AddMealModalContent: FC<{
     } catch (err) {
       // TODO handle err
       console.log(err);
-    } finally {
       setIsUpdating(false);
     }
   };
