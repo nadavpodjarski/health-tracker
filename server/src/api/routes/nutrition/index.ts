@@ -1,14 +1,14 @@
-import { db } from "../../db";
+import { db } from "../../../db";
 import { Router } from "express";
-import { MealModel } from "../../models/nutrition";
+import { MealModel } from "../../../models/nutrition";
 import { ObjectId } from "bson";
-import * as helpers from "../../helpers";
+import * as helpers from "../../../helpers";
 
 const nutritionRouter = Router();
 
 //------------ADD Meal-----------//
 
-nutritionRouter.post("/nutrition/add-meal", async (req, res) => {
+nutritionRouter.post("/add-meal", async (req, res) => {
   const { data: mealData } = req.body;
 
   if (!mealData) return res.status(400).json("Unable To Proccess Request");
@@ -55,7 +55,7 @@ nutritionRouter.post("/nutrition/add-meal", async (req, res) => {
 
 //---------- GET Meals ------ //
 
-nutritionRouter.get("/nutrition/get-meals", async (req, res) => {
+nutritionRouter.get("/get-meals", async (req, res) => {
   const { startAt, endAt } = req.query;
 
   if (!startAt || !endAt)
@@ -103,7 +103,7 @@ nutritionRouter.get("/nutrition/get-meals", async (req, res) => {
 
 //-------------DELETE Meal----------//
 
-nutritionRouter.delete("/nutrition/delete-meal", async (req, res) => {
+nutritionRouter.delete("/delete-meal", async (req, res) => {
   const { docId } = req.query;
 
   if (!docId || typeof docId !== "string")
@@ -128,7 +128,7 @@ nutritionRouter.delete("/nutrition/delete-meal", async (req, res) => {
 
 //---------UPDATE Meal---------//
 
-nutritionRouter.put("/nutrition/edit-meal", async (req, res) => {
+nutritionRouter.put("/edit-meal", async (req, res) => {
   const {
     data: { meal, docId }
   } = req.body;

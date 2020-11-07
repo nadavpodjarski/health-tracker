@@ -52,7 +52,7 @@ const AddMealModalContent: FC<{
   const onChangeComments = (comments: string) => {
     setState((prevState) => ({
       ...prevState,
-      comments
+      comments: comments.trim()
     }));
   };
 
@@ -81,7 +81,6 @@ const AddMealModalContent: FC<{
     } catch (err) {
       // TODO handle err
       console.log(err);
-    } finally {
       setIsSaving(false);
     }
   };

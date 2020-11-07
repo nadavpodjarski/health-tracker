@@ -9,13 +9,18 @@ import MealComments from "../common/components/comments";
 import MealDatePicker from "../common/components/date";
 import EditMealActionButton from "./action-buttons";
 
+import * as _ from "lodash";
+
 const AddMealModalContent: FC<{
   onCancelEdit: () => void;
   onConfirmEdit: (meal: Meal) => Promise<any>;
   mealToBeUpdated: Meal;
-}> = ({ onCancelEdit, onConfirmEdit, mealToBeUpdated }) => {
+  toggler: () => void;
+}> = ({ onCancelEdit, onConfirmEdit, mealToBeUpdated, toggler }) => {
   const [state, setState] = useState<Meal>(mealToBeUpdated);
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
+
+  const [tempState] = useState<Meal>(state);
 
   // Add Meal ingredient
   const onAddMealIngredient = () => {
@@ -41,7 +46,7 @@ const AddMealModalContent: FC<{
     value: string,
     index: number
   ) => {
-    const ingredients = [...state.ingredients];
+    const ingredients = _.cloneDeep(state.ingredients);
     Object.assign(ingredients[index], { [property]: value });
     setState((prevState) => ({
       ...prevState,
@@ -75,6 +80,7 @@ const AddMealModalContent: FC<{
 
   // Confirm Add Meal
   const onConfirm = async () => {
+    if (_.isEqual(tempState, state)) return toggler();
     setIsUpdating(true);
     try {
       await onConfirmEdit(state);
