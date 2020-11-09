@@ -1,8 +1,8 @@
 import React, { FC, useState, useEffect } from "react";
-import TextField from "@material-ui/core/TextField";
+import { TextField, Divider, Box } from "@material-ui/core";
 import DateFnsUtils from "@material-ui/pickers/adapter/date-fns";
+import EventIcon from "@material-ui/icons/Event";
 import {
-  DateRangeDelimiter,
   MobileDateRangePicker,
   LocalizationProvider
 } from "@material-ui/pickers";
@@ -48,8 +48,16 @@ const DateRangePicker: FC<{
         allowSameDateSelection={true}
         renderInput={(startProps, endProps) => (
           <div
-            style={{ padding: "16px", display: "flex", alignItems: "center" }}
+            style={{
+              padding: "16px",
+              display: "flex",
+              alignItems: "center",
+              border: "1px solid rgba(0,0,0,0.2)"
+            }}
           >
+            <Box paddingRight="16px" display="flex" alignItems="center">
+              <EventIcon />
+            </Box>
             <TextField
               {...startProps}
               label=""
@@ -57,7 +65,10 @@ const DateRangePicker: FC<{
               helperText=""
               style={{ maxWidth: "120px" }}
             />
-            <DateRangeDelimiter> {">>"} </DateRangeDelimiter>
+            <Divider
+              orientation="vertical"
+              style={{ height: "auto", margin: "0 16px", alignSelf: "stretch" }}
+            />
             <TextField
               {...endProps}
               label=""

@@ -1,9 +1,10 @@
 import React, { FC } from "react";
 import { Typography, TextareaAutosize } from "@material-ui/core";
 import { useStyles } from "../../styles";
-const MealComments: FC<{ onChangeComments: (value: string) => void }> = ({
-  onChangeComments
-}) => {
+const MealComments: FC<{
+  onChangeComments: (value: string) => void;
+  comments: string;
+}> = ({ onChangeComments, comments }) => {
   const classes = useStyles();
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = event.target;
@@ -19,6 +20,7 @@ const MealComments: FC<{ onChangeComments: (value: string) => void }> = ({
         <TextareaAutosize
           rowsMax={8}
           rowsMin={6}
+          value={comments}
           className={classes.textArea}
           onChange={onChange}
         />

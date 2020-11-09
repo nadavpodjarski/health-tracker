@@ -6,7 +6,8 @@ import {
   MenuItem,
   Fade,
   IconButton,
-  Typography
+  Typography,
+  Box
 } from "@material-ui/core";
 
 const ListActionButtons: FC<{
@@ -38,7 +39,7 @@ const ListActionButtons: FC<{
     handleClose();
   };
   return (
-    <>
+    <Box>
       <IconButton onClick={handleClick}>
         <MoreVert />
       </IconButton>
@@ -59,7 +60,7 @@ const ListActionButtons: FC<{
           <Typography style={{ padding: "0 8px" }}>Edit</Typography>
         </MenuItem>
       </Menu>
-    </>
+    </Box>
   );
 };
 

@@ -17,6 +17,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 
 import FastfoodIcon from "@material-ui/icons/Fastfood";
 import EmojiSymbolsIcon from "@material-ui/icons/EmojiSymbols";
+import DashboardIcon from "@material-ui/icons/Dashboard";
 
 import { routes } from "../../main/routes/constants";
 import MenuRoutes from "../../main/routes/menuRoutes";
@@ -155,6 +156,13 @@ const Home: FC = ({ children }) => {
               <EmojiSymbolsIcon />
             </ListItemIcon>
             <ListItemText>Symptoms</ListItemText>
+          </ListItem>
+          <Divider style={{ margin: "8px 0" }} />
+          <ListItem button component={NavLink} to={routes.dashboard}>
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText>Dashboard</ListItemText>
           </ListItem>
         </List>
       </Drawer>

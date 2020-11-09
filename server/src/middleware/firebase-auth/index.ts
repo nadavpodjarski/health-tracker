@@ -1,7 +1,11 @@
 import admin from "firebase-admin";
 import { Request, Response, NextFunction } from "express";
 
-export const FBAuth = (req: Request, res: Response, next: NextFunction) => {
+export const firebaseAuth = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   if (!req.headers["authorization"])
     return res.status(403).json("unauthorized request");
 

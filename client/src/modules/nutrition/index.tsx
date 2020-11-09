@@ -6,7 +6,7 @@ import MealsList from "./components/meal-list";
 import FilterOptions from "./components/filter-options";
 
 import { colors } from "../../main/theme/colors";
-import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 import { Box, Button } from "@material-ui/core";
 import { useModal } from "../../common/hooks/useModal";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +16,7 @@ import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 import { IStore } from "../../types/redux";
 import { Meal } from "../../types/nutrition";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     moduleRoot: {
       display: "flex",
@@ -89,7 +89,12 @@ const Nutrition = () => {
         <MainHeader title={moduleTitle} />
 
         {/*Open Modal Button*/}
-        <Box display="flex" alignItems="flex-start" height={80} width="100%">
+        <Box
+          display="flex"
+          alignItems="flex-start"
+          width="100%"
+          padding="16px 0"
+        >
           <Button
             onClick={addMealModalToggler}
             className={classes.openModalButton}

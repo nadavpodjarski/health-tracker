@@ -105,7 +105,10 @@ const AddMealModalContent: FC<{
       />
 
       {/*Meal Comments*/}
-      <MealComments onChangeComments={onChangeComments} />
+      <MealComments
+        onChangeComments={onChangeComments}
+        comments={state.comments}
+      />
 
       {/*Meal Date*/}
       <MealDatePicker onAcceptMealTime={onChangeMealTime} date={state.date} />

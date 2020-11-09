@@ -5,35 +5,26 @@ import {
   ListItem,
   makeStyles,
   Theme,
-  Paper,
-  Grid,
-  ListItemText
+  Box
 } from "@material-ui/core";
 
-import ListActionButtons from "./components/list-action-button";
 import Loader from "../../../../common/components/loader";
-import Type from "./components/Type";
-import Ingredients from "./components/Ingredients";
-import Time from "./components/Time";
 
+import MealListItem from "./components/ListItem";
 import DeleteModalContent from "../modals/delete-modal-content";
 import EditModalContent from "../modals/edit-meal-modal-content";
 
 import { Meal, Meals, MealDoc } from "../../../../types/nutrition";
 import { useModal } from "../../../../common/hooks/useModal";
 
-import * as _ from "lodash";
-
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    backgroundColor: theme.palette.background.paper,
     position: "relative",
     overflowY: "auto",
     flex: 1,
     minHeight: 0,
     scrollbarWidth: "none",
     marginBottom: theme.spacing(1),
-    padding: "0 16px",
     maxWidth: "100%"
   },
   listSection: {
@@ -44,15 +35,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: "inherit",
     padding: 0
   },
-  actionButtonWrapper: {
-    height: "100%",
-    position: "absolute",
-    right: 8,
-    alignItems: "center",
-    [theme.breakpoints.down("md")]: {
-      alignItems: "flex-start",
-      paddingTop: "16px"
-    }
+  subHeaderWrapper: {
+    display: "flex",
+    justifyContent: "center",
+    padding: "10px 0"
+  },
+  subHeader: {
+    background: theme.palette.background.paper,
+    borderRadius: "50px",
+    boxShadow: "0 0 10px 3px rgba(0,0,0,0.1)",
+    padding: "2px 15px",
+    border: `1px solid ${theme.palette.primary.main}`
   }
 }));
 
@@ -108,10 +101,10 @@ const MealsList: FC<{
 
   return (
     <List
-      component={Paper}
+      component={Box}
       className={classes.root}
-      elevation={1}
       subheader={<li />}
+      disablePadding
     >
       {!isLoading ? (
         <>
@@ -119,57 +112,16 @@ const MealsList: FC<{
             return (
               <li key={`section-${i}`} className={classes.listSection}>
                 <ul className={classes.ul}>
-                  <ListSubheader>{`${mealsByDate._id}`}</ListSubheader>
+                  <ListSubheader className={classes.subHeaderWrapper}>
+                    <Box className={classes.subHeader}>{mealsByDate._id}</Box>
+                  </ListSubheader>
                   {mealsByDate.meals.map((item, i: number) => (
-                    <ListItem
-                      key={`item-${i}`}
-                      style={{
-                        padding: "18px 12px"
-                      }}
-                      divider
-                      component={Grid}
-                      container
-                      justify="space-between"
-                    >
-                      <Grid item xs={6} md={2} style={{ minWidth: "250px" }}>
-                        <ListItemText
-                          secondary={<Time time={item.meal.date} />}
-                        >
-                          <Type type={item.meal.type} />
-                        </ListItemText>
-                      </Grid>
-
-                      <Grid
-                        item
-                        container
-                        xs={12}
-                        md={9}
-                        spacing={1}
-                        style={{ whiteSpace: "nowrap" }}
-                      >
-                        <Ingredients ingredients={item.meal.ingredients} />
-                      </Grid>
-
-                      <Grid item container xs={12}>
-                        {item.meal.comments}
-                      </Grid>
-
-                      <Grid
-                        item
-                        container
-                        md={1}
-                        className={classes.actionButtonWrapper}
-                        spacing={2}
-                        justify="flex-end"
-                      >
-                        <ListActionButtons
-                          deleteHandler={(event) => setDeleteMeal(item.id)}
-                          editHandler={(event) =>
-                            setEditMeal(_.cloneDeep(item))
-                          }
-                        />
-                      </Grid>
-                    </ListItem>
+                    <MealListItem
+                      i={i}
+                      item={item}
+                      setDeleteMeal={setDeleteMeal}
+                      setEditMeal={setEditMeal}
+                    />
                   ))}
                 </ul>
               </li>

@@ -17,7 +17,7 @@ nutritionRouter.post("/add-meal", async (req, res) => {
     // Check for existing type
     if (mealData.type !== MealTypes["Easy meal/Snack"]) {
       const isMealTypeExist = !!(await db.collection("nutrition").findOne({
-        "author.uid": req.user.uid,
+        "author.uid": req.user?.uid,
         "meal.type": mealData.type,
         "meal.date": {
           $gte: helpers.getStartDayDate(mealData.date),
@@ -38,8 +38,8 @@ nutritionRouter.post("/add-meal", async (req, res) => {
     mealData.date = helpers.stringToDate(mealData.date);
     const meal = new MealModel({
       author: {
-        uid: req.user.uid,
-        displayName: req.user.name
+        uid: req.user?.uid,
+        displayName: req.user?.name
       },
       meal: mealData
     });
@@ -74,7 +74,7 @@ nutritionRouter.get("/get-meals", async (req, res) => {
               {
                 "meal.date": { $gte: start, $lte: end }
               },
-              { "author.uid": req.user.uid }
+              { "author.uid": req.user?.uid }
             ]
           }
         },
@@ -114,7 +114,7 @@ nutritionRouter.delete("/delete-meal", async (req, res) => {
       .collection("nutrition")
       .findOne({ _id: new ObjectId(docId) });
 
-    if (doc.author.uid !== req.user.uid)
+    if (doc.author.uid !== req.user?.uid)
       return res.status(403).json("unauthorized request");
 
     db.collection("nutrition").deleteOne(doc);
@@ -139,7 +139,7 @@ nutritionRouter.put("/edit-meal", async (req, res) => {
     // Check for existing type
     if (meal.type !== MealTypes["Easy meal/Snack"]) {
       const isMealTypeExist = await db.collection("nutrition").findOne({
-        "author.uid": req.user.uid,
+        "author.uid": req.user?.uid,
         "meal.type": meal.type,
         "meal.date": {
           $gte: helpers.getStartDayDate(meal.date),
