@@ -29,19 +29,10 @@ export const makeNewMeal = () => {
 export const makeNewMealIngredient = mealIngredient(uuid);
 
 export const isValidMeal = (state: Meal) => {
-  let ingredientIndex = 0;
   const error = {
-    date: !state.date ? "Must Pick A Date" : "",
-    ingredients: !state.ingredients.every((ing, i) => {
-      ingredientIndex = i;
-      return ing.item.trim();
-    })
-      ? {
-          index: ingredientIndex,
-          message: "Cannot Submit Empty Ingredients"
-        }
-      : "",
-    type: !state.type ? "Must Pick A Meal Type" : ""
+    date: !state.date,
+    ingredients: !state.ingredients.every((ing) => ing.item.trim()),
+    type: !state.type
   };
   if (error.date || error.ingredients || error.type) return "";
   else return "ok";

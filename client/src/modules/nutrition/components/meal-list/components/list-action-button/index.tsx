@@ -95,18 +95,25 @@ const ListActionButtons: FC<{
           open={!!anchorEl}
           onClose={handleClose}
           TransitionComponent={Fade}
+          style={{ fontSize: "16px" }}
         >
           <MenuItem onClick={onEditHadnler}>
-            <Edit />
-            <Typography style={{ padding: "0 8px" }}>Edit</Typography>
+            <Edit fontSize="inherit" />
+            <Typography style={{ padding: "0 8px", fontSize: "inherit" }}>
+              Edit
+            </Typography>
           </MenuItem>
           <MenuItem onClick={onCopyHandler}>
-            <FileCopy />
-            <Typography style={{ padding: "0 8px" }}>Copy</Typography>
+            <FileCopy fontSize="inherit" />
+            <Typography style={{ padding: "0 8px", fontSize: "inherit" }}>
+              Copy
+            </Typography>
           </MenuItem>
           <MenuItem onClick={onDeleteHandler}>
-            <HighlightOff />
-            <Typography style={{ padding: "0 8px" }}>Delete</Typography>
+            <HighlightOff fontSize="inherit" />
+            <Typography style={{ padding: "0 8px", fontSize: "inherit" }}>
+              Delete
+            </Typography>
           </MenuItem>
         </Menu>
       </Box>

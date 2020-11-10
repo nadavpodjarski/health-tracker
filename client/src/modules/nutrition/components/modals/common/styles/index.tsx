@@ -14,19 +14,19 @@ export const useStyles = makeStyles((theme: Theme) => ({
     width: "80px"
   },
   addConfirmButton: {
-    background: colors.tourquize,
-    color: "white",
+    background: theme.palette.primary.main,
+    color: theme.palette.common.white,
     width: "130px",
     "&:hover": {
       background: "rgba(0, 217, 192, 0.7)",
-      color: "white"
+      color: theme.palette.common.white
     },
     "&:disabled": {
       background: theme.palette.divider
     }
   },
   editConfirmButton: {
-    background: colors.tourquize,
+    background: theme.palette.primary.main,
     color: "white",
     width: "130px",
     "&:hover": {
