@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChange } from "./redux/auth/actions";
 import "./App.css";
 
@@ -9,10 +9,13 @@ import { routes } from "./main/routes/constants";
 import SnackBar from "./common/components/snack-bar";
 
 import { lightTheme } from "./main/theme/light";
+import { darkTheme } from "./main/theme/dark";
 import { ThemeProvider } from "@material-ui/core";
 
 function App() {
   const dispatch = useDispatch();
+
+  const { theme } = useSelector((state: any) => state.ui);
   const history = useHistory();
 
   useEffect(() => {
@@ -21,7 +24,7 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider theme={lightTheme}>
+    <ThemeProvider theme={!theme ? { ...lightTheme } : { ...darkTheme }}>
       <div className="App">
         <AppRoutes />
         <SnackBar

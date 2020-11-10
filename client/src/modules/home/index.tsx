@@ -23,6 +23,7 @@ import { routes } from "../../main/routes/constants";
 import MenuRoutes from "../../main/routes/menuRoutes";
 
 import ProfileAvatar from "../../common/components/profile-avatar";
+import ThemeSwitch from "../../common/components/theme-switch";
 
 const drawerWidth = 240;
 
@@ -126,6 +127,7 @@ const Home: FC = ({ children }) => {
             <MenuIcon fontSize="inherit" />
           </IconButton>
           <div style={{ display: "flex", alignItems: "center" }}>
+            <ThemeSwitch />
             <ProfileAvatar />
           </div>
         </Toolbar>

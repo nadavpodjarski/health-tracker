@@ -1,25 +1,15 @@
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
+import { colors } from "../colors";
 
-export const colors = {
-  steelTeal: "#648381",
-  davysGrey: "#575761",
-  pistachio: "#8ACB88",
-  maxYellowRed: "#FFBF46",
-  nyanza: "#E4FDE1",
-  mediumSeaGreen: "#06BA63",
-  forestGreen: "#103900",
-  tourquize: "#00D9C0",
-  radicalRed: "#FF4365",
-  englishRed: "#9F4A54",
-  rosyBrown: "#AC8887",
-  ming: "#15616D",
-  amberSAE: "#FF7D00",
-  kobe: "#78290F"
-};
-
-let lightTheme = createMuiTheme({
+let darkTheme = createMuiTheme({
   palette: {
-    type: "dark"
+    type: "dark",
+    primary: {
+      main: colors.tourquize
+    },
+    secondary: {
+      main: colors.ming
+    }
   },
   typography: {
     fontFamily: "Poppins, Arial",
@@ -34,6 +24,6 @@ let lightTheme = createMuiTheme({
   }
 });
 
-lightTheme = responsiveFontSizes(lightTheme);
+darkTheme = responsiveFontSizes(darkTheme);
 
-export { lightTheme };
+export { darkTheme };

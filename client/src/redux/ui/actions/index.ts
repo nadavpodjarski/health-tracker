@@ -14,3 +14,10 @@ export const clearSnackBar = () => {
     type: types.CLEAR_SNACKBAR
   };
 };
+
+export const setTheme = (checked: boolean) => {
+  return {
+    type: types.SET_THEME,
+    payload: checked
+  };
+};

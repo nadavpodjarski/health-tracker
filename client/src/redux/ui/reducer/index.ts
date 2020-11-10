@@ -2,7 +2,8 @@ import { Action, IUiState } from "../../../types/redux";
 import * as types from "../constants";
 
 const initialState: IUiState = {
-  snackbar: { type: undefined, msg: "" }
+  snackbar: { type: undefined, msg: "" },
+  theme: false
 };
 
 export const uiReducer = (state = initialState, action: Action): IUiState => {
@@ -16,6 +17,11 @@ export const uiReducer = (state = initialState, action: Action): IUiState => {
       return {
         ...state,
         snackbar: { type: undefined, msg: "" }
+      };
+    case types.SET_THEME:
+      return {
+        ...state,
+        theme: action.payload
       };
     default:
       return state;
