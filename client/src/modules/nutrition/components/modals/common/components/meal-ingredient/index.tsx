@@ -11,6 +11,7 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import { MealIngredient as Ingredient } from "../../../../../../../types/nutrition";
 import * as utils from "../../../../../../../utilities/nutrition";
+import InputNumberForamt from "../input-number-format";
 
 const MealIngredient: FC<{
   ingredient: Ingredient;
@@ -40,6 +41,7 @@ const MealIngredient: FC<{
           value={ingredient.item}
           variant="outlined"
           placeholder="Food"
+          error={!ingredient.item}
         />
       </Grid>
       <Grid item xs={6} sm={3}>
@@ -49,6 +51,9 @@ const MealIngredient: FC<{
           value={ingredient.amount}
           variant="outlined"
           placeholder="Amount"
+          InputProps={{
+            inputComponent: InputNumberForamt as any
+          }}
         />
       </Grid>
       <Grid item xs={6} sm={2}>

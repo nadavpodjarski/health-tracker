@@ -4,7 +4,6 @@ import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 import { ParsedDateRange } from "../../../../types";
 import { Meal } from "../../../../types/nutrition";
 
-import * as utils from "../../../../utilities/nutrition";
 import * as uiActions from "../../../ui/actions";
 import * as api from "../../../../api/nutrition";
 import * as types from "../constants";
@@ -124,13 +123,6 @@ export const addMeal = (meal: Meal) => async (
 ) => {
   const { dateRange } = getStore().nutrition;
 
-  // Validate Meal
-  try {
-    utils.isValidMeal(meal);
-  } catch (err) {
-    throw err;
-  }
-
   // POST Meal
   try {
     dispatch(createAddMeal());
@@ -158,12 +150,6 @@ export const editMeal = (meal: Meal, docId: string) => async (
   getStore: any
 ) => {
   const { dateRange } = getStore().nutrition;
-
-  try {
-    utils.isValidMeal(meal);
-  } catch (err) {
-    throw err;
-  }
 
   try {
     dispatch(createEditMeal());

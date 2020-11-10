@@ -4,7 +4,6 @@ import {
   ListItemText,
   Grid,
   makeStyles,
-  Theme,
   ListItemIcon,
   Box
 } from "@material-ui/core";
@@ -18,10 +17,13 @@ import { useComments } from "./Comments";
 
 import { MealDoc } from "../../../../../types/nutrition";
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.background.paper,
-    margin: "6px 0"
+    margin: "6px 0",
+    boxShadow: theme.shadows[0],
+    borderRadius: "4px",
+    border: `1px solid ${theme.palette.divider}`
   },
 
   actionButtonWrapper: {
@@ -55,7 +57,6 @@ const MealListItem: FC<{
         style={{
           padding: "16px 16px"
         }}
-        divider
         component={Grid}
         container
       >

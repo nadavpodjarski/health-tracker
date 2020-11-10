@@ -4,7 +4,13 @@ import { colors } from "../../../main/theme/colors";
 
 const NavLink = ({ ...rest }: NavLinkProps) => {
   return (
-    <Link {...rest} activeStyle={{ color: "white", background: colors.ming }} />
+    <Link
+      {...rest}
+      activeStyle={{
+        color: "white",
+        background: colors.ming
+      }}
+    />
   );
 };
 

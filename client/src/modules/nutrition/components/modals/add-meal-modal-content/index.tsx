@@ -12,8 +12,9 @@ import AddMealActionButtons from "./action-buttons";
 const AddMealModalContent: FC<{
   addMealModalToggler: () => void;
   onAddMeal: (meal: Meal) => Promise<any>;
-}> = ({ addMealModalToggler, onAddMeal }) => {
-  const [state, setState] = useState<Meal>(nutritionUtils.makeNewMeal());
+  meal: Meal;
+}> = ({ addMealModalToggler, onAddMeal, meal }) => {
+  const [state, setState] = useState<Meal>(meal);
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
   // Add Meal ingredient
@@ -52,7 +53,7 @@ const AddMealModalContent: FC<{
   const onChangeComments = (comments: string) => {
     setState((prevState) => ({
       ...prevState,
-      comments: comments.trim()
+      comments
     }));
   };
 
@@ -112,6 +113,7 @@ const AddMealModalContent: FC<{
         onConfirm={onConfirm}
         onCancel={addMealModalToggler}
         isSaving={isSaving}
+        isValid={!!nutritionUtils.isValidMeal(state)}
       />
     </div>
   );

@@ -115,6 +115,7 @@ const AddMealModalContent: FC<{
 
       {/*Action Buttons*/}
       <EditMealActionButton
+        isValid={!!nutritionUtils.isValidMeal(state)}
         onConfirm={onConfirm}
         onCancel={onCancelEdit}
         isUpdating={isUpdating}

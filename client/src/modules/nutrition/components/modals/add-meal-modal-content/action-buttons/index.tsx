@@ -8,7 +8,8 @@ const AddMealActionButtons: FC<{
   onCancel: () => void;
   onConfirm: () => void;
   isSaving: boolean;
-}> = ({ onCancel, onConfirm, isSaving }) => {
+  isValid: boolean;
+}> = ({ onCancel, onConfirm, isSaving, isValid }) => {
   const classes = useStyles();
   return (
     <Grid container spacing={3}>
@@ -21,6 +22,7 @@ const AddMealActionButtons: FC<{
         <Button
           className={classes.addConfirmButton}
           onClick={onConfirm}
+          disabled={!isValid}
           endIcon={isSaving ? <Loader color="white" size={20} /> : ""}
         >
           {isSaving ? "Saving" : "Done"}

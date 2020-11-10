@@ -4,7 +4,7 @@ import * as apiUtils from "../../utilities/api";
 export const addUser = async (token: string) => {
   apiUtils.setAuthToken(token);
   try {
-    const res = await axios.post("/add-user", {
+    const res = await axios.post("/api/add-user", {
       data: ""
     });
     return res.data;

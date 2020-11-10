@@ -22,7 +22,7 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import { routes } from "../../main/routes/constants";
 import MenuRoutes from "../../main/routes/menuRoutes";
 
-import SignOutButton from "./components/sign-out-button";
+import ProfileAvatar from "../../common/components/profile-avatar";
 
 const drawerWidth = 240;
 
@@ -38,8 +38,11 @@ const useStyles = makeStyles((theme: Theme) =>
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen
       }),
-      background: "white",
-      color: "black"
+      paddingRight: "32px",
+      background: theme.palette.background.paper,
+      [theme.breakpoints.down("sm")]: {
+        paddingRight: 0
+      }
     },
     appBarShift: {
       marginLeft: 0,
@@ -116,16 +119,14 @@ const Home: FC = ({ children }) => {
       >
         <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
           <IconButton
-            color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
           >
-            <MenuIcon />
+            <MenuIcon fontSize="inherit" />
           </IconButton>
           <div style={{ display: "flex", alignItems: "center" }}>
-            {/* <SelectLanguage /> */}
-            <SignOutButton />
+            <ProfileAvatar />
           </div>
         </Toolbar>
       </AppBar>

@@ -43,6 +43,6 @@ export const isValidMeal = (state: Meal) => {
       : "",
     type: !state.type ? "Must Pick A Meal Type" : ""
   };
-  if (error.date || error.ingredients || error.type) throw error;
+  if (error.date || error.ingredients || error.type) return "";
   else return "ok";
 };

@@ -1,13 +1,38 @@
 import React, { FC, useState, useEffect } from "react";
-import { TextField, Divider, Box } from "@material-ui/core";
+import {
+  TextField,
+  Divider,
+  Box,
+  useTheme,
+  makeStyles
+} from "@material-ui/core";
 import DateFnsUtils from "@material-ui/pickers/adapter/date-fns";
-import EventIcon from "@material-ui/icons/Event";
+import DateRangeIcon from "@material-ui/icons/DateRange";
 import {
   MobileDateRangePicker,
   LocalizationProvider
 } from "@material-ui/pickers";
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 import moment from "moment";
+
+const useStyles = makeStyles((theme) => ({
+  textFiled: {
+    fontSize: "16px",
+    cursor: "pointer",
+    maxWidth: "100px",
+    textAlign: "center"
+  },
+  textFieldUnderLine: {
+    "&:before": {
+      content: "none",
+      borderBottom: "0px"
+    },
+    "&:after": {
+      content: "none",
+      borderBottom: "0px"
+    }
+  }
+}));
 
 const parseTimes = (startAt: Date, endAt: Date) => {
   const parsedStart = moment(startAt).valueOf();
@@ -23,6 +48,9 @@ const DateRangePicker: FC<{
   const [value, setValue] = useState<any>(
     parseTimes(startAt as Date, endAt as Date)
   );
+
+  const theme = useTheme();
+  const classes = useStyles();
 
   useEffect(() => {
     if (startAt && endAt) {
@@ -52,18 +80,24 @@ const DateRangePicker: FC<{
               padding: "16px",
               display: "flex",
               alignItems: "center",
-              border: "1px solid rgba(0,0,0,0.2)"
+              border: `1px solid ${theme.palette.divider}`
             }}
           >
             <Box paddingRight="16px" display="flex" alignItems="center">
-              <EventIcon />
+              <DateRangeIcon fontSize="small" />
             </Box>
             <TextField
               {...startProps}
               label=""
               variant="standard"
               helperText=""
-              style={{ maxWidth: "120px" }}
+              inputProps={{
+                ...startProps.inputProps,
+                className: classes.textFiled
+              }}
+              InputProps={{
+                classes: { underline: classes.textFieldUnderLine }
+              }}
             />
             <Divider
               orientation="vertical"
@@ -74,7 +108,13 @@ const DateRangePicker: FC<{
               label=""
               helperText=""
               variant="standard"
-              style={{ maxWidth: "120px" }}
+              inputProps={{
+                ...endProps.inputProps,
+                className: classes.textFiled
+              }}
+              InputProps={{
+                classes: { underline: classes.textFieldUnderLine }
+              }}
             />
           </div>
         )}

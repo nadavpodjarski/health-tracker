@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Typography, TextareaAutosize } from "@material-ui/core";
+import { Typography, TextField } from "@material-ui/core";
 import { useStyles } from "../../styles";
 const MealComments: FC<{
   onChangeComments: (value: string) => void;
@@ -17,11 +17,13 @@ const MealComments: FC<{
         <Typography>Comments</Typography>
       </div>
       <div style={{ padding: "16px 0" }}>
-        <TextareaAutosize
-          rowsMax={8}
-          rowsMin={6}
+        <TextField
+          classes={{ root: classes.commentsRoot }}
+          multiline
+          rows={2}
+          variant="outlined"
           value={comments}
-          className={classes.textArea}
+          className={classes.comments}
           onChange={onChange}
         />
       </div>

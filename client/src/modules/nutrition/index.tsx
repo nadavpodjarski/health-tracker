@@ -12,6 +12,8 @@ import { useModal } from "../../common/hooks/useModal";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as nutritionActions from "../../redux/trackers/nutrition/actions";
+import * as nutritionUtils from "../../utilities/nutrition";
+
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 import { IStore } from "../../types/redux";
 import { Meal } from "../../types/nutrition";
@@ -119,6 +121,7 @@ const Nutrition = () => {
         <AddMealModalContent
           addMealModalToggler={addMealModalToggler}
           onAddMeal={onAddMeal}
+          meal={nutritionUtils.makeNewMeal()}
         />
       </AddMealModal>
     </div>

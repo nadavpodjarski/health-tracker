@@ -5,7 +5,8 @@ import {
   ListItem,
   makeStyles,
   Theme,
-  Box
+  Box,
+  Typography
 } from "@material-ui/core";
 
 import Loader from "../../../../common/components/loader";
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   subHeader: {
     background: theme.palette.background.paper,
     borderRadius: "50px",
-    boxShadow: "0 0 10px 3px rgba(0,0,0,0.1)",
+    boxShadow: theme.shadows[3],
     padding: "2px 15px",
     border: `1px solid ${theme.palette.primary.main}`
   }
@@ -70,12 +71,6 @@ const MealsList: FC<{
     deleteModalToggler();
   };
 
-  const onConfirmDelete = async (docId: string) => {
-    await onDeleteMeal(docId);
-    setMealIdToBeDeleted("");
-    deleteModalToggler();
-  };
-
   const onCancelDelete = () => {
     setMealIdToBeDeleted("");
     deleteModalToggler();
@@ -91,11 +86,21 @@ const MealsList: FC<{
     editModalToggler();
   };
 
+  const onConfirmDelete = async (docId: string) => {
+    try {
+      await onDeleteMeal(docId);
+      setMealIdToBeDeleted("");
+      deleteModalToggler();
+    } catch (err) {}
+  };
+
   const onConfirmEdit = async (meal: Meal) => {
     if (mealDocToBeUpdated?.id) {
-      await onEditMeal(meal, mealDocToBeUpdated.id);
-      setMealDocToBeUpdated(null);
-      editModalToggler();
+      try {
+        await onEditMeal(meal, mealDocToBeUpdated.id);
+        setMealDocToBeUpdated(null);
+        editModalToggler();
+      } catch (ere) {}
     }
   };
 
@@ -107,27 +112,38 @@ const MealsList: FC<{
       disablePadding
     >
       {!isLoading ? (
-        <>
-          {meals?.map((mealsByDate, i) => {
-            return (
-              <li key={`section-${i}`} className={classes.listSection}>
-                <ul className={classes.ul}>
-                  <ListSubheader className={classes.subHeaderWrapper}>
-                    <Box className={classes.subHeader}>{mealsByDate._id}</Box>
-                  </ListSubheader>
-                  {mealsByDate.meals.map((item, i: number) => (
-                    <MealListItem
-                      i={i}
-                      item={item}
-                      setDeleteMeal={setDeleteMeal}
-                      setEditMeal={setEditMeal}
-                    />
-                  ))}
-                </ul>
-              </li>
-            );
-          })}
-        </>
+        meals.length ? (
+          <>
+            {meals?.map((mealsByDate, i) => {
+              return (
+                <li key={`section-${i}`} className={classes.listSection}>
+                  <ul className={classes.ul}>
+                    <ListSubheader className={classes.subHeaderWrapper}>
+                      <Box className={classes.subHeader}>{mealsByDate._id}</Box>
+                    </ListSubheader>
+                    {mealsByDate.meals.map((item, i: number) => (
+                      <MealListItem
+                        i={i}
+                        item={item}
+                        setDeleteMeal={setDeleteMeal}
+                        setEditMeal={setEditMeal}
+                      />
+                    ))}
+                  </ul>
+                </li>
+              );
+            })}
+          </>
+        ) : (
+          <Box
+            height="100%"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Typography variant="h5">No Meals</Typography>
+          </Box>
+        )
       ) : (
         <ListItem
           style={{

@@ -26,10 +26,13 @@ export const useStyles = makeStyles((theme: Theme) => ({
   addConfirmButton: {
     background: colors.tourquize,
     color: "white",
-    width: "100px",
+    width: "130px",
     "&:hover": {
       background: "rgba(0, 217, 192, 0.7)",
       color: "white"
+    },
+    "&:disabled": {
+      background: theme.palette.divider
     }
   },
   editConfirmButton: {
@@ -39,17 +42,20 @@ export const useStyles = makeStyles((theme: Theme) => ({
     "&:hover": {
       background: "rgba(0, 217, 192, 0.7)",
       color: "white"
+    },
+    "&:disabled": {
+      background: theme.palette.divider
     }
   },
 
-  textArea: {
-    minWidth: "100%",
-    maxWidth: "100%",
+  comments: {
+    width: "100%",
     padding: "16px",
     fontSize: "18px",
-    minHeight: "100px",
-    fontFamily: "Poppins",
-    maxHeight: "100px"
+    fontFamily: "Poppins"
+  },
+  commentsRoot: {
+    padding: 0
   },
   datePicker: {
     padding: "16px 0 40px 0"
