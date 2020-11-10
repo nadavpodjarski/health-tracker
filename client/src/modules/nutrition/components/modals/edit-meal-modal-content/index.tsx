@@ -9,6 +9,7 @@ import MealComments from "../common/components/comments";
 import MealDatePicker from "../common/components/date";
 import EditMealActionButton from "./action-buttons";
 
+import { Box, Typography } from "@material-ui/core";
 import * as _ from "lodash";
 
 const AddMealModalContent: FC<{
@@ -94,8 +95,12 @@ const AddMealModalContent: FC<{
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       {/*Meal Type*/}
-      <SelectMealType type={state.type} onChangeMealType={onChangeMealType} />
-
+      <Box display="flex" padding="16px 0" justifyContent="space-between">
+        <Typography variant="h4" style={{ fontWeight: "bold" }}>
+          Edit Meal
+        </Typography>
+        <SelectMealType type={state.type} onChangeMealType={onChangeMealType} />
+      </Box>
       {/*Meal Ingredients*/}
       <MealIngredients
         ingredients={state.ingredients}

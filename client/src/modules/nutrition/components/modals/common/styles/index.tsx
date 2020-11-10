@@ -2,16 +2,6 @@ import { makeStyles, Theme } from "@material-ui/core";
 import { colors } from "../../../../../../main/theme/colors";
 
 export const useStyles = makeStyles((theme: Theme) => ({
-  select: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: "16px 0"
-  },
-  selectMealTitle: {
-    fontWeight: "bold"
-  },
-
   ingredients: {
     display: "flex",
     alignItems: "center",

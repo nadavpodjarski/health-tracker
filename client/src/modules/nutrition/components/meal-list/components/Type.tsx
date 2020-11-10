@@ -13,6 +13,7 @@ const typeColors = {
 const Type: FC<{ type: MealTypes }> = ({ type }) => {
   return (
     <Typography
+      component="span"
       variant="h6"
       style={{
         textDecoration: "underline",
@@ -20,7 +21,9 @@ const Type: FC<{ type: MealTypes }> = ({ type }) => {
         fontWeight: "bold",
         textUnderlinePosition: "under",
         textDecorationColor: typeColors[type][0],
-        whiteSpace: "nowrap"
+        whiteSpace: "nowrap",
+        padding: "0",
+        margin: "0"
       }}
     >
       {MealTypes[type]}

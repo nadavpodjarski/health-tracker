@@ -1,21 +1,13 @@
 import React, { FC } from "react";
-import {
-  ListItem,
-  ListItemText,
-  Grid,
-  makeStyles,
-  ListItemIcon,
-  Box
-} from "@material-ui/core";
+import { ListItem, Grid, makeStyles, Box, Typography } from "@material-ui/core";
 
 import Type from "./Type";
 import Ingredients from "./Ingredients";
 import Time from "./Time";
 import ListActionButtons from "./list-action-button";
 
-import { useComments } from "./Comments";
-
-import { MealDoc } from "../../../../../types/nutrition";
+import { MealDoc, Meal } from "../../../../../types/nutrition";
+import * as _ from "lodash";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,16 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   actionButtonWrapper: {
-    height: "100%",
-    position: "absolute",
-    right: 24,
-    zIndex: 100,
-    alignItems: "center",
-    justifyContent: "flex-end",
-    [theme.breakpoints.down("md")]: {
-      alignItems: "flex-start",
-      paddingTop: "16px"
-    }
+    height: "100%"
   }
 }));
 
@@ -45,10 +28,9 @@ const MealListItem: FC<{
   item: MealDoc;
   setDeleteMeal: (docId: string) => void;
   setEditMeal: (item: MealDoc) => void;
-}> = ({ i, item, setDeleteMeal, setEditMeal }) => {
+  setCopyMeal: (meal: Meal) => void;
+}> = ({ i, item, setDeleteMeal, setEditMeal, setCopyMeal }) => {
   const classes = useStyles();
-
-  const { CommentsButton, Comments } = useComments();
 
   return (
     <Box className={classes.root}>
@@ -61,47 +43,50 @@ const MealListItem: FC<{
         container
       >
         <Grid
-          item
-          xs={6}
-          md={2}
           container
-          style={{ minWidth: "250px" }}
-          justify="space-around"
+          xs
+          style={{ padding: "12px 0 24px 0" }}
+          alignItems="center"
         >
-          <ListItemText secondary={<Time time={item.meal.date} />}>
-            <Type type={item.meal.type} />
-          </ListItemText>
-          <ListItemIcon>
-            {item.meal.comments ? <CommentsButton /> : ""}
-          </ListItemIcon>
+          <Grid item xs={6} container alignItems="center">
+            <Box display="inline-block">
+              <Type type={item.meal.type} />
+              <Typography
+                component="span"
+                color="textSecondary"
+                style={{ margin: "0 5px", fontSize: "12px" }}
+              >
+                at
+              </Typography>
+              <Time time={item.meal.date} />
+            </Box>
+          </Grid>
+
+          <Grid
+            item
+            container
+            xs={6}
+            justify="flex-end"
+            className={classes.actionButtonWrapper}
+            spacing={3}
+          >
+            <ListActionButtons
+              deleteHandler={() => setDeleteMeal(item.id)}
+              editHandler={() => setEditMeal(item)}
+              copyHanlder={() => setCopyMeal(_.cloneDeep(item.meal))}
+              comments={item.meal.comments}
+            />
+          </Grid>
         </Grid>
 
         <Grid
           item
           container
           xs={12}
-          md={9}
           spacing={1}
           style={{ whiteSpace: "nowrap" }}
         >
           <Ingredients ingredients={item.meal.ingredients} />
-        </Grid>
-
-        <Grid item container xs={12}>
-          <Comments comments={item.meal.comments} />
-        </Grid>
-
-        <Grid
-          item
-          container
-          md={1}
-          className={classes.actionButtonWrapper}
-          spacing={3}
-        >
-          <ListActionButtons
-            deleteHandler={(event) => setDeleteMeal(item.id)}
-            editHandler={(event) => setEditMeal(item)}
-          />
         </Grid>
       </ListItem>
     </Box>

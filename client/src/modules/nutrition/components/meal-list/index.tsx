@@ -14,6 +14,7 @@ import Loader from "../../../../common/components/loader";
 import MealListItem from "./components/ListItem";
 import DeleteModalContent from "../modals/delete-modal-content";
 import EditModalContent from "../modals/edit-meal-modal-content";
+import AddModalContent from "../modals/add-meal-modal-content";
 
 import { Meal, Meals, MealDoc } from "../../../../types/nutrition";
 import { useModal } from "../../../../common/hooks/useModal";
@@ -53,16 +54,19 @@ const useStyles = makeStyles((theme: Theme) => ({
 const MealsList: FC<{
   isLoading: boolean;
   meals: Meals;
+  onCopyMeal: (meal: Meal) => Promise<any>;
   onDeleteMeal: (docId: string) => Promise<any>;
   onEditMeal: (meal: Meal, docId: string) => Promise<any>;
-}> = ({ isLoading, meals, onDeleteMeal, onEditMeal }) => {
+}> = ({ isLoading, meals, onDeleteMeal, onEditMeal, onCopyMeal }) => {
   const [mealIdToBeDeleted, setMealIdToBeDeleted] = useState<string>("");
+  const [copiedMeal, setCopiedMeal] = useState<Meal>();
   const [mealDocToBeUpdated, setMealDocToBeUpdated] = useState<MealDoc | null>(
     null
   );
 
   const [editModalToggler, EditModal] = useModal();
   const [deleteModalToggler, DeleteModal] = useModal();
+  const [copyModalToggler, CopyModal] = useModal();
 
   const classes = useStyles();
 
@@ -86,6 +90,12 @@ const MealsList: FC<{
     editModalToggler();
   };
 
+  const setCopyMeal = (meal: Meal) => {
+    meal.date = new Date();
+    setCopiedMeal(meal);
+    copyModalToggler();
+  };
+
   const onConfirmDelete = async (docId: string) => {
     try {
       await onDeleteMeal(docId);
@@ -96,11 +106,9 @@ const MealsList: FC<{
 
   const onConfirmEdit = async (meal: Meal) => {
     if (mealDocToBeUpdated?.id) {
-      try {
-        await onEditMeal(meal, mealDocToBeUpdated.id);
-        setMealDocToBeUpdated(null);
-        editModalToggler();
-      } catch (ere) {}
+      await onEditMeal(meal, mealDocToBeUpdated.id);
+      setMealDocToBeUpdated(null);
+      editModalToggler();
     }
   };
 
@@ -127,6 +135,7 @@ const MealsList: FC<{
                         item={item}
                         setDeleteMeal={setDeleteMeal}
                         setEditMeal={setEditMeal}
+                        setCopyMeal={setCopyMeal}
                       />
                     ))}
                   </ul>
@@ -179,6 +188,19 @@ const MealsList: FC<{
             toggler={editModalToggler}
           />
         </EditModal>
+      ) : (
+        ""
+      )}
+
+      {/*Copy Modal*/}
+      {copiedMeal ? (
+        <CopyModal width={1200}>
+          <AddModalContent
+            onAddMeal={onCopyMeal}
+            meal={copiedMeal as Meal}
+            modalToggler={copyModalToggler}
+          />
+        </CopyModal>
       ) : (
         ""
       )}

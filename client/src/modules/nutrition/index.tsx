@@ -110,6 +110,7 @@ const Nutrition = () => {
 
         {/*Food List*/}
         <MealsList
+          onCopyMeal={onAddMeal}
           onDeleteMeal={onDeleteMeal}
           onEditMeal={onEditMeal}
           isLoading={isLoading}
@@ -119,7 +120,7 @@ const Nutrition = () => {
       {/*Add Meal Modal*/}
       <AddMealModal width={1200}>
         <AddMealModalContent
-          addMealModalToggler={addMealModalToggler}
+          modalToggler={addMealModalToggler}
           onAddMeal={onAddMeal}
           meal={nutritionUtils.makeNewMeal()}
         />

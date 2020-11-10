@@ -9,11 +9,13 @@ import MealComments from "../common/components/comments";
 import MealDatePicker from "../common/components/date";
 import AddMealActionButtons from "./action-buttons";
 
+import { Typography, Box } from "@material-ui/core";
+
 const AddMealModalContent: FC<{
-  addMealModalToggler: () => void;
+  modalToggler: () => void;
   onAddMeal: (meal: Meal) => Promise<any>;
   meal: Meal;
-}> = ({ addMealModalToggler, onAddMeal, meal }) => {
+}> = ({ modalToggler, onAddMeal, meal }) => {
   const [state, setState] = useState<Meal>(meal);
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
@@ -28,7 +30,7 @@ const AddMealModalContent: FC<{
 
   // Delete Meal Ingredient
   const onDeleteMealIngredient = (id: string) => {
-    if (state.ingredients.length === 1) return addMealModalToggler();
+    if (state.ingredients.length === 1) return modalToggler();
     setState((prevState) => ({
       ...prevState,
       ingredients: [...prevState.ingredients.filter((ing) => ing.id !== id)]
@@ -78,7 +80,7 @@ const AddMealModalContent: FC<{
     setIsSaving(true);
     try {
       await onAddMeal(state);
-      addMealModalToggler();
+      modalToggler();
     } catch (err) {
       // TODO handle err
       console.log(err);
@@ -89,7 +91,12 @@ const AddMealModalContent: FC<{
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       {/*Meal Type*/}
-      <SelectMealType type={state.type} onChangeMealType={onChangeMealType} />
+      <Box display="flex" padding="16px 0" justifyContent="space-between">
+        <Typography variant="h4" style={{ fontWeight: "bold" }}>
+          Add Meal
+        </Typography>
+        <SelectMealType type={state.type} onChangeMealType={onChangeMealType} />
+      </Box>
 
       {/*Meal Ingredients*/}
       <MealIngredients
@@ -111,7 +118,7 @@ const AddMealModalContent: FC<{
       {/*Action Buttons*/}
       <AddMealActionButtons
         onConfirm={onConfirm}
-        onCancel={addMealModalToggler}
+        onCancel={modalToggler}
         isSaving={isSaving}
         isValid={!!nutritionUtils.isValidMeal(state)}
       />

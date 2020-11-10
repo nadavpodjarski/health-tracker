@@ -1,6 +1,5 @@
 import React, { FC } from "react";
-import { Typography, Select, MenuItem } from "@material-ui/core";
-import { useStyles } from "../../styles";
+import { Select, MenuItem } from "@material-ui/core";
 import { MealTypes } from "../../../../../../../types/nutrition";
 import * as nutritionUtils from "../../../../../../../utilities/nutrition";
 
@@ -8,8 +7,6 @@ const SelectMealType: FC<{
   type: MealTypes;
   onChangeMealType: (value: MealTypes) => void;
 }> = ({ onChangeMealType, type }) => {
-  const classes = useStyles();
-
   const onChangeHandler = (
     event: React.ChangeEvent<{
       name?: string | undefined;
@@ -21,16 +18,11 @@ const SelectMealType: FC<{
   };
 
   return (
-    <div className={classes.select}>
-      <Typography variant="h4" className={classes.selectMealTitle}>
-        Select Meal
-      </Typography>
-      <Select variant="outlined" value={type} onChange={onChangeHandler}>
-        {nutritionUtils.mealTypes.map((item) => {
-          return <MenuItem value={item.value}>{item.const}</MenuItem>;
-        })}
-      </Select>
-    </div>
+    <Select variant="outlined" value={type} onChange={onChangeHandler}>
+      {nutritionUtils.mealTypes.map((item) => {
+        return <MenuItem value={item.value}>{item.const}</MenuItem>;
+      })}
+    </Select>
   );
 };
 
