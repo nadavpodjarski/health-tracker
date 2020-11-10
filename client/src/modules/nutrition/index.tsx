@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 
 import AddMealModalContent from "./components/modals/add-meal-modal-content";
-import MainHeader from "../../common/components/tracker-main-header";
 import MealsList from "./components/meal-list";
 import FilterOptions from "./components/filter-options";
 
 import { colors } from "../../main/theme/colors";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
-import { Box, Button } from "@material-ui/core";
+import { Box, Button, Typography } from "@material-ui/core";
 import { useModal } from "../../common/hooks/useModal";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -35,6 +34,12 @@ const useStyles = makeStyles((theme) =>
       flexDirection: "column",
       position: "relative"
     },
+    openModalButtonWrapper: {
+      display: "flex",
+      alignItems: "flex-start",
+      width: "100%",
+      padding: "32px 0"
+    },
     openModalButton: {
       fontSize: "20px",
       background: colors.tourquize,
@@ -44,6 +49,15 @@ const useStyles = makeStyles((theme) =>
       },
       [theme.breakpoints.down("sm")]: {
         fontSize: "16px"
+      }
+    },
+    header: {
+      minHeight: 200,
+      textAlign: "left",
+      width: "100%",
+      padding: "16px 0",
+      [theme.breakpoints.down("sm")]: {
+        padding: "16px 8px"
       }
     }
   })
@@ -58,7 +72,6 @@ const Nutrition = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const moduleTitle = "Nutrition";
   const modalButtonText = "Add Meal";
 
   useEffect(() => {
@@ -88,22 +101,21 @@ const Nutrition = () => {
     <div className={classes.moduleRoot}>
       <Box className={classes.innerModule}>
         {/*Header*/}
-        <MainHeader title={moduleTitle} />
-
-        {/*Open Modal Button*/}
-        <Box
-          display="flex"
-          alignItems="flex-start"
-          width="100%"
-          padding="16px 0"
-        >
-          <Button
-            onClick={addMealModalToggler}
-            className={classes.openModalButton}
-          >
-            {modalButtonText}
-          </Button>
+        <Box className={classes.header}>
+          <Box>
+            <Typography variant="h3">Nutrition</Typography>
+            <Typography component="p">This is A food tracker</Typography>
+          </Box>
+          <Box className={classes.openModalButtonWrapper}>
+            <Button
+              onClick={addMealModalToggler}
+              className={classes.openModalButton}
+            >
+              {modalButtonText}
+            </Button>
+          </Box>
         </Box>
+        {/*Open Modal Button*/}
 
         {/*Filter options*/}
         <FilterOptions {...{ onDateRangeChange, dateRange }} />

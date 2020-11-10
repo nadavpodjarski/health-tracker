@@ -1,6 +1,5 @@
 import React from "react";
 
-import MainHeader from "../../common/components/tracker-main-header";
 import { useModal } from "../../common/hooks/useModal";
 
 import { colors } from "../../main/theme/colors";
@@ -44,13 +43,13 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Symptoms = () => {
-  const moduleTitle = "Symptoms";
   const classes = useStyles();
+
   const [addSymptomModalToggler, AddSymptomModal] = useModal();
+
   return (
     <div className={classes.moduleRoot}>
       <Box className={classes.innerModule}>
-        <MainHeader title={moduleTitle} />
         <Box display="flex" alignItems="flex-start" height={80} width="100%">
           <Button
             className={classes.openModalButton}

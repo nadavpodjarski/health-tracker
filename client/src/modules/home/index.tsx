@@ -95,8 +95,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "center",
       height: "100%",
       display: "flex",
-      flexDirection: "column",
-      padding: `0 ${theme.spacing(2)}px`
+      flexDirection: "column"
     }
   })
 );

@@ -6,7 +6,7 @@ const Comments: FC<{ comments: string }> = ({ comments }) => {
   return (
     <Tooltip title={comments}>
       <IconButton>
-        <CommentIcon fontSize="small" color="secondary" />
+        <CommentIcon fontSize="small" />
       </IconButton>
     </Tooltip>
   );

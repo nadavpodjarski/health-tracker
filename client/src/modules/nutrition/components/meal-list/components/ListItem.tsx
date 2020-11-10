@@ -65,7 +65,7 @@ const MealListItem: FC<{
           <Grid
             item
             container
-            xs={6}
+            xs
             justify="flex-end"
             className={classes.actionButtonWrapper}
             spacing={3}

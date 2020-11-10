@@ -77,10 +77,11 @@ const DateRangePicker: FC<{
         renderInput={(startProps, endProps) => (
           <div
             style={{
-              padding: "16px",
+              padding: "6px 6px 6px 12px",
               display: "flex",
               alignItems: "center",
-              border: `1px solid ${theme.palette.divider}`
+              border: `1px solid ${theme.palette.divider}`,
+              borderRadius: "50px"
             }}
           >
             <Box paddingRight="16px" display="flex" alignItems="center">

@@ -45,6 +45,11 @@ const ListActionButtons: FC<{
     setAnchorEl(null);
   };
 
+  const onCopyHandler = () => {
+    copyHanlder();
+    handleClose();
+  };
+
   const onDeleteHandler = () => {
     deleteHandler();
     handleClose();
@@ -61,7 +66,7 @@ const ListActionButtons: FC<{
         <Box display="flex" alignItems="center" padding="4px 8px">
           {comments ? <Comments comments={comments} /> : ""}
           <Tooltip title="Copy">
-            <IconButton onClick={copyHanlder}>
+            <IconButton onClick={onCopyHandler}>
               <FileCopy fontSize="small" />
             </IconButton>
           </Tooltip>
@@ -95,7 +100,7 @@ const ListActionButtons: FC<{
             <Edit />
             <Typography style={{ padding: "0 8px" }}>Edit</Typography>
           </MenuItem>
-          <MenuItem onClick={copyHanlder}>
+          <MenuItem onClick={onCopyHandler}>
             <FileCopy />
             <Typography style={{ padding: "0 8px" }}>Copy</Typography>
           </MenuItem>
