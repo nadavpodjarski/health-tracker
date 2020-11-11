@@ -44,6 +44,7 @@ const MealListItem: FC<{
       >
         <Grid
           container
+          item
           xs
           style={{ padding: "12px 0 24px 0" }}
           alignItems="center"
