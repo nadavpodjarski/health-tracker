@@ -92,11 +92,11 @@ export const deleteMeal = (docId: string) => async (
 };
 
 // SET DATE RANGE
-export const setDateRange = (dateRange: DateRange) => (
+export const setMealsDateRange = (dateRange: DateRange) => (
   dispatch: Dispatch<any>
 ) => {
   dispatch({
-    type: types.SET_DATE_RANGE,
+    type: types.SET_MELAS_DATE_RANGE,
     payload: dateRange
   });
 };

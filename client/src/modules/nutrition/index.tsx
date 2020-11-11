@@ -82,7 +82,7 @@ const Nutrition = () => {
   const onDateRangeChange = (date: DateRange) => {
     date[0] = date[0] || new Date();
     date[1] = date[1] || new Date();
-    dispatch(nutritionActions.setDateRange(date));
+    dispatch(nutritionActions.setMealsDateRange(date));
   };
 
   const onAddMeal = async (meal: Meal) => {

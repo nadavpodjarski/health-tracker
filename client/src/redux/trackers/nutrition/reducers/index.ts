@@ -2,7 +2,7 @@ import * as types from "../constants";
 import * as appUtils from "../../../../utilities";
 import { INutrition, Action } from "../../../../types/redux";
 
-const initialState = {
+const initialState: INutrition = {
   nutrition: [],
   dateRange: appUtils.parseDateRange([new Date(), new Date()]),
   isLoading: false,
@@ -23,7 +23,7 @@ export const nutritionReducer = (
         ...state,
         isLoading: true
       };
-    case types.SET_DATE_RANGE: {
+    case types.SET_MELAS_DATE_RANGE: {
       return {
         ...state,
         dateRange: appUtils.parseDateRange(action.payload)

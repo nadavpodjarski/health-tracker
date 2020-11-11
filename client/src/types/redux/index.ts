@@ -1,4 +1,5 @@
 import { Meals } from "../nutrition";
+import { Symptoms } from "../symptoms";
 import { ParsedDateRange } from "..";
 import { SnackBarAlert } from "../ui";
 
@@ -9,6 +10,13 @@ export interface IAuth {
 
 export interface INutrition {
   nutrition: Meals;
+  dateRange: ParsedDateRange;
+  isLoading: boolean;
+  err: any;
+}
+
+export interface ISymptoms {
+  symptoms: Symptoms;
   dateRange: ParsedDateRange;
   isLoading: boolean;
   err: any;
