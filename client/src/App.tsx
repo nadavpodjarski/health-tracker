@@ -4,17 +4,20 @@ import { onAuthStateChange } from "./redux/auth/actions";
 import "./App.css";
 
 import AppRoutes from "./main/routes";
+import SnackBar from "./common/components/snack-bar";
+
 import { useHistory } from "react-router-dom";
 import { routes } from "./main/routes/constants";
-import SnackBar from "./common/components/snack-bar";
 
 import { getTheme } from "./main/theme/setCurrentTheme";
 import { ThemeProvider } from "@material-ui/core";
 
+import { IStore } from "./types/redux";
+
 function App() {
   const dispatch = useDispatch();
 
-  const { theme } = useSelector((state: any) => state.ui);
+  const { theme } = useSelector((state: IStore) => state.ui);
   const history = useHistory();
 
   useEffect(() => {
