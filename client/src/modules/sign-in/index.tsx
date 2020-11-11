@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const SigIn = () => {
   const classes = useStyles();
   const { firebaseAuth } = useFirebaseAuth();
+
   const UIConfig = {
     signInFlow: "popup",
     signInOptions: [

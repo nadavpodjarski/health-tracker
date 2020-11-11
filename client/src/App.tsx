@@ -8,8 +8,7 @@ import { useHistory } from "react-router-dom";
 import { routes } from "./main/routes/constants";
 import SnackBar from "./common/components/snack-bar";
 
-import { lightTheme } from "./main/theme/light";
-import { darkTheme } from "./main/theme/dark";
+import { getTheme } from "./main/theme/setCurrentTheme";
 import { ThemeProvider } from "@material-ui/core";
 
 function App() {
@@ -24,7 +23,7 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider theme={!theme ? { ...lightTheme } : { ...darkTheme }}>
+    <ThemeProvider theme={getTheme(theme)}>
       <div className="App">
         <AppRoutes />
         <SnackBar

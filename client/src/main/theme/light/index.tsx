@@ -1,8 +1,8 @@
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 import { colors } from "../colors";
-let lightTheme = createMuiTheme({
+
+export let lightTheme = createMuiTheme({
   palette: {
-    type: "light",
     background: { default: "#F3F2EF" },
     primary: {
       main: colors.tourquize
@@ -25,5 +25,3 @@ let lightTheme = createMuiTheme({
 });
 
 lightTheme = responsiveFontSizes(lightTheme);
-
-export { lightTheme };

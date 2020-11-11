@@ -3,8 +3,9 @@ import { Theme, makeStyles } from "@material-ui/core/styles";
 
 import Switch from "@material-ui/core/Switch";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setTheme } from "../../../redux/ui/actions";
+
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     width: 42,
@@ -47,6 +48,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const ThemeSwitch = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { theme } = useSelector((state: any) => state.ui);
 
   const onChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -59,6 +61,7 @@ const ThemeSwitch = () => {
     <Switch
       focusVisibleClassName={classes.focusVisible}
       disableRipple
+      checked={theme}
       classes={{
         root: classes.root,
         switchBase: classes.switchBase,
