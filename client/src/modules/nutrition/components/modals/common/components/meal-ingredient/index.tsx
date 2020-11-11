@@ -33,6 +33,7 @@ const MealIngredient: FC<{
       spacing={1}
       alignItems="center"
       style={{ paddingTop: "8px" }}
+      key={`ingredientModal_${ingredient.id}`}
     >
       <Grid item xs={6} sm={6}>
         <TextField
@@ -64,8 +65,12 @@ const MealIngredient: FC<{
           variant="outlined"
           style={{ width: "100%" }}
         >
-          {utils.units.map((unit) => {
-            return <MenuItem value={unit}>{unit}</MenuItem>;
+          {utils.units.map((unit, i) => {
+            return (
+              <MenuItem key={`select-meal-type_${i}`} value={unit}>
+                {unit}
+              </MenuItem>
+            );
           })}
         </Select>
       </Grid>

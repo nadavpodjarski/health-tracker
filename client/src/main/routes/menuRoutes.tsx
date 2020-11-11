@@ -20,7 +20,7 @@ const MenuRoutes = () => {
 
         {/*Default Route*/}
         <Route>
-          <Redirect to={routes.nutrition} />
+          <Redirect to={routes.symptoms} />
         </Route>
       </Switch>
     </Suspense>

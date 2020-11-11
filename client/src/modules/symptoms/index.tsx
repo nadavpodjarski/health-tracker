@@ -2,13 +2,13 @@ import React from "react";
 
 import { useModal } from "../../common/hooks/useModal";
 
-import { colors } from "../../main/theme/colors";
 import {
   Box,
   makeStyles,
   createStyles,
   Theme,
-  Button
+  Button,
+  Typography
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -28,15 +28,30 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "column",
       position: "relative"
     },
+    openModalButtonWrapper: {
+      display: "flex",
+      alignItems: "flex-start",
+      width: "100%",
+      padding: "32px 0"
+    },
     openModalButton: {
       fontSize: "20px",
-      background: colors.tourquize,
+      background: theme.palette.primary.main,
       color: "white",
       "&:hover": {
-        background: colors.tourquize
+        background: theme.palette.primary.main
       },
       [theme.breakpoints.down("sm")]: {
         fontSize: "16px"
+      }
+    },
+    header: {
+      minHeight: 200,
+      textAlign: "left",
+      width: "100%",
+      padding: "16px 0",
+      [theme.breakpoints.down("sm")]: {
+        padding: "16px 8px"
       }
     }
   })
@@ -50,13 +65,19 @@ const Symptoms = () => {
   return (
     <div className={classes.moduleRoot}>
       <Box className={classes.innerModule}>
-        <Box display="flex" alignItems="flex-start" height={80} width="100%">
-          <Button
-            className={classes.openModalButton}
-            onClick={addSymptomModalToggler}
-          >
-            Add Symptom
-          </Button>
+        <Box className={classes.header}>
+          <Box>
+            <Typography variant="h3">Symptoms</Typography>
+            <Typography component="p">This is A symptoms tracker</Typography>
+          </Box>
+          <Box className={classes.openModalButtonWrapper}>
+            <Button
+              className={classes.openModalButton}
+              onClick={addSymptomModalToggler}
+            >
+              Add Symptom
+            </Button>
+          </Box>
         </Box>
       </Box>
       <AddSymptomModal width={1200}></AddSymptomModal>
