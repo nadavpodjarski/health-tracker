@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) =>
 );
 
 const Nutrition = () => {
-  const { isLoading, nutrition, dateRange } = useSelector(
+  const { isLoading, meals, dateRange } = useSelector(
     (state: IStore) => state.nutrition
   );
   const [addMealModalToggler, AddMealModal] = useModal();
@@ -126,7 +126,7 @@ const Nutrition = () => {
           onDeleteMeal={onDeleteMeal}
           onEditMeal={onEditMeal}
           isLoading={isLoading}
-          meals={nutrition}
+          meals={meals}
         />
       </Box>
       {/*Add Meal Modal*/}
