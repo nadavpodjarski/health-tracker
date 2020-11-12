@@ -1,6 +1,10 @@
 import React, { FC, useState } from "react";
 
-import { Meal, MealTypes } from "../../../../../types/nutrition";
+import {
+  Meal,
+  MealTypes,
+  MealIngredient
+} from "../../../../../types/nutrition";
 import * as nutritionUtils from "../../../../../utilities/nutrition";
 
 import SelectMealType from "../common/components/select-type";
@@ -42,13 +46,7 @@ const AddMealModalContent: FC<{
   };
 
   // onChange Meal Ingredient
-  const onChangeMealIngredient = (
-    property: string,
-    value: string,
-    index: number
-  ) => {
-    const ingredients = _.cloneDeep(state.ingredients);
-    Object.assign(ingredients[index], { [property]: value });
+  const onChangeMealIngredient = (ingredients: MealIngredient[]) => {
     setState((prevState) => ({
       ...prevState,
       ingredients
@@ -104,9 +102,9 @@ const AddMealModalContent: FC<{
       {/*Meal Ingredients*/}
       <MealIngredients
         ingredients={state.ingredients}
-        onAddMealIngredient={onAddMealIngredient}
-        onDeleteMealIngredient={onDeleteMealIngredient}
-        onChangeMealIngredient={onChangeMealIngredient}
+        onAdd={onAddMealIngredient}
+        onDelete={onDeleteMealIngredient}
+        onChange={(Ingredients) => onChangeMealIngredient(Ingredients)}
       />
 
       {/*Meal Comments*/}

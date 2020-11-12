@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useModal } from "../../common/hooks/useModal";
+import * as symptomsUtils from "../../utilities/symptoms";
 
 import {
   Box,
@@ -10,6 +11,8 @@ import {
   Button,
   Typography
 } from "@material-ui/core";
+
+import AddSymptomModalContent from "./components/modals/add-symptom-modal-content";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,7 +83,9 @@ const Symptoms = () => {
           </Box>
         </Box>
       </Box>
-      <AddSymptomModal width={1200}></AddSymptomModal>
+      <AddSymptomModal width={1200}>
+        <AddSymptomModalContent symptom={symptomsUtils.makeNewSymptom()} />
+      </AddSymptomModal>
     </div>
   );
 };

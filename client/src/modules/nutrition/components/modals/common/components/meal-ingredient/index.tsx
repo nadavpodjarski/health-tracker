@@ -11,22 +11,32 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import { MealIngredient as Ingredient } from "../../../../../../../types/nutrition";
 import * as utils from "../../../../../../../utilities/nutrition";
-import InputNumberForamt from "../input-number-format";
+import InputNumberForamt from "../../../../../../../common/components/input-number-format";
 
 const MealIngredient: FC<{
   ingredient: Ingredient;
   onDelete: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void | undefined;
-  onChange: (
+  onChange: (ing: Ingredient) => void;
+}> = ({ ingredient, onDelete, onChange }) => {
+  const onChangeHandler = (
     event:
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
       | React.ChangeEvent<{
           name?: string | undefined;
           value: unknown;
         }>
-  ) => void;
-}> = ({ ingredient, onDelete, onChange }) => {
+  ) => {
+    const { name, value } = event.target;
+    if (typeof name === "string") {
+      const state = {
+        ...ingredient,
+        [name as string]: value
+      };
+      onChange(state);
+    }
+  };
   return (
     <Grid
       container
@@ -37,7 +47,7 @@ const MealIngredient: FC<{
     >
       <Grid item xs={6} sm={6}>
         <TextField
-          onChange={onChange}
+          onChange={onChangeHandler}
           name="item"
           value={ingredient.item}
           variant="outlined"
@@ -47,7 +57,7 @@ const MealIngredient: FC<{
       </Grid>
       <Grid item xs={6} sm={3}>
         <TextField
-          onChange={onChange}
+          onChange={onChangeHandler}
           name="amount"
           value={ingredient.amount}
           variant="outlined"
@@ -59,7 +69,7 @@ const MealIngredient: FC<{
       </Grid>
       <Grid item xs={6} sm={2}>
         <Select
-          onChange={onChange}
+          onChange={onChangeHandler}
           name="unit"
           value={ingredient.unit}
           variant="outlined"

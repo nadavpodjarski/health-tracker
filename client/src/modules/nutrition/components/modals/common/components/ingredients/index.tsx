@@ -6,42 +6,23 @@ import { MealIngredient as Ingredient } from "../../../../../../../types/nutriti
 
 const MealIngredients: FC<{
   ingredients: Ingredient[];
-  onAddMealIngredient: () => void;
-  onDeleteMealIngredient: (id: string) => void;
-  onChangeMealIngredient: (
-    property: string,
-    value: string,
-    index: number
-  ) => void;
-}> = ({
-  ingredients,
-  onAddMealIngredient,
-  onDeleteMealIngredient,
-  onChangeMealIngredient
-}) => {
-  const onChange = (
-    event:
-      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-      | React.ChangeEvent<{
-          name?: string | undefined;
-          value: unknown;
-        }>,
-    index: number
-  ) => {
-    const { name: property, value } = event.target;
-    if (typeof property === "string" && typeof value === "string") {
-      onChangeMealIngredient(property, value, index);
-    }
+  onAdd: () => void;
+  onDelete: (id: string) => void;
+  onChange: (ingredients: Ingredient[]) => void;
+}> = ({ ingredients, onAdd, onDelete, onChange }) => {
+  const onChangeHandler = (ingredient: Ingredient, index: number) => {
+    ingredients[index] = ingredient;
+    onChange(ingredients);
   };
 
   return (
     <>
       <Grid container alignItems="center" spacing={1}>
         <Grid item>
-          <Typography>Add Ingredient</Typography>
+          <Typography variant="h6">Add Ingredient</Typography>
         </Grid>
         <Grid item>
-          <IconButton onClick={onAddMealIngredient}>
+          <IconButton onClick={onAdd}>
             <AddCircleOutlineIcon />
           </IconButton>
         </Grid>
@@ -53,8 +34,8 @@ const MealIngredients: FC<{
             <Grid item xs={12} md={6} key={`modal_ingredient-${i}`}>
               <MealIngredient
                 ingredient={ing}
-                onDelete={(event) => onDeleteMealIngredient(ing.id)}
-                onChange={(event) => onChange(event, i)}
+                onDelete={(event) => onDelete(ing.id)}
+                onChange={(ingredient) => onChangeHandler(ingredient, i)}
               />
             </Grid>
           );

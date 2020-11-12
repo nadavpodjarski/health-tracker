@@ -37,17 +37,13 @@ export const useStyles = makeStyles((theme: Theme) => ({
       background: theme.palette.divider
     }
   },
-
-  comments: {
-    width: "100%",
-    padding: "16px",
-    fontSize: "18px",
-    fontFamily: "Poppins"
-  },
-  commentsRoot: {
-    padding: 0
-  },
   datePicker: {
-    padding: "16px 0 40px 0"
+    paddingTop: "24px"
+  },
+  dateTitle: {
+    padding: "12px 0"
+  },
+  actionButtonWrapper: {
+    marginTop: "40px"
   }
 }));

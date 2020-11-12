@@ -12,7 +12,7 @@ const AddMealActionButtons: FC<{
 }> = ({ onCancel, onConfirm, isUpdating, isValid }) => {
   const classes = useStyles();
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} className={classes.actionButtonWrapper}>
       <Grid item container xs={6} justify="flex-end">
         <Button className={classes.cancelButton} onClick={onCancel}>
           Cancel

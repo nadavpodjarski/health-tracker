@@ -11,7 +11,7 @@ export type Symptom = {
   date: Date;
   description: string;
   scale: SymptomsScale;
-  symptom: string;
+  name: string;
 };
 
 export type SymptomDoc = {

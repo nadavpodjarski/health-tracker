@@ -23,10 +23,12 @@ const MealDatePicker: FC<{
       justify="center"
       className={classes.datePicker}
     >
-      <Grid item style={{ padding: "8px 0" }}>
-        <Typography>Set Date & Time</Typography>
+      <Grid item>
+        <Typography variant="h6" className={classes.dateTitle}>
+          Set Date & Time
+        </Typography>
       </Grid>
-      <Grid item style={{ padding: "16px 0" }}>
+      <Grid item>
         <DateTimePicker onAcceptMealTime={onAccept} date={date} />
       </Grid>
     </Grid>
