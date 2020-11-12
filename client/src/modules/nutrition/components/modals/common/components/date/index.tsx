@@ -4,16 +4,16 @@ import { useDatePicker } from "../../../../../../../common/hooks/useDatePicker";
 import { useStyles } from "../../styles";
 
 const MealDatePicker: FC<{
-  onAcceptMealTime: (date: Date) => void;
+  onAcceptTime: (date: Date) => void;
   date?: Date;
-}> = ({ onAcceptMealTime, date }) => {
+}> = ({ onAcceptTime, date }) => {
   const { DateTimePicker } = useDatePicker();
 
   const classes = useStyles();
 
   const onAccept = (date: Date | null) => {
     if (date) {
-      onAcceptMealTime(date);
+      onAcceptTime(date);
     }
   };
   return (

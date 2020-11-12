@@ -5,8 +5,8 @@ import * as nutritionUtils from "../../../../../../../utilities/nutrition";
 
 const SelectMealType: FC<{
   type: MealTypes;
-  onChangeMealType: (value: MealTypes) => void;
-}> = ({ onChangeMealType, type }) => {
+  onChange: (value: MealTypes) => void;
+}> = ({ onChange, type }) => {
   const onChangeHandler = (
     event: React.ChangeEvent<{
       name?: string | undefined;
@@ -14,7 +14,7 @@ const SelectMealType: FC<{
     }>
   ) => {
     const { value } = event.target;
-    onChangeMealType(value as MealTypes);
+    onChange(value as MealTypes);
   };
 
   return (

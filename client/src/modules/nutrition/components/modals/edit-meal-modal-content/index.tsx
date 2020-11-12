@@ -54,7 +54,7 @@ const AddMealModalContent: FC<{
   };
 
   // onChange Meal Comments
-  const onChangeComments = (comments: string) => {
+  const onChangeMealComments = (comments: string) => {
     setState((prevState) => ({
       ...prevState,
       comments
@@ -97,24 +97,21 @@ const AddMealModalContent: FC<{
         <Typography variant="h4" style={{ fontWeight: "bold" }}>
           Edit Meal
         </Typography>
-        <SelectMealType type={state.type} onChangeMealType={onChangeMealType} />
+        <SelectMealType type={state.type} onChange={onChangeMealType} />
       </Box>
       {/*Meal Ingredients*/}
       <MealIngredients
         ingredients={state.ingredients}
         onAdd={onAddMealIngredient}
         onDelete={onDeleteMealIngredient}
-        onChange={(Ingredients) => onChangeMealIngredient(Ingredients)}
+        onChange={onChangeMealIngredient}
       />
 
       {/*Meal Comments*/}
-      <MealComments
-        onChangeComments={onChangeComments}
-        comments={state.comments}
-      />
+      <MealComments onChange={onChangeMealComments} comments={state.comments} />
 
       {/*Meal Date*/}
-      <MealDatePicker onAcceptMealTime={onChangeMealTime} date={state.date} />
+      <MealDatePicker onAcceptTime={onChangeMealTime} date={state.date} />
 
       {/*Action Buttons*/}
       <EditMealActionButton

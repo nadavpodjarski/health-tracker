@@ -2,12 +2,12 @@ import React, { FC } from "react";
 import { Typography, TextField } from "@material-ui/core";
 
 const MealComments: FC<{
-  onChangeComments: (value: string) => void;
+  onChange: (value: string) => void;
   comments: string;
-}> = ({ onChangeComments, comments }) => {
-  const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+}> = ({ onChange, comments }) => {
+  const onChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = event.target;
-    onChangeComments(value);
+    onChange(value);
   };
 
   return (
@@ -21,7 +21,7 @@ const MealComments: FC<{
         variant="outlined"
         value={comments}
         fullWidth
-        onChange={onChange}
+        onChange={onChangeHandler}
       />
     </div>
   );
