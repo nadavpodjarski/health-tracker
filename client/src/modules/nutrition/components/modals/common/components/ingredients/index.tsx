@@ -11,8 +11,9 @@ const MealIngredients: FC<{
   onChange: (ingredients: Ingredient[]) => void;
 }> = ({ ingredients, onAdd, onDelete, onChange }) => {
   const onChangeHandler = (ingredient: Ingredient, index: number) => {
-    ingredients[index] = ingredient;
-    onChange(ingredients);
+    const newIngredients = [...ingredients];
+    newIngredients[index] = ingredient;
+    onChange(newIngredients);
   };
 
   return (

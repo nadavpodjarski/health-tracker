@@ -20,6 +20,7 @@ const MealIngredient: FC<{
   ) => void | undefined;
   onChange: (ing: Ingredient) => void;
 }> = ({ ingredient, onDelete, onChange }) => {
+  //
   const onChangeHandler = (
     event:
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -30,11 +31,12 @@ const MealIngredient: FC<{
   ) => {
     const { name, value } = event.target;
     if (typeof name === "string") {
-      const state = {
+      const newState: Ingredient = {
         ...ingredient,
-        [name as string]: value
+        [name]: value
       };
-      onChange(state);
+
+      onChange(newState);
     }
   };
   return (
@@ -51,7 +53,7 @@ const MealIngredient: FC<{
           name="item"
           value={ingredient.item}
           variant="outlined"
-          placeholder="Food"
+          placeholder="* Food"
           error={!ingredient.item}
         />
       </Grid>
@@ -73,7 +75,7 @@ const MealIngredient: FC<{
           name="unit"
           value={ingredient.unit}
           variant="outlined"
-          style={{ width: "100%" }}
+          fullWidth
         >
           {utils.units.map((unit, i) => {
             return (

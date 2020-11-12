@@ -84,7 +84,10 @@ const Symptoms = () => {
         </Box>
       </Box>
       <AddSymptomModal width={1200}>
-        <AddSymptomModalContent symptom={symptomsUtils.makeNewSymptom()} />
+        <AddSymptomModalContent
+          symptom={symptomsUtils.makeNewSymptom()}
+          modalToggler={addSymptomModalToggler}
+        />
       </AddSymptomModal>
     </div>
   );

@@ -190,7 +190,7 @@ const MealsList: FC<{
           <EditModalContent
             onCancelEdit={onCancelEdit}
             onConfirmEdit={onConfirmEdit}
-            mealToBeUpdated={mealDocToBeUpdated.meal as Meal}
+            mealToBeUpdated={mealDocToBeUpdated.meal}
             toggler={editModalToggler}
           />
         </EditModal>

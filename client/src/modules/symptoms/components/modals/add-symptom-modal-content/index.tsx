@@ -2,25 +2,29 @@ import React, { FC, useState } from "react";
 import { Box, Typography, TextField, Grid } from "@material-ui/core";
 import { Symptom } from "../../../../../types/symptoms";
 
-const AddSymptomModalContent: FC<{ symptom: Symptom }> = ({ symptom }) => {
+const AddSymptomModalContent: FC<{
+  symptom: Symptom;
+  modalToggler: () => void;
+}> = ({ symptom }) => {
   const [state, setState] = useState<Symptom>(symptom);
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
   return (
     <Box display="flex" flexDirection="column">
-      <Box padding="24px 0">
+      <Box padding="16px 0">
         <Typography variant="h4" style={{ fontWeight: "bold" }}>
           Add Symptom
         </Typography>
       </Box>
 
-      <Grid container spacing={3}>
+      <Grid container spacing={3} style={{ paddingTop: "16px" }}>
         <Grid item container xs={12} md={6} spacing={2}>
           <Grid item xs={8}>
             <TextField
               variant="outlined"
               placeholder="Symptom"
               helperText="I.e Abdominal Pain, Nausea, Fatigue ..."
+              value={state.name}
               FormHelperTextProps={{
                 style: {
                   marginLeft: 0
@@ -33,6 +37,7 @@ const AddSymptomModalContent: FC<{ symptom: Symptom }> = ({ symptom }) => {
               variant="outlined"
               placeholder="Duration"
               helperText="* minutes"
+              value={state.duartion}
               FormHelperTextProps={{
                 style: {
                   marginLeft: 0
