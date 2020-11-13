@@ -21,16 +21,6 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     maxWidth: "100px",
     textAlign: "center"
-  },
-  textFieldUnderLine: {
-    "&:before": {
-      content: "none",
-      borderBottom: "0px"
-    },
-    "&:after": {
-      content: "none",
-      borderBottom: "0px"
-    }
   }
 }));
 
@@ -84,7 +74,7 @@ const DateRangePicker: FC<{
               borderRadius: "50px"
             }}
           >
-            <Box paddingRight="16px" display="flex" alignItems="center">
+            <Box padding="0 6px">
               <DateRangeIcon fontSize="small" />
             </Box>
             <TextField
@@ -97,7 +87,7 @@ const DateRangePicker: FC<{
                 className: classes.textFiled
               }}
               InputProps={{
-                classes: { underline: classes.textFieldUnderLine }
+                disableUnderline: true
               }}
             />
             <Divider
@@ -114,7 +104,7 @@ const DateRangePicker: FC<{
                 className: classes.textFiled
               }}
               InputProps={{
-                classes: { underline: classes.textFieldUnderLine }
+                disableUnderline: true
               }}
             />
           </div>
