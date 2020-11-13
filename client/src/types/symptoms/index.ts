@@ -7,7 +7,7 @@ export enum SymptomsScale {
 }
 
 export type Symptom = {
-  duartion: number;
+  duration: number | string;
   date: Date;
   description: string;
   scale: SymptomsScale;

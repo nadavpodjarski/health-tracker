@@ -15,6 +15,11 @@ export let darkTheme = createMuiTheme({
     fontFamily: "Poppins, Arial",
     fontSize: 16
   },
+  mixins: {
+    toolbar: {
+      minHeight: "48px"
+    }
+  },
   overrides: {
     MuiListItemIcon: {
       root: {
