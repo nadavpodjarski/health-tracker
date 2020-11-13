@@ -9,6 +9,7 @@ export const EDIT_MEAL_SUCCESS = "EDIT_MEAL_SUCCESS";
 
 export const GET_MEALS = "GET_MEALS";
 export const GET_MEALS_SUCCESS = "GET_MEALS_SUCCESS";
+export const CLEAR_MEALS = "CLEAR_MEALS";
 
 export const SET_MELAS_DATE_RANGE = "SET_MEALS_DATE_RANGE";
 

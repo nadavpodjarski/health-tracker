@@ -16,7 +16,7 @@ import EditMealActionButton from "./action-buttons";
 import { Box, Typography } from "@material-ui/core";
 import * as _ from "lodash";
 
-const AddMealModalContent: FC<{
+const EditMealModalContent: FC<{
   onCancelEdit: () => void;
   onConfirmEdit: (meal: Meal) => Promise<any>;
   mealToBeUpdated: Meal;
@@ -25,7 +25,7 @@ const AddMealModalContent: FC<{
   const [state, setState] = useState<Meal>(mealToBeUpdated);
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
 
-  const [tempState] = useState<Meal>(state);
+  const [tempState] = useState<Meal>(_.cloneDeep(state));
 
   // Add Meal ingredient
   const onAddMealIngredient = () => {
@@ -124,4 +124,4 @@ const AddMealModalContent: FC<{
   );
 };
 
-export default AddMealModalContent;
+export default EditMealModalContent;

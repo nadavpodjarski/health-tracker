@@ -72,10 +72,11 @@ const Nutrition = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const modalButtonText = "Add Meal";
-
   useEffect(() => {
     dispatch(nutritionActions.fetchMeals(dateRange));
+    return () => {
+      dispatch(nutritionActions.clearMealsState());
+    };
     //eslint-disable-next-line
   }, [dateRange]);
 
@@ -111,7 +112,7 @@ const Nutrition = () => {
               onClick={addMealModalToggler}
               className={classes.openModalButton}
             >
-              {modalButtonText}
+              Add Meal
             </Button>
           </Box>
         </Box>

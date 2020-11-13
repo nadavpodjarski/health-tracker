@@ -8,66 +8,20 @@ import * as uiActions from "../../../ui/actions";
 import * as api from "../../../../api/nutrition";
 import * as types from "../constants";
 
-const createGetMeals = () => {
-  return {
-    type: types.GET_MEALS
-  };
-};
-
-const createAddMeal = () => {
-  return {
-    type: types.ADD_MEAL
-  };
-};
-
+// DELETE MEAL
 const createDeleteMeal = () => {
   return {
     type: types.DELETE_MEAL
   };
 };
 
-const createEditMeal = () => {
-  return {
-    type: types.EDIT_MEAL
-  };
-};
-
-const addMealSuccess = () => {
-  return {
-    type: types.ADD_MEAL_SUCCESS
-  };
-};
-
-const editMealSuccess = () => {
-  return {
-    type: types.EDIT_MEAL_SUCCESS
-  };
-};
-
-const getMealsSuccess = (data: any) => {
-  return {
-    type: types.GET_MEALS_SUCCESS,
-    payload: data
-  };
-};
-
-const deleteMealSuccess = () => {
-  return {
-    type: types.DELETE_MEAL_SUCCESS
-  };
-};
-
-const requestErr = (err: any) => (dispatch: Dispatch<any>) => {
-  if (typeof err === "string")
-    dispatch(uiActions.setSnackBar({ type: "error", msg: err }));
-
+const deleteMealSuccess = (data: any) => (dispatch: Dispatch<any>) => {
   dispatch({
-    type: types.REQUEST_ERR,
-    payload: err
+    type: types.DELETE_MEAL_SUCCESS
   });
+  dispatch(uiActions.setSnackBar({ type: "info", msg: data.message }));
 };
 
-// DELETE MEAL
 export const deleteMeal = (docId: string) => async (
   dispatch: Dispatch<any>,
   getStore: any
@@ -76,18 +30,10 @@ export const deleteMeal = (docId: string) => async (
   try {
     dispatch(createDeleteMeal());
     const res = await api.deleteMeal(docId);
-    dispatch(deleteMealSuccess());
-
-    dispatch(
-      uiActions.setSnackBar({
-        type: "info",
-        msg: res.data
-      })
-    );
-
+    dispatch(deleteMealSuccess(res));
     dispatch(fetchMeals(dateRange));
   } catch (err) {
-    dispatch(requestErr(err.response?.data));
+    dispatch(requestErr(err.message));
   }
 };
 
@@ -102,6 +48,19 @@ export const setMealsDateRange = (dateRange: DateRange) => (
 };
 
 // GET MEALS
+const createGetMeals = () => {
+  return {
+    type: types.GET_MEALS
+  };
+};
+
+const getMealsSuccess = (data: any) => {
+  return {
+    type: types.GET_MEALS_SUCCESS,
+    payload: data
+  };
+};
+
 export const fetchMeals = (dateRange: ParsedDateRange) => async (
   dispatch: Dispatch<any>
 ) => {
@@ -112,39 +71,61 @@ export const fetchMeals = (dateRange: ParsedDateRange) => async (
     const res = await api.getMeals(dateRange.startAt, dateRange.endAt);
     dispatch(getMealsSuccess(res));
   } catch (err) {
-    dispatch(requestErr(err.response?.data));
+    dispatch(requestErr(err.message));
   }
 };
 
+export const clearMealsState = () => {
+  return {
+    type: types.CLEAR_MEALS
+  };
+};
+
 // ADD MEAL
+const createAddMeal = () => {
+  return {
+    type: types.ADD_MEAL
+  };
+};
+
+const addMealSuccess = (data: any) => (dispatch: Dispatch<any>) => {
+  dispatch({
+    type: types.ADD_MEAL_SUCCESS
+  });
+  dispatch(uiActions.setSnackBar({ type: "success", msg: data.message }));
+};
+
 export const addMeal = (meal: Meal) => async (
   dispatch: Dispatch<any>,
   getStore: any
 ) => {
   const { dateRange } = getStore().nutrition;
-
-  // POST Meal
   try {
     dispatch(createAddMeal());
     const res = await api.postMeal(meal);
-    dispatch(addMealSuccess());
-
+    dispatch(addMealSuccess(res));
     if (meal.date >= dateRange.startAt && meal.date <= dateRange.endAt) {
       dispatch(fetchMeals(dateRange));
     }
-
-    dispatch(
-      uiActions.setSnackBar({
-        type: "success",
-        msg: res.data
-      })
-    );
   } catch (err) {
-    dispatch(requestErr(err.response?.data));
+    dispatch(requestErr(err.message));
   }
 };
 
 // EDIT MEAL
+const createEditMeal = () => {
+  return {
+    type: types.EDIT_MEAL
+  };
+};
+
+const editMealSuccess = (data: any) => (dispatch: Dispatch<any>) => {
+  dispatch({
+    type: types.EDIT_MEAL_SUCCESS
+  });
+  dispatch(uiActions.setSnackBar({ type: "success", msg: data.message }));
+};
+
 export const editMeal = (meal: Meal, docId: string) => async (
   dispatch: Dispatch<any>,
   getStore: any
@@ -154,15 +135,20 @@ export const editMeal = (meal: Meal, docId: string) => async (
   try {
     dispatch(createEditMeal());
     const res = await api.putMeal(meal, docId);
-    dispatch(editMealSuccess());
-    dispatch(
-      uiActions.setSnackBar({
-        type: "success",
-        msg: res.data
-      })
-    );
+    dispatch(editMealSuccess(res));
     dispatch(fetchMeals(dateRange));
   } catch (err) {
-    dispatch(requestErr(err?.response?.data));
+    dispatch(requestErr(err.message));
   }
+};
+
+// ERROR HANDLER
+const requestErr = (errMessage: any) => (dispatch: Dispatch<any>) => {
+  if (typeof errMessage === "string")
+    dispatch(uiActions.setSnackBar({ type: "error", msg: errMessage }));
+
+  dispatch({
+    type: types.REQUEST_ERR,
+    payload: errMessage
+  });
 };

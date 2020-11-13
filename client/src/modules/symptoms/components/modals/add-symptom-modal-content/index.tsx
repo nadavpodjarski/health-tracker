@@ -54,6 +54,7 @@ const AddSymptomModalContent: FC<{
   };
 
   const onAddSymptom = () => {
+    setIsSaving(true);
     console.log(state);
   };
 
@@ -65,7 +66,7 @@ const AddSymptomModalContent: FC<{
         </Typography>
       </Box>
 
-      <Grid container spacing={3} style={{ paddingTop: "16px" }}>
+      <Grid container spacing={3} style={{ marginTop: "32px" }}>
         <Grid item container xs={12} md={6} spacing={2}>
           <Name name={state.name} onChange={onChangeName} />
           <Duration duration={state.duration} onChange={onChangeDuration} />

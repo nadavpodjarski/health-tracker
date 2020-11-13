@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Typography } from "@material-ui/core";
-import { MealIngredient } from "../../../../../types/nutrition";
+import { MealIngredient } from "../../../../types/nutrition";
 import { makeStyles, Theme, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => ({

@@ -6,8 +6,7 @@ import Ingredients from "./Ingredients";
 import Time from "./Time";
 import ListActionButtons from "./list-action-button";
 
-import { MealDoc, Meal } from "../../../../../types/nutrition";
-import * as _ from "lodash";
+import { MealDoc, Meal } from "../../../../types/nutrition";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,18 +23,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MealListItem: FC<{
-  i: number;
   item: MealDoc;
   setDeleteMeal: (docId: string) => void;
   setEditMeal: (item: MealDoc) => void;
   setCopyMeal: (meal: Meal) => void;
-}> = ({ i, item, setDeleteMeal, setEditMeal, setCopyMeal }) => {
+}> = ({ item, setDeleteMeal, setEditMeal, setCopyMeal }) => {
   const classes = useStyles();
 
   return (
     <Box className={classes.root}>
       <ListItem
-        key={`item-${i}`}
+        key={`item-${item.id}`}
         style={{
           padding: "16px 16px"
         }}
@@ -74,7 +72,7 @@ const MealListItem: FC<{
             <ListActionButtons
               deleteHandler={() => setDeleteMeal(item.id)}
               editHandler={() => setEditMeal(item)}
-              copyHanlder={() => setCopyMeal(_.cloneDeep(item.meal))}
+              copyHanlder={() => setCopyMeal(item.meal)}
               comments={item.meal.comments}
             />
           </Grid>

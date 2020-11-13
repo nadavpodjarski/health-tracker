@@ -11,13 +11,15 @@ import {
 
 import Loader from "../../../../common/components/loader";
 
-import MealListItem from "./components/ListItem";
+import MealListItem from "../list-item";
 import DeleteModalContent from "../modals/delete-modal-content";
 import EditModalContent from "../modals/edit-meal-modal-content";
 import AddModalContent from "../modals/add-meal-modal-content";
 
 import { Meal, Meals, MealDoc } from "../../../../types/nutrition";
 import { useModal } from "../../../../common/hooks/useModal";
+
+import * as _ from "lodash";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -86,19 +88,20 @@ const MealsList: FC<{
     deleteModalToggler();
   };
 
-  const setEditMeal = (item: MealDoc) => {
-    setMealDocToBeUpdated(item);
-    editModalToggler();
-  };
-
   const onCancelEdit = () => {
     setMealDocToBeUpdated(null);
     editModalToggler();
   };
 
+  const setEditMeal = (item: MealDoc) => {
+    setMealDocToBeUpdated(_.cloneDeep(item));
+    editModalToggler();
+  };
+
   const setCopyMeal = (meal: Meal) => {
-    meal.date = new Date();
-    setCopiedMeal(meal);
+    const newMeal = _.cloneDeep(meal);
+    newMeal.date = new Date();
+    setCopiedMeal(newMeal);
     copyModalToggler();
   };
 
@@ -137,7 +140,7 @@ const MealsList: FC<{
                     </ListSubheader>
                     {mealsByDate.meals.map((item, i: number) => (
                       <MealListItem
-                        i={i}
+                        key={`meal_list_item_${i}`}
                         item={item}
                         setDeleteMeal={setDeleteMeal}
                         setEditMeal={setEditMeal}

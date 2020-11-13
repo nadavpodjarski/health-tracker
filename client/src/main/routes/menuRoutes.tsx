@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { routes } from "./constants";
+
 import Loader from "../../common/components/loader";
 
 const Nutrition = lazy(() => import("../../modules/nutrition"));

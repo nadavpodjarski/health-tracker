@@ -46,10 +46,10 @@ nutritionRouter.post("/add-meal", async (req, res) => {
 
     await db.collection("nutrition").insertOne(meal);
 
-    return res.status(200).json("Meal Added Successfully");
+    return res.status(200).json({ message: "Meal Added Successfully" });
   } catch (err) {
     console.log(err.stack);
-    return res.status(500).json(err.message);
+    return res.status(500).json("There was an error while adding meal");
   }
 });
 
@@ -119,7 +119,7 @@ nutritionRouter.delete("/delete-meal", async (req, res) => {
 
     db.collection("nutrition").deleteOne(doc);
 
-    return res.json("Meal Deleted Successfully");
+    return res.json({ message: "Meal Deleted Successfully" });
   } catch (err) {
     console.log(err.stack);
     return res.status(500).json("There was an Error while deleting meal");
@@ -172,7 +172,7 @@ nutritionRouter.put("/edit-meal", async (req, res) => {
       }
     );
 
-    return res.json("Meal Updated Successfully");
+    return res.json({ message: "Meal Updated Successfully" });
   } catch (err) {
     console.log(err.stack);
     return res.status(500).json("There was an Error while updating meal");

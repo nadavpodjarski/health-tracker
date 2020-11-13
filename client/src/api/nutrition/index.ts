@@ -11,34 +11,37 @@ export const getMeals = async (startAt: Date, endAt: Date) => {
     });
     return res.data;
   } catch (err) {
-    throw err;
+    throw new Error(err.response?.data);
   }
 };
 
 export const postMeal = async (meal: Meal) => {
   try {
-    return await axios.post("/api/nutrition/add-meal", { data: meal });
+    const res = await axios.post("/api/nutrition/add-meal", { data: meal });
+    return res.data;
   } catch (err) {
-    throw err;
+    throw new Error(err.response?.data);
   }
 };
 
 export const deleteMeal = async (docId: string) => {
   try {
-    return await axios.delete("/api/nutrition/delete-meal", {
+    const res = await axios.delete("/api/nutrition/delete-meal", {
       params: { docId }
     });
+    return res.data;
   } catch (err) {
-    throw err;
+    throw new Error(err.response?.data);
   }
 };
 
 export const putMeal = async (meal: Meal, docId: string) => {
   try {
-    return await axios.put("/api/nutrition/edit-meal", {
+    const res = await axios.put("/api/nutrition/edit-meal", {
       data: { meal, docId }
     });
+    return res.data;
   } catch (err) {
-    throw err;
+    throw new Error(err.response?.data);
   }
 };
