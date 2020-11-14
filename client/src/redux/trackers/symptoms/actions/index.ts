@@ -1,6 +1,7 @@
 import { Dispatch } from "react";
 
 import { Symptom } from "../../../../types/symptoms";
+import { ParsedDateRange } from "../../../../types";
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 
 import * as types from "../constants";
@@ -14,6 +15,27 @@ const createGetSymptoms = () => {
   };
 };
 
+const getSymptomsSuccess = (data: any) => {
+  return {
+    type: types.GET_SYMPTOMS_SUCCESS,
+    payload: data
+  };
+};
+
+export const fetchSymptoms = (dateRange: ParsedDateRange) => async (
+  dispatch: Dispatch<any>
+) => {
+  if (!dateRange.startAt || !dateRange.endAt) return;
+
+  try {
+    dispatch(createGetSymptoms());
+    const res = await api.getSymptoms(dateRange.startAt, dateRange.endAt);
+    dispatch(getSymptomsSuccess(res));
+  } catch (err) {
+    dispatch(requestErr(err.message));
+  }
+};
+
 // ADD SYMPTOM
 const createAddSymptom = () => {
   return {
@@ -22,10 +44,10 @@ const createAddSymptom = () => {
 };
 
 const addSymptomSuccess = (data: any) => (dispatch: Dispatch<any>) => {
-  dispatch(uiActions.setSnackBar({ type: "success", msg: data.message }));
-  return {
+  dispatch(uiActions.setSnackBar({ type: "success", msg: data }));
+  dispatch({
     type: types.ADD_SYMPTOM_SUCCESS
-  };
+  });
 };
 
 export const addSymptom = (symptom: Symptom) => async (
@@ -34,7 +56,7 @@ export const addSymptom = (symptom: Symptom) => async (
   dispatch(createAddSymptom);
   try {
     const res = await api.postSymptom(symptom);
-    dispatch(addSymptomSuccess(res));
+    dispatch(addSymptomSuccess(res.message));
   } catch (err) {
     dispatch(requestErr(err.message));
   }

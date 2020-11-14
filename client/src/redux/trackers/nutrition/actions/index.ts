@@ -19,7 +19,7 @@ const deleteMealSuccess = (data: any) => (dispatch: Dispatch<any>) => {
   dispatch({
     type: types.DELETE_MEAL_SUCCESS
   });
-  dispatch(uiActions.setSnackBar({ type: "info", msg: data.message }));
+  dispatch(uiActions.setSnackBar({ type: "info", msg: data }));
 };
 
 export const deleteMeal = (docId: string) => async (
@@ -30,7 +30,7 @@ export const deleteMeal = (docId: string) => async (
   try {
     dispatch(createDeleteMeal());
     const res = await api.deleteMeal(docId);
-    dispatch(deleteMealSuccess(res));
+    dispatch(deleteMealSuccess(res.message));
     dispatch(fetchMeals(dateRange));
   } catch (err) {
     dispatch(requestErr(err.message));
@@ -92,7 +92,7 @@ const addMealSuccess = (data: any) => (dispatch: Dispatch<any>) => {
   dispatch({
     type: types.ADD_MEAL_SUCCESS
   });
-  dispatch(uiActions.setSnackBar({ type: "success", msg: data.message }));
+  dispatch(uiActions.setSnackBar({ type: "success", msg: data }));
 };
 
 export const addMeal = (meal: Meal) => async (
@@ -103,7 +103,7 @@ export const addMeal = (meal: Meal) => async (
   try {
     dispatch(createAddMeal());
     const res = await api.postMeal(meal);
-    dispatch(addMealSuccess(res));
+    dispatch(addMealSuccess(res.message));
     if (meal.date >= dateRange.startAt && meal.date <= dateRange.endAt) {
       dispatch(fetchMeals(dateRange));
     }
@@ -123,7 +123,7 @@ const editMealSuccess = (data: any) => (dispatch: Dispatch<any>) => {
   dispatch({
     type: types.EDIT_MEAL_SUCCESS
   });
-  dispatch(uiActions.setSnackBar({ type: "success", msg: data.message }));
+  dispatch(uiActions.setSnackBar({ type: "success", msg: data }));
 };
 
 export const editMeal = (meal: Meal, docId: string) => async (
@@ -135,7 +135,7 @@ export const editMeal = (meal: Meal, docId: string) => async (
   try {
     dispatch(createEditMeal());
     const res = await api.putMeal(meal, docId);
-    dispatch(editMealSuccess(res));
+    dispatch(editMealSuccess(res.message));
     dispatch(fetchMeals(dateRange));
   } catch (err) {
     dispatch(requestErr(err.message));

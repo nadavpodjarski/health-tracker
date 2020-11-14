@@ -75,6 +75,10 @@ const Symptoms = () => {
     (state: IStore) => state.symptoms
   );
 
+  useEffect(() => {
+    dispatch(symptomsActions.fetchSymptoms(dateRange));
+  }, [dateRange]);
+
   const [addSymptomModalToggler, AddSymptomModal] = useModal();
 
   const onDateRangeChange = (date: DateRange) => {

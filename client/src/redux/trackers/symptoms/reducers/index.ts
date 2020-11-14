@@ -18,6 +18,17 @@ export const symptomsReducer = (
       return {
         ...state
       };
+    case types.GET_SYMPTOMS:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case types.GET_SYMPTOMS_SUCCESS:
+      return {
+        ...state,
+        symptoms: action.payload,
+        isLoading: false
+      };
     case types.SET_SYMPTOMS_DATE_RANGE:
       return {
         ...state,
