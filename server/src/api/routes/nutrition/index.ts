@@ -3,7 +3,7 @@ import { Router } from "express";
 import { MealModel } from "../../../models/nutrition";
 import { ObjectId } from "bson";
 import * as helpers from "../../../helpers";
-
+import * as _ from "lodash";
 const nutritionRouter = Router();
 
 //------------ADD Meal-----------//
@@ -11,7 +11,8 @@ const nutritionRouter = Router();
 nutritionRouter.post("/add-meal", async (req, res) => {
   const { data: mealData } = req.body;
 
-  if (!mealData) return res.status(400).json("Unable To Proccess Request");
+  if (_.isEmpty(mealData))
+    return res.status(400).json("Unable To Proccess Request");
 
   try {
     // Check for existing type

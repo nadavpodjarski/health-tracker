@@ -12,9 +12,9 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2017",
+    "declarationMap": true,
     "moduleResolution": "node",
     "types": ["node"],
-    "declarationMap": true,
     "typeRoots": ["@types", "node_modules/@types"],
     "outDir": "./build",
     "incremental": true

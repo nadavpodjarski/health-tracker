@@ -55,7 +55,7 @@ symptomsRouter.get("/get-symptoms", async (req, res) => {
 symptomsRouter.post("/add-symptom", (req, res) => {
   const { data: symptomData } = req.body;
 
-  if (_.isEmpty(symptomData)) res.status(400).json("Unble to proccess request");
+  if (_.isEmpty(symptomData)) res.status(400).json("Unble to Proccess Request");
 
   symptomData.date = helpers.stringToDate(symptomData.date);
 
