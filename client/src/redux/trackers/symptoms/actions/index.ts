@@ -1,7 +1,10 @@
 import { Dispatch } from "react";
+
+import { Symptom } from "../../../../types/symptoms";
+import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
+
 import * as types from "../constants";
 import * as api from "../../../../api/symptoms";
-import { Symptom } from "../../../../types/symptoms";
 import * as uiActions from "../../../ui/actions";
 
 // GET SYMPTOMS
@@ -49,6 +52,16 @@ const createEditSymptom = () => {
   return {
     type: types.EDIT_SYMPTOM
   };
+};
+
+// SET DATE RANGE
+export const setSymptomsDateRange = (dateRange: DateRange) => (
+  dispatch: Dispatch<any>
+) => {
+  dispatch({
+    type: types.SET_SYMPTOMS_DATE_RANGE,
+    payload: dateRange
+  });
 };
 
 // ERROR HANDLER

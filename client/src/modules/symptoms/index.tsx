@@ -18,6 +18,8 @@ import {
 } from "@material-ui/core";
 
 import AddSymptomModalContent from "./components/modals/add-symptom-modal-content";
+import FilterOptions from "./components/filter-options";
+import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -75,6 +77,12 @@ const Symptoms = () => {
 
   const [addSymptomModalToggler, AddSymptomModal] = useModal();
 
+  const onDateRangeChange = (date: DateRange) => {
+    date[0] = date[0] || new Date();
+    date[1] = date[1] || new Date();
+    dispatch(symptomsActions.setSymptomsDateRange(date));
+  };
+
   const onAddSymptom = async (symptom: Symptom) => {
     return dispatch(symptomsActions.addSymptom(symptom));
   };
@@ -96,6 +104,7 @@ const Symptoms = () => {
             </Button>
           </Box>
         </Box>
+        <FilterOptions {...{ onDateRangeChange, dateRange }} />
       </Box>
       <AddSymptomModal width={1200}>
         <AddSymptomModalContent

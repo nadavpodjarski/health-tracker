@@ -23,12 +23,11 @@ export const nutritionReducer = (
         ...state,
         isLoading: true
       };
-    case types.SET_MELAS_DATE_RANGE: {
+    case types.SET_MELAS_DATE_RANGE:
       return {
         ...state,
         dateRange: appUtils.parseDateRange(action.payload)
       };
-    }
     case types.GET_MEALS_SUCCESS:
       return {
         ...state,

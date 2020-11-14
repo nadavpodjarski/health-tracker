@@ -18,6 +18,11 @@ export const symptomsReducer = (
       return {
         ...state
       };
+    case types.SET_SYMPTOMS_DATE_RANGE:
+      return {
+        ...state,
+        dateRange: appUtils.parseDateRange(action.payload)
+      };
     default:
       return state;
   }

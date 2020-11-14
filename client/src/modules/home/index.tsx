@@ -50,7 +50,9 @@ const useStyles = makeStyles((theme: Theme) =>
       width: `100%`
     },
     menuButton: {
-      marginRight: 36
+      "&:hover": {
+        background: "transparent"
+      }
     },
     hide: {
       display: "none"
@@ -122,8 +124,9 @@ const Home: FC = ({ children }) => {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
+            className={classes.menuButton}
           >
-            <MenuIcon fontSize="inherit" />
+            <MenuIcon fontSize="small" />
           </IconButton>
           <div style={{ display: "flex", alignItems: "center" }}>
             <ThemeSwitch />
