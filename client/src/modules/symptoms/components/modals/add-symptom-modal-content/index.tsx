@@ -14,7 +14,8 @@ import ActionButtons from "./action-buttons";
 const AddSymptomModalContent: FC<{
   symptom: Symptom;
   modalToggler: () => void;
-}> = ({ symptom, modalToggler }) => {
+  onAddSymptom: (symptom: Symptom) => Promise<any>;
+}> = ({ symptom, modalToggler, onAddSymptom }) => {
   const [state, setState] = useState(symptom);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -53,9 +54,15 @@ const AddSymptomModalContent: FC<{
     }));
   };
 
-  const onAddSymptom = () => {
-    setIsSaving(true);
-    console.log(state);
+  const onAdd = async () => {
+    try {
+      setIsSaving(true);
+      await onAddSymptom(state);
+      modalToggler();
+      setIsSaving(false);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -87,7 +94,7 @@ const AddSymptomModalContent: FC<{
         isSaving={isSaving}
         onCancel={modalToggler}
         isValid={!!symptomsUtils.isValidSymptom(state)}
-        onConfirm={onAddSymptom}
+        onConfirm={onAdd}
       />
     </Box>
   );

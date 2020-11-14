@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useModal } from "../../common/hooks/useModal";
+import { useDispatch, useSelector } from "react-redux";
+
+import * as symptomsActions from "../../redux/trackers/symptoms/actions";
 import * as symptomsUtils from "../../utilities/symptoms";
+import { IStore } from "../../types/redux";
+import { Symptom } from "../../types/symptoms";
 
 import {
   Box,
@@ -62,8 +67,17 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Symptoms = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const { symptoms, dateRange, isLoading } = useSelector(
+    (state: IStore) => state.symptoms
+  );
 
   const [addSymptomModalToggler, AddSymptomModal] = useModal();
+
+  const onAddSymptom = async (symptom: Symptom) => {
+    return dispatch(symptomsActions.addSymptom(symptom));
+  };
 
   return (
     <div className={classes.moduleRoot}>
@@ -87,6 +101,7 @@ const Symptoms = () => {
         <AddSymptomModalContent
           symptom={symptomsUtils.makeNewSymptom()}
           modalToggler={addSymptomModalToggler}
+          onAddSymptom={onAddSymptom}
         />
       </AddSymptomModal>
     </div>

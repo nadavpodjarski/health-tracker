@@ -26,6 +26,7 @@ export interface IStore {
   auth: IAuth;
   nutrition: INutrition;
   ui: IUiState;
+  symptoms: ISymptoms;
 }
 
 export type Action = {
