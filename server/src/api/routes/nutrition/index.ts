@@ -49,7 +49,7 @@ nutritionRouter.post("/add-meal", async (req, res) => {
 
     return res
       .status(200)
-      .json({ message: "Meal Added Successfully", data: result.ops });
+      .json({ message: "Meal Added Successfully", meal: result.ops });
   } catch (err) {
     console.log(err.stack);
     return res.status(500).json("There was an error while adding meal");
@@ -120,9 +120,9 @@ nutritionRouter.delete("/delete-meal", async (req, res) => {
     if (doc.author.uid !== req.user?.uid)
       return res.status(403).json("unauthorized request");
 
-    const result = await db.collection("nutrition").deleteOne(doc);
+    await db.collection("nutrition").deleteOne(doc);
 
-    return res.json({ message: "Meal Deleted Successfully", data: result });
+    return res.json({ message: "Meal Deleted Successfully", docId: docId });
   } catch (err) {
     console.log(err.stack);
     return res.status(500).json("There was an Error while deleting meal");
@@ -166,7 +166,7 @@ nutritionRouter.put("/edit-meal", async (req, res) => {
 
     meal.date = helpers.stringToDate(meal?.date);
 
-    const result = await db.collection("nutrition").updateOne(
+    await db.collection("nutrition").updateOne(
       { _id: new ObjectId(docId), "author.uid": req.user.uid },
       {
         $set: {
@@ -175,7 +175,11 @@ nutritionRouter.put("/edit-meal", async (req, res) => {
       }
     );
 
-    return res.json({ message: "Meal Updated Successfully", data: result });
+    return res.json({
+      message: "Meal Updated Successfully",
+      docId,
+      meal
+    });
   } catch (err) {
     console.log(err.stack);
     return res.status(500).json("There was an Error while updating meal");

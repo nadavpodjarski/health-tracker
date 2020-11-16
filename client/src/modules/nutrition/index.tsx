@@ -90,6 +90,10 @@ const Nutrition = () => {
     return dispatch(nutritionActions.addMeal(meal));
   };
 
+  const onCopyMeal = async (meal: Meal) => {
+    return dispatch(nutritionActions.addMeal(meal));
+  };
+
   const onDeleteMeal = async (docId: string) => {
     return dispatch(nutritionActions.deleteMeal(docId));
   };

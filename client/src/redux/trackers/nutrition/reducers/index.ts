@@ -1,6 +1,8 @@
 import * as types from "../constants";
 import * as appUtils from "../../../../utilities";
+
 import { INutrition, Action } from "../../../../types/redux";
+import moment from "moment";
 
 const initialState: INutrition = {
   meals: [],
@@ -16,8 +18,40 @@ export const nutritionReducer = (
   switch (action.type) {
     case types.DELETE_MEAL:
       return state;
-    case types.DELETE_MEAL_SUCCESS:
+    case types.ADD_MEAL_SUCCESS:
       return state;
+    case types.DELETE_MEAL_SUCCESS: {
+      const meals = state.meals
+        .map((mealsByDate) => {
+          return {
+            ...mealsByDate,
+            meals: mealsByDate.meals.filter(
+              (mealDoc) => mealDoc.id !== action.payload
+            )
+          };
+        })
+        .filter((mealsByDate) => mealsByDate.meals.length);
+      return {
+        ...state,
+        err: null,
+        meals
+      };
+    }
+    case types.EDIT_MEAL_SUCCESS: {
+      const meals = state.meals.map((mealsByDate) => {
+        mealsByDate.meals.map((mealDoc) => {
+          if (mealDoc.id === action.payload.docId)
+            mealDoc.meal = action.payload.meal;
+          return mealDoc;
+        });
+        return mealsByDate;
+      });
+      return {
+        ...state,
+        err: null,
+        meals
+      };
+    }
     case types.GET_MEALS:
       return {
         ...state,
@@ -42,15 +76,9 @@ export const nutritionReducer = (
       };
     case types.ADD_MEAL:
       return state;
-    case types.ADD_MEAL_SUCCESS:
-      return {
-        ...state,
-        err: null
-      };
     case types.EDIT_MEAL:
       return state;
-    case types.EDIT_MEAL_SUCCESS:
-      return state;
+
     case types.REQUEST_ERR:
       return {
         ...state,

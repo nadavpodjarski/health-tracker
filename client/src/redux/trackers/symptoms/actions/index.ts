@@ -51,12 +51,18 @@ const addSymptomSuccess = (data: any) => (dispatch: Dispatch<any>) => {
 };
 
 export const addSymptom = (symptom: Symptom) => async (
-  dispatch: Dispatch<any>
+  dispatch: Dispatch<any>,
+  getStore: any
 ) => {
+  const { dateRange } = getStore().symptoms;
+
   dispatch(createAddSymptom);
   try {
     const res = await api.postSymptom(symptom);
     dispatch(addSymptomSuccess(res.message));
+    if (symptom.date >= dateRange.startAt && symptom.date <= dateRange.endAt) {
+      dispatch(fetchSymptoms(dateRange));
+    }
   } catch (err) {
     dispatch(requestErr(err.message));
   }
@@ -67,6 +73,26 @@ const createDeleteSymptom = () => {
   return {
     type: types.DELETE_SYMPTOM
   };
+};
+
+const deleteSymptomSuccess = (data: any) => (dispatch: Dispatch<any>) => {
+  dispatch({
+    type: types.DELETE_SYMPTOM_SUCCESS,
+    payload: data.docId
+  });
+  dispatch(uiActions.setSnackBar({ type: "info", msg: data.message }));
+};
+
+export const deleteSymptom = (docId: string) => async (
+  dispatch: Dispatch<any>
+) => {
+  dispatch(createDeleteSymptom());
+  try {
+    const res = await api.deleteSymptom(docId);
+    dispatch(deleteSymptomSuccess(res));
+  } catch (err) {
+    dispatch(requestErr(err.message));
+  }
 };
 
 // EDIT SYMPTOM

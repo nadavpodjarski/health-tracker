@@ -7,7 +7,7 @@ export const makeNewSymptom = (): Symptom => {
     date: moment().toDate(),
     duration: "",
     description: "",
-    scale: SymptomsScale["mild"],
+    scale: SymptomsScale["Mild"],
     name: ""
   };
 };

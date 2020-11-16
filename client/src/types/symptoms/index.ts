@@ -1,9 +1,9 @@
 export enum SymptomsScale {
-  mild = 1,
-  moderate = 2,
-  high = 3,
-  severe = 4,
-  disabling = 5
+  Mild = 1,
+  Moderate = 2,
+  High = 3,
+  Severe = 4,
+  Disabling = 5
 }
 
 export type Symptom = {

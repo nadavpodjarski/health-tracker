@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import { ListItem, Grid, makeStyles, Box, Typography } from "@material-ui/core";
 
-import Type from "./Type";
-import Ingredients from "./Ingredients";
-import Time from "./Time";
-import ListActionButtons from "./list-action-button";
+import Type from "./components/type";
+import Ingredients from "./components/ingredients";
+import Time from "./components/time";
+import ListActionButtons from "./components/action-buttons";
 
 import { MealDoc, Meal } from "../../../../types/nutrition";
 

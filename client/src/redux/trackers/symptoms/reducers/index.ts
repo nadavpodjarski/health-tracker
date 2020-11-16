@@ -29,6 +29,22 @@ export const symptomsReducer = (
         symptoms: action.payload,
         isLoading: false
       };
+    case types.DELETE_SYMPTOM_SUCCESS: {
+      const symptoms = state.symptoms
+        .map((symptomsByDate) => {
+          return {
+            ...symptomsByDate,
+            symptoms: symptomsByDate.symptoms.filter(
+              (symptomDoc) => symptomDoc.id !== action.payload
+            )
+          };
+        })
+        .filter((symptomsByDate) => symptomsByDate.symptoms.length);
+      return {
+        ...state,
+        symptoms
+      };
+    }
     case types.SET_SYMPTOMS_DATE_RANGE:
       return {
         ...state,

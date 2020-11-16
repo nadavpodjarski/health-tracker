@@ -24,7 +24,7 @@ const DeleteModalContent: FC<{
   return (
     <>
       <Typography style={{ margin: "16px 0" }} variant="h6" noWrap>
-        Delete Meal ?
+        Delete Symptom ?
       </Typography>
       <Divider style={{ background: colors.ming, margin: "16px 0" }} />
       <Grid container style={{ marginTop: "50px" }} spacing={2}>

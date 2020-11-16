@@ -26,5 +26,15 @@ export const postSymptom = async (symptom: Symptom) => {
   }
 };
 
-export const deleteSymptom = () => {};
+export const deleteSymptom = async (docId: string) => {
+  try {
+    const res = await axios.delete("/api/symptoms/delete-symptom", {
+      params: { docId }
+    });
+    return res.data;
+  } catch (err) {
+    throw new Error(err.response?.data);
+  }
+};
+
 export const putSymptom = () => {};

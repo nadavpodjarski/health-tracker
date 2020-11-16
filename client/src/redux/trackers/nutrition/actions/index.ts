@@ -17,22 +17,19 @@ const createDeleteMeal = () => {
 
 const deleteMealSuccess = (data: any) => (dispatch: Dispatch<any>) => {
   dispatch({
-    type: types.DELETE_MEAL_SUCCESS
+    type: types.DELETE_MEAL_SUCCESS,
+    payload: data.docId
   });
-  dispatch(uiActions.setSnackBar({ type: "info", msg: data }));
+  dispatch(uiActions.setSnackBar({ type: "info", msg: data.message }));
 };
 
 export const deleteMeal = (docId: string) => async (
-  dispatch: Dispatch<any>,
-  getStore: any
+  dispatch: Dispatch<any>
 ) => {
-  const { dateRange } = getStore().nutrition;
   try {
     dispatch(createDeleteMeal());
     const res = await api.deleteMeal(docId);
-    console.log(res.data);
-    dispatch(deleteMealSuccess(res.message));
-    dispatch(fetchMeals(dateRange));
+    dispatch(deleteMealSuccess(res));
   } catch (err) {
     dispatch(requestErr(err.message));
   }
@@ -91,9 +88,10 @@ const createAddMeal = () => {
 
 const addMealSuccess = (data: any) => (dispatch: Dispatch<any>) => {
   dispatch({
-    type: types.ADD_MEAL_SUCCESS
+    type: types.ADD_MEAL_SUCCESS,
+    payload: data.meal
   });
-  dispatch(uiActions.setSnackBar({ type: "success", msg: data }));
+  dispatch(uiActions.setSnackBar({ type: "success", msg: data.message }));
 };
 
 export const addMeal = (meal: Meal) => async (
@@ -104,8 +102,7 @@ export const addMeal = (meal: Meal) => async (
   try {
     dispatch(createAddMeal());
     const res = await api.postMeal(meal);
-    console.log(res.data[0]);
-    dispatch(addMealSuccess(res.message));
+    dispatch(addMealSuccess(res));
     if (meal.date >= dateRange.startAt && meal.date <= dateRange.endAt) {
       dispatch(fetchMeals(dateRange));
     }
@@ -123,23 +120,19 @@ const createEditMeal = () => {
 
 const editMealSuccess = (data: any) => (dispatch: Dispatch<any>) => {
   dispatch({
-    type: types.EDIT_MEAL_SUCCESS
+    type: types.EDIT_MEAL_SUCCESS,
+    payload: { docId: data.docId, meal: data.meal }
   });
-  dispatch(uiActions.setSnackBar({ type: "success", msg: data }));
+  dispatch(uiActions.setSnackBar({ type: "success", msg: data.message }));
 };
 
 export const editMeal = (meal: Meal, docId: string) => async (
-  dispatch: Dispatch<any>,
-  getStore: any
+  dispatch: Dispatch<any>
 ) => {
-  const { dateRange } = getStore().nutrition;
-
   try {
     dispatch(createEditMeal());
     const res = await api.putMeal(meal, docId);
-    console.log(res.data);
-    dispatch(editMealSuccess(res.message));
-    dispatch(fetchMeals(dateRange));
+    dispatch(editMealSuccess(res));
   } catch (err) {
     dispatch(requestErr(err.message));
   }

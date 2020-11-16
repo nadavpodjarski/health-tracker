@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { MoreVert, HighlightOff, Edit, FileCopy } from "@material-ui/icons";
-import Comments from "../Comments";
+import Comments from "../comments";
 
 import {
   Menu,

@@ -1,10 +1,15 @@
 import { Router } from "express";
 import { db } from "../../../db";
 import { SymptomModel } from "../../../models/symptoms";
+
+import { ObjectId } from "bson";
+
 import * as helpers from "../../../helpers";
 import * as _ from "lodash";
 
 const symptomsRouter = Router();
+
+//-------------GET Symptoms----------//
 
 symptomsRouter.get("/get-symptoms", async (req, res) => {
   const { startAt, endAt } = req.query;
@@ -52,6 +57,8 @@ symptomsRouter.get("/get-symptoms", async (req, res) => {
   }
 });
 
+//------------ ADD Symptoms ----------//
+
 symptomsRouter.post("/add-symptom", (req, res) => {
   const { data: symptomData } = req.body;
 
@@ -72,6 +79,31 @@ symptomsRouter.post("/add-symptom", (req, res) => {
   } catch (err) {
     console.log(err.stack);
     res.status(500).json("There was an error while adding symptom");
+  }
+});
+
+//-------------DELETE Meal----------//
+
+symptomsRouter.delete("/delete-symptom", async (req, res) => {
+  const { docId } = req.query;
+
+  if (!docId || typeof docId !== "string")
+    return res.status(400).json("Unable To Proccess Request");
+
+  try {
+    const doc = await db
+      .collection("symptoms")
+      .findOne({ _id: new ObjectId(docId) });
+
+    if (doc.author.uid !== req.user?.uid)
+      return res.status(403).json("unauthorized request");
+
+    await db.collection("symptoms").deleteOne(doc);
+
+    return res.json({ message: "Meal Deleted Successfully", docId: docId });
+  } catch (err) {
+    console.log(err.stack);
+    return res.status(500).json("There was an Error while deleting meal");
   }
 });
 

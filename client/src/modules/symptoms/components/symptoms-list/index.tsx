@@ -13,7 +13,7 @@ import Loader from "../../../../common/components/loader";
 import SymptomListItem from "../list-item";
 
 import AddSymptomModalContent from "../modals/add-symptom-modal-content";
-import DeleteSymptomMdalContent from "../modals/delete-meal-modal-content";
+import DeleteSymptomMdalContent from "../modals/delete-symptom-modal-content";
 import EditSymptomModalContent from "../modals/edit-symptom-modal-content";
 
 import { Symptom, SymptomDoc, Symptoms } from "../../../../types/symptoms";
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const MealsList: FC<{
+const SymptomsList: FC<{
   isLoading: boolean;
   symptoms: Symptoms;
   onCopySymptom: (symptom: Symptom) => Promise<any>;
@@ -156,7 +156,6 @@ const MealsList: FC<{
                       </Box>
                     </ListSubheader>
                     {symptomsByDate.symptoms.map((item, i: number) => {
-                      console.log(item);
                       return (
                         <SymptomListItem
                           key={`symptom-list-item_${i}`}
@@ -237,4 +236,4 @@ const MealsList: FC<{
   );
 };
 
-export default MealsList;
+export default SymptomsList;

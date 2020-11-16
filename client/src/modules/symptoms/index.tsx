@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
     openModalButton: {
       fontSize: "20px",
       background: theme.palette.primary.main,
-      color: "white",
+      color: theme.palette.common.white,
       "&:hover": {
         background: theme.palette.primary.main
       },
@@ -92,11 +92,17 @@ const Symptoms = () => {
     return dispatch(symptomsActions.addSymptom(symptom));
   };
 
-  const onEditSymptom = async () => {};
+  const onCopySymptom = async (symptom: Symptom) => {
+    return dispatch(symptomsActions.addSymptom(symptom));
+  };
 
-  const onCopySymptom = async () => {};
+  const onEditSymptom = async (symptom: Symptom, docId: string) => {
+    console.log(symptom, docId);
+  };
 
-  const onDeleteSymptom = async () => {};
+  const onDeleteSymptom = async (docId: string) => {
+    return dispatch(symptomsActions.deleteSymptom(docId));
+  };
 
   return (
     <div className={classes.moduleRoot}>
