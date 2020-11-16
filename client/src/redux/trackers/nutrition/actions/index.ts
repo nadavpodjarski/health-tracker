@@ -30,6 +30,7 @@ export const deleteMeal = (docId: string) => async (
   try {
     dispatch(createDeleteMeal());
     const res = await api.deleteMeal(docId);
+    console.log(res.data);
     dispatch(deleteMealSuccess(res.message));
     dispatch(fetchMeals(dateRange));
   } catch (err) {
@@ -103,6 +104,7 @@ export const addMeal = (meal: Meal) => async (
   try {
     dispatch(createAddMeal());
     const res = await api.postMeal(meal);
+    console.log(res.data[0]);
     dispatch(addMealSuccess(res.message));
     if (meal.date >= dateRange.startAt && meal.date <= dateRange.endAt) {
       dispatch(fetchMeals(dateRange));
@@ -135,6 +137,7 @@ export const editMeal = (meal: Meal, docId: string) => async (
   try {
     dispatch(createEditMeal());
     const res = await api.putMeal(meal, docId);
+    console.log(res.data);
     dispatch(editMealSuccess(res.message));
     dispatch(fetchMeals(dateRange));
   } catch (err) {

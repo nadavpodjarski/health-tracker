@@ -19,6 +19,6 @@ export type SymptomDoc = {
   id: string;
 };
 
-export type SymptomsByDate = { _id: string; meals: SymptomDoc[] };
+export type SymptomsByDate = { _id: string; symptoms: SymptomDoc[] };
 
 export type Symptoms = SymptomsByDate[];

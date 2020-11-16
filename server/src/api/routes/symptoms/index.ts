@@ -38,7 +38,7 @@ symptomsRouter.get("/get-symptoms", async (req, res) => {
                 date: "$symptom.date"
               }
             },
-            symptoms: { $push: { meal: "$symptom", id: "$_id" } }
+            symptoms: { $push: { symptom: "$symptom", id: "$_id" } }
           }
         },
         { $sort: { "symptoms.symptom.date": -1 } }

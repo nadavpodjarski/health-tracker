@@ -17,6 +17,7 @@ import {
   Typography
 } from "@material-ui/core";
 
+import SymptomsList from "./components/symptoms-list";
 import AddSymptomModalContent from "./components/modals/add-symptom-modal-content";
 import FilterOptions from "./components/filter-options";
 import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
@@ -60,8 +61,8 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: "left",
       width: "100%",
       padding: "16px 0",
-      [theme.breakpoints.down("sm")]: {
-        padding: "16px 8px"
+      [theme.breakpoints.down("md")]: {
+        padding: "16px 12px"
       }
     }
   })
@@ -91,6 +92,12 @@ const Symptoms = () => {
     return dispatch(symptomsActions.addSymptom(symptom));
   };
 
+  const onEditSymptom = async () => {};
+
+  const onCopySymptom = async () => {};
+
+  const onDeleteSymptom = async () => {};
+
   return (
     <div className={classes.moduleRoot}>
       <Box className={classes.innerModule}>
@@ -109,6 +116,13 @@ const Symptoms = () => {
           </Box>
         </Box>
         <FilterOptions {...{ onDateRangeChange, dateRange }} />
+        <SymptomsList
+          isLoading={isLoading}
+          symptoms={symptoms}
+          onCopySymptom={onCopySymptom}
+          onDeleteSymptom={onDeleteSymptom}
+          onEditSymptom={onEditSymptom}
+        />
       </Box>
       <AddSymptomModal width={1200}>
         <AddSymptomModalContent

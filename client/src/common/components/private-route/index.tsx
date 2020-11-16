@@ -1,14 +1,17 @@
 import React, { FC } from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, RouteProps } from "react-router-dom";
 
 const PrivateRoute: FC<{
   component: FC;
   path: string | string[];
   isLoggedIn: boolean;
   redirectTo: string;
-}> = ({ component, path, redirectTo, isLoggedIn }, ...rest: any) => {
+}> = (
+  { component: Component, path, redirectTo, isLoggedIn },
+  { ...rest }: RouteProps
+) => {
   return isLoggedIn ? (
-    <Route component={component} path={path} {...rest} />
+    <Route component={Component} path={path} {...rest} />
   ) : (
     <Redirect to={redirectTo} />
   );

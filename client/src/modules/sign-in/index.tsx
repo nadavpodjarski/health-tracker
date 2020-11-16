@@ -2,7 +2,6 @@ import React from "react";
 import { useFirebaseAuth } from "../../main/firebase/useFirebaseAuth";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { Paper, makeStyles, Theme, Typography } from "@material-ui/core";
-
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     height: "100vh",
@@ -34,16 +33,14 @@ const SigIn = () => {
   const classes = useStyles();
   const { firebaseAuth } = useFirebaseAuth();
 
-  const UIConfig = {
+  const uiConfig = {
     signInFlow: "popup",
     signInOptions: [
       firebaseAuth?.GoogleAuthProvider?.PROVIDER_ID,
       firebaseAuth?.FacebookAuthProvider.PROVIDER_ID
     ],
     callbacks: {
-      signInSuccessWithAuthResult: (authResult: any) => {
-        return false;
-      }
+      signInSuccessWithAuthResult: () => false
     }
   };
 
@@ -77,7 +74,7 @@ const SigIn = () => {
           <div className={classes.rightScreen}>
             <Paper elevation={6}>
               <StyledFirebaseAuth
-                uiConfig={UIConfig}
+                uiConfig={uiConfig}
                 firebaseAuth={firebaseAuth()}
               />
             </Paper>

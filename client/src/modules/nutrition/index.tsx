@@ -56,8 +56,8 @@ const useStyles = makeStyles((theme) =>
       textAlign: "left",
       width: "100%",
       padding: "16px 0",
-      [theme.breakpoints.down("sm")]: {
-        padding: "16px 8px"
+      [theme.breakpoints.down("md")]: {
+        padding: "16px 12px"
       }
     }
   })
