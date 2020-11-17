@@ -78,6 +78,9 @@ const Symptoms = () => {
 
   useEffect(() => {
     dispatch(symptomsActions.fetchSymptoms(dateRange));
+    return () => {
+      dispatch(symptomsActions.cleanSymptomsState());
+    };
   }, [dateRange]);
 
   const [addSymptomModalToggler, AddSymptomModal] = useModal();

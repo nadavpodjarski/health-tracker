@@ -1,6 +1,5 @@
 import React, { FC, useState } from "react";
 import { Grid, Button, Typography, Divider, useTheme } from "@material-ui/core";
-import { colors } from "../../../../../main/theme/colors";
 import Loader from "../../../../../common/components/loader";
 
 const DeleteModalContent: FC<{
@@ -27,12 +26,14 @@ const DeleteModalContent: FC<{
       <Typography style={{ margin: "16px 0" }} variant="h6" noWrap>
         Delete Symptom ?
       </Typography>
-      <Divider style={{ background: colors.ming, margin: "16px 0" }} />
+      <Divider
+        style={{ background: theme.palette.secondary.main, margin: "16px 0" }}
+      />
       <Grid container style={{ marginTop: "50px" }} spacing={2}>
         <Grid item xs={6} container justify="flex-end">
           <Button
             style={{
-              background: colors.ming,
+              background: theme.palette.secondary.main,
               color: "white"
             }}
             onClick={onCancelDelete}
@@ -47,7 +48,7 @@ const DeleteModalContent: FC<{
               color: theme.palette.getContrastText(
                 theme.palette.background.paper
               ),
-              border: `1px solid ${colors.ming}`
+              border: `1px solid ${theme.palette.secondary.main}`
             }}
             endIcon={
               isDeleting ? (

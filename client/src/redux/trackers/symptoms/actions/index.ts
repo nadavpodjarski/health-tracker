@@ -132,6 +132,12 @@ export const setSymptomsDateRange = (dateRange: DateRange) => (
   });
 };
 
+export const cleanSymptomsState = () => {
+  return {
+    type: types.CLEAN_SYMPTOMS_STAET
+  };
+};
+
 // ERROR HANDLER
 const requestErr = (errMessage: any) => (dispatch: Dispatch<any>) => {
   if (typeof errMessage === "string")

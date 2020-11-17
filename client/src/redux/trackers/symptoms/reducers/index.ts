@@ -60,6 +60,11 @@ export const symptomsReducer = (
         err: null
       };
     }
+    case types.CLEAN_SYMPTOMS_STAET:
+      return {
+        ...state,
+        symptoms: []
+      };
     case types.SET_SYMPTOMS_DATE_RANGE:
       return {
         ...state,

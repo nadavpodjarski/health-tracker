@@ -29,3 +29,11 @@ export const symptomScale = [
   { const: "Severe", value: 4 },
   { const: "Disabling", value: 5 }
 ];
+
+export const scaleColors = {
+  [SymptomsScale["Mild"]]: "#FF9C00",
+  [SymptomsScale["Moderate"]]: "#FF7701",
+  [SymptomsScale["High"]]: "#E24800",
+  [SymptomsScale["Severe"]]: "#CC2200",
+  [SymptomsScale["Disabling"]]: "#860200"
+};

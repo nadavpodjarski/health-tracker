@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { Grid, Button, Typography, Divider } from "@material-ui/core";
+import { Grid, Button, Typography, Divider, useTheme } from "@material-ui/core";
 import { colors } from "../../../../../main/theme/colors";
 import Loader from "../../../../../common/components/loader";
 
@@ -12,6 +12,8 @@ const DeleteModalContent: FC<{
   ) => Promise<any>;
 }> = ({ onCancelDelete, onConfirmDelete }) => {
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
+
+  const theme = useTheme();
 
   const onConfirm = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -31,7 +33,7 @@ const DeleteModalContent: FC<{
         <Grid item xs={6} container justify="flex-end">
           <Button
             style={{
-              background: colors.ming,
+              background: theme.palette.secondary.main,
               color: "white"
             }}
             onClick={onCancelDelete}
@@ -43,10 +45,23 @@ const DeleteModalContent: FC<{
           <Button
             style={{
               background: "inherit",
-              color: colors.ming,
-              border: `1px solid ${colors.ming}`
+              color: theme.palette.getContrastText(
+                theme.palette.background.paper
+              ),
+              border: `1px solid ${theme.palette.secondary.main}`
             }}
-            endIcon={isDeleting ? <Loader size={16} /> : ""}
+            endIcon={
+              isDeleting ? (
+                <Loader
+                  size={16}
+                  color={theme.palette.getContrastText(
+                    theme.palette.background.paper
+                  )}
+                />
+              ) : (
+                ""
+              )
+            }
             onClick={onConfirm}
           >
             {isDeleting ? "Deleting" : "Delete"}
