@@ -8,9 +8,7 @@ import {
   IconButton,
   Typography,
   Box,
-  Tooltip,
-  makeStyles,
-  Divider
+  makeStyles
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({

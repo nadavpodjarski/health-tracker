@@ -5,7 +5,7 @@ import { SnackBarAlert } from "../ui";
 
 export interface IAuth {
   currentUser: any;
-  isLoading: boolean;
+  isInitializing: boolean;
 }
 
 export interface INutrition {

@@ -1,9 +1,9 @@
 import * as types from "../constants";
 import { IAuth, Action } from "../../../types/redux";
 
-const initialState = {
+const initialState: IAuth = {
   currentUser: null,
-  isLoading: true
+  isInitializing: true
 };
 
 export const authReducer = (state = initialState, action: Action): IAuth => {
@@ -12,13 +12,13 @@ export const authReducer = (state = initialState, action: Action): IAuth => {
       return {
         ...state,
         currentUser: action.payload,
-        isLoading: false
+        isInitializing: false
       };
     case types.USER_LOGOUT:
       return {
         ...state,
         currentUser: null,
-        isLoading: false
+        isInitializing: false
       };
     default:
       return state;

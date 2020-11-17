@@ -1,7 +1,14 @@
 import React from "react";
 import { useFirebaseAuth } from "../../main/firebase/useFirebaseAuth";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { Paper, makeStyles, Theme, Typography } from "@material-ui/core";
+import {
+  makeStyles,
+  Theme,
+  Typography,
+  Button,
+  Grid,
+  Box
+} from "@material-ui/core";
+
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     height: "100vh",
@@ -23,9 +30,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    background: "white",
     [theme.breakpoints.down("sm")]: {
       width: "100%"
     }
+  },
+  socialLoginButton: {
+    border: `1px solid rgba(0,0,0,0.7)`,
+    color: "rgba(0,0,0,0.7)",
+    width: "100%"
   }
 }));
 
@@ -33,15 +46,15 @@ const SigIn = () => {
   const classes = useStyles();
   const { firebaseAuth } = useFirebaseAuth();
 
-  const uiConfig = {
-    signInFlow: "popup",
-    signInOptions: [
-      firebaseAuth?.GoogleAuthProvider?.PROVIDER_ID,
-      firebaseAuth?.FacebookAuthProvider.PROVIDER_ID
-    ],
-    callbacks: {
-      signInSuccessWithAuthResult: () => false
-    }
+  const googleProvider = new firebaseAuth.GoogleAuthProvider();
+  const faceBookProvider = new firebaseAuth.FacebookAuthProvider();
+
+  const googleSignIn = async () => {
+    await firebaseAuth().signInWithRedirect(googleProvider);
+  };
+
+  const facebooksignIn = async () => {
+    await firebaseAuth().signInWithRedirect(faceBookProvider);
   };
 
   return (
@@ -56,7 +69,8 @@ const SigIn = () => {
                 padding: "0 24px",
                 textAlign: "left",
                 display: "flex",
-                alignItems: "center"
+                alignItems: "center",
+                background: "inherit"
               }}
             >
               <Typography
@@ -71,14 +85,31 @@ const SigIn = () => {
               </Typography>
             </div>
           </div>
-          <div className={classes.rightScreen}>
-            <Paper elevation={6}>
-              <StyledFirebaseAuth
-                uiConfig={uiConfig}
-                firebaseAuth={firebaseAuth()}
-              />
-            </Paper>
-          </div>
+          <Box className={classes.rightScreen}>
+            <Grid
+              container
+              spacing={2}
+              direction="column"
+              style={{ maxWidth: "250px" }}
+            >
+              <Grid item xs>
+                <Button
+                  className={classes.socialLoginButton}
+                  onClick={googleSignIn}
+                >
+                  Google SIgn-In
+                </Button>
+              </Grid>
+              <Grid item xs>
+                <Button
+                  className={classes.socialLoginButton}
+                  onClick={facebooksignIn}
+                >
+                  Facebook SIgn-In
+                </Button>
+              </Grid>
+            </Grid>
+          </Box>
         </div>
       }
     </>

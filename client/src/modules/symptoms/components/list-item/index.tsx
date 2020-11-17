@@ -26,10 +26,15 @@ const useStyles = makeStyles((theme) => ({
     border: `1px solid ${theme.palette.divider}`
   },
   actionButtonWrapper: {
+    position: "absolute",
+    right: 0,
+    top: 0,
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
     [theme.breakpoints.down("sm")]: {
-      position: "absolute",
-      top: 16,
-      right: 16
+      alignItems: "flex-start",
+      paddingTop: 8
     }
   }
 }));
@@ -54,8 +59,8 @@ const SymptomListItem: FC<{
         component={Grid}
         container
       >
-        <Grid container item xs={11} alignItems="center" spacing={3}>
-          <Grid item xs={12} md={5} container alignItems="center">
+        <Grid container item xs alignItems="center" spacing={2}>
+          <Grid item xs md={5} container alignItems="center">
             <Name name={item.symptom.name} date={item.symptom.date} />
           </Grid>
           <Grid item xs={6} md={3}>
@@ -64,7 +69,7 @@ const SymptomListItem: FC<{
           <Grid item xs={6} md={2}>
             <Duration duration={item.symptom.duration} />
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs md={2}>
             <Description
               isAvailable={!!item.symptom.description}
               setIsOpen={setIsDescriptionOpen}
@@ -72,20 +77,13 @@ const SymptomListItem: FC<{
             />
           </Grid>
         </Grid>
-        <Grid
-          item
-          container
-          xs
-          className={classes.actionButtonWrapper}
-          spacing={3}
-          justify="flex-end"
-        >
+        <Box className={classes.actionButtonWrapper}>
           <ListActionButtons
             deleteHandler={() => setDeleteSymptom(item.id)}
             editHandler={() => setEditSymptom(item)}
             copyHanlder={() => setCopySymptom(item.symptom)}
           />
-        </Grid>
+        </Box>
       </ListItem>
       <Collapse
         style={{ width: "100%", textAlignLast: "left" }}
