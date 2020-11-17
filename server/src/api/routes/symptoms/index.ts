@@ -53,7 +53,7 @@ symptomsRouter.get("/get-symptoms", async (req, res) => {
     return res.json(symptoms);
   } catch (err) {
     console.log(err.stack);
-    return res.status(500).json("There was an Error while fetching meals");
+    return res.status(500).json("There was an Error while fetching symptoms");
   }
 });
 
@@ -100,10 +100,41 @@ symptomsRouter.delete("/delete-symptom", async (req, res) => {
 
     await db.collection("symptoms").deleteOne(doc);
 
-    return res.json({ message: "Meal Deleted Successfully", docId: docId });
+    return res.json({ message: "Symptom Deleted Successfully", docId: docId });
   } catch (err) {
     console.log(err.stack);
-    return res.status(500).json("There was an Error while deleting meal");
+    return res.status(500).json("There was an Error while deleting symptom");
+  }
+});
+
+symptomsRouter.put("/edit-symptom", async (req, res) => {
+  const {
+    data: { symptom, docId }
+  } = req.body;
+
+  if (!docId || _.isEmpty(symptom))
+    res.status(400).json("Unable To Proccess Request");
+
+  try {
+    symptom.date = helpers.stringToDate(symptom?.date);
+
+    await db.collection("symptoms").updateOne(
+      { _id: new ObjectId(docId), "author.uid": req.user.uid },
+      {
+        $set: {
+          symptom: symptom
+        }
+      }
+    );
+
+    return res.json({
+      message: "Symptom Updated Successfully",
+      docId,
+      symptom
+    });
+  } catch (err) {
+    console.log(err.stack);
+    return res.status(500).json("There was an Error while updating symptom");
   }
 });
 

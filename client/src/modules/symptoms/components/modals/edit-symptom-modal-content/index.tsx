@@ -11,6 +11,8 @@ import DatePicker from "../common/components/date-picker";
 import Scale from "../common/components/scale";
 import ActionButtons from "./action-buttons";
 
+import * as _ from "lodash";
+
 const AddSymptomModalContent: FC<{
   onCancelEdit: () => void;
   onConfirmEdit: (symptom: Symptom) => Promise<any>;
@@ -19,6 +21,8 @@ const AddSymptomModalContent: FC<{
 }> = ({ onCancelEdit, onConfirmEdit, symptomToBeUpdated, toggler }) => {
   const [state, setState] = useState(symptomToBeUpdated);
   const [isUpdating, setIsUpdating] = useState(false);
+
+  const [tempState] = useState(_.cloneDeep(symptomToBeUpdated));
 
   const onChangeDuration = (duration: string | number) => {
     setState((prevState) => ({
@@ -56,13 +60,13 @@ const AddSymptomModalContent: FC<{
   };
 
   const onAdd = async () => {
+    if (_.isEqual(state, tempState)) return toggler();
+    setIsUpdating(true);
     try {
-      setIsUpdating(true);
       await onConfirmEdit(state);
-      toggler();
-      setIsUpdating(false);
     } catch (err) {
       console.log(err);
+      setIsUpdating(false);
     }
   };
 

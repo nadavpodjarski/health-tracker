@@ -102,6 +102,26 @@ const createEditSymptom = () => {
   };
 };
 
+const editSymptomSuccess = (data: any) => (dispatch: Dispatch<any>) => {
+  dispatch({
+    type: types.EDIT_SYMPTOM_SUCCESS,
+    payload: { docId: data.docId, symptom: data.symptom }
+  });
+  dispatch(uiActions.setSnackBar({ type: "success", msg: data.message }));
+};
+
+export const editSymptom = (symptom: Symptom, docId: string) => async (
+  dispatch: Dispatch<any>
+) => {
+  try {
+    dispatch(createEditSymptom());
+    const res = await api.putSymptom(symptom, docId);
+    dispatch(editSymptomSuccess(res));
+  } catch (err) {
+    dispatch(requestErr(err.message));
+  }
+};
+
 // SET DATE RANGE
 export const setSymptomsDateRange = (dateRange: DateRange) => (
   dispatch: Dispatch<any>

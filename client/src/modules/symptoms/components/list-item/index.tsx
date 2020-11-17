@@ -1,5 +1,13 @@
 import React, { FC, useState } from "react";
-import { ListItem, Grid, makeStyles, Box } from "@material-ui/core";
+import {
+  ListItem,
+  Grid,
+  makeStyles,
+  Box,
+  Collapse,
+  Typography,
+  Divider
+} from "@material-ui/core";
 
 import ListActionButtons from "./components/action-buttons";
 import Name from "./components/name";
@@ -18,7 +26,11 @@ const useStyles = makeStyles((theme) => ({
     border: `1px solid ${theme.palette.divider}`
   },
   actionButtonWrapper: {
-    height: "100%"
+    [theme.breakpoints.down("sm")]: {
+      position: "absolute",
+      top: 16,
+      right: 16
+    }
   }
 }));
 
@@ -37,27 +49,22 @@ const SymptomListItem: FC<{
         key={`item-${item.id}`}
         style={{
           padding: "16px 16px",
-          whiteSpace: "nowrap",
           position: "relative"
         }}
         component={Grid}
         container
       >
-        <Grid container item xs={9} alignItems="center" spacing={3}>
-          <Grid item xs={12} container alignItems="center">
+        <Grid container item xs={11} alignItems="center" spacing={3}>
+          <Grid item xs={12} md={5} container alignItems="center">
             <Name name={item.symptom.name} date={item.symptom.date} />
           </Grid>
-          <Grid item xs={12} md={4}>
-            {item.symptom.duration ? (
-              <Duration duration={item.symptom.duration} />
-            ) : (
-              ""
-            )}
-          </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={6} md={3}>
             <Scale scale={item.symptom.scale} />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={6} md={2}>
+            <Duration duration={item.symptom.duration} />
+          </Grid>
+          <Grid item xs={12} md={2}>
             <Description
               isAvailable={!!item.symptom.description}
               setIsOpen={setIsDescriptionOpen}
@@ -69,10 +76,9 @@ const SymptomListItem: FC<{
           item
           container
           xs
-          justify="flex-end"
-          alignItems="center"
           className={classes.actionButtonWrapper}
           spacing={3}
+          justify="flex-end"
         >
           <ListActionButtons
             deleteHandler={() => setDeleteSymptom(item.id)}
@@ -81,6 +87,18 @@ const SymptomListItem: FC<{
           />
         </Grid>
       </ListItem>
+      <Collapse
+        style={{ width: "100%", textAlignLast: "left" }}
+        in={isDescriptionOpen}
+      >
+        <Box width="100%" padding="16px">
+          <Typography color="textSecondary" style={{ fontSize: "14px" }}>
+            Description
+          </Typography>
+          <Divider style={{ margin: "8px 0" }} />
+          {item.symptom.description}
+        </Box>
+      </Collapse>
     </Box>
   );
 };

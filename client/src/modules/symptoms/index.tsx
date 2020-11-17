@@ -47,10 +47,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     openModalButton: {
       fontSize: "20px",
-      background: theme.palette.primary.main,
+      background: theme.palette.secondary.main,
       color: theme.palette.common.white,
       "&:hover": {
-        background: theme.palette.primary.main
+        background: theme.palette.secondary.main
       },
       [theme.breakpoints.down("sm")]: {
         fontSize: "16px"
@@ -97,7 +97,7 @@ const Symptoms = () => {
   };
 
   const onEditSymptom = async (symptom: Symptom, docId: string) => {
-    console.log(symptom, docId);
+    return dispatch(symptomsActions.editSymptom(symptom, docId));
   };
 
   const onDeleteSymptom = async (docId: string) => {

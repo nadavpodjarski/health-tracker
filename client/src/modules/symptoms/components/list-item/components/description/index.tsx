@@ -1,5 +1,5 @@
 import React, { FC, SetStateAction, Dispatch } from "react";
-import { Button, makeStyles } from "@material-ui/core";
+import { Button, makeStyles, Chip, Paper } from "@material-ui/core";
 
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
     "&:disabled": {
       background: theme.palette.divider,
       color: theme.palette.common.white
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "100%"
     }
   }
 }));
@@ -31,23 +34,21 @@ const Description: FC<{
     setIsOpen((prevState) => !prevState);
   };
 
-  return (
+  return isAvailable ? (
     <Button
       onClick={openHandler}
-      disabled={!isAvailable}
       className={classes.decriptionButton}
-      endIcon={
-        !isAvailable ? (
-          <NotInterestedIcon />
-        ) : isOpen ? (
-          <ArrowDownwardIcon />
-        ) : (
-          <ArrowUpwardIcon />
-        )
-      }
+      endIcon={isOpen ? <ArrowDownwardIcon /> : <ArrowUpwardIcon />}
     >
       Description
     </Button>
+  ) : (
+    <Chip
+      component={Paper}
+      icon={<NotInterestedIcon />}
+      label="DESCRIPTION"
+      style={{ fontSize: "16px" }}
+    />
   );
 };
 

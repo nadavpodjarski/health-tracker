@@ -9,18 +9,28 @@ import {
   Typography,
   Box,
   Tooltip,
-  makeStyles
+  makeStyles,
+  Divider
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   desktopView: {
     zIndex: 100,
+    position: "relative",
     [theme.breakpoints.down("sm")]: {
       display: "none"
     }
   },
+  desktopContainer: {
+    display: "flex",
+    alignItems: "center",
+    padding: "4px 0px",
+    flexDirection: "column",
+    borderBottom: `1px solid ${theme.palette.divider}`,
+    borderLeft: `1px solid ${theme.palette.divider} `
+  },
   mobileView: {
-    display: "none",
+    display: "flex",
     zIndex: 100,
     [theme.breakpoints.down("sm")]: {
       display: "flex"
@@ -59,9 +69,8 @@ const ListActionButtons: FC<{
   };
   return (
     <>
-      <Box className={classes.desktopView}>
-        {/*Desktop View*/}
-        <Box display="flex" alignItems="center" padding="4px 8px">
+      {/* <Box className={classes.desktopView}>
+        <Box className={classes.desktopContainer}>
           <Tooltip title="Copy">
             <IconButton onClick={onCopyHandler}>
               <FileCopy fontSize="small" />
@@ -78,7 +87,7 @@ const ListActionButtons: FC<{
             </IconButton>
           </Tooltip>
         </Box>
-      </Box>
+      </Box> */}
       {/*Mobile view*/}
       <Box className={classes.mobileView}>
         <IconButton onClick={handleClick}>

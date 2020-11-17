@@ -37,4 +37,13 @@ export const deleteSymptom = async (docId: string) => {
   }
 };
 
-export const putSymptom = () => {};
+export const putSymptom = async (symptom: Symptom, docId: string) => {
+  try {
+    const res = await axios.put("/api/symptoms/edit-symptom", {
+      data: { symptom, docId }
+    });
+    return res.data;
+  } catch (err) {
+    throw new Error(err.response?.data);
+  }
+};

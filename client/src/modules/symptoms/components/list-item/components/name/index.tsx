@@ -6,7 +6,9 @@ import moment from "moment";
 const Name: FC<{ name: string; date: Date }> = ({ name, date }) => {
   return (
     <Box display="inline-block">
-      <Typography component="span">{name}</Typography>
+      <Typography component="span" variant="h6" style={{ fontWeight: "bold" }}>
+        {name}
+      </Typography>
       <Typography
         component="span"
         color="textSecondary"
@@ -14,7 +16,7 @@ const Name: FC<{ name: string; date: Date }> = ({ name, date }) => {
       >
         at
       </Typography>
-      <Typography component="span">
+      <Typography component="span" color="textSecondary">
         {moment(date).format("MM/DD/YYYY")}
       </Typography>
     </Box>

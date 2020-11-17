@@ -45,6 +45,21 @@ export const symptomsReducer = (
         symptoms
       };
     }
+    case types.EDIT_SYMPTOM_SUCCESS: {
+      const symptoms = state.symptoms.map((symptomsByDate) => {
+        symptomsByDate.symptoms.map((symptomDoc) => {
+          if (symptomDoc.id === action.payload.docId)
+            symptomDoc.symptom = action.payload.symptom;
+          return symptomDoc;
+        });
+        return symptomsByDate;
+      });
+      return {
+        ...state,
+        symptoms,
+        err: null
+      };
+    }
     case types.SET_SYMPTOMS_DATE_RANGE:
       return {
         ...state,

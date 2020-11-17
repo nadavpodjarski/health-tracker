@@ -31,7 +31,7 @@ function App() {
         <AppRoutes />
         <SnackBar
           position={{ vertical: "bottom", horizontal: "left" }}
-          duration={3000}
+          duration={1500}
         />
       </div>
     </ThemeProvider>
