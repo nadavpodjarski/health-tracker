@@ -2,7 +2,6 @@ import * as types from "../constants";
 import * as appUtils from "../../../../utilities";
 
 import { INutrition, Action } from "../../../../types/redux";
-import moment from "moment";
 
 const initialState: INutrition = {
   meals: [],

@@ -14,3 +14,8 @@ export type ParsedDateRange = {
   startAt: Date | null;
   endAt: Date | null;
 };
+
+export interface IPrivateRoute {
+  isLoggedIn: boolean;
+  redirectTo: string;
+}

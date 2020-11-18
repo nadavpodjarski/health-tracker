@@ -1,20 +1,14 @@
 import React, { FC } from "react";
 import { Redirect, Route, RouteProps } from "react-router-dom";
+import { IPrivateRoute } from "../../../types";
 
-const PrivateRoute: FC<{
-  component: FC;
-  path: string | string[];
-  isLoggedIn: boolean;
-  redirectTo: string;
-}> = (
-  { component: Component, path, redirectTo, isLoggedIn },
-  { ...rest }: RouteProps
-) => {
-  return isLoggedIn ? (
-    <Route component={Component} path={path} {...rest} />
-  ) : (
-    <Redirect to={redirectTo} />
-  );
+const PrivateRoute: FC<IPrivateRoute & RouteProps> = ({
+  redirectTo,
+  isLoggedIn,
+  children,
+  ...rest
+}) => {
+  return isLoggedIn ? <Route {...rest} /> : <Redirect to={redirectTo} />;
 };
 
 export default PrivateRoute;

@@ -50,7 +50,7 @@ const SocialLoginButton: FC<{
     >
       <Grid item xs={12} md={3}>
         <Box className={classes.socialLogoWrapper}>
-          <img width="28px" height="28px" src={img} />
+          <img width="28px" height="28px" src={img} alt="" />
         </Box>
       </Grid>
       <Grid item md={9}>

@@ -4,7 +4,6 @@ import AddMealModalContent from "./components/modals/add-meal-modal-content";
 import MealsList from "./components/meal-list";
 import FilterOptions from "./components/filter-options";
 
-import { colors } from "../../main/theme/colors";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import { Box, Button, Typography } from "@material-ui/core";
 import { useModal } from "../../common/hooks/useModal";
@@ -87,10 +86,6 @@ const Nutrition = () => {
   };
 
   const onAddMeal = async (meal: Meal) => {
-    return dispatch(nutritionActions.addMeal(meal));
-  };
-
-  const onCopyMeal = async (meal: Meal) => {
     return dispatch(nutritionActions.addMeal(meal));
   };
 
