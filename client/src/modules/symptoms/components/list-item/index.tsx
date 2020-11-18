@@ -32,9 +32,10 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     display: "flex",
     alignItems: "center",
+    paddingRight: "8px",
     [theme.breakpoints.down("sm")]: {
       alignItems: "flex-start",
-      paddingTop: 8
+      padding: "8px 8px"
     }
   }
 }));
@@ -59,22 +60,24 @@ const SymptomListItem: FC<{
         component={Grid}
         container
       >
-        <Grid container item xs alignItems="center" spacing={2}>
-          <Grid item xs md={5} container alignItems="center">
-            <Name name={item.symptom.name} date={item.symptom.date} />
-          </Grid>
-          <Grid item xs={6} md={3}>
-            <Scale scale={item.symptom.scale} />
-          </Grid>
-          <Grid item xs={6} md={2}>
-            <Duration duration={item.symptom.duration} />
-          </Grid>
-          <Grid item xs md={2}>
-            <Description
-              isAvailable={!!item.symptom.description}
-              setIsOpen={setIsDescriptionOpen}
-              isOpen={isDescriptionOpen}
-            />
+        <Grid item xs={12}>
+          <Grid container spacing={2} alignItems="center">
+            <Grid item xs={12} md={4} container alignItems="center">
+              <Name name={item.symptom.name} date={item.symptom.date} />
+            </Grid>
+            <Grid item xs={6} md={3}>
+              <Scale scale={item.symptom.scale} />
+            </Grid>
+            <Grid item xs={6} md={2}>
+              <Duration duration={item.symptom.duration} />
+            </Grid>
+            <Grid item xs={12} md={2}>
+              <Description
+                isAvailable={!!item.symptom.description}
+                setIsOpen={setIsDescriptionOpen}
+                isOpen={isDescriptionOpen}
+              />
+            </Grid>
           </Grid>
         </Grid>
         <Box className={classes.actionButtonWrapper}>

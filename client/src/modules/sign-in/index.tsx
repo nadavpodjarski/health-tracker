@@ -1,44 +1,33 @@
 import React from "react";
 import { useFirebaseAuth } from "../../main/firebase/useFirebaseAuth";
-import {
-  makeStyles,
-  Theme,
-  Typography,
-  Button,
-  Grid,
-  Box
-} from "@material-ui/core";
+import { makeStyles, Theme, Typography, Grid, Box } from "@material-ui/core";
+
+import FacebookIcon from "../../resources/images/social-logos/facebook1.jpg";
+import GoogleIcon from "../../resources/images/social-logos/google2.png";
+import AppLogo from "../../resources/logo/ibd-logo.png";
+import SocialLoginButton from "./components/social-login-button";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    height: "100vh",
-    width: "100%",
-    display: "flex"
+    background: "white",
+    height: "100%"
   },
-  leftScreen: {
+  intro: {
     height: "100%",
-    width: "70%",
-    display: "flex",
     background: "rgba(0,0,0,0.7)",
-    [theme.breakpoints.down("sm")]: {
-      display: "none"
-    }
+    padding: "16px"
   },
-  rightScreen: {
-    height: "100%",
-    width: "30%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+  form: {
     background: "white",
     [theme.breakpoints.down("sm")]: {
-      width: "100%"
+      width: "100%",
+      minWidth: 0
     }
   },
-  socialLoginButton: {
-    border: `1px solid rgba(0,0,0,0.7)`,
-    color: "rgba(0,0,0,0.7)",
-    width: "100%"
+  socialButtonsContainer: {
+    width: "350px",
+    maxWidth: "80%",
+    margin: "16px 0"
   }
 }));
 
@@ -60,57 +49,66 @@ const SigIn = () => {
   return (
     <>
       {
-        <div className={classes.root}>
-          <div className={classes.leftScreen}>
-            <div
-              style={{
-                height: "200px",
-                width: "100%",
-                padding: "0 24px",
-                textAlign: "left",
-                display: "flex",
-                alignItems: "center",
-                background: "inherit"
-              }}
+        <Grid container className={classes.root}>
+          <Grid item xs={12} md={8} className={classes.intro}>
+            <Box
+              display="flex"
+              textAlign="left"
+              height="100px"
+              alignItems="center"
             >
+              <Box display="flex" alignItems="center">
+                <img
+                  src={AppLogo}
+                  style={{ maxWidth: "48px", maxHeight: "48px" }}
+                />
+              </Box>
+
               <Typography
-                variant="h3"
+                variant="h4"
                 style={{
                   color: "white",
                   fontWeight: 700,
-                  whiteSpace: "nowrap"
+                  paddingLeft: "8px"
                 }}
               >
-                Follow Your Gut
+                MiTummy
               </Typography>
-            </div>
-          </div>
-          <Box className={classes.rightScreen}>
+            </Box>
+          </Grid>
+          {/*Login Form*/}
+          <Grid
+            item
+            container
+            xs={12}
+            md={4}
+            alignItems="center"
+            justify="center"
+            className={classes.form}
+          >
             <Grid
               container
               spacing={2}
               direction="column"
-              style={{ maxWidth: "250px" }}
+              className={classes.socialButtonsContainer}
             >
               <Grid item xs>
-                <Button
-                  className={classes.socialLoginButton}
+                <SocialLoginButton
+                  img={GoogleIcon}
                   onClick={googleSignIn}
-                >
-                  Google SIgn-In
-                </Button>
+                  title="Log in with Google"
+                />
               </Grid>
               <Grid item xs>
-                <Button
-                  className={classes.socialLoginButton}
+                <SocialLoginButton
+                  img={FacebookIcon}
                   onClick={facebooksignIn}
-                >
-                  Facebook SIgn-In
-                </Button>
+                  title="Log in with Facebook"
+                />
               </Grid>
             </Grid>
-          </Box>
-        </div>
+          </Grid>
+        </Grid>
       }
     </>
   );

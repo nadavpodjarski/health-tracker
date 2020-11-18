@@ -20,6 +20,12 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       width: "100%"
     }
+  },
+  noDescriptionChip: {
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      fontSize: "16px"
+    }
   }
 }));
 
@@ -47,7 +53,7 @@ const Description: FC<{
       component={Paper}
       icon={<NotInterestedIcon />}
       label="DESCRIPTION"
-      style={{ fontSize: "16px" }}
+      className={classes.noDescriptionChip}
     />
   );
 };

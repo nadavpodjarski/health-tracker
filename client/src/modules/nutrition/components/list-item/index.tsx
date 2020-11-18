@@ -5,6 +5,7 @@ import Type from "./components/type";
 import Ingredients from "./components/ingredients";
 import Time from "./components/time";
 import ListActionButtons from "./components/action-buttons";
+import Comments from "./components/comments";
 
 import { MealDoc, Meal } from "../../../../types/nutrition";
 
@@ -16,9 +17,14 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "4px",
     border: `1px solid ${theme.palette.divider}`
   },
-
   actionButtonWrapper: {
-    height: "100%"
+    position: "absolute",
+    right: 0,
+    top: 0,
+    height: "100%",
+    display: "flex",
+    alignItems: "flex-start",
+    padding: "8px 8px"
   }
 }));
 
@@ -40,53 +46,39 @@ const MealListItem: FC<{
         component={Grid}
         container
       >
-        <Grid
-          container
-          item
-          xs
-          style={{ padding: "12px 0 24px 0" }}
-          alignItems="center"
-        >
-          <Grid item xs={6} container alignItems="center">
-            <Box display="inline-block">
-              <Type type={item.meal.type} />
-              <Typography
-                component="span"
-                color="textSecondary"
-                style={{ margin: "0 5px", fontSize: "12px" }}
-              >
-                at
-              </Typography>
-              <Time time={item.meal.date} />
-            </Box>
-          </Grid>
-
-          <Grid
-            item
-            container
-            xs
-            justify="flex-end"
-            className={classes.actionButtonWrapper}
-            spacing={3}
-          >
-            <ListActionButtons
-              deleteHandler={() => setDeleteMeal(item.id)}
-              editHandler={() => setEditMeal(item)}
-              copyHanlder={() => setCopyMeal(item.meal)}
-              comments={item.meal.comments}
-            />
-          </Grid>
+        <Grid item xs={11}>
+          <Box display="inline-block">
+            <Type type={item.meal.type} />
+            <Typography
+              component="span"
+              color="textSecondary"
+              style={{ margin: "0 5px", fontSize: "12px" }}
+            >
+              at
+            </Typography>
+            <Time time={item.meal.date} />
+          </Box>
         </Grid>
 
         <Grid
           item
           container
-          xs={12}
+          xs
           spacing={1}
-          style={{ whiteSpace: "nowrap" }}
+          style={{ whiteSpace: "nowrap", marginTop: "12px" }}
         >
           <Ingredients ingredients={item.meal.ingredients} />
         </Grid>
+
+        <Box className={classes.actionButtonWrapper}>
+          {item.meal.comments ? <Comments comments={item.meal.comments} /> : ""}
+          <ListActionButtons
+            deleteHandler={() => setDeleteMeal(item.id)}
+            editHandler={() => setEditMeal(item)}
+            copyHanlder={() => setCopyMeal(item.meal)}
+            comments={item.meal.comments}
+          />
+        </Box>
       </ListItem>
     </Box>
   );

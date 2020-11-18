@@ -4,7 +4,7 @@ import { MealIngredient } from "../../../../../../types/nutrition";
 import { makeStyles, Theme, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => ({
-  root: {
+  ingredient: {
     margin: "8px 0px",
     [theme.breakpoints.down("sm")]: {
       margin: "6px 0"
@@ -36,7 +36,7 @@ const Ingredients: FC<{ ingredients: MealIngredient[] }> = ({
     <>
       {ingredients.map((ingredient, i) => {
         return (
-          <Grid item className={classes.root} key={`ingredients-${i}`}>
+          <Grid item className={classes.ingredient} key={`ingredients-${i}`}>
             <Typography component="span" className={classes.span}>
               {`${ingredient.item} `}
               <Typography

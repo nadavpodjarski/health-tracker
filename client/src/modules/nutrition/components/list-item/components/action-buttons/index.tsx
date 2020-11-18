@@ -1,6 +1,5 @@
 import React, { FC, useState } from "react";
 import { MoreVert, HighlightOff, Edit, FileCopy } from "@material-ui/icons";
-import Comments from "../comments";
 
 import {
   Menu,
@@ -9,7 +8,6 @@ import {
   IconButton,
   Typography,
   Box,
-  Tooltip,
   makeStyles
 } from "@material-ui/core";
 
@@ -21,8 +19,9 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   mobileView: {
-    display: "none",
+    display: "flex",
     zIndex: 100,
+    justifyContent: "flex-end",
     [theme.breakpoints.down("sm")]: {
       display: "flex"
     }
@@ -61,8 +60,7 @@ const ListActionButtons: FC<{
   };
   return (
     <>
-      <Box className={classes.desktopView}>
-        {/*Desktop View*/}
+      {/* <Box className={classes.desktopView}>
         <Box display="flex" alignItems="center" padding="4px 8px">
           {comments ? <Comments comments={comments} /> : ""}
           <Tooltip title="Copy">
@@ -81,10 +79,9 @@ const ListActionButtons: FC<{
             </IconButton>
           </Tooltip>
         </Box>
-      </Box>
+      </Box> */}
       {/*Mobile view*/}
       <Box className={classes.mobileView}>
-        {comments ? <Comments comments={comments} /> : ""}
         <IconButton onClick={handleClick}>
           <MoreVert fontSize="small" />
         </IconButton>

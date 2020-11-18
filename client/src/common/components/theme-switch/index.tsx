@@ -6,6 +6,9 @@ import Switch from "@material-ui/core/Switch";
 import { useDispatch, useSelector } from "react-redux";
 import { setTheme } from "../../../redux/ui/actions";
 
+import NightsStayIcon from "@material-ui/icons/NightsStay";
+import WbSunnyIcon from "@material-ui/icons/WbSunny";
+
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     width: 42,

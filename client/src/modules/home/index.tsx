@@ -1,4 +1,5 @@
 import React, { FC, useState } from "react";
+import { Link } from "react-router-dom";
 import NavLink from "../../common/components/nav-link";
 import clsx from "clsx";
 
@@ -14,6 +15,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import Box from "@material-ui/core/Box";
 
 import FastfoodIcon from "@material-ui/icons/Fastfood";
 import EmojiSymbolsIcon from "@material-ui/icons/EmojiSymbols";
@@ -128,9 +130,20 @@ const Home: FC = ({ children }) => {
           >
             <MenuIcon fontSize="small" />
           </IconButton>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <ThemeSwitch />
-            <ProfileAvatar />
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              flex: 1
+            }}
+          >
+            <Box display="flex" flex={1} justifyContent="flex-start">
+              <ThemeSwitch />
+            </Box>
+
+            <Box display="flex" justifyContent="flex-end" flex={1}>
+              <ProfileAvatar />
+            </Box>
           </div>
         </Toolbar>
       </AppBar>
