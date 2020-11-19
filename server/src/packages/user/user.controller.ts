@@ -4,17 +4,14 @@ import { User } from "./user.model";
 export const addUser = async (req: Request, res: Response) => {
   const { email } = req?.user;
   try {
-    let user: any = await User.findOne({ email });
+    let user = await User.findOne({ email });
+
     if (!user) {
       const newUser = new User(req.user);
       user = await newUser.save();
     }
 
-    const sanitizedUser = {
-      email: user.email,
-      displayName: user.displayName,
-      picture: user.picture
-    };
+    const sanitizedUser = user.sanitizeObject();
 
     res.json(sanitizedUser);
   } catch (err) {
