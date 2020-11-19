@@ -17,7 +17,7 @@ export let darkTheme = createMuiTheme({
   },
   mixins: {
     toolbar: {
-      minHeight: "48px"
+      minHeight: "56px"
     }
   },
   overrides: {

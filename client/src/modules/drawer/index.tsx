@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme: Theme) =>
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen
       }),
-      paddingRight: "32px",
       background: theme.palette.background.paper,
       [theme.breakpoints.down("sm")]: {
         paddingRight: 0
