@@ -17,10 +17,15 @@ export const firebaseAuth = (
     .auth()
     .verifyIdToken(authHeader[1])
     .then((user) => {
-      req.user = user;
+      req.user = {
+        email: user.email,
+        displayName: user.name,
+        uid: user.uid,
+        picture: user.picture
+      };
       return next();
     })
     .catch((err) => {
-      return res.status(400).json({ Error: err });
+      return res.status(400).json({ message: err.message });
     });
 };

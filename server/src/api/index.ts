@@ -1,11 +1,11 @@
 import { Router } from "express";
 
-import userRouter from "./routes/users";
-import nutritionRouter from "./routes/nutrition";
-import symptomRouter from "./routes/symptoms";
+import { userRouter } from "../packages/user/user.routes";
+import { nutritionRouter } from "../packages/nutrition/nutrition.routes";
+import { symptomRouter } from "../packages/symptom/symptom.routes";
 
 export const api = Router();
 
+api.use("/user", userRouter);
 api.use("/nutrition", nutritionRouter);
-api.use("/symptoms", symptomRouter);
-api.use("/", userRouter);
+api.use("/symptom", symptomRouter);

@@ -2,8 +2,10 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 
-import { api } from "./api";
 import { middleware } from "./middleware";
+
+import { api } from "./api";
+import { connectMongo } from "./db";
 
 import admin, { ServiceAccount } from "firebase-admin";
 import serviceAccount from "../secrets/firebase-service-account.json";
@@ -20,6 +22,8 @@ app.use(helmet());
 
 app.use(middleware.apiRateLimiter);
 app.use(middleware.firebaseAuth);
+
+connectMongo();
 
 app.use("/api", api);
 

@@ -2,13 +2,13 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const MealSchema = new Schema({
+const SymptomSchema = new Schema({
   author: {
     uid: String,
     displayName: String
   },
-  meal: Object,
+  symptom: Object,
   createdAt: { type: Date, default: Date.now() }
 });
 
-export const MealModel = mongoose.model("Meal", MealSchema);
+export const Symptom = mongoose.model("Symptom", SymptomSchema, "symptom");

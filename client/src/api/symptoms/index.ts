@@ -3,7 +3,7 @@ import { Symptom } from "../../types/symptoms";
 
 export const getSymptoms = async (startAt: Date, endAt: Date) => {
   try {
-    const res = await axios.get("/api/symptoms/get-symptoms", {
+    const res = await axios.get("/api/symptom/get-symptoms", {
       params: {
         startAt,
         endAt
@@ -17,7 +17,7 @@ export const getSymptoms = async (startAt: Date, endAt: Date) => {
 
 export const postSymptom = async (symptom: Symptom) => {
   try {
-    const res = await axios.post("/api/symptoms/add-symptom", {
+    const res = await axios.post("/api/symptom/add-symptom", {
       data: symptom
     });
     return res.data;
@@ -28,7 +28,7 @@ export const postSymptom = async (symptom: Symptom) => {
 
 export const deleteSymptom = async (docId: string) => {
   try {
-    const res = await axios.delete("/api/symptoms/delete-symptom", {
+    const res = await axios.delete("/api/symptom/delete-symptom", {
       params: { docId }
     });
     return res.data;
@@ -39,7 +39,7 @@ export const deleteSymptom = async (docId: string) => {
 
 export const putSymptom = async (symptom: Symptom, docId: string) => {
   try {
-    const res = await axios.put("/api/symptoms/edit-symptom", {
+    const res = await axios.put("/api/symptom/edit-symptom", {
       data: { symptom, docId }
     });
     return res.data;

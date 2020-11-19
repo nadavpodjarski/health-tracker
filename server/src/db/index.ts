@@ -3,7 +3,7 @@ import "dotenv/config";
 
 const uri = process.env.DB_URI as string;
 
-const connect = () => {
+export const connectMongo = () => {
   mongoose.connect(
     uri,
     {
@@ -16,15 +16,13 @@ const connect = () => {
           "Failed to connect to mongo on startup - retrying in 5 sec",
           err
         );
-        setTimeout(connect, 5000);
+        setTimeout(connectMongo, 5000);
       }
     }
   );
 };
 
-connect();
-
 export const db = mongoose.connection.on("disconnect", (err) => {
   console.log(err);
-  connect();
+  connectMongo();
 });
