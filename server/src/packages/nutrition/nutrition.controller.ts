@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
-import { Meal } from "./nutrition.model";
+import { Nutrition } from "./nutrition.model";
+
+import { ObjectId } from "bson";
+import mongoose from "mongoose";
+
 import * as _ from "lodash";
 import * as helpers from "../../helpers";
 
@@ -10,7 +14,7 @@ export const addMeal = async (req: Request, res: Response) => {
 
   try {
     if (mealData.type !== MealTypes["Easy meal/Snack"]) {
-      const isMealTypeExist = !!(await Meal.findOne({
+      const isMealTypeExist = !!(await Nutrition.findOne({
         "author.uid": req.user?.uid,
         "meal.type": mealData.type,
         "meal.date": {
@@ -29,10 +33,10 @@ export const addMeal = async (req: Request, res: Response) => {
       }
     }
     mealData.date = helpers.stringToDate(mealData.date);
-    const newMeal = new Meal({
+    const newMeal = new Nutrition({
       author: {
         uid: req.user?.uid,
-        displayName: req.user?.name
+        displayName: req.user?.displayName
       },
       meal: mealData
     });
@@ -54,7 +58,7 @@ export const getMeals = async (req: Request, res: Response) => {
     const start = helpers.getStartDayDate(startAt as string);
     const end = helpers.getEndDayDate(endAt as string);
 
-    const meals = await Meal.aggregate([
+    const meals = await Nutrition.aggregate([
       {
         $match: {
           $and: [
@@ -90,16 +94,16 @@ export const getMeals = async (req: Request, res: Response) => {
 export const deletMeal = async (req: Request, res: Response) => {
   const { docId: _id } = req.query;
 
-  if (!_id || typeof _id !== "string")
+  if (!mongoose.isValidObjectId(_id) || typeof _id !== "string")
     return res.status(400).json("Unable To Proccess Request");
 
   try {
-    const doc: any = await Meal.findOne({ _id });
+    const doc = await Nutrition.findOne({ _id });
 
-    if (doc.author.uid !== req.user?.uid)
+    if (!doc?.verifyOwnership(req.user.uid))
       return res.status(403).json("Unauthorized request");
 
-    await Meal.deleteOne(doc);
+    await doc.deleteOne();
 
     return res.json({ message: "Meal Deleted Successfully", docId: _id });
   } catch (err) {
@@ -110,49 +114,42 @@ export const deletMeal = async (req: Request, res: Response) => {
 
 export const editMeal = async (req: Request, res: Response) => {
   const {
-    data: { meal, docId: _id }
+    data: { meal: newMeal, docId: _id }
   } = req.body;
 
-  if (!_id || !meal) res.status(400).json("Unable To Proccess Request");
+  if (!mongoose.isValidObjectId(_id) || !newMeal)
+    res.status(400).json("Unable To Proccess Request");
 
   try {
-    // Check for existing type
-    if (meal.type !== MealTypes["Easy meal/Snack"]) {
-      const isMealTypeExist = await Meal.findOne({
-        "author.uid": req.user?.uid,
-        "meal.type": meal.type,
-        "meal.date": {
-          $gte: helpers.getStartDayDate(meal.date),
-          $lte: helpers.getEndDayDate(meal.date)
-        }
-      });
+    const doc = await Nutrition.findOne({
+      _id
+    });
 
-      if (isMealTypeExist && isMealTypeExist._id !== _id) {
+    if (!doc?.verifyOwnership(req.user.uid))
+      return res.status(403).json("Unauthorized request");
+
+    if (newMeal.type !== MealTypes["Easy meal/Snack"]) {
+      const sameMealType = await doc.findSimilarMealType(newMeal?.type);
+
+      if (sameMealType && !new ObjectId(sameMealType?._id).equals(doc._id)) {
         return res
           .status(400)
           .json(
-            `${MealTypes[meal.type]} on ${helpers.formatDate(
-              meal.date
+            `${MealTypes[newMeal.type]} on ${helpers.formatDate(
+              newMeal.date
             )} Already exist`
           );
       }
     }
 
-    meal.date = helpers.stringToDate(meal?.date);
+    newMeal.date = helpers.stringToDate(newMeal?.date);
 
-    await Meal.updateOne(
-      { _id, "author.uid": req.user.uid },
-      {
-        $set: {
-          meal: meal
-        }
-      }
-    );
+    await doc?.updateOne({ $set: { meal: newMeal } });
 
     return res.json({
       message: "Meal Updated Successfully",
       docId: _id,
-      meal
+      meal: newMeal
     });
   } catch (err) {
     console.log(err.stack);

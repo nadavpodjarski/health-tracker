@@ -11,9 +11,9 @@ export const addUser = async (req: Request, res: Response) => {
       user = await newUser.save();
     }
 
-    const sanitizedUser = user.sanitizeObject();
+    const sanitizedUserObject = user.sanitizeObject();
 
-    res.json(sanitizedUser);
+    res.json(sanitizedUserObject);
   } catch (err) {
     console.log(err.stack);
     res.status(500).json({ message: err.message });

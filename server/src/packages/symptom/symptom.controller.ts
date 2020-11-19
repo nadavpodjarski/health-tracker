@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { Symptom } from "./symptom.model";
+import mongoose from "mongoose";
+
 import * as helpers from "../../helpers";
 import * as _ from "lodash";
 
@@ -14,7 +16,7 @@ export const addSymptom = async (req: Request, res: Response) => {
     const symptom = new Symptom({
       author: {
         uid: req.user?.uid,
-        displayName: req.user?.name
+        displayName: req.user?.displayName
       },
       symptom: symptomData
     });
@@ -72,16 +74,16 @@ export const getSymptoms = async (req: Request, res: Response) => {
 export const deleteSymptom = async (req: Request, res: Response) => {
   const { docId: _id } = req.query;
 
-  if (!_id || typeof _id !== "string")
+  if (!mongoose.isValidObjectId(_id))
     return res.status(400).json("Unable To Proccess Request");
 
   try {
-    const doc: any = await Symptom.findOne({ _id });
+    const doc = await Symptom.findOne({ _id });
 
-    if (doc.author.uid !== req.user?.uid)
-      return res.status(403).json("unauthorized request");
+    if (!doc?.verifyOwnership(req.user.uid))
+      return res.status(403).json("Unauthorized request");
 
-    await Symptom.deleteOne(doc);
+    await doc.deleteOne();
 
     return res.json({ message: "Symptom Deleted Successfully", docId: _id });
   } catch (err) {
@@ -95,20 +97,18 @@ export const editSymptom = async (req: Request, res: Response) => {
     data: { symptom, docId: _id }
   } = req.body;
 
-  if (!_id || _.isEmpty(symptom))
+  if (!mongoose.isValidObjectId(_id) || _.isEmpty(symptom))
     res.status(400).json("Unable To Proccess Request");
 
-  try {
-    symptom.date = helpers.stringToDate(symptom?.date);
+  symptom.date = helpers.stringToDate(symptom?.date);
 
-    await Symptom.updateOne(
-      { _id, "author.uid": req.user.uid },
-      {
-        $set: {
-          symptom: symptom
-        }
-      }
-    );
+  try {
+    const doc = await Symptom.findOne({ _id });
+
+    if (!doc?.verifyOwnership(req.user.uid))
+      return res.status(403).json("Unauthorized request");
+
+    await doc?.updateOne({ $set: { symptom } });
 
     return res.json({
       message: "Symptom Updated Successfully",

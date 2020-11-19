@@ -3,7 +3,7 @@ import * as helpers from "../../helpers";
 
 const { Schema } = mongoose;
 
-const MealSchema = new Schema({
+const NutritionSchema = new Schema({
   author: {
     uid: String,
     displayName: String
@@ -12,28 +12,40 @@ const MealSchema = new Schema({
   createdAt: { type: Date, default: Date.now() }
 });
 
-// interface IMeallDocument extends mongoose.Document {
-//   author: {
-//     uid: string;
-//     displayName: string;
-//   };
-//   meal: Object;
-//   createdAt: Date;
-// }
+interface INutrition extends mongoose.Document {
+  author: {
+    uid: string;
+    displayName: string;
+  };
+  meal: any;
+  createdAt: Date;
+  verifyOwnership(uid: string): boolean;
+  findSimilarMealType(newMealType: number): Promise<INutrition>;
+}
 
-// interface IMealModel extends mongoose.Model<IMeallDocument> {
-//   isMealTypeExist(mealType: string, date: Date | string): Promise<Boolean>;
-// }
+interface INutritionModel extends mongoose.Model<INutrition> {
+  verifyOwnership: (uid: string) => boolean;
+  findSimilarMealType: (newMealType: number) => Promise<INutrition>;
+}
 
-// MealSchema.statics.isMealTypeExist = function (
-//   mealtype: string | number,
-//   date: Date | string
-// ) {
-//   return !!(
-//     this.meal.type === mealtype &&
-//     this.meal.date >= helpers.getStartDayDate(date) &&
-//     this.meal.date <= helpers.getEndDayDate(date)
-//   );
-// };
+NutritionSchema.methods.verifyOwnership = function (uid: string) {
+  return this.author.uid === uid;
+};
 
-export const Meal = mongoose.model("Meal", MealSchema, "nutrition");
+NutritionSchema.methods.findSimilarMealType = async function (
+  newMealType: number
+): Promise<INutrition> {
+  return await this.model("Nutrition").findOne({
+    "author.uid": this.author.uid,
+    "meal.type": newMealType,
+    "meal.date": {
+      $gte: helpers.getStartDayDate(this.meal.date),
+      $lte: helpers.getEndDayDate(this.meal.date)
+    }
+  });
+};
+
+export const Nutrition: INutritionModel = mongoose.model<
+  INutrition,
+  INutritionModel
+>("Nutrition", NutritionSchema, "nutrition");

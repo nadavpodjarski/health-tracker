@@ -11,4 +11,26 @@ const SymptomSchema = new Schema({
   createdAt: { type: Date, default: Date.now() }
 });
 
-export const Symptom = mongoose.model("Symptom", SymptomSchema, "symptom");
+interface ISymptom extends mongoose.Document {
+  author: {
+    uid: string;
+    displayName: string;
+  };
+  symptom: Object;
+  createdAt: Date;
+  verifyOwnership(uid: string): boolean;
+}
+
+interface ISymptomModel extends mongoose.Model<ISymptom> {
+  verifyOwnership: (uid: string) => boolean;
+}
+
+SymptomSchema.methods.verifyOwnership = function (uid: string) {
+  return this.author.uid === uid;
+};
+
+export const Symptom: ISymptomModel = mongoose.model<ISymptom, ISymptomModel>(
+  "Symptom",
+  SymptomSchema,
+  "symptom"
+);
