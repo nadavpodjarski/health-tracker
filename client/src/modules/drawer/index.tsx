@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const HomeDrawer: FC = () => {
+const HomeDrawer: FC = ({ children }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
