@@ -63,7 +63,7 @@ const MealListItem: FC<{
         <Grid
           item
           container
-          xs
+          xs={12}
           spacing={1}
           style={{ whiteSpace: "nowrap", marginTop: "12px" }}
         >

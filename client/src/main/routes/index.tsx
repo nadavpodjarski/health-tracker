@@ -7,7 +7,7 @@ import { IStore } from "../../types/redux";
 
 import InitSpinner from "../../common/components/initialize-spinner";
 import PrivateRoute from "../../common/components/private-route";
-import DrawerRoutes from "./drawerRoutes";
+
 const Home = lazy(() => import("../../modules/home"));
 const Drawer = lazy(() => import("../../modules/drawer"));
 
