@@ -29,7 +29,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     minHeight: 0,
     scrollbarWidth: "none",
     marginBottom: theme.spacing(1),
-    maxWidth: "100%"
+    maxWidth: "100%",
+    "&::-webkit-scrollbar": {
+      display: "none"
+    }
   },
   listSection: {
     backgroundColor: "inherit",

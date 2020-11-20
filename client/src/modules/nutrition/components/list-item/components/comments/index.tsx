@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[3]
   },
   divider: {
-    background: theme.palette.primary.main,
     margin: "6px 0 12px 0"
   },
   p: {
@@ -42,11 +41,11 @@ const Comments: FC<{ comments: string }> = ({ comments }) => {
       classes={{ tooltip: classes.root, arrow: classes.arrow }}
       title={
         <Box>
-          <Typography variant="h6" color="textSecondary">
+          <Typography style={{ fontSize: "14px" }} color="textSecondary">
             Comments
           </Typography>
           <Divider className={classes.divider} />
-          <Typography className={classes.p} color="textPrimary">
+          <Typography component="p" className={classes.p} color="textPrimary">
             {comments}
           </Typography>
         </Box>
