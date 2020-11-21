@@ -1,6 +1,5 @@
 import React, { FC, useState } from "react";
 import { Grid, Button, Typography, Divider, useTheme } from "@material-ui/core";
-import { colors } from "../../../../../main/theme/colors";
 import Loader from "../../../../../common/components/loader";
 
 const DeleteModalContent: FC<{
@@ -28,7 +27,9 @@ const DeleteModalContent: FC<{
       <Typography style={{ margin: "16px 0" }} variant="h6" noWrap>
         Delete Meal ?
       </Typography>
-      <Divider style={{ background: colors.ming, margin: "16px 0" }} />
+      <Divider
+        style={{ background: theme.palette.primary.main, margin: "16px 0" }}
+      />
       <Grid container style={{ marginTop: "50px" }} spacing={2}>
         <Grid item xs={6} container justify="flex-end">
           <Button

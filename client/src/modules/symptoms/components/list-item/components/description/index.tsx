@@ -8,10 +8,11 @@ import NotInterestedIcon from "@material-ui/icons/NotInterested";
 const useStyles = makeStyles((theme) => ({
   decriptionButton: {
     background: theme.palette.secondary.main,
-    color: theme.palette.secondary.contrastText,
+    color: theme.palette.common.white,
+    boxShadow: theme.shadows[3],
     "&:hover": {
       background: theme.palette.secondary.main,
-      color: theme.palette.secondary.contrastText
+      color: theme.palette.common.white
     },
     "&:disabled": {
       background: theme.palette.divider,

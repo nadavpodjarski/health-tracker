@@ -17,7 +17,7 @@ export const useStyles = makeStyles((theme) => ({
     color: theme.palette.common.white,
     width: "130px",
     "&:hover": {
-      background: "rgba(0, 217, 192, 0.7)",
+      background: theme.palette.secondary.main,
       color: theme.palette.common.white
     },
     "&:disabled": {
@@ -29,7 +29,7 @@ export const useStyles = makeStyles((theme) => ({
     color: "white",
     width: "130px",
     "&:hover": {
-      background: "rgba(0, 217, 192, 0.7)",
+      background: theme.palette.secondary.main,
       color: "white"
     },
     "&:disabled": {

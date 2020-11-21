@@ -1,14 +1,13 @@
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
-import { colors } from "../colors";
 
 export let darkTheme = createMuiTheme({
   palette: {
     type: "dark",
     primary: {
-      main: colors.ming
+      main: "#00D9C0"
     },
     secondary: {
-      main: colors.tourquize
+      main: "#00D9C0"
     }
   },
   typography: {

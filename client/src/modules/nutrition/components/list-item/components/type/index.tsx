@@ -1,13 +1,12 @@
 import React, { FC } from "react";
-import { Typography } from "@material-ui/core";
+import { Typography, colors } from "@material-ui/core";
 import { MealTypes } from "../../../../../../types/nutrition";
-import { colors } from "../../../../../../main/theme/colors";
 
 const typeColors = {
-  [MealTypes["Breakfast"]]: [colors.maxYellowRed],
-  [MealTypes["Dinner"]]: [colors.kobe],
-  [MealTypes["Lunch"]]: [colors.radicalRed],
-  [MealTypes["Easy meal/Snack"]]: [colors.tourquize]
+  [MealTypes["Breakfast"]]: [colors.blueGrey["400"]],
+  [MealTypes["Dinner"]]: [colors.blueGrey["400"]],
+  [MealTypes["Lunch"]]: [colors.blueGrey["400"]],
+  [MealTypes["Easy meal/Snack"]]: [colors.blueGrey["400"]]
 };
 
 const Type: FC<{ type: MealTypes }> = ({ type }) => {

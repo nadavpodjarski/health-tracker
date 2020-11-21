@@ -48,7 +48,8 @@ const useStyles = makeStyles((theme) =>
       },
       [theme.breakpoints.down("sm")]: {
         fontSize: "16px"
-      }
+      },
+      boxShadow: theme.shadows[4]
     },
     header: {
       minHeight: 200,

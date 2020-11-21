@@ -1,14 +1,15 @@
 import React from "react";
 import { NavLink as Link, NavLinkProps } from "react-router-dom";
-import { colors } from "../../../main/theme/colors";
+import { useTheme } from "@material-ui/core";
 
 const NavLink = ({ ...rest }: NavLinkProps) => {
+  const theme = useTheme();
   return (
     <Link
       {...rest}
       activeStyle={{
-        color: "white",
-        background: colors.ming
+        background: theme.palette.divider,
+        color: theme.palette.primary.main
       }}
     />
   );

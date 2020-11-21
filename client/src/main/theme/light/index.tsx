@@ -1,14 +1,14 @@
+import { teal, grey, deepPurple } from "@material-ui/core/colors";
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
-import { colors } from "../colors";
 
 export let lightTheme = createMuiTheme({
   palette: {
     background: { default: "#F3F2EF" },
     primary: {
-      main: colors.ming
+      main: "#00D9C0"
     },
     secondary: {
-      main: colors.tourquize
+      main: "#00D9C0"
     }
   },
   typography: {
