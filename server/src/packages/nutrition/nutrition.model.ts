@@ -1,51 +1,51 @@
-import mongoose from "mongoose";
-import * as helpers from "../../helpers";
+import mongoose from 'mongoose'
+import * as helpers from '../../helpers'
 
-const { Schema } = mongoose;
+const { Schema } = mongoose
 
 const NutritionSchema = new Schema({
-  author: {
-    uid: String,
-    displayName: String
-  },
-  meal: Object,
-  createdAt: { type: Date, default: Date.now() }
-});
+   author: {
+      uid: String,
+      displayName: String
+   },
+   meal: Object,
+   createdAt: { type: Date, default: Date.now() }
+})
 
 interface INutrition extends mongoose.Document {
-  author: {
-    uid: string;
-    displayName: string;
-  };
-  meal: any;
-  createdAt: Date;
-  verifyOwnership(uid: string): boolean;
-  findSimilarMealType(newMealType: number): Promise<INutrition>;
+   author: {
+      uid: string
+      displayName: string
+   }
+   meal: any
+   createdAt: Date
+   verifyOwnership(uid: string): boolean
+   findSimilarMealType(newMealType: number): Promise<INutrition>
 }
 
 interface INutritionModel extends mongoose.Model<INutrition> {
-  verifyOwnership: (uid: string) => boolean;
-  findSimilarMealType: (newMealType: number) => Promise<INutrition>;
+   verifyOwnership: (uid: string) => boolean
+   findSimilarMealType: (newMealType: number) => Promise<INutrition>
 }
 
 NutritionSchema.methods.verifyOwnership = function (uid: string) {
-  return this.author.uid === uid;
-};
+   return this.author.uid === uid
+}
 
 NutritionSchema.methods.findSimilarMealType = async function (
-  newMealType: number
+   newMealType: number
 ): Promise<INutrition> {
-  return await this.model("Nutrition").findOne({
-    "author.uid": this.author.uid,
-    "meal.type": newMealType,
-    "meal.date": {
-      $gte: helpers.getStartDayDate(this.meal.date),
-      $lte: helpers.getEndDayDate(this.meal.date)
-    }
-  });
-};
+   return await this.model('Nutrition').findOne({
+      'author.uid': this.author.uid,
+      'meal.type': newMealType,
+      'meal.date': {
+         $gte: helpers.getStartDayDate(this.meal.date),
+         $lte: helpers.getEndDayDate(this.meal.date)
+      }
+   })
+}
 
 export const Nutrition: INutritionModel = mongoose.model<
-  INutrition,
-  INutritionModel
->("Nutrition", NutritionSchema, "nutrition");
+   INutrition,
+   INutritionModel
+>('Nutrition', NutritionSchema, 'nutrition')

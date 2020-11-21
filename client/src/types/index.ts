@@ -1,21 +1,21 @@
 export type Direction = {
-  direction?:
-    | "-moz-initial"
-    | "inherit"
-    | "initial"
-    | "revert"
-    | "unset"
-    | "ltr"
-    | "rtl"
-    | undefined;
-};
+   direction?:
+      | '-moz-initial'
+      | 'inherit'
+      | 'initial'
+      | 'revert'
+      | 'unset'
+      | 'ltr'
+      | 'rtl'
+      | undefined
+}
 
 export type ParsedDateRange = {
-  startAt: Date | null;
-  endAt: Date | null;
-};
+   startAt: Date | null
+   endAt: Date | null
+}
 
 export interface IPrivateRoute {
-  isLoggedIn: boolean;
-  redirectTo: string;
+   isLoggedIn: boolean
+   redirectTo: string
 }

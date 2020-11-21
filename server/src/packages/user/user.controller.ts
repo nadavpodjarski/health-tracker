@@ -1,21 +1,21 @@
-import { Request, Response } from "express";
-import { User } from "./user.model";
+import { Request, Response } from 'express'
+import { User } from './user.model'
 
 export const addUser = async (req: Request, res: Response) => {
-  const { email } = req?.user;
-  try {
-    let user = await User.findOne({ email });
+   const { email } = req?.user
+   try {
+      let user = await User.findOne({ email })
 
-    if (!user) {
-      const newUser = new User(req.user);
-      user = await newUser.save();
-    }
+      if (!user) {
+         const newUser = new User(req.user)
+         user = await newUser.save()
+      }
 
-    const sanitizedUserObject = user.sanitizeObject();
+      const sanitizedUserObject = user.sanitizeObject()
 
-    res.json(sanitizedUserObject);
-  } catch (err) {
-    console.log(err.stack);
-    res.status(500).json({ message: err.message });
-  }
-};
+      res.json(sanitizedUserObject)
+   } catch (err) {
+      console.log(err.stack)
+      res.status(500).json({ message: err.message })
+   }
+}

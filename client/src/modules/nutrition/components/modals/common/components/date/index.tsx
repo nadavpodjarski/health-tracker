@@ -1,38 +1,38 @@
-import React, { FC } from "react";
-import { Grid, Typography } from "@material-ui/core";
-import { useDatePicker } from "../../../../../../../common/hooks/useDatePicker";
-import { useStyles } from "../../styles";
+import React, { FC } from 'react'
+import { Grid, Typography } from '@material-ui/core'
+import { useDatePicker } from '../../../../../../../common/hooks/useDatePicker'
+import { useStyles } from '../../styles'
 
 const MealDatePicker: FC<{
-  onAcceptTime: (date: Date) => void;
-  date?: Date;
+   onAcceptTime: (date: Date) => void
+   date?: Date
 }> = ({ onAcceptTime, date }) => {
-  const { DateTimePicker } = useDatePicker();
+   const { DateTimePicker } = useDatePicker()
 
-  const classes = useStyles();
+   const classes = useStyles()
 
-  const onAccept = (date: Date | null) => {
-    if (date) {
-      onAcceptTime(date);
-    }
-  };
-  return (
-    <Grid
-      container
-      direction="column"
-      justify="center"
-      className={classes.datePicker}
-    >
-      <Grid item>
-        <Typography variant="h6" className={classes.dateTitle}>
-          Set Date & Time
-        </Typography>
+   const onAccept = (date: Date | null) => {
+      if (date) {
+         onAcceptTime(date)
+      }
+   }
+   return (
+      <Grid
+         container
+         direction="column"
+         justify="center"
+         className={classes.datePicker}
+      >
+         <Grid item>
+            <Typography variant="h6" className={classes.dateTitle}>
+               Set Date & Time
+            </Typography>
+         </Grid>
+         <Grid item>
+            <DateTimePicker onAcceptMealTime={onAccept} date={date} />
+         </Grid>
       </Grid>
-      <Grid item>
-        <DateTimePicker onAcceptMealTime={onAccept} date={date} />
-      </Grid>
-    </Grid>
-  );
-};
+   )
+}
 
-export default MealDatePicker;
+export default MealDatePicker
