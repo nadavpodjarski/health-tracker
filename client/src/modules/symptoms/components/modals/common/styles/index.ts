@@ -1,7 +1,6 @@
-import { makeStyles, Theme } from "@material-ui/core";
-import { colors } from "../../../../../../main/theme/colors";
+import { makeStyles } from "@material-ui/core";
 
-export const useStyles = makeStyles((theme: Theme) => ({
+export const useStyles = makeStyles((theme) => ({
   ingredients: {
     display: "flex",
     alignItems: "center",
@@ -9,12 +8,12 @@ export const useStyles = makeStyles((theme: Theme) => ({
   },
   cancelButton: {
     background: "inherit",
-    color: colors.tourquize,
-    border: `1px solid ${colors.tourquize}`,
+    color: theme.palette.secondary.main,
+    border: `1px solid ${theme.palette.secondary.main}`,
     width: "80px"
   },
   addConfirmButton: {
-    background: theme.palette.primary.main,
+    background: theme.palette.secondary.main,
     color: theme.palette.common.white,
     width: "130px",
     "&:hover": {
@@ -26,7 +25,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
     }
   },
   editConfirmButton: {
-    background: theme.palette.primary.main,
+    background: theme.palette.secondary.main,
     color: "white",
     width: "130px",
     "&:hover": {

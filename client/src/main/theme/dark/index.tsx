@@ -5,10 +5,10 @@ export let darkTheme = createMuiTheme({
   palette: {
     type: "dark",
     primary: {
-      main: colors.tourquize
+      main: colors.ming
     },
     secondary: {
-      main: colors.ming
+      main: colors.tourquize
     }
   },
   typography: {

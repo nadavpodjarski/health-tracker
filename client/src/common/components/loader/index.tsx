@@ -22,7 +22,7 @@ const Loader: FC<{
       </Typography>
       <CircularProgress
         disableShrink
-        color={color ? "inherit" : "primary"}
+        color={color ? "inherit" : "secondary"}
         size={size}
       />
     </Grid>

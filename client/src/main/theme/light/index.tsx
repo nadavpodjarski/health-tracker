@@ -5,10 +5,10 @@ export let lightTheme = createMuiTheme({
   palette: {
     background: { default: "#F3F2EF" },
     primary: {
-      main: colors.tourquize
+      main: colors.ming
     },
     secondary: {
-      main: colors.ming
+      main: colors.tourquize
     }
   },
   typography: {

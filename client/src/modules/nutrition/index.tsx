@@ -41,10 +41,10 @@ const useStyles = makeStyles((theme) =>
     },
     openModalButton: {
       fontSize: "20px",
-      background: theme.palette.secondary.main,
+      background: theme.palette.primary.main,
       color: "white",
       "&:hover": {
-        background: theme.palette.secondary.main
+        background: theme.palette.primary.main
       },
       [theme.breakpoints.down("sm")]: {
         fontSize: "16px"
