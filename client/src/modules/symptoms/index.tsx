@@ -41,9 +41,12 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       openModalButtonWrapper: {
          display: 'flex',
-         alignItems: 'flex-start',
+         alignItems: 'center',
          width: '100%',
-         padding: '32px 0'
+         padding: '24px 0',
+         [theme.breakpoints.down('sm')]: {
+            padding: '12px 0'
+         }
       },
       openModalButton: {
          fontSize: '20px',
@@ -64,6 +67,14 @@ const useStyles = makeStyles((theme: Theme) =>
          padding: '16px 0',
          [theme.breakpoints.down('md')]: {
             padding: '16px 12px'
+         }
+      },
+      title: {
+         height: 100,
+         display: 'flex',
+         alignItems: 'center',
+         [theme.breakpoints.down('sm')]: {
+            height: 60
          }
       }
    })
@@ -117,10 +128,13 @@ const Symptoms = () => {
       <div className={classes.moduleRoot}>
          <Box className={classes.innerModule}>
             <Box className={classes.header}>
-               <Box>
+               <Box className={classes.title}>
                   <Typography variant="h3">Symptoms</Typography>
-                  <Typography component="p">
-                     This is A symptoms tracker
+               </Box>
+               <Box>
+                  <Typography component="p" style={{ padding: '12px 0' }}>
+                     This is your <strong>Symptoms Tracker</strong>, Here you
+                     can Add, Edit and Delete Symptoms...
                   </Typography>
                </Box>
                <Box className={classes.openModalButtonWrapper}>

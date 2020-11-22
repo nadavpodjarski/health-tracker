@@ -74,14 +74,20 @@ const AddSymptomModalContent: FC<{
          </Box>
 
          <Grid container spacing={3} style={{ marginTop: '32px' }}>
-            <Grid item container xs={12} md={6} spacing={2}>
-               <Name name={state.name} onChange={onChangeName} />
-               <Duration
-                  duration={state.duration}
-                  onChange={onChangeDuration}
-               />
+            <Grid item xs={12}>
+               <Grid container spacing={2}>
+                  <Grid item xs={12} sm={9}>
+                     <Name name={state.name} onChange={onChangeName} />
+                  </Grid>
+                  <Grid item xs={12} sm={3}>
+                     <Duration
+                        duration={state.duration}
+                        onChange={onChangeDuration}
+                     />
+                  </Grid>
+               </Grid>
             </Grid>
-            <Grid container item xs={12} md={6} justify="center">
+            <Grid container item xs={12}>
                <Scale scale={state.scale} onChange={onChangeScale} />
             </Grid>
          </Grid>

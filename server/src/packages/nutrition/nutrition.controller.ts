@@ -14,7 +14,7 @@ export const addMeal = async (req: Request, res: Response) => {
 
    try {
       if (mealData.type !== MealTypes['Easy meal/Snack']) {
-         const isMealTypeExist = !!(await Nutrition.findOne({
+         const docWithSameMealType = !!(await Nutrition.findOne({
             'author.uid': req.user?.uid,
             'meal.type': mealData.type,
             'meal.date': {
@@ -22,7 +22,7 @@ export const addMeal = async (req: Request, res: Response) => {
                $lte: helpers.getEndDayDate(mealData.date)
             }
          }))
-         if (isMealTypeExist) {
+         if (docWithSameMealType) {
             return res
                .status(400)
                .json(
@@ -117,7 +117,7 @@ export const editMeal = async (req: Request, res: Response) => {
       data: { meal: newMeal, docId: _id }
    } = req.body
 
-   if (!mongoose.isValidObjectId(_id) || !newMeal)
+   if (!mongoose.isValidObjectId(_id) || _.isEmpty(newMeal))
       res.status(400).json('Unable To Proccess Request')
 
    try {
@@ -129,9 +129,14 @@ export const editMeal = async (req: Request, res: Response) => {
          return res.status(403).json('Unauthorized request')
 
       if (newMeal.type !== MealTypes['Easy meal/Snack']) {
-         const sameMealType = await doc.findSimilarMealType(newMeal?.type)
+         const docWithSameMealType = await doc.findSimilarMealType(
+            newMeal?.type
+         )
 
-         if (sameMealType && !new ObjectId(sameMealType?._id).equals(doc._id)) {
+         if (
+            docWithSameMealType &&
+            isNotSameDoc(docWithSameMealType._id, doc._id)
+         ) {
             return res
                .status(400)
                .json(
@@ -155,6 +160,10 @@ export const editMeal = async (req: Request, res: Response) => {
       console.log(err.stack)
       return res.status(500).json('There was an Error while updating meal')
    }
+}
+
+const isNotSameDoc = (firstDocId: string, secondDocId: string) => {
+   return !new ObjectId(firstDocId).equals(secondDocId)
 }
 
 export enum MealTypes {

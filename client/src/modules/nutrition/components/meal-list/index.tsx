@@ -168,8 +168,15 @@ const MealsList: FC<{
                   display="flex"
                   justifyContent="center"
                   alignItems="center"
+                  flexDirection="column"
                >
                   <Typography variant="h5">No Meals</Typography>
+                  <Typography
+                     style={{ fontSize: '16px' }}
+                     color="textSecondary"
+                  >
+                     (Add New Food To Your List)
+                  </Typography>
                </Box>
             )
          ) : (

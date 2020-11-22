@@ -30,8 +30,7 @@ export const onAuthStateChange = (history: any, route: string) => (
    firebaseAuth().onAuthStateChanged(async (user) => {
       if (user) {
          try {
-            const token = await user.getIdToken()
-            const parsedUser = await api.addUser(token)
+            const parsedUser = await api.addUser()
             dispatch(userLoggedIn(parsedUser))
             history.push(route)
          } catch (err) {

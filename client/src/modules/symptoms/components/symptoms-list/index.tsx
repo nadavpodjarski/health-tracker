@@ -187,8 +187,15 @@ const SymptomsList: FC<{
                   display="flex"
                   justifyContent="center"
                   alignItems="center"
+                  flexDirection="column"
                >
                   <Typography variant="h5">No Symptoms</Typography>
+                  <Typography
+                     style={{ fontSize: '16px' }}
+                     color="textSecondary"
+                  >
+                     (Add New Symptom To Your List)
+                  </Typography>
                </Box>
             )
          ) : (

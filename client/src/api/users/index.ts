@@ -1,8 +1,6 @@
-import axios from 'axios'
-import * as apiUtils from '../../utilities/api'
+import axios from '../axiosClient'
 
-export const addUser = async (token: string) => {
-   apiUtils.setAuthToken(token)
+export const addUser = async () => {
    try {
       const res = await axios.post('/api/user/add-user', {
          data: ''

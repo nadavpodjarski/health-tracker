@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../axiosClient'
 import { Symptom } from '../../types/symptoms'
 
 export const getSymptoms = async (startAt: Date, endAt: Date) => {

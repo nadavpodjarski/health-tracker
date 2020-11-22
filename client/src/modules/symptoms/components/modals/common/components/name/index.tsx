@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { TextField, Grid } from '@material-ui/core'
+import { TextField } from '@material-ui/core'
 
 const Name: FC<{ name: string; onChange: (name: string) => void }> = ({
    name,
@@ -12,21 +12,20 @@ const Name: FC<{ name: string; onChange: (name: string) => void }> = ({
       onChange(value)
    }
    return (
-      <Grid item xs={8}>
-         <TextField
-            variant="outlined"
-            placeholder="* Symptom"
-            helperText="I.e Abdominal Pain, Nausea, Fatigue ..."
-            onChange={onChangeHandler}
-            error={!name}
-            value={name}
-            FormHelperTextProps={{
-               style: {
-                  marginLeft: 0
-               }
-            }}
-         />
-      </Grid>
+      <TextField
+         fullWidth
+         variant="outlined"
+         placeholder="* Symptom"
+         helperText="I.e Abdominal Pain, Nausea, Fatigue ..."
+         onChange={onChangeHandler}
+         error={!name}
+         value={name}
+         FormHelperTextProps={{
+            style: {
+               marginLeft: 0
+            }
+         }}
+      />
    )
 }
 

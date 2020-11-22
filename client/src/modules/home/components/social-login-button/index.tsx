@@ -23,10 +23,10 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '14px',
       height: '100%',
       display: 'flex',
-      alignItems: 'center',
-      [theme.breakpoints.down('sm')]: {
-         display: 'none'
-      }
+      alignItems: 'center'
+      // [theme.breakpoints.down('sm')]: {
+      //    display: 'none'
+      // }
    },
    socialLogoWrapper: {
       display: 'flex',
@@ -48,12 +48,12 @@ const SocialLoginButton: FC<{
          className={classes.socialLoginButton}
          onClick={onClick}
       >
-         <Grid item xs={12} md={3}>
+         <Grid item xs={3} md={3}>
             <Box className={classes.socialLogoWrapper}>
                <img width="28px" height="28px" src={img} alt="" />
             </Box>
          </Grid>
-         <Grid item md={9}>
+         <Grid item xs={9}>
             <Typography className={classes.socialTypo}>{title}</Typography>
          </Grid>
       </Grid>
