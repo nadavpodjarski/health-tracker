@@ -8,40 +8,40 @@ import * as _ from 'lodash'
 import * as helpers from '../../helpers'
 
 export const addMeal = async (req: Request, res: Response) => {
-   const { data: mealData } = req.body
-   if (_.isEmpty(mealData))
+   const { data: meal } = req.body
+   if (_.isEmpty(meal))
       return res.status(400).json('Unable To Proccess Request')
 
    try {
-      if (mealData.type !== MealTypes['Easy meal/Snack']) {
+      if (meal.type !== MealTypes['Easy meal/Snack']) {
          const docWithSameMealType = !!(await Nutrition.findOne({
             'author.uid': req.user?.uid,
-            'meal.type': mealData.type,
+            'meal.type': meal.type,
             'meal.date': {
-               $gte: helpers.getStartDayDate(mealData.date),
-               $lte: helpers.getEndDayDate(mealData.date)
+               $gte: helpers.getStartDayDate(meal.date),
+               $lte: helpers.getEndDayDate(meal.date)
             }
          }))
          if (docWithSameMealType) {
             return res
                .status(400)
                .json(
-                  `${MealTypes[mealData.type]} on ${helpers.formatDate(
-                     mealData.date
+                  `${MealTypes[meal.type]} on ${helpers.formatDate(
+                     meal.date
                   )} Already exist`
                )
          }
       }
-      mealData.date = helpers.stringToDate(mealData.date)
+      meal.date = helpers.stringToDate(meal.date)
       const newMeal = new Nutrition({
          author: {
             uid: req.user?.uid,
             displayName: req.user?.displayName
          },
-         meal: mealData
+         meal
       })
-      const meal = await newMeal.save()
-      return res.status(200).json({ message: 'Meal Added Successfully', meal })
+      await newMeal.save()
+      return res.status(200).json({ message: 'Meal Added Successfully' })
    } catch (err) {
       console.log(err.stack)
       return res.status(500).json('There was an error while adding meal')
@@ -115,10 +115,10 @@ export const deletMeal = async (req: Request, res: Response) => {
 
 export const editMeal = async (req: Request, res: Response) => {
    const {
-      data: { meal: newMeal, docId: _id }
+      data: { meal, docId: _id }
    } = req.body
 
-   if (!mongoose.isValidObjectId(_id) || _.isEmpty(newMeal))
+   if (!mongoose.isValidObjectId(_id) || _.isEmpty(meal))
       res.status(400).json('Unable To Proccess Request')
 
    try {
@@ -129,10 +129,8 @@ export const editMeal = async (req: Request, res: Response) => {
       if (!doc?.verifyOwnership(req.user.uid))
          return res.status(403).json('Unauthorized request')
 
-      if (newMeal.type !== MealTypes['Easy meal/Snack']) {
-         const docWithSameMealType = await doc.findSimilarMealType(
-            newMeal?.type
-         )
+      if (meal.type !== MealTypes['Easy meal/Snack']) {
+         const docWithSameMealType = await doc.findSimilarMealType(meal?.type)
 
          if (
             docWithSameMealType &&
@@ -141,21 +139,21 @@ export const editMeal = async (req: Request, res: Response) => {
             return res
                .status(400)
                .json(
-                  `${MealTypes[newMeal.type]} on ${helpers.formatDate(
-                     newMeal.date
+                  `${MealTypes[meal.type]} on ${helpers.formatDate(
+                     meal.date
                   )} Already exist`
                )
          }
       }
 
-      newMeal.date = helpers.stringToDate(newMeal?.date)
+      meal.date = helpers.stringToDate(meal?.date)
 
-      await doc?.updateOne({ $set: { meal: newMeal } })
+      await doc?.updateOne({ $set: { meal } })
 
       return res.json({
          message: 'Meal Updated Successfully',
          docId: _id,
-         meal: newMeal
+         meal
       })
    } catch (err) {
       console.log(err.stack)
