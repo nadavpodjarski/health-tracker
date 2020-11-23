@@ -2,10 +2,11 @@ import React, { FC } from 'react'
 import { useDatePicker } from '../../../../../../../common/hooks/useDatePicker'
 import { Typography, Grid } from '@material-ui/core'
 
-const DatePicker: FC<{ onAcceptTime: (date: Date) => void; date: Date }> = ({
-   onAcceptTime,
-   date
-}) => {
+const DatePicker: FC<{
+   onAcceptTime: (date: Date) => void
+   date: Date
+   disabled?: boolean
+}> = ({ onAcceptTime, date, disabled }) => {
    const { DateTimePicker } = useDatePicker()
 
    const onAcceptTimeHandler = (date: Date | null) => {
@@ -23,6 +24,7 @@ const DatePicker: FC<{ onAcceptTime: (date: Date) => void; date: Date }> = ({
                <DateTimePicker
                   onAcceptMealTime={onAcceptTimeHandler}
                   date={date}
+                  disabled={disabled}
                />
             </Grid>
          </Grid>

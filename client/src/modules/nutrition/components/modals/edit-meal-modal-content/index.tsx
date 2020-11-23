@@ -110,7 +110,11 @@ const EditMealModalContent: FC<{
          />
 
          {/*Meal Date*/}
-         <MealDatePicker onAcceptTime={onChangeMealTime} date={state.date} />
+         <MealDatePicker
+            onAcceptTime={onChangeMealTime}
+            date={state.date}
+            disabled={true}
+         />
 
          {/*Action Buttons*/}
          <EditMealActionButton

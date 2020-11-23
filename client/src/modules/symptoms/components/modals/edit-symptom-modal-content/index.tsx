@@ -102,7 +102,11 @@ const AddSymptomModalContent: FC<{
             onChange={onChangeDescription}
          />
 
-         <DatePicker date={state.date} onAcceptTime={onAcceptTime} />
+         <DatePicker
+            date={state.date}
+            onAcceptTime={onAcceptTime}
+            disabled={true}
+         />
 
          <ActionButtons
             isUpdating={isUpdating}

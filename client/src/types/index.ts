@@ -11,8 +11,8 @@ export type Direction = {
 }
 
 export type ParsedDateRange = {
-   startAt: Date | null
-   endAt: Date | null
+   startAt: Date
+   endAt: Date
 }
 
 export interface IPrivateRoute {

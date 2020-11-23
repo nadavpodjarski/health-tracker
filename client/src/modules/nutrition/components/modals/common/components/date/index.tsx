@@ -6,7 +6,8 @@ import { useStyles } from '../../styles'
 const MealDatePicker: FC<{
    onAcceptTime: (date: Date) => void
    date: Date
-}> = ({ onAcceptTime, date }) => {
+   disabled?: boolean
+}> = ({ onAcceptTime, date, disabled }) => {
    const { DateTimePicker } = useDatePicker()
 
    const classes = useStyles()
@@ -29,7 +30,11 @@ const MealDatePicker: FC<{
             </Typography>
          </Grid>
          <Grid item>
-            <DateTimePicker onAcceptMealTime={onAccept} date={date} />
+            <DateTimePicker
+               onAcceptMealTime={onAccept}
+               date={date}
+               disabled={disabled}
+            />
          </Grid>
       </Grid>
    )

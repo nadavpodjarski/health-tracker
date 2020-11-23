@@ -17,7 +17,8 @@ const BasicDateTimePicker: FC<{
    date: Date
    onAcceptMealTime: (date: Date | null) => void
    label?: string
-}> = ({ onAcceptMealTime, label, date }) => {
+   disabled?: boolean
+}> = ({ onAcceptMealTime, label, date, disabled }) => {
    const classes = useStyles()
    const [selectedDate, setSelectedDate] = useState<Date>(date)
 
@@ -32,6 +33,7 @@ const BasicDateTimePicker: FC<{
       <LocalizationProvider dateAdapter={DateFnsUtils}>
          <MobileDateTimePicker
             disableFuture
+            disabled={disabled}
             value={selectedDate}
             onChange={() => {}}
             onAccept={handleDateChange}
