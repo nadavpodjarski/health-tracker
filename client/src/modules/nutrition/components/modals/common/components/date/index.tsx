@@ -5,7 +5,7 @@ import { useStyles } from '../../styles'
 
 const MealDatePicker: FC<{
    onAcceptTime: (date: Date) => void
-   date?: Date
+   date: Date
 }> = ({ onAcceptTime, date }) => {
    const { DateTimePicker } = useDatePicker()
 

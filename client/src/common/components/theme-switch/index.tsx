@@ -2,6 +2,7 @@ import React from 'react'
 import { Theme, makeStyles } from '@material-ui/core/styles'
 
 import Switch from '@material-ui/core/Switch'
+import { IconButton } from '@material-ui/core'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { setTheme } from '../../../redux/ui/actions'
@@ -53,27 +54,31 @@ const ThemeSwitch = () => {
    const dispatch = useDispatch()
    const { theme } = useSelector((state: any) => state.ui)
 
-   const onChange = (
-      event: React.ChangeEvent<HTMLInputElement>,
-      checked: boolean
-   ) => {
-      dispatch(setTheme(checked))
+   const onChange = () => {
+      dispatch(setTheme(!theme))
    }
 
    return (
-      <Switch
-         focusVisibleClassName={classes.focusVisible}
-         disableRipple
-         checked={theme}
-         classes={{
-            root: classes.root,
-            switchBase: classes.switchBase,
-            thumb: classes.thumb,
-            track: classes.track,
-            checked: classes.checked
-         }}
-         onChange={onChange}
-      />
+      // <Switch
+      //    focusVisibleClassName={classes.focusVisible}
+      //    disableRipple
+      //    checked={theme}
+      //    classes={{
+      //       root: classes.root,
+      //       switchBase: classes.switchBase,
+      //       thumb: classes.thumb,
+      //       track: classes.track,
+      //       checked: classes.checked
+      //    }}
+      //    onChange={onChange}
+      // />
+      <IconButton onClick={onChange} size="small">
+         {!theme ? (
+            <NightsStayIcon fontSize="small" />
+         ) : (
+            <WbSunnyIcon style={{ color: 'orange' }} fontSize="small" />
+         )}
+      </IconButton>
    )
 }
 

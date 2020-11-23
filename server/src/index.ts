@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
-
+import path from 'path'
 import { middleware } from './middleware'
 
 import { api } from './api'
@@ -22,10 +22,18 @@ app.use(helmet())
 
 app.use(middleware.apiRateLimiter)
 app.use(middleware.firebaseAuth)
+app.use(middleware.timeZone)
 
 connectMongo()
 
-app.use('/api', api)
+if (process.env.NODE_ENV === 'production') {
+   app.use(express.static(path.join(__dirname, '/client/build')))
+   api.get('/*', (req, res) => {
+      res.sendFile(path.join(__dirname, '/client/build.index.html'))
+   })
+} else {
+   app.use('/api', api)
+}
 
 const PORT = 4000
 

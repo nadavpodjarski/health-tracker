@@ -14,18 +14,18 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 const BasicDateTimePicker: FC<{
+   date: Date
    onAcceptMealTime: (date: Date | null) => void
    label?: string
-   date?: Date | null
 }> = ({ onAcceptMealTime, label, date }) => {
    const classes = useStyles()
-   const [selectedDate, setSelectedDate] = useState<Date | null>(
-      date || new Date()
-   )
+   const [selectedDate, setSelectedDate] = useState<Date>(date)
 
    const handleDateChange = (date: Date | null) => {
-      onAcceptMealTime(date)
-      setSelectedDate(date)
+      if (date) {
+         onAcceptMealTime(date)
+         setSelectedDate(date)
+      }
    }
 
    return (

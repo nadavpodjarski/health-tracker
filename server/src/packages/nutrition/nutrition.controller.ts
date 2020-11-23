@@ -11,7 +11,10 @@ export const addMeal = async (req: Request, res: Response) => {
    const { data: mealData } = req.body
    if (_.isEmpty(mealData))
       return res.status(400).json('Unable To Proccess Request')
+   console.log('Coming Date: ', mealData.date)
+   console.log('Coming Date2: ')
 
+   console.log('Test Date: ', mealData.test)
    try {
       if (mealData.type !== MealTypes['Easy meal/Snack']) {
          const docWithSameMealType = !!(await Nutrition.findOne({
@@ -33,6 +36,7 @@ export const addMeal = async (req: Request, res: Response) => {
          }
       }
       mealData.date = helpers.stringToDate(mealData.date)
+      console.log('Parsed Date: ', mealData.date)
       const newMeal = new Nutrition({
          author: {
             uid: req.user?.uid,
@@ -75,7 +79,8 @@ export const getMeals = async (req: Request, res: Response) => {
                _id: {
                   $dateToString: {
                      format: '%d/%m/%Y',
-                     date: '$meal.date'
+                     date: '$meal.date',
+                     timezone: req.user.timezone
                   }
                },
                meals: { $push: { meal: '$meal', id: '$_id' } }

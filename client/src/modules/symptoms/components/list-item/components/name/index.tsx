@@ -21,7 +21,7 @@ const Name: FC<{ name: string; date: Date }> = ({ name, date }) => {
             at
          </Typography>
          <Typography component="span" color="textSecondary">
-            {moment(date).format('MM/DD/YYYY')}
+            {moment(date).format('HH:mm')}
          </Typography>
       </Box>
    )

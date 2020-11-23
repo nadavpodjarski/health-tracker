@@ -17,12 +17,7 @@ export const firebaseAuth = (
       .auth()
       .verifyIdToken(authHeader[1])
       .then((user) => {
-         req.user = {
-            email: user.email,
-            displayName: user.name,
-            uid: user.uid,
-            picture: user.picture
-         }
+         req.user = user
          return next()
       })
       .catch((err) => {

@@ -36,7 +36,14 @@ const LoginForm = () => {
          direction="column"
          className={classes.socialButtonsContainer}
       >
-         <Box style={{ width: '100%', textAlign: 'left', padding: 8 }}>
+         <Box
+            style={{
+               width: '100%',
+               textAlign: 'left',
+               padding: 8,
+               color: 'black'
+            }}
+         >
             <Typography
                variant="h3"
                style={{

@@ -6,21 +6,21 @@ import * as helpers from '../../helpers'
 import * as _ from 'lodash'
 
 export const addSymptom = async (req: Request, res: Response) => {
-   const { data: symptomData } = req.body
+   const { data: symptom } = req.body
 
-   if (_.isEmpty(symptomData)) res.status(400).json('Unble to Proccess Request')
+   if (_.isEmpty(symptom)) res.status(400).json('Unble to Proccess Request')
 
-   symptomData.date = helpers.stringToDate(symptomData.date)
+   symptom.date = helpers.stringToDate(symptom.date)
 
    try {
-      const symptom = new Symptom({
+      const newSymptom = new Symptom({
          author: {
             uid: req.user?.uid,
             displayName: req.user?.displayName
          },
-         symptom: symptomData
+         symptom
       })
-      await symptom.save()
+      await newSymptom.save()
       res.json({ message: 'Symptom Added Successfully' })
    } catch (err) {
       console.log(err.stack)
@@ -55,7 +55,8 @@ export const getSymptoms = async (req: Request, res: Response) => {
                _id: {
                   $dateToString: {
                      format: '%d/%m/%Y',
-                     date: '$symptom.date'
+                     date: '$symptom.date',
+                     timezone: req.user.timezone
                   }
                },
                symptoms: { $push: { symptom: '$symptom', id: '$_id' } }
@@ -83,9 +84,12 @@ export const deleteSymptom = async (req: Request, res: Response) => {
       if (!doc?.verifyOwnership(req.user.uid))
          return res.status(403).json('Unauthorized request')
 
-      await doc.deleteOne()
+      const deletedDoc = await doc.deleteOne()
 
-      return res.json({ message: 'Symptom Deleted Successfully', docId: _id })
+      return res.json({
+         message: 'Symptom Deleted Successfully',
+         docId: deletedDoc._id
+      })
    } catch (err) {
       console.log(err.stack)
       return res.status(500).json('There was an Error while deleting symptom')

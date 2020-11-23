@@ -23,16 +23,16 @@ const useStyles = makeStyles((theme) => ({
       width: '80%'
    },
    bottom: {
-      display: 'flex',
-      width: '100%',
-      paddingLeft: 80,
-      alignItems: 'center',
-      height: 150,
-      [theme.breakpoints.down('xs')]: {
-         height: 100,
-         width: '80%',
-         paddingLeft: 0
-      }
+      '& > p': {
+         fontSize: 22,
+         lineHeight: 1.6,
+         [theme.breakpoints.down('xs')]: {
+            fontSize: 16,
+            lineHeight: 1.4
+         }
+      },
+      width: '80%',
+      marginTop: '24px'
    }
 }))
 
@@ -50,7 +50,7 @@ const Intro = () => {
                   variant="h3"
                   style={{
                      fontWeight: 700,
-                     paddingLeft: '8px'
+                     paddingLeft: 8
                   }}
                >
                   MiTummy
@@ -81,9 +81,7 @@ const Intro = () => {
                      dynamic living microorganism culture. That can be effected
                      in many ways. Through The food that we eat. The sport
                      activities we take, The quality of our sleep, and the state
-                     of stress we live in. <strong>MiTummy</strong> aims to help
-                     you track Your lifestyle and how it affects you through
-                     your Food Tolerance, Sport Activities, and More...
+                     of stress we live in.
                   </Typography>
                </Box>
             </Box>
@@ -97,7 +95,23 @@ const Intro = () => {
                   }}
                >
                   <Box className={classes.bottom}>
-                     <Typography variant="h5">We Are What We Eat !</Typography>
+                     {/* <Typography variant="h5">
+                        Your are welo
+                     </Typography> */}
+                     <Typography variant="h5">Goal</Typography>
+                     <Divider
+                        style={{
+                           background: 'rgba(255,255,255,0.7)',
+                           margin: '12px 0',
+                           width: '80%'
+                        }}
+                     />
+                     <Typography component="p" style={{ width: '80%' }}>
+                        <strong>MiTummy</strong> aims to help you track Your
+                        lifestyle and how it affects you for good and bad,
+                        through your Food Tolerance, Sport Activities, Emotional
+                        Stress, and More...
+                     </Typography>
                   </Box>
                </Box>
             </Grid>
