@@ -55,6 +55,11 @@ const DateRangePicker: FC<{
       }
    }
 
+   const onChangeHandler = (
+      date: DateRange<Date>,
+      keyboardInputValue?: string | undefined
+   ) => {}
+
    return (
       <LocalizationProvider dateAdapter={DateFnsUtils}>
          <MobileDateRangePicker
@@ -62,7 +67,7 @@ const DateRangePicker: FC<{
             value={value}
             onAccept={(date: any) => onAcceptHandler(date)}
             inputFormat="dd/MM/yyyy"
-            onChange={() => {}}
+            onChange={onChangeHandler}
             allowSameDateSelection={true}
             renderInput={(startProps, endProps) => (
                <div

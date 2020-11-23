@@ -26,12 +26,7 @@ const Scale: FC<{ onChange: (value: number) => void; scale: number }> = ({
                   <Typography component="span" color="textSecondary">
                      {`Intensity - `}
                   </Typography>
-                  <Typography
-                     style={{
-                        color: symptomUtils.symptomScale[scale - 1].color
-                     }}
-                     component="span"
-                  >
+                  <Typography color="textPrimary" component="span">
                      {symptomUtils.symptomScale[scale - 1].const}
                   </Typography>
                </Box>

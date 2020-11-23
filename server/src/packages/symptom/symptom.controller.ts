@@ -49,7 +49,7 @@ export const getSymptoms = async (req: Request, res: Response) => {
                ]
             }
          },
-
+         { $sort: { 'symptom.date': 1 } },
          {
             $group: {
                _id: {

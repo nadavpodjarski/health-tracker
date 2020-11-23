@@ -69,7 +69,7 @@ export const getMeals = async (req: Request, res: Response) => {
                ]
             }
          },
-
+         { $sort: { 'meal.date': 1 } },
          {
             $group: {
                _id: {
