@@ -3,6 +3,7 @@ import { Box, Typography, Chip, Tooltip } from '@material-ui/core'
 import { SymptomsScale } from '../../../../../../types/symptoms'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWeight } from '@fortawesome/free-solid-svg-icons'
+import * as symptomUtils from '../../../../../../utilities/symptoms'
 
 const Scale: FC<{ scale: SymptomsScale }> = ({ scale }) => {
    const level = SymptomsScale[scale]
@@ -15,7 +16,11 @@ const Scale: FC<{ scale: SymptomsScale }> = ({ scale }) => {
                height="100%"
                margin="0 8px"
             >
-               <FontAwesomeIcon size="sm" icon={faWeight} />
+               <FontAwesomeIcon
+                  size="sm"
+                  icon={faWeight}
+                  style={{ color: symptomUtils.symptomScale[scale - 1]?.color }}
+               />
             </Box>
          </Tooltip>
 

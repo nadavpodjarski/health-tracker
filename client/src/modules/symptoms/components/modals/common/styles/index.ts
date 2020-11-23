@@ -10,7 +10,10 @@ export const useStyles = makeStyles((theme) => ({
       background: 'inherit',
       color: theme.palette.secondary.main,
       border: `1px solid ${theme.palette.secondary.main}`,
-      width: '80px'
+      width: '80px',
+      [theme.breakpoints.down('sm')]: {
+         fontSize: '14px'
+      }
    },
    addConfirmButton: {
       background: theme.palette.secondary.main,
@@ -22,6 +25,9 @@ export const useStyles = makeStyles((theme) => ({
       },
       '&:disabled': {
          background: theme.palette.divider
+      },
+      [theme.breakpoints.down('sm')]: {
+         fontSize: '14px'
       }
    },
    editConfirmButton: {
@@ -34,6 +40,9 @@ export const useStyles = makeStyles((theme) => ({
       },
       '&:disabled': {
          background: theme.palette.divider
+      },
+      [theme.breakpoints.down('sm')]: {
+         fontSize: '14px'
       }
    },
    datePicker: {

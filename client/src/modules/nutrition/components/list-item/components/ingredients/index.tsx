@@ -11,17 +11,19 @@ const useStyles = makeStyles((theme: Theme) => ({
       }
    },
    span: {
-      padding: '8px 14px',
+      padding: '4px 12px',
       background: theme.palette.background.default,
       borderRadius: '25px',
       border: '1px solid rgba(0,0,0,0.3)',
       cursor: 'pointer',
       margin: '8px 0',
+      fontSize: '18px',
       [theme.breakpoints.down('sm')]: {
          fontSize: '14px'
       }
    },
    unit: {
+      fontSize: '16px',
       [theme.breakpoints.down('sm')]: {
          fontSize: '14px'
       }

@@ -64,11 +64,14 @@ const AppBar: FC<{ handleDrawerOpen: () => void; open: boolean }> = ({
                   flex: 1
                }}
             >
-               <Box display="flex" flex={1} justifyContent="flex-start">
-                  <ThemeSwitch />
-               </Box>
+               {/* <Box display="flex" flex={1} justifyContent="flex-start">
+               </Box> */}
 
                <Box display="flex" justifyContent="flex-end" flex={1}>
+                  <Box margin="0 16px" display="flex" alignItems="center">
+                     <ThemeSwitch />
+                  </Box>
+
                   <ProfileAvatar />
                </Box>
             </div>
