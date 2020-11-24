@@ -28,10 +28,17 @@
    },
    "devDependencies": {},
    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "node src/index.ts"
+      "prepare": "npm run gcp-build",
+      "pretest": "npm run gcp-build",
+      "test": "mocha test/*.test.js --exit",
+      "posttest": "npm run lint",
+      "lint": "tslint -p .",
+      "start": "node ./src/index.js",
+      "gcp-build": "tsc -p .",
+      "deploy": "gcloud app deploy"
    },
    "keywords": [],
    "author": "",
-   "license": "ISC"
+   "license": "ISC",
+   "type": "module"
 }
