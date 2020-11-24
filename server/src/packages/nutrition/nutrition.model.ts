@@ -9,7 +9,7 @@ const NutritionSchema = new Schema({
       displayName: String
    },
    meal: Object,
-   createdAt: { type: Date, default: Date.now() }
+   createdAt: { type: Date, default: () => Date.now() }
 })
 
 interface INutrition extends mongoose.Document {

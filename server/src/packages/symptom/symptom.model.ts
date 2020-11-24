@@ -8,7 +8,7 @@ const SymptomSchema = new Schema({
       displayName: String
    },
    symptom: Object,
-   createdAt: { type: Date, default: Date.now() }
+   createdAt: { type: Date, default: () => Date.now() }
 })
 
 interface ISymptom extends mongoose.Document {

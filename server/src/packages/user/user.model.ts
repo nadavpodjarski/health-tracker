@@ -7,7 +7,7 @@ const UserSchema = new Schema({
    displayName: String,
    uid: String,
    picture: String,
-   createdAt: { type: Date, default: Date.now() }
+   createdAt: { type: Date, default: () => Date.now() }
 })
 
 interface IUser extends mongoose.Document {
