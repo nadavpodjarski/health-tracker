@@ -3,7 +3,7 @@ import cors from 'cors'
 import helmet from 'helmet'
 import path from 'path'
 import { middleware } from './middleware'
-
+import compression from 'compression'
 import { api } from './api'
 import { connectMongo } from './db'
 
@@ -19,23 +19,25 @@ admin.initializeApp({
 app.use(express.json())
 app.use(cors())
 app.use(helmet())
-
-app.use(middleware.apiRateLimiter)
-app.use(middleware.firebaseAuth)
-app.use(middleware.timeZone)
+app.use(compression())
 
 connectMongo()
 
-if (process.env.NODE_ENV === 'production') {
-   app.use(express.static(path.join(__dirname, '/client/build')))
-   api.get('/*', (req, res) => {
-      res.sendFile(path.join(__dirname, '/client/build.index.html'))
-   })
-} else {
-   app.use('/api', api)
-}
+app.use(
+   '/api',
+   middleware.firebaseAuth,
+   middleware.timeZone,
+   middleware.apiRateLimiter,
+   api
+)
 
-const PORT = 4000
+app.use(express.static(path.join(__dirname, '../', '../', '/public')))
+
+api.get('*', (req, res) => {
+   res.sendFile(path.join(__dirname, '../', '../', '/public/index.html'))
+})
+
+const PORT = 8080
 
 app.listen(PORT, () => {
    console.log(`listening on port ${PORT}`)

@@ -11,7 +11,7 @@ resources:
 
 handlers:
    - url: /
-     static_files: client/build/index.html
-     upload: client/build/index.html
+     static_files: public/index.html
+     upload: public/index.html
    - url: /
-     static_dir: client/build
+     static_dir: public

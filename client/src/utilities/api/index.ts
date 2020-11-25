@@ -1,5 +1,5 @@
 import axios from 'axios'
 
 export const removeAuthToken = () => {
-   delete axios.defaults.headers.common['Authorization']
+   delete axios.defaults.headers.common['authorization']
 }
