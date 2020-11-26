@@ -5,9 +5,9 @@ import { makeStyles, Theme, Grid } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: Theme) => ({
    ingredient: {
-      margin: '8px 0px',
+      margin: '4px 0px',
       [theme.breakpoints.down('sm')]: {
-         margin: '6px 0'
+         margin: 0
       }
    },
    span: {

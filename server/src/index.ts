@@ -15,19 +15,19 @@ admin.initializeApp({
    credential: admin.credential.cert(serviceAccount as ServiceAccount)
 })
 
+connectMongo()
+
 app.use(express.json())
 app.use(cors())
 app.use(compression())
 
-connectMongo()
+app.use(helmet())
 
-app.use(
-   '/api',
-   middleware.firebaseAuth,
-   middleware.timeZone,
-   middleware.apiRateLimiter,
-   api
-)
+app.use(middleware.apiRateLimiter)
+app.use(middleware.firebaseAuth)
+app.use(middleware.timeZone)
+
+app.use('/api', api)
 
 const PORT = 8080
 
