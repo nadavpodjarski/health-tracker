@@ -1,17 +1,15 @@
-runtime: nodejs
-env: flex
-
-manual_scaling:
-   instances: 1
-
-resources:
-   cpu: 2
-   memory_gb: 2.3
-   disk_size_gb: 10
+env: standard
+runtime: nodejs14
+service: default
 
 handlers:
-   - url: /
+   - url: /api/.*
+     script: auto
+   - url: /static
+     static_dir: public/static
+   - url: /(.*\.(json|ico|js))$
+     static_files: public/\1
+     upload: public/.*\.(json|ico|js)$
+   - url: .*
      static_files: public/index.html
      upload: public/index.html
-   - url: /
-     static_dir: public
