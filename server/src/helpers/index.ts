@@ -12,6 +12,6 @@ export const stringToDate = (date: string) => {
    return moment(date).toDate()
 }
 
-export const formatDate = (date: Date | string) => {
-   return moment(date).utc(true).format('DD/MM/YYYY')
+export const formatDate = (date: Date | string, tz: string) => {
+   return moment(date).tz(tz).format('DD/MM/YYYY')
 }

@@ -28,7 +28,8 @@ export const addMeal = async (req: Request, res: Response) => {
                .status(400)
                .json(
                   `${MealTypes[meal.type]} on ${helpers.formatDate(
-                     meal.date
+                     meal.date,
+                     timezone
                   )} Already exist`
                )
          }
@@ -143,7 +144,8 @@ export const editMeal = async (req: Request, res: Response) => {
                .status(400)
                .json(
                   `${MealTypes[meal.type]} on ${helpers.formatDate(
-                     meal.date
+                     meal.date,
+                     timezone
                   )} Already exist`
                )
          }
