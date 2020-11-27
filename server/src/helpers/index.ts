@@ -1,11 +1,11 @@
-import moment from 'moment'
+import moment from 'moment-timezone'
 
-export const getStartDayDate = (start: Date | string) => {
-   return moment(start).startOf('day').toDate()
+export const getStartDayDate = (start: Date | string, tz: string) => {
+   return moment(start).tz(tz).startOf('day').toDate()
 }
 
-export const getEndDayDate = (end: Date | string) => {
-   return moment(end).endOf('day').toDate()
+export const getEndDayDate = (end: Date | string, tz: string) => {
+   return moment(end).tz(tz).endOf('day').toDate()
 }
 
 export const stringToDate = (date: string) => {

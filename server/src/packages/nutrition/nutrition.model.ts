@@ -33,14 +33,15 @@ NutritionSchema.methods.verifyOwnership = function (uid: string) {
 }
 
 NutritionSchema.methods.findSimilarMealType = async function (
+   tz: string,
    newMealType: number
 ): Promise<INutrition> {
    return await this.model('Nutrition').findOne({
       'author.uid': this.author.uid,
       'meal.type': newMealType,
       'meal.date': {
-         $gte: helpers.getStartDayDate(this.meal.date),
-         $lte: helpers.getEndDayDate(this.meal.date)
+         $gte: helpers.getStartDayDate(this.meal.date, tz),
+         $lte: helpers.getEndDayDate(this.meal.date, tz)
       }
    })
 }

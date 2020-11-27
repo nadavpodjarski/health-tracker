@@ -9,6 +9,7 @@ import * as helpers from '../../helpers'
 
 export const addMeal = async (req: Request, res: Response) => {
    const { data: meal } = req.body
+   const { timezone } = req.user
    if (_.isEmpty(meal))
       return res.status(400).json('Unable To Proccess Request')
 
@@ -18,8 +19,8 @@ export const addMeal = async (req: Request, res: Response) => {
             'author.uid': req.user?.uid,
             'meal.type': meal.type,
             'meal.date': {
-               $gte: helpers.getStartDayDate(meal.date),
-               $lte: helpers.getEndDayDate(meal.date)
+               $gte: helpers.getStartDayDate(meal.date, timezone),
+               $lte: helpers.getEndDayDate(meal.date, timezone)
             }
          }))
          if (docWithSameMealType) {
@@ -50,13 +51,14 @@ export const addMeal = async (req: Request, res: Response) => {
 
 export const getMeals = async (req: Request, res: Response) => {
    const { startAt, endAt } = req.query
+   const { timezone } = req.user
 
    if (!startAt || !endAt)
       return res.status(400).json('Unable To Proccess Request')
 
    try {
-      const start = helpers.getStartDayDate(startAt as string)
-      const end = helpers.getEndDayDate(endAt as string)
+      const start = helpers.getStartDayDate(startAt as string, timezone)
+      const end = helpers.getEndDayDate(endAt as string, timezone)
 
       const meals = await Nutrition.aggregate([
          {
@@ -97,7 +99,6 @@ export const deletMeal = async (req: Request, res: Response) => {
 
    if (!mongoose.isValidObjectId(_id) || typeof _id !== 'string')
       return res.status(400).json('Unable To Proccess Request')
-
    try {
       const doc = await Nutrition.findOne({ _id })
 
@@ -117,6 +118,8 @@ export const editMeal = async (req: Request, res: Response) => {
    const {
       data: { meal, docId: _id }
    } = req.body
+
+   const { timezone } = req.user
 
    if (!mongoose.isValidObjectId(_id) || _.isEmpty(meal))
       res.status(400).json('Unable To Proccess Request')

@@ -30,13 +30,13 @@ export const addSymptom = async (req: Request, res: Response) => {
 
 export const getSymptoms = async (req: Request, res: Response) => {
    const { startAt, endAt } = req.query
-
+   const { timezone } = req.user
    if (!startAt || !endAt)
       return res.status(400).json('Unable To Proccess Request')
 
    try {
-      const start = helpers.getStartDayDate(startAt as string)
-      const end = helpers.getEndDayDate(endAt as string)
+      const start = helpers.getStartDayDate(startAt as string, timezone)
+      const end = helpers.getEndDayDate(endAt as string, timezone)
 
       const symptoms = await Symptom.aggregate([
          {
