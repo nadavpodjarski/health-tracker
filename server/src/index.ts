@@ -20,14 +20,15 @@ connectMongo()
 app.use(express.json())
 app.use(cors())
 app.use(compression())
-
 app.use(helmet())
 
-app.use(middleware.apiRateLimiter)
-app.use(middleware.firebaseAuth)
-app.use(middleware.timeZone)
-
-app.use('/api', api)
+app.use(
+   '/api',
+   middleware.apiRateLimiter,
+   middleware.firebaseAuth,
+   middleware.timeZone,
+   api
+)
 
 const PORT = 8080
 

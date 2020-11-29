@@ -6,6 +6,7 @@ import mongoose from 'mongoose'
 
 import * as _ from 'lodash'
 import * as helpers from '../../helpers'
+import { time } from 'console'
 
 export const addMeal = async (req: Request, res: Response) => {
    const { data: meal } = req.body
@@ -134,7 +135,10 @@ export const editMeal = async (req: Request, res: Response) => {
          return res.status(403).json('Unauthorized request')
 
       if (meal.type !== MealTypes['Easy meal/Snack']) {
-         const docWithSameMealType = await doc.findSimilarMealType(meal?.type)
+         const docWithSameMealType = await doc.findSimilarMealType(
+            meal?.type,
+            timezone
+         )
 
          if (
             docWithSameMealType &&

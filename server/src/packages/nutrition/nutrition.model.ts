@@ -20,12 +20,12 @@ interface INutrition extends mongoose.Document {
    meal: any
    createdAt: Date
    verifyOwnership(uid: string): boolean
-   findSimilarMealType(newMealType: number): Promise<INutrition>
+   findSimilarMealType(newMealType: number, tz: string): Promise<INutrition>
 }
 
 interface INutritionModel extends mongoose.Model<INutrition> {
    verifyOwnership: (uid: string) => boolean
-   findSimilarMealType: (newMealType: number) => Promise<INutrition>
+   findSimilarMealType: (newMealType: number, tz: string) => Promise<INutrition>
 }
 
 NutritionSchema.methods.verifyOwnership = function (uid: string) {
@@ -33,8 +33,8 @@ NutritionSchema.methods.verifyOwnership = function (uid: string) {
 }
 
 NutritionSchema.methods.findSimilarMealType = async function (
-   tz: string,
-   newMealType: number
+   newMealType: number,
+   tz: string
 ): Promise<INutrition> {
    return await this.model('Nutrition').findOne({
       'author.uid': this.author.uid,

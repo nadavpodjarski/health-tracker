@@ -19,7 +19,7 @@ const MenuRoutes = () => {
             <Route path={match.path + routes.dashboard} component={Dashboard} />
             {/*Default Route*/}
             <Route>
-               <Redirect to={match.path + routes.nutrition} />
+               <Redirect to={match.path + routes.dashboard} />
             </Route>
          </Switch>
       </Suspense>

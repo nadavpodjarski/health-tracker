@@ -41,7 +41,7 @@
       "test": "mocha test/*.test.js --exit",
       "posttest": "npm run lint",
       "lint": "tslint -p .",
-      "start": "node dist/src/index.js",
+      "start": "NODE_ENV=production node dist/src/index.js",
       "gcp-build": "npx tsc -p tsconfig.json",
       "deploy": "gcloud app deploy"
    },
