@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme: Theme) =>
          padding: theme.spacing(2, 4, 3),
          overflow: 'none'
       },
+      dialogPaper: {
+         borderRadius: '25px'
+      },
       paperWidthSm: {
          width: ({ width }: any) => width,
          maxWidth: ({ width }: any) => width
@@ -68,7 +71,10 @@ const SpringModal: FC<{
       <Dialog
          open={open}
          onClose={modalToggler}
-         classes={{ paperWidthSm: classes.paperWidthSm }}
+         classes={{
+            paperWidthSm: classes.paperWidthSm,
+            paper: classes.dialogPaper
+         }}
       >
          <Fade in={open}>
             <div className={classes.paper}>{children}</div>

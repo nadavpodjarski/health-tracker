@@ -8,6 +8,7 @@ const mealIngredient = (uuid: () => string): (() => MealIngredient) => {
       return { id: uuid(), item: '', amount: '', unit: 'g' }
    }
 }
+
 export const mealTypes = [
    { const: 'Breakfast', value: 1 },
    { const: 'Lunch', value: 2 },
@@ -15,7 +16,7 @@ export const mealTypes = [
    { const: 'Easy meal/Snack', value: 4 }
 ]
 
-export const units = ['g', 'oz', 'ml']
+export const units = ['g', 'ml']
 
 export const makeNewMeal = () => {
    return {

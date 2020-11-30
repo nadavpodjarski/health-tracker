@@ -6,7 +6,6 @@ import mongoose from 'mongoose'
 
 import * as _ from 'lodash'
 import * as helpers from '../../helpers'
-import { time } from 'console'
 
 export const addMeal = async (req: Request, res: Response) => {
    const { data: meal } = req.body
