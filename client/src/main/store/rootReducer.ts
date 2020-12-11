@@ -9,6 +9,5 @@ export const rootReducer = combineReducers({
    auth: authReducer,
    nutrition: nutritionReducer,
    ui: uiReducer,
-   languages: languagesReducer,
    symptoms: symptomsReducer
 })

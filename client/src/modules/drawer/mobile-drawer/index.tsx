@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { Drawer, makeStyles, Divider, Box } from '@material-ui/core'
 import MobileDrawerList from './components/list'
 
@@ -25,17 +25,20 @@ const useStyles = makeStyles((theme) => ({
 
 const container = window !== undefined ? () => window.document.body : undefined
 
-const MobileDrawer: FC<{ open: boolean; handleOpen: () => void }> = ({
-   open,
-   handleOpen
-}) => {
+const MobileDrawer: FC = () => {
    const classes = useStyles()
+
+   const [open, setOpen] = useState(false)
+
+   const handleDrawerOpen = () => {
+      setOpen((prevState) => !prevState)
+   }
    return (
       <Drawer
          container={container}
          variant="temporary"
          open={open}
-         onClose={handleOpen}
+         onClose={handleDrawerOpen}
          classes={{
             paper: classes.drawerPaper
          }}

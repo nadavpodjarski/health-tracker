@@ -4,8 +4,9 @@ import { useModal } from '../../common/hooks/useModal'
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as symptomsActions from '../../redux/trackers/symptoms/actions'
+import * as UIActions from '../../redux/ui/actions'
 import * as symptomsUtils from '../../utilities/symptoms'
-import { IStore } from '../../types/redux'
+
 import { Symptom } from '../../types/symptoms'
 
 import {
@@ -20,6 +21,7 @@ import {
 import SymptomsList from './components/symptoms-list'
 import AddSymptomModalContent from './components/modals/add-symptom-modal-content'
 import FilterOptions from './components/filter-options'
+
 import { DateRange } from '@material-ui/pickers/DateRangePicker/RangeTypes'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -68,14 +70,6 @@ const useStyles = makeStyles((theme: Theme) =>
          [theme.breakpoints.down('md')]: {
             padding: '16px 12px'
          }
-      },
-      title: {
-         height: 100,
-         display: 'flex',
-         alignItems: 'center',
-         [theme.breakpoints.down('sm')]: {
-            height: 60
-         }
       }
    })
 )
@@ -85,7 +79,7 @@ const Symptoms = () => {
    const dispatch = useDispatch()
 
    const { symptoms, dateRange, isLoading } = useSelector(
-      (state: IStore) => state.symptoms
+      (state) => state.symptoms
    )
 
    useEffect(() => {
@@ -94,6 +88,7 @@ const Symptoms = () => {
    }, [dateRange])
 
    useEffect(() => {
+      dispatch(UIActions.setModuleTtiel('Symptoms'))
       return () => {
          dispatch(symptomsActions.cleanSymptomsState())
       }
@@ -128,9 +123,6 @@ const Symptoms = () => {
       <div className={classes.moduleRoot}>
          <Box className={classes.innerModule}>
             <Box className={classes.header}>
-               <Box className={classes.title}>
-                  <Typography variant="h3">Symptoms</Typography>
-               </Box>
                <Box>
                   <Typography component="p" style={{ padding: '12px 0' }}>
                      This is your <strong>Symptoms Tracker</strong>, Here you

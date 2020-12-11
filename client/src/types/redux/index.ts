@@ -37,4 +37,5 @@ export type Action = {
 export interface IUiState {
    snackbar: SnackBarAlert
    theme: boolean
+   moduleTitle: string
 }

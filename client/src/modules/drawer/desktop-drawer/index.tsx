@@ -1,8 +1,9 @@
-import React, { FC } from 'react'
-import { Drawer, Divider, makeStyles, Box } from '@material-ui/core'
+import React, { FC, useState } from 'react'
+import { Drawer, Divider, makeStyles, Box, IconButton } from '@material-ui/core'
 import clsx from 'clsx'
 
 import DrawerList from './components/list'
+import MenuIcon from '@material-ui/icons/Menu'
 
 const drawerWidth = 240
 
@@ -24,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
    toolbar: {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'flex-end',
       padding: theme.spacing(0, 1),
       // necessary for content to be below app bar
       ...theme.mixins.toolbar
@@ -36,8 +36,14 @@ const useStyles = makeStyles((theme) => ({
    }
 }))
 
-const DekstopDrawer: FC<{ open: boolean }> = ({ open }) => {
+const DekstopDrawer: FC<{}> = ({}) => {
    const classes = useStyles()
+
+   const [open, setOpen] = useState(false)
+
+   const handleDrawerOpen = () => {
+      setOpen((prevOpen) => !prevOpen)
+   }
    return (
       <Drawer
          variant="permanent"
@@ -52,7 +58,18 @@ const DekstopDrawer: FC<{ open: boolean }> = ({ open }) => {
             })
          }}
       >
-         <Box className={classes.toolbar} />
+         <Box className={classes.toolbar}>
+            <Box
+               width="100%"
+               display="flex"
+               justifyContent={open ? 'flex-end' : 'center'}
+               alignItems="center"
+            >
+               <IconButton aria-label="open drawer" onClick={handleDrawerOpen}>
+                  <MenuIcon fontSize="small" />
+               </IconButton>
+            </Box>
+         </Box>
          <Divider />
          <DrawerList open={open} />
       </Drawer>

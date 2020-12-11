@@ -21,3 +21,10 @@ export const setTheme = (checked: boolean) => {
       payload: checked
    }
 }
+
+export const setModuleTtiel = (title: string) => {
+   return {
+      type: types.SET_MODULE_TITLE,
+      payload: title
+   }
+}

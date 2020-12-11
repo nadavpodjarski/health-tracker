@@ -11,8 +11,7 @@ const useStyles = makeStyles((theme) => ({
       alignItems: 'center',
       [theme.breakpoints.down('sm')]: {
          justifyContent: 'center'
-      },
-      borderBottom: `3px solid ${theme.palette.background.paper}`
+      }
    },
    dateRange: {
       boxShadow: theme.shadows[2],

@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react'
 
 import { createStyles, makeStyles } from '@material-ui/core/styles'
+
 import Hidden from '@material-ui/core/Hidden'
 import Box from '@material-ui/core/Box'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -40,23 +41,18 @@ const useStyles = makeStyles((theme) =>
 
 const HomeDrawer: FC = () => {
    const classes = useStyles()
-   const [open, setOpen] = useState(false)
-
-   const handleDrawerOpen = () => {
-      setOpen((prevState) => !prevState)
-   }
 
    return (
       <Box className={classes.root}>
          <CssBaseline />
-         <AppBar handleDrawerOpen={handleDrawerOpen} open={open} />
          <Hidden smDown>
-            <DesktopDrawer open={open} />
+            <DesktopDrawer />
          </Hidden>
          <Hidden mdUp>
-            <MobileDrawer open={open} handleOpen={handleDrawerOpen} />
+            <MobileDrawer />
          </Hidden>
          <main className={classes.content}>
+            <AppBar />
             <Box className={classes.toolbar} />
             <DrawerRoutes />
          </main>

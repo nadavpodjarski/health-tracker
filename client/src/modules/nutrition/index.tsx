@@ -10,10 +10,10 @@ import { useModal } from '../../common/hooks/useModal'
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as nutritionActions from '../../redux/trackers/nutrition/actions'
+import * as UIActions from '../../redux/ui/actions'
 import * as nutritionUtils from '../../utilities/nutrition'
 
 import { DateRange } from '@material-ui/pickers/DateRangePicker/RangeTypes'
-import { IStore } from '../../types/redux'
 import { Meal } from '../../types/nutrition'
 
 const useStyles = makeStyles((theme) =>
@@ -62,21 +62,13 @@ const useStyles = makeStyles((theme) =>
          [theme.breakpoints.down('md')]: {
             padding: '16px 12px'
          }
-      },
-      title: {
-         height: 100,
-         display: 'flex',
-         alignItems: 'center',
-         [theme.breakpoints.down('sm')]: {
-            height: 60
-         }
       }
    })
 )
 
 const Nutrition = () => {
    const { isLoading, meals, dateRange } = useSelector(
-      (state: IStore) => state.nutrition
+      (state) => state.nutrition
    )
    const [addMealModalToggler, AddMealModal] = useModal()
 
@@ -89,6 +81,7 @@ const Nutrition = () => {
    }, [dateRange])
 
    useEffect(() => {
+      dispatch(UIActions.setModuleTtiel('Nutrition'))
       return () => {
          dispatch(nutritionActions.clearMealsState())
       }
@@ -118,9 +111,6 @@ const Nutrition = () => {
          <Box className={classes.innerModule}>
             {/*Header*/}
             <Box className={classes.header}>
-               <Box className={classes.title}>
-                  <Typography variant="h3">Nutrition</Typography>
-               </Box>
                <Box>
                   <Typography component="p" style={{ padding: '12px 0' }}>
                      This is your <strong>Food Tracker</strong>, Here you can

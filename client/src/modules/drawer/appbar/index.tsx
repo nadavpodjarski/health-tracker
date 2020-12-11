@@ -1,33 +1,34 @@
 import React, { FC } from 'react'
-import {
-   AppBar as Appbar,
-   Toolbar,
-   IconButton,
-   Box,
-   makeStyles
-} from '@material-ui/core'
-import clsx from 'clsx'
-
-import MenuIcon from '@material-ui/icons/Menu'
+import { Box, makeStyles, Typography, Grid } from '@material-ui/core'
 
 import ProfileAvatar from '../../../common/components/profile-avatar'
 import ThemeSwitch from '../../../common/components/theme-switch'
 
+import { useSelector } from 'react-redux'
+
 const useStyles = makeStyles((theme) => ({
    appBar: {
-      zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(['width', 'margin'], {
-         easing: theme.transitions.easing.sharp,
-         duration: theme.transitions.duration.leavingScreen
-      }),
-      background: theme.palette.background.paper,
+      boxShadow: 'none',
+      position: 'fixed',
+      top: 0,
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: theme.mixins.toolbar.minHeight,
+      background: theme.palette.background.default,
       [theme.breakpoints.down('sm')]: {
          paddingRight: 0
       }
    },
-   appBarShift: {
-      marginLeft: 0,
-      width: `100%`
+   innerAppBar: {
+      display: 'flex',
+      alignItems: 'center',
+      maxWidth: 1250,
+      justifyContent: 'space-between',
+      flex: 1,
+      borderBottom: `1px solid ${theme.palette.divider}`,
+      height: '100%'
    },
    menuButton: {
       '&:hover': {
@@ -36,47 +37,26 @@ const useStyles = makeStyles((theme) => ({
    }
 }))
 
-const AppBar: FC<{ handleDrawerOpen: () => void; open: boolean }> = ({
-   handleDrawerOpen,
-   open
-}) => {
+const AppBar: FC = () => {
    const classes = useStyles()
+   const moduleTitle = useSelector((state) => state.ui.moduleTitle)
+
    return (
-      <Appbar
-         position="fixed"
-         className={clsx(classes.appBar, {
-            [classes.appBarShift]: open
-         })}
-      >
-         <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <IconButton
-               aria-label="open drawer"
-               onClick={handleDrawerOpen}
-               edge="start"
-               className={classes.menuButton}
-            >
-               <MenuIcon fontSize="small" />
-            </IconButton>
-            <div
-               style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  flex: 1
-               }}
-            >
-               {/* <Box display="flex" flex={1} justifyContent="flex-start">
-               </Box> */}
-
-               <Box display="flex" justifyContent="flex-end" flex={1}>
-                  <Box margin="0 16px" display="flex" alignItems="center">
-                     <ThemeSwitch />
-                  </Box>
-
+      <Box className={classes.appBar}>
+         <Box className={classes.innerAppBar}>
+            <Box>
+               <Typography>{moduleTitle}</Typography>
+            </Box>
+            <Grid container justify="flex-end">
+               <Box margin="0 6px">
+                  <ThemeSwitch />
+               </Box>
+               <Box margin="0 6px">
                   <ProfileAvatar />
                </Box>
-            </div>
-         </Toolbar>
-      </Appbar>
+            </Grid>
+         </Box>
+      </Box>
    )
 }
 

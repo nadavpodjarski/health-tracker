@@ -9,3 +9,5 @@ const store = createStore(
 )
 
 export default store
+
+export const dispatch = store.dispatch
