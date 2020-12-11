@@ -39,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
 const ListActionButtons: FC<{
    deleteHandler: () => void
    editHandler: () => void
-   copyHanlder: () => void
-}> = ({ deleteHandler, editHandler, copyHanlder }) => {
+   copyHandler: () => void
+}> = ({ deleteHandler, editHandler, copyHandler }) => {
    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
    const classes = useStyles()
    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -52,7 +52,7 @@ const ListActionButtons: FC<{
    }
 
    const onCopyHandler = () => {
-      copyHanlder()
+      copyHandler()
       handleClose()
    }
 
@@ -67,26 +67,6 @@ const ListActionButtons: FC<{
    }
    return (
       <>
-         {/* <Box className={classes.desktopView}>
-        <Box className={classes.desktopContainer}>
-          <Tooltip title="Copy">
-            <IconButton onClick={onCopyHandler}>
-              <FileCopy fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Edit">
-            <IconButton onClick={onEditHadnler}>
-              <Edit fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Delete">
-            <IconButton onClick={onDeleteHandler}>
-              <HighlightOff fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        </Box>
-      </Box> */}
-         {/*Mobile view*/}
          <Box className={classes.mobileView}>
             <IconButton onClick={handleClick}>
                <MoreVert fontSize="small" />

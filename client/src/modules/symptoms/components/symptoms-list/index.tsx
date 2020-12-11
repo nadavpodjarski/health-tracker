@@ -115,14 +115,6 @@ const SymptomsList: FC<{
       editModalToggler()
    }
 
-   const onConfirmCopy = async (symptom: Symptom) => {
-      try {
-         await onCopySymptom(symptom)
-         setCopiedSymptom(null)
-         copyModalToggler()
-      } catch (err) {}
-   }
-
    const onConfirmDelete = async (docId: string) => {
       try {
          await onDeleteSymptom(docId)
@@ -244,7 +236,7 @@ const SymptomsList: FC<{
             <CopyModal width={1200}>
                <AddSymptomModalContent
                   symptom={copiedSymptom}
-                  onAddSymptom={onConfirmCopy}
+                  onAddSymptom={onCopySymptom}
                   modalToggler={copyModalToggler}
                />
             </CopyModal>

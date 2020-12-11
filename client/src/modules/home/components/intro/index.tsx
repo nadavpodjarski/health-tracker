@@ -109,8 +109,8 @@ const Intro = () => {
                      <Typography component="p" style={{ width: '80%' }}>
                         <strong>MiTummy</strong> aims to help you track Your
                         lifestyle and how it affects you for good and bad,
-                        through your Food Tolerance, Sport Activities, Emotional
-                        Stress, and More...
+                        through your Food intolerance, Sport Activities,
+                        Emotional Stress, and More...
                      </Typography>
                   </Box>
                </Box>

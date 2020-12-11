@@ -7,10 +7,10 @@ import LoginForm from './components/login-form'
 const useStyles = makeStyles((theme: Theme) => ({
    root: {
       background: 'white',
-      height: '100%'
+      minHeight: '100%'
    },
    intro: {
-      height: '100%',
+      minHeight: '100%',
       background: 'rgba(0,0,0,0.7)',
       padding: '16px',
       textAlign: 'left',
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       [theme.breakpoints.down('sm')]: {
          width: '100%',
          minWidth: 0,
-         height: '100vh'
+         minHeight: '100vh'
       }
    }
 }))

@@ -44,7 +44,7 @@ const SymptomListItem: FC<{
    item: SymptomDoc
    setDeleteSymptom: (docId: string) => void
    setEditSymptom: (item: SymptomDoc) => void
-   setCopySymptom: (meal: Symptom) => void
+   setCopySymptom: (symptom: Symptom) => void
 }> = ({ item, setDeleteSymptom, setEditSymptom, setCopySymptom }) => {
    const classes = useStyles()
    const [isDescriptionOpen, setIsDescriptionOpen] = useState<boolean>(false)
@@ -84,7 +84,7 @@ const SymptomListItem: FC<{
                <ListActionButtons
                   deleteHandler={() => setDeleteSymptom(item.id)}
                   editHandler={() => setEditSymptom(item)}
-                  copyHanlder={() => setCopySymptom(item.symptom)}
+                  copyHandler={() => setCopySymptom(item.symptom)}
                />
             </Box>
          </ListItem>

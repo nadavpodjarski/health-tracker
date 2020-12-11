@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState, useEffect, CSSProperties } from 'react'
 import {
    TextField,
    Divider,
@@ -17,9 +17,9 @@ import moment from 'moment'
 
 const useStyles = makeStyles((theme) => ({
    textFiled: {
-      fontSize: '16px',
+      fontSize: '14px',
       cursor: 'pointer',
-      maxWidth: '100px',
+      maxWidth: '80px',
       textAlign: 'center'
    }
 }))
@@ -34,7 +34,8 @@ const DateRangePicker: FC<{
    onChange: (date: DateRange) => void
    startAt: Date | null
    endAt: Date | null
-}> = ({ onChange, startAt, endAt }) => {
+   className?: any
+}> = ({ onChange, startAt, endAt, className }) => {
    const [value, setValue] = useState<any>(
       parseTimes(startAt as Date, endAt as Date)
    )
@@ -75,9 +76,9 @@ const DateRangePicker: FC<{
                      padding: '6px 6px 6px 12px',
                      display: 'flex',
                      alignItems: 'center',
-                     border: `1px solid ${theme.palette.divider}`,
-                     borderRadius: '50px'
+                     borderRadius: '25px'
                   }}
+                  className={className}
                >
                   <Box padding="0 6px">
                      <DateRangeIcon fontSize="small" />
@@ -99,7 +100,7 @@ const DateRangePicker: FC<{
                      orientation="vertical"
                      style={{
                         height: 'auto',
-                        margin: '0 16px',
+                        margin: '0 8px',
                         alignSelf: 'stretch'
                      }}
                   />

@@ -4,10 +4,10 @@ export let lightTheme = createMuiTheme({
    palette: {
       background: { default: '#F3F2EF' },
       primary: {
-         main: '#00D9C0'
+         main: '#38a3a5'
       },
       secondary: {
-         main: '#00D9C0'
+         main: '#38a3a5'
       }
    },
    typography: {
