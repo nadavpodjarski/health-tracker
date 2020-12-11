@@ -9,7 +9,7 @@ import WbSunnyIcon from '@material-ui/icons/WbSunny'
 
 const ThemeSwitch = () => {
    const dispatch = useDispatch()
-   const { theme } = useSelector((state: any) => state.ui)
+   const { theme } = useSelector((state) => state.ui)
 
    const onChange = () => {
       dispatch(setTheme(!theme))

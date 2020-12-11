@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react'
 import { Drawer, Divider, makeStyles, Box, IconButton } from '@material-ui/core'
+
 import clsx from 'clsx'
 
 import DrawerList from './components/list'
@@ -44,6 +45,7 @@ const DekstopDrawer: FC<{}> = ({}) => {
    const handleDrawerOpen = () => {
       setOpen((prevOpen) => !prevOpen)
    }
+
    return (
       <Drawer
          variant="permanent"

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 
-import AddMealModalContent from './components/modals/add-meal-modal-content'
-import MealsList from './components/meal-list'
-import FilterOptions from './components/filter-options'
+import AddMealModalContent from './modals/add-meal-modal'
+import MealsList from './meal-list'
+import FilterOptions from './filter-options'
 
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { Box, Button, Typography, Grid } from '@material-ui/core'

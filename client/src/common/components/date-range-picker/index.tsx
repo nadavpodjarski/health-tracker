@@ -1,11 +1,6 @@
-import React, { FC, useState, useEffect, CSSProperties } from 'react'
-import {
-   TextField,
-   Divider,
-   Box,
-   useTheme,
-   makeStyles
-} from '@material-ui/core'
+import React, { FC, useState, useEffect } from 'react'
+import { TextField, Divider, Box, makeStyles } from '@material-ui/core'
+
 import DateFnsUtils from '@material-ui/pickers/adapter/date-fns'
 import DateRangeIcon from '@material-ui/icons/DateRange'
 import {
@@ -13,6 +8,7 @@ import {
    LocalizationProvider
 } from '@material-ui/pickers'
 import { DateRange } from '@material-ui/pickers/DateRangePicker/RangeTypes'
+
 import moment from 'moment'
 
 const useStyles = makeStyles((theme) => ({
@@ -34,13 +30,12 @@ const DateRangePicker: FC<{
    onChange: (date: DateRange) => void
    startAt: Date | null
    endAt: Date | null
-   className?: any
+   className?: string
 }> = ({ onChange, startAt, endAt, className }) => {
    const [value, setValue] = useState<any>(
       parseTimes(startAt as Date, endAt as Date)
    )
 
-   const theme = useTheme()
    const classes = useStyles()
 
    useEffect(() => {

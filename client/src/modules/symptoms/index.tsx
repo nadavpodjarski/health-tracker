@@ -18,9 +18,9 @@ import {
    Typography
 } from '@material-ui/core'
 
-import SymptomsList from './components/symptoms-list'
-import AddSymptomModalContent from './components/modals/add-symptom-modal-content'
-import FilterOptions from './components/filter-options'
+import SymptomsList from './symptoms-list'
+import AddSymptomModalContent from './modals/add-symptom-modal'
+import FilterOptions from './filter-options'
 
 import { DateRange } from '@material-ui/pickers/DateRangePicker/RangeTypes'
 
