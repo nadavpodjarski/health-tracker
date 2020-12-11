@@ -16,7 +16,7 @@ const ThemeSwitch = () => {
    }
 
    return (
-      <IconButton onClick={onChange} size="small">
+      <IconButton onClick={onChange}>
          {!theme ? (
             <NightsStayIcon fontSize="small" style={{ color: 'darkblue' }} />
          ) : (

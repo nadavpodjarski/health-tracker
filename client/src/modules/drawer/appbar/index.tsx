@@ -47,7 +47,7 @@ const AppBar: FC = () => {
             <Box>
                <Typography>{moduleTitle}</Typography>
             </Box>
-            <Grid container justify="flex-end">
+            <Grid container justify="flex-end" alignItems="center">
                <Box margin="0 6px">
                   <ThemeSwitch />
                </Box>
