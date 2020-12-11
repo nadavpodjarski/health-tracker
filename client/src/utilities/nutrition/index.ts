@@ -30,11 +30,8 @@ export const makeNewMeal = () => {
 export const makeNewMealIngredient = mealIngredient(uuid)
 
 export const isValidMeal = (state: Meal) => {
-   const error = {
-      date: !state.date,
-      ingredients: !state.ingredients.every((ing) => ing.item.trim()),
-      type: !state.type
-   }
-   if (error.date || error.ingredients || error.type) return ''
-   else return 'ok'
+   if (!state.date) return false
+   if (!state.ingredients.every((ing) => ing.item.trim())) return false
+   if (!state.type) return false
+   return 'ok'
 }

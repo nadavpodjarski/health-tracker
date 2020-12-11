@@ -8,7 +8,7 @@ export let darkTheme = createMuiTheme({
          main: '#38a3a5'
       },
       secondary: {
-         main: '#38a3a5'
+         main: '#ac1cd1'
       }
    },
    typography: {

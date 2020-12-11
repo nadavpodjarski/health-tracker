@@ -65,7 +65,7 @@ const MealListItem: FC<{
                container
                xs={12}
                spacing={1}
-               style={{ whiteSpace: 'nowrap', marginTop: '12px' }}
+               style={{ whiteSpace: 'nowrap', marginTop: '6px' }}
             >
                <Ingredients ingredients={item.meal.ingredients} />
             </Grid>

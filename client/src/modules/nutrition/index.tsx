@@ -5,7 +5,7 @@ import MealsList from './components/meal-list'
 import FilterOptions from './components/filter-options'
 
 import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { Box, Button, Typography } from '@material-ui/core'
+import { Box, Button, Typography, Grid } from '@material-ui/core'
 import { useModal } from '../../common/hooks/useModal'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) =>
       },
       innerModule: {
          width: '100%',
-         maxWidth: '1200px',
+         maxWidth: 1200,
          height: '100%',
          display: 'flex',
          flexDirection: 'column',
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) =>
          }
       },
       openModalButton: {
-         fontSize: '20px',
+         fontSize: '16px',
          background: theme.palette.primary.main,
          color: 'white',
          '&:hover': {
@@ -51,11 +51,9 @@ const useStyles = makeStyles((theme) =>
          },
          [theme.breakpoints.down('sm')]: {
             fontSize: '16px'
-         },
-         boxShadow: theme.shadows[4]
+         }
       },
       header: {
-         minHeight: 200,
          textAlign: 'left',
          width: '100%',
          padding: '16px 0',
@@ -111,27 +109,41 @@ const Nutrition = () => {
          <Box className={classes.innerModule}>
             {/*Header*/}
             <Box className={classes.header}>
-               <Box>
-                  <Typography component="p" style={{ padding: '12px 0' }}>
-                     This is your <strong>Food Tracker</strong>, Here you can
-                     Add, Edit and Delete Meals...
-                  </Typography>
-               </Box>
-               <Box className={classes.openModalButtonWrapper}>
-                  <Button
-                     onClick={addMealModalToggler}
-                     className={classes.openModalButton}
+               <Grid container>
+                  <Grid item xs={12} md={7}>
+                     <Typography
+                        style={{
+                           padding: '12px 0',
+                           fontSize: '14px',
+                           lineHeight: 1.7
+                        }}
+                     >
+                        Add, Edit and Delete your meals contents. Take in
+                        consideration that the more detailed the food ingredient
+                        that you will type in, The easier it will be for you to
+                        track your food intolerance, and to mainatin a healthier
+                        mind and body.
+                     </Typography>
+                  </Grid>
+                  <Grid
+                     item
+                     container
+                     xs={12}
+                     md={5}
+                     alignItems="center"
+                     justify="flex-end"
                   >
-                     Add Meal
-                  </Button>
-               </Box>
+                     <Button
+                        onClick={addMealModalToggler}
+                        className={classes.openModalButton}
+                     >
+                        Add Meal
+                     </Button>
+                  </Grid>
+               </Grid>
+               <FilterOptions {...{ onDateRangeChange, dateRange }} />
             </Box>
-            {/*Open Modal Button*/}
 
-            {/*Filter options*/}
-            <FilterOptions {...{ onDateRangeChange, dateRange }} />
-
-            {/*Food List*/}
             <MealsList
                onCopyMeal={onAddMeal}
                onDeleteMeal={onDeleteMeal}
@@ -140,7 +152,7 @@ const Nutrition = () => {
                meals={meals}
             />
          </Box>
-         {/*Add Meal Modal*/}
+
          <AddMealModal width={1200}>
             <AddMealModalContent
                modalToggler={addMealModalToggler}

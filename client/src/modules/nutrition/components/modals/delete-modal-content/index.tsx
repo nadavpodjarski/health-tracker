@@ -34,7 +34,7 @@ const DeleteModalContent: FC<{
             <Grid item xs={6} container justify="flex-end">
                <Button
                   style={{
-                     background: theme.palette.secondary.main,
+                     background: theme.palette.primary.main,
                      color: 'white'
                   }}
                   onClick={onCancelDelete}
@@ -49,7 +49,7 @@ const DeleteModalContent: FC<{
                      color: theme.palette.getContrastText(
                         theme.palette.background.paper
                      ),
-                     border: `1px solid ${theme.palette.secondary.main}`
+                     border: `1px solid ${theme.palette.primary.main}`
                   }}
                   endIcon={
                      isDeleting ? (

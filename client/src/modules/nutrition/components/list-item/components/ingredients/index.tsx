@@ -17,15 +17,15 @@ const useStyles = makeStyles((theme: Theme) => ({
       border: '1px solid rgba(0,0,0,0.3)',
       cursor: 'pointer',
       margin: '8px 0',
-      fontSize: '18px',
+      fontSize: 16,
       [theme.breakpoints.down('sm')]: {
-         fontSize: '14px'
+         fontSize: 14
       }
    },
    unit: {
-      fontSize: '16px',
+      fontSize: 16,
       [theme.breakpoints.down('sm')]: {
-         fontSize: '14px'
+         fontSize: 14
       }
    }
 }))

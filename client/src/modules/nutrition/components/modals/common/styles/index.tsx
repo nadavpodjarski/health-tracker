@@ -8,19 +8,19 @@ export const useStyles = makeStyles((theme) => ({
    },
    cancelButton: {
       background: 'inherit',
-      color: theme.palette.secondary.main,
-      border: `1px solid ${theme.palette.secondary.main}`,
+      color: theme.palette.primary.main,
+      border: `1px solid ${theme.palette.primary.main}`,
       width: '80px',
       [theme.breakpoints.down('sm')]: {
          fontSize: '14px'
       }
    },
    addConfirmButton: {
-      background: theme.palette.secondary.main,
+      background: theme.palette.primary.main,
       color: theme.palette.common.white,
       width: '130px',
       '&:hover': {
-         background: theme.palette.secondary.main,
+         background: theme.palette.primary.main,
          color: theme.palette.common.white
       },
       '&:disabled': {
@@ -31,11 +31,11 @@ export const useStyles = makeStyles((theme) => ({
       }
    },
    editConfirmButton: {
-      background: theme.palette.secondary.main,
+      background: theme.palette.primary.main,
       color: 'white',
       width: '130px',
       '&:hover': {
-         background: theme.palette.secondary.main,
+         background: theme.palette.primary.main,
          color: 'white'
       },
       '&:disabled': {

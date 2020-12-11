@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Typography, Grid, makeStyles, Divider } from '@material-ui/core'
-import Logo from '../app-logo'
+import Logo from '../../../../common/components/app-logo'
 
 const useStyles = makeStyles((theme) => ({
    header: {

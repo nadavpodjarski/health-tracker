@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       borderRadius: '50px',
       boxShadow: theme.shadows[3],
       padding: '0 15px',
-      border: `2px solid ${theme.palette.secondary.main}`,
+      border: `2px solid ${theme.palette.primary.main}`,
       [theme.breakpoints.down('sm')]: {
          transform: 'scale(0.85)'
       }
