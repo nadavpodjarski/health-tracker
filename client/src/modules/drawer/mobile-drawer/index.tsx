@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import { Drawer, makeStyles, Divider, Box } from '@material-ui/core'
-import MobileDrawerList from './components/list'
+import MobileDrawerList from './list'
 
 const drawerWidth = 240
 

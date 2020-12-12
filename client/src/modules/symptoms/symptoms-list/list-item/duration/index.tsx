@@ -20,12 +20,12 @@ const Duration: FC<{ duration: string | number }> = ({ duration }) => {
          <Box display="inline-block">
             <Typography
                component="span"
-               style={{ fontWeight: 'bold', fontSize: '20px' }}
+               style={{ fontWeight: 'bold', fontSize: 20 }}
             >
                {duration}
             </Typography>
 
-            <Typography component="span" style={{ fontSize: '14px' }}>
+            <Typography component="span" style={{ fontSize: 14 }}>
                /min
             </Typography>
          </Box>
@@ -33,8 +33,8 @@ const Duration: FC<{ duration: string | number }> = ({ duration }) => {
    ) : (
       <Chip
          component={Paper}
-         label="DURATION"
-         style={{ fontSize: '16px' }}
+         label="Duration"
+         style={{ fontSize: 14 }}
          icon={<NotInterestedIcon />}
       />
    )

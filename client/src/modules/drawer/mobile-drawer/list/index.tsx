@@ -1,9 +1,9 @@
 import React from 'react'
 import { List, Divider } from '@material-ui/core'
 
-import DrawerMobileListItem from '../list-item'
+import DrawerMobileListItem from './list-item'
 
-import { routes } from '../../../../../main/routes/constants'
+import { routes } from '../../../../main/routes/constants'
 
 import FastfoodIcon from '@material-ui/icons/Fastfood'
 import EmojiSymbolsIcon from '@material-ui/icons/EmojiSymbols'

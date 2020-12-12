@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import { List, Divider } from '@material-ui/core'
 
-import DrawerListItem from '../list-item'
-import { routes } from '../../../../../main/routes/constants'
+import DrawerListItem from './list-item'
+import { routes } from '../../../../main/routes/constants'
 
 import FastfoodIcon from '@material-ui/icons/Fastfood'
 import EmojiSymbolsIcon from '@material-ui/icons/EmojiSymbols'

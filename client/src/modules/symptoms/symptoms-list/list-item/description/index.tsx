@@ -1,18 +1,18 @@
 import React, { FC, SetStateAction, Dispatch } from 'react'
 import { Button, makeStyles, Chip, Paper } from '@material-ui/core'
-
+import { fade } from '@material-ui/core'
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
 import NotInterestedIcon from '@material-ui/icons/NotInterested'
 
 const useStyles = makeStyles((theme) => ({
    decriptionButton: {
-      background: theme.palette.secondary.main,
+      background: theme.palette.primary.main,
       color: theme.palette.common.white,
-      boxShadow: theme.shadows[3],
       '&:hover': {
          background: theme.palette.secondary.main,
-         color: theme.palette.common.white
+         color: theme.palette.common.white,
+         borderRadius: 25
       },
       '&:disabled': {
          background: theme.palette.divider,
@@ -20,12 +20,14 @@ const useStyles = makeStyles((theme) => ({
       },
       [theme.breakpoints.down('sm')]: {
          width: '100%'
-      }
+      },
+      width: '100%',
+      minWidth: 150,
+      transition: 'all 0.3s linear'
    },
    noDescriptionChip: {
       [theme.breakpoints.down('sm')]: {
-         width: '100%',
-         fontSize: '16px'
+         fontSize: 14
       }
    }
 }))
@@ -53,7 +55,7 @@ const Description: FC<{
       <Chip
          component={Paper}
          icon={<NotInterestedIcon />}
-         label="DESCRIPTION"
+         label="Description"
          className={classes.noDescriptionChip}
       />
    )

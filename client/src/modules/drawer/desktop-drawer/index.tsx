@@ -3,7 +3,7 @@ import { Drawer, Divider, makeStyles, Box, IconButton } from '@material-ui/core'
 
 import clsx from 'clsx'
 
-import DrawerList from './components/list'
+import DrawerList from './list'
 import MenuIcon from '@material-ui/icons/Menu'
 
 const drawerWidth = 240

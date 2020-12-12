@@ -198,7 +198,7 @@ const SymptomsList: FC<{
                   justifyContent: 'center'
                }}
             >
-               <Loader title="Fetching Symptoms" />
+               <Loader title="Fetching Symptoms" withShadow />
             </ListItem>
          )}
 

@@ -12,7 +12,7 @@ const MenuRoutes = () => {
    const match = useRouteMatch()
 
    return (
-      <Suspense fallback={<Loader title="Loading" />}>
+      <Suspense fallback={<Loader title="Loading" withShadow />}>
          <Switch>
             <Route path={match.path + routes.nutrition} component={Nutrition} />
             <Route path={match.path + routes.symptoms} component={Symptoms} />

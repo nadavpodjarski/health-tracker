@@ -187,7 +187,7 @@ const MealsList: FC<{
                   justifyContent: 'center'
                }}
             >
-               <Loader title="Fetching Meals" />
+               <Loader title="Fetching Meals" withShadow />
             </ListItem>
          )}
 

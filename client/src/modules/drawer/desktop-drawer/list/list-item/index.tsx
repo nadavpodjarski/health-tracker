@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
    },
    listItemTextClose: {
       margin: 0,
-      paddingTop: '6px'
+      paddingTop: 6
    },
    listItemTextOpen: {
       paddingTop: 0,

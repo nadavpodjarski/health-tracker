@@ -15,7 +15,7 @@ const Name: FC<{ name: string; date: Date }> = ({ name, date }) => {
          <Typography
             component="span"
             color="textSecondary"
-            style={{ fontSize: '12px', margin: '0 6px' }}
+            style={{ fontSize: 12, margin: '0 6px' }}
          >
             at
          </Typography>
