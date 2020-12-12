@@ -60,7 +60,7 @@ export const useLayoutStyles = makeStyles((theme) => ({
       display: 'flex',
       minHeight: 100
    },
-   addMealButtonWrapper: {
+   addSymptomButtonWrapper: {
       background: fade(theme.palette.secondary.main, 0.03),
       height: '100%',
       display: 'flex',

@@ -8,8 +8,7 @@ const Name: FC<{ name: string; date: Date }> = ({ name, date }) => {
       <Box display="inline-block">
          <Typography
             component="span"
-            variant="h6"
-            style={{ fontWeight: 'bold' }}
+            style={{ fontWeight: 'bold', fontSize: 20 }}
          >
             {name}
          </Typography>
@@ -20,7 +19,11 @@ const Name: FC<{ name: string; date: Date }> = ({ name, date }) => {
          >
             at
          </Typography>
-         <Typography component="span" color="textSecondary">
+         <Typography
+            component="span"
+            color="textSecondary"
+            style={{ fontSize: 16 }}
+         >
             {moment(date).format('HH:mm')}
          </Typography>
       </Box>

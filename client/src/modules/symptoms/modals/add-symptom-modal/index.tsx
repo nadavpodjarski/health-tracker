@@ -4,11 +4,11 @@ import { Box, Typography, Grid } from '@material-ui/core'
 import { Symptom } from '../../../../types/symptoms'
 import * as symptomsUtils from '../../../../utilities/symptoms'
 
-import Duration from '../common/components/duration'
-import Name from '../common/components/name'
-import Description from '../common/components/description'
-import DatePicker from '../common/components/date-picker'
-import Scale from '../common/components/scale'
+import Duration from '../common/duration'
+import Name from '../common/name'
+import Description from '../common/description'
+import DatePicker from '../common/date-picker'
+import Scale from '../common/scale'
 import ActionButtons from './action-buttons'
 
 const AddSymptomModalContent: FC<{

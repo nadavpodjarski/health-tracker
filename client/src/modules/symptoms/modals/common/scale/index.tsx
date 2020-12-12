@@ -7,7 +7,7 @@ import {
    Typography,
    Box
 } from '@material-ui/core'
-import * as symptomUtils from '../../../../../../utilities/symptoms'
+import * as symptomUtils from '../../../../../utilities/symptoms'
 
 const Scale: FC<{ onChange: (value: number) => void; scale: number }> = ({
    onChange,

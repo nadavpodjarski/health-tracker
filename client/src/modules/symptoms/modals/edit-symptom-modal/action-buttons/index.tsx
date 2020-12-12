@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Grid, Button } from '@material-ui/core'
-import { useStyles } from '../../common/styles'
+import { useModalStyles } from '../../../styles/modals'
 
 import Loader from '../../../../../common/components/loader'
 
@@ -10,7 +10,7 @@ const AddMealActionButtons: FC<{
    isUpdating: boolean
    isDisabled: boolean
 }> = ({ onCancel, onConfirm, isUpdating, isDisabled }) => {
-   const classes = useStyles()
+   const classes = useModalStyles()
    return (
       <Grid container spacing={3} className={classes.actionButtonWrapper}>
          <Grid item container xs={6} justify="flex-end">

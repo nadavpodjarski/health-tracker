@@ -45,20 +45,19 @@ const useStyles = makeStyles((theme: Theme) => ({
    subHeaderWrapper: {
       display: 'flex',
       justifyContent: 'center',
-      padding: '10px 0',
-      [theme.breakpoints.down('sm')]: {
-         padding: '5px 0'
-      }
+      padding: '5px 0'
    },
    subHeader: {
       background: theme.palette.background.paper,
       borderRadius: '50px',
       boxShadow: theme.shadows[3],
-      padding: '0 15px',
+      padding: '0 10px',
       border: `2px solid ${theme.palette.primary.main}`,
       [theme.breakpoints.down('sm')]: {
          transform: 'scale(0.85)'
-      }
+      },
+      lineHeight: '32px',
+      fontSize: '14px'
    }
 }))
 

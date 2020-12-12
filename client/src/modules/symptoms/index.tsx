@@ -9,73 +9,20 @@ import * as symptomsUtils from '../../utilities/symptoms'
 
 import { Symptom } from '../../types/symptoms'
 
-import {
-   Box,
-   makeStyles,
-   createStyles,
-   Theme,
-   Button,
-   Typography
-} from '@material-ui/core'
+import { Box, Grid } from '@material-ui/core'
+
+import { useLayoutStyles } from './styles/layout'
 
 import SymptomsList from './symptoms-list'
 import AddSymptomModalContent from './modals/add-symptom-modal'
 import FilterOptions from './filter-options'
+import Intro from './intro'
+import AddSymptomButton from './add-symptom-button'
 
 import { DateRange } from '@material-ui/pickers/DateRangePicker/RangeTypes'
 
-const useStyles = makeStyles((theme: Theme) =>
-   createStyles({
-      moduleRoot: {
-         display: 'flex',
-         flex: 1,
-         minHeight: 0,
-         justifyContent: 'center',
-         width: '100%'
-      },
-      innerModule: {
-         width: '100%',
-         maxWidth: '1200px',
-         height: '100%',
-         display: 'flex',
-         flexDirection: 'column',
-         position: 'relative'
-      },
-      openModalButtonWrapper: {
-         display: 'flex',
-         alignItems: 'center',
-         width: '100%',
-         padding: '24px 0',
-         [theme.breakpoints.down('sm')]: {
-            padding: '12px 0'
-         }
-      },
-      openModalButton: {
-         fontSize: '20px',
-         background: theme.palette.primary.main,
-         color: theme.palette.common.white,
-         '&:hover': {
-            background: theme.palette.primary.main
-         },
-         [theme.breakpoints.down('sm')]: {
-            fontSize: '16px'
-         },
-         boxShadow: theme.shadows[4]
-      },
-      header: {
-         minHeight: 200,
-         textAlign: 'left',
-         width: '100%',
-         padding: '16px 0',
-         [theme.breakpoints.down('md')]: {
-            padding: '16px 12px'
-         }
-      }
-   })
-)
-
 const Symptoms = () => {
-   const classes = useStyles()
+   const classes = useLayoutStyles()
    const dispatch = useDispatch()
 
    const { symptoms, dateRange, isLoading } = useSelector(
@@ -123,22 +70,24 @@ const Symptoms = () => {
       <div className={classes.moduleRoot}>
          <Box className={classes.innerModule}>
             <Box className={classes.header}>
-               <Box>
-                  <Typography component="p" style={{ padding: '12px 0' }}>
-                     This is your <strong>Symptoms Tracker</strong>, Here you
-                     can Add, Edit and Delete Symptoms...
-                  </Typography>
-               </Box>
-               <Box className={classes.openModalButtonWrapper}>
-                  <Button
-                     className={classes.openModalButton}
-                     onClick={addSymptomModalToggler}
-                  >
-                     Add Symptom
-                  </Button>
-               </Box>
+               <Grid container spacing={2}>
+                  <Grid item xs={12} sm={8}>
+                     <Intro />
+                  </Grid>
+                  <Grid item xs={12} sm={4}>
+                     <AddSymptomButton
+                        className={classes.openModalButton}
+                        onClick={addSymptomModalToggler}
+                     />
+                  </Grid>
+                  <Grid item xs={12}>
+                     <FilterOptions
+                        onDateRangeChange={onDateRangeChange}
+                        dateRange={dateRange}
+                     />
+                  </Grid>
+               </Grid>
             </Box>
-            <FilterOptions {...{ onDateRangeChange, dateRange }} />
             <SymptomsList
                isLoading={isLoading}
                symptoms={symptoms}

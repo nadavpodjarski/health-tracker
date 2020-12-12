@@ -31,7 +31,7 @@ const Scale: FC<{ scale: SymptomsScale }> = ({ scale }) => {
                component="span"
                style={{
                   padding: '8px 0',
-                  fontSize: '20px',
+                  fontSize: 16,
                   fontWeight: 'bold'
                }}
             />

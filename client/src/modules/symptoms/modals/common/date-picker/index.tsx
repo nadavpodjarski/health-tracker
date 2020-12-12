@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { useDatePicker } from '../../../../../../common/hooks/useDatePicker'
+import { useDatePicker } from '../../../../../common/hooks/useDatePicker'
 import { Typography, Grid } from '@material-ui/core'
 
 const DatePicker: FC<{

@@ -6,7 +6,6 @@ import { ParsedDateRange } from '../../../types'
 
 const useStyles = makeStyles((theme) => ({
    root: {
-      height: '60px',
       display: 'flex',
       alignItems: 'center',
       [theme.breakpoints.down('sm')]: {
@@ -14,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
       }
    },
    dateRange: {
-      boxShadow: theme.shadows[2],
+      border: `2px solid ${theme.palette.divider}`,
       background: theme.palette.background.paper
    }
 }))
