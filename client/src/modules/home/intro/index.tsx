@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Typography, Grid, makeStyles, Divider } from '@material-ui/core'
-import Logo from '../../../../common/components/app-logo'
+import Logo from '../../../common/components/app-logo'
 
 const useStyles = makeStyles((theme) => ({
    header: {
@@ -53,7 +53,7 @@ const Intro = () => {
                      paddingLeft: 8
                   }}
                >
-                  MiTummy
+                  Mitummy
                </Typography>
             </Box>
          </Grid>
@@ -95,9 +95,6 @@ const Intro = () => {
                   }}
                >
                   <Box className={classes.bottom}>
-                     {/* <Typography variant="h5">
-                        Your are welo
-                     </Typography> */}
                      <Typography variant="h5">Goal</Typography>
                      <Divider
                         style={{

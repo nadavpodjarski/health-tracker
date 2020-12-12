@@ -4,7 +4,6 @@ import { useModal } from '../../common/hooks/useModal'
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as symptomsActions from '../../redux/trackers/symptoms/actions'
-import * as UIActions from '../../redux/ui/actions'
 import * as symptomsUtils from '../../utilities/symptoms'
 
 import { Symptom } from '../../types/symptoms'
@@ -35,7 +34,6 @@ const Symptoms = () => {
    }, [dateRange])
 
    useEffect(() => {
-      dispatch(UIActions.setModuleTitle('Symptoms'))
       return () => {
          dispatch(symptomsActions.cleanSymptomsState())
       }

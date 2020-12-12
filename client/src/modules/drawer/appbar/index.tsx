@@ -7,8 +7,6 @@ import AppLogo from '../../../common/components/app-logo'
 
 import MenuIcon from '@material-ui/icons/Menu'
 
-import { useSelector } from 'react-redux'
-
 const useStyles = makeStyles((theme) => ({
    appBar: {
       zIndex: 999,
@@ -52,7 +50,6 @@ const useStyles = makeStyles((theme) => ({
 
 const AppBar: FC<{ toggleDrawer: () => void }> = ({ toggleDrawer }) => {
    const classes = useStyles()
-   const moduleTitle = useSelector((state) => state.ui.moduleTitle)
 
    return (
       <Box className={classes.appBar}>
@@ -64,7 +61,7 @@ const AppBar: FC<{ toggleDrawer: () => void }> = ({ toggleDrawer }) => {
             </Box>
             <Box display="flex" height="100%" alignItems="center">
                <AppLogo size={36} />
-               <Typography>{moduleTitle}</Typography>
+               <Typography component="span">Mitummy</Typography>
             </Box>
             <Box display="flex" alignItems="center" justifyContent="flex-end">
                <Box margin="0 6px">

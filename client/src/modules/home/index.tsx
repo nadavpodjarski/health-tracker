@@ -1,8 +1,8 @@
 import React from 'react'
 import { makeStyles, Theme, Grid } from '@material-ui/core'
 
-import Intro from './components/intro'
-import LoginForm from './components/login-form'
+import Intro from './intro'
+import LoginForm from './login-form'
 
 const useStyles = makeStyles((theme: Theme) => ({
    root: {
@@ -11,10 +11,8 @@ const useStyles = makeStyles((theme: Theme) => ({
    },
    intro: {
       minHeight: '100%',
-      background: 'rgba(0,0,0,0.7)',
       padding: '16px',
-      textAlign: 'left',
-      color: 'white'
+      textAlign: 'left'
    },
    loginForm: {
       background: 'white',
@@ -36,7 +34,6 @@ const Home = () => {
                <Grid item xs={12} md={8} className={classes.intro}>
                   <Intro />
                </Grid>
-               {/*Login Form*/}
                <Grid
                   item
                   container

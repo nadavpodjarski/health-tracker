@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLayoutStyles } from './styles/layout'
 
 import * as nutritionActions from '../../redux/trackers/nutrition/actions'
-import * as UIActions from '../../redux/ui/actions'
 import * as nutritionUtils from '../../utilities/nutrition'
 
 import { DateRange } from '@material-ui/pickers/DateRangePicker/RangeTypes'
@@ -34,7 +33,6 @@ const Nutrition = () => {
    }, [dateRange])
 
    useEffect(() => {
-      dispatch(UIActions.setModuleTitle('Nutrition'))
       return () => {
          dispatch(nutritionActions.clearMealsState())
       }

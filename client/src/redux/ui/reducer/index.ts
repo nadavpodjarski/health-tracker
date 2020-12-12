@@ -3,8 +3,7 @@ import * as types from '../constants'
 
 const initialState: IUiState = {
    snackbar: { type: undefined, msg: '' },
-   theme: localStorage.getItem('MT_isDark') === 'true',
-   moduleTitle: ''
+   theme: localStorage.getItem('MT_isDark') === 'true'
 }
 
 export const uiReducer = (state = initialState, action: Action): IUiState => {
@@ -24,12 +23,6 @@ export const uiReducer = (state = initialState, action: Action): IUiState => {
             ...state,
             theme: action.payload
          }
-      case types.SET_MODULE_TITLE:
-         return {
-            ...state,
-            moduleTitle: action.payload
-         }
-
       default:
          return state
    }

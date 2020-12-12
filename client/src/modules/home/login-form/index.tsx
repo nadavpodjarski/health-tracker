@@ -1,10 +1,10 @@
 import React from 'react'
 import { Grid, makeStyles, Box, Typography } from '@material-ui/core'
 
-import { useFirebaseAuth } from '../../../../main/firebase/useFirebaseAuth'
+import { useFirebaseAuth } from '../../../main/firebase/useFirebaseAuth'
 
-import FacebookIcon from '../../../../resources/images/social-logos/facebook.png'
-import GoogleIcon from '../../../../resources/images/social-logos/google2.png'
+import FacebookIcon from '../../../resources/images/social-logos/facebook.png'
+import GoogleIcon from '../../../resources/images/social-logos/google2.png'
 import SocialLoginButton from '../social-login-button'
 
 const useStyles = makeStyles((theme) => ({
