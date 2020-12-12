@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Typography, colors } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import { MealTypes } from '../../../../../types/nutrition'
 
 const Type: FC<{ type: MealTypes }> = ({ type }) => {

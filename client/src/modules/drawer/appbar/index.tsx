@@ -1,11 +1,5 @@
 import React, { FC } from 'react'
-import {
-   Box,
-   makeStyles,
-   Typography,
-   Grid,
-   IconButton
-} from '@material-ui/core'
+import { Box, makeStyles, Typography, IconButton } from '@material-ui/core'
 
 import ProfileAvatar from '../../../common/components/profile-avatar'
 import ThemeSwitch from '../../../common/components/theme-switch'

@@ -10,6 +10,7 @@ const Dashboard = () => {
 
    useEffect(() => {
       dispatch(UIActions.setModuleTitle('Dashboard'))
+      //eslint-disable-next-line
    }, [])
 
    return <Box height="100%">Under Construction</Box>

@@ -1,6 +1,6 @@
 import React, { FC, SetStateAction, Dispatch } from 'react'
 import { Button, makeStyles, Chip, Paper } from '@material-ui/core'
-import { fade } from '@material-ui/core'
+
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
 import NotInterestedIcon from '@material-ui/icons/NotInterested'
