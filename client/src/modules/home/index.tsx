@@ -11,11 +11,9 @@ const useStyles = makeStyles((theme: Theme) => ({
    },
    intro: {
       minHeight: '100%',
-      padding: '16px',
       textAlign: 'left'
    },
    loginForm: {
-      background: 'white',
       [theme.breakpoints.down('sm')]: {
          width: '100%',
          minWidth: 0,

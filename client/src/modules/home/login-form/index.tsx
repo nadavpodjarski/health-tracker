@@ -51,13 +51,7 @@ const LoginForm = () => {
                   marginBottom: '24px'
                }}
             >
-               Try it
-               <Typography
-                  variant="h4"
-                  style={{ fontWeight: 900, lineHeight: 1.1 }}
-               >
-                  Now for free
-               </Typography>
+               Try it Now
             </Typography>
          </Box>
          <Grid item xs>
