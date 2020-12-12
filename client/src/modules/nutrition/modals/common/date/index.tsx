@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Grid, Typography } from '@material-ui/core'
 import { useDatePicker } from '../../../../../common/hooks/useDatePicker'
-import { useStyles } from '../styles'
+import { useModalStyles } from '../../../styles/modal'
 
 const MealDatePicker: FC<{
    onAcceptTime: (date: Date) => void
@@ -10,7 +10,7 @@ const MealDatePicker: FC<{
 }> = ({ onAcceptTime, date, disabled }) => {
    const { DateTimePicker } = useDatePicker()
 
-   const classes = useStyles()
+   const classes = useModalStyles()
 
    const onAccept = (date: Date | null) => {
       if (date) {

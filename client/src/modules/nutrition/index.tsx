@@ -3,11 +3,14 @@ import React, { useEffect } from 'react'
 import AddMealModalContent from './modals/add-meal-modal'
 import MealsList from './meal-list'
 import FilterOptions from './filter-options'
+import AddMealButton from './add-meal-button'
+import Intro from './intro'
 
-import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { Box, Button, Typography, Grid } from '@material-ui/core'
+import { Box, Grid } from '@material-ui/core'
 import { useModal } from '../../common/hooks/useModal'
 import { useDispatch, useSelector } from 'react-redux'
+
+import { useLayoutStyles } from './styles/layout'
 
 import * as nutritionActions from '../../redux/trackers/nutrition/actions'
 import * as UIActions from '../../redux/ui/actions'
@@ -16,61 +19,13 @@ import * as nutritionUtils from '../../utilities/nutrition'
 import { DateRange } from '@material-ui/pickers/DateRangePicker/RangeTypes'
 import { Meal } from '../../types/nutrition'
 
-const useStyles = makeStyles((theme) =>
-   createStyles({
-      moduleRoot: {
-         display: 'flex',
-         flex: 1,
-         minHeight: 0,
-         justifyContent: 'center',
-         width: '100%'
-      },
-      innerModule: {
-         width: '100%',
-         maxWidth: 1200,
-         height: '100%',
-         display: 'flex',
-         flexDirection: 'column',
-         position: 'relative'
-      },
-      openModalButtonWrapper: {
-         display: 'flex',
-         alignItems: 'center',
-         width: '100%',
-         padding: '24px 0',
-         [theme.breakpoints.down('sm')]: {
-            padding: '12px 0'
-         }
-      },
-      openModalButton: {
-         fontSize: '16px',
-         background: theme.palette.primary.main,
-         color: 'white',
-         '&:hover': {
-            background: theme.palette.primary.main
-         },
-         [theme.breakpoints.down('sm')]: {
-            fontSize: '16px'
-         }
-      },
-      header: {
-         textAlign: 'left',
-         width: '100%',
-         padding: '16px 0',
-         [theme.breakpoints.down('md')]: {
-            padding: '16px 12px'
-         }
-      }
-   })
-)
-
 const Nutrition = () => {
    const { isLoading, meals, dateRange } = useSelector(
       (state) => state.nutrition
    )
    const [addMealModalToggler, AddMealModal] = useModal()
 
-   const classes = useStyles()
+   const classes = useLayoutStyles()
    const dispatch = useDispatch()
 
    useEffect(() => {
@@ -79,7 +34,7 @@ const Nutrition = () => {
    }, [dateRange])
 
    useEffect(() => {
-      dispatch(UIActions.setModuleTtiel('Nutrition'))
+      dispatch(UIActions.setModuleTitle('Nutrition'))
       return () => {
          dispatch(nutritionActions.clearMealsState())
       }
@@ -105,43 +60,27 @@ const Nutrition = () => {
    }
 
    return (
-      <div className={classes.moduleRoot}>
+      <Box className={classes.moduleRoot}>
          <Box className={classes.innerModule}>
             {/*Header*/}
             <Box className={classes.header}>
-               <Grid container>
-                  <Grid item xs={12} md={7}>
-                     <Typography
-                        style={{
-                           padding: '12px 0',
-                           fontSize: '14px',
-                           lineHeight: 1.7
-                        }}
-                     >
-                        Add, Edit and Delete your meals contents. Take in
-                        consideration that the more detailed the food ingredient
-                        that you will type in, The easier it will be for you to
-                        track your food intolerance, and to mainatin a healthier
-                        mind and body.
-                     </Typography>
+               <Grid container spacing={2}>
+                  <Grid item xs={12} sm={8}>
+                     <Intro />
                   </Grid>
-                  <Grid
-                     item
-                     container
-                     xs={12}
-                     md={5}
-                     alignItems="center"
-                     justify="flex-end"
-                  >
-                     <Button
-                        onClick={addMealModalToggler}
+                  <Grid item xs={12} sm={4}>
+                     <AddMealButton
                         className={classes.openModalButton}
-                     >
-                        Add Meal
-                     </Button>
+                        onClick={addMealModalToggler}
+                     />
+                  </Grid>
+                  <Grid item xs={12}>
+                     <FilterOptions
+                        onDateRangeChange={onDateRangeChange}
+                        dateRange={dateRange}
+                     />
                   </Grid>
                </Grid>
-               <FilterOptions {...{ onDateRangeChange, dateRange }} />
             </Box>
 
             <MealsList
@@ -160,7 +99,7 @@ const Nutrition = () => {
                meal={nutritionUtils.makeNewMeal()}
             />
          </AddMealModal>
-      </div>
+      </Box>
    )
 }
 

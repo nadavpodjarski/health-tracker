@@ -22,7 +22,7 @@ export const setTheme = (checked: boolean) => {
    }
 }
 
-export const setModuleTtiel = (title: string) => {
+export const setModuleTitle = (title: string) => {
    return {
       type: types.SET_MODULE_TITLE,
       payload: title

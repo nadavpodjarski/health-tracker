@@ -26,12 +26,11 @@ const useStyles = makeStyles((theme) => ({
    toolbar: {
       display: 'flex',
       alignItems: 'center',
-      padding: theme.spacing(0, 1),
       // necessary for content to be below app bar
       ...theme.mixins.toolbar
    },
    drawer: {
-      flexShrink: 1,
+      flexShrink: 0,
       whiteSpace: 'nowrap',
       flexWrap: 'wrap'
    }

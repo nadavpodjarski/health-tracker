@@ -9,7 +9,7 @@ const Dashboard = () => {
    const dispatch = useDispatch()
 
    useEffect(() => {
-      dispatch(UIActions.setModuleTtiel('Dashboard'))
+      dispatch(UIActions.setModuleTitle('Dashboard'))
    }, [])
 
    return <Box height="100%">Dashboard</Box>

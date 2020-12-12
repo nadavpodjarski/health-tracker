@@ -88,7 +88,7 @@ const Symptoms = () => {
    }, [dateRange])
 
    useEffect(() => {
-      dispatch(UIActions.setModuleTtiel('Symptoms'))
+      dispatch(UIActions.setModuleTitle('Symptoms'))
       return () => {
          dispatch(symptomsActions.cleanSymptomsState())
       }

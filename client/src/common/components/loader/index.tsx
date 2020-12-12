@@ -1,11 +1,18 @@
 import React, { FC } from 'react'
-import { CircularProgress, Grid, Typography } from '@material-ui/core'
+import {
+   CircularProgress,
+   Grid,
+   Typography,
+   useTheme,
+   Box
+} from '@material-ui/core'
 
 const Loader: FC<{
    color?: string
    size?: number
    title?: string
 }> = ({ color, size, title }) => {
+   const theme = useTheme()
    return (
       <Grid
          style={{
@@ -20,11 +27,22 @@ const Loader: FC<{
          <Typography style={{ marginBottom: title ? '12px' : '' }}>
             {title}
          </Typography>
-         <CircularProgress
-            disableShrink
-            color={color ? 'inherit' : 'secondary'}
-            size={size}
-         />
+         <Box
+            style={{
+               background: theme.palette.background.paper,
+               padding: 12,
+               borderRadius: '50%',
+               boxShadow: theme.shadows[4],
+               display: 'flex',
+               alignItems: 'center'
+            }}
+         >
+            <CircularProgress
+               disableShrink
+               color={color ? 'inherit' : 'secondary'}
+               size={size}
+            />
+         </Box>
       </Grid>
    )
 }
