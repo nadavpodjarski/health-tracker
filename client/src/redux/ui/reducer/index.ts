@@ -29,6 +29,7 @@ export const uiReducer = (state = initialState, action: Action): IUiState => {
             ...state,
             moduleTitle: action.payload
          }
+
       default:
          return state
    }

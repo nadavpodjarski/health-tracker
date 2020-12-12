@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -40,18 +40,29 @@ const useStyles = makeStyles((theme) => ({
 
 const HomeDrawer: FC = () => {
    const classes = useStyles()
+   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
+   const toggleDrawer = () => {
+      setIsDrawerOpen((prevState) => !prevState)
+   }
 
    return (
       <Box className={classes.root}>
          <CssBaseline />
          <Hidden smDown>
-            <DesktopDrawer />
+            <DesktopDrawer
+               isDrawerOpen={isDrawerOpen}
+               toggleDrawer={toggleDrawer}
+            />
          </Hidden>
          <Hidden mdUp>
-            <MobileDrawer />
+            <MobileDrawer
+               isDrawerOpen={isDrawerOpen}
+               toggleDrawer={toggleDrawer}
+            />
          </Hidden>
          <main className={classes.content}>
-            <AppBar />
+            <AppBar toggleDrawer={toggleDrawer} />
             <DrawerRoutes />
          </main>
       </Box>

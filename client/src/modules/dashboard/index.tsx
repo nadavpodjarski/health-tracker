@@ -12,7 +12,7 @@ const Dashboard = () => {
       dispatch(UIActions.setModuleTitle('Dashboard'))
    }, [])
 
-   return <Box height="100%">Dashboard</Box>
+   return <Box height="100%">Under Construction</Box>
 }
 
 export default Dashboard

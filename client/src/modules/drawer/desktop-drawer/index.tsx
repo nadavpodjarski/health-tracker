@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { Drawer, Divider, makeStyles, Box, IconButton } from '@material-ui/core'
 
 import clsx from 'clsx'
@@ -36,26 +36,23 @@ const useStyles = makeStyles((theme) => ({
    }
 }))
 
-const DekstopDrawer: FC<{}> = ({}) => {
+const DekstopDrawer: FC<{
+   isDrawerOpen: boolean
+   toggleDrawer: () => void
+}> = ({ isDrawerOpen, toggleDrawer }) => {
    const classes = useStyles()
-
-   const [open, setOpen] = useState(false)
-
-   const handleDrawerOpen = () => {
-      setOpen((prevOpen) => !prevOpen)
-   }
 
    return (
       <Drawer
          variant="permanent"
          className={clsx(classes.drawer, {
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open
+            [classes.drawerOpen]: isDrawerOpen,
+            [classes.drawerClose]: !isDrawerOpen
          })}
          classes={{
             paper: clsx({
-               [classes.drawerOpen]: open,
-               [classes.drawerClose]: !open
+               [classes.drawerOpen]: isDrawerOpen,
+               [classes.drawerClose]: !isDrawerOpen
             })
          }}
       >
@@ -63,16 +60,16 @@ const DekstopDrawer: FC<{}> = ({}) => {
             <Box
                width="100%"
                display="flex"
-               justifyContent={open ? 'flex-end' : 'center'}
+               justifyContent={isDrawerOpen ? 'flex-end' : 'center'}
                alignItems="center"
             >
-               <IconButton aria-label="open drawer" onClick={handleDrawerOpen}>
+               <IconButton aria-label="open drawer" onClick={toggleDrawer}>
                   <MenuIcon fontSize="small" />
                </IconButton>
             </Box>
          </Box>
          <Divider />
-         <DrawerList open={open} />
+         <DrawerList open={isDrawerOpen} />
       </Drawer>
    )
 }
