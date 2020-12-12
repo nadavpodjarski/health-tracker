@@ -37,6 +37,10 @@ const useStyles = makeStyles((theme) => ({
          alignItems: 'flex-start',
          padding: '8px 8px'
       }
+   },
+   listItem: {
+      padding: theme.spacing(2),
+      position: 'relative'
    }
 }))
 
@@ -53,12 +57,9 @@ const SymptomListItem: FC<{
       <Box className={classes.root}>
          <ListItem
             key={`item-${item.id}`}
-            style={{
-               padding: '16px 16px',
-               position: 'relative'
-            }}
             component={Grid}
             container
+            className={classes.listItem}
          >
             <Grid item xs={12}>
                <Grid container spacing={2} alignItems="center">
@@ -92,12 +93,14 @@ const SymptomListItem: FC<{
             style={{ width: '100%', textAlignLast: 'left' }}
             in={isDescriptionOpen}
          >
-            <Box width="100%" padding="16px">
-               <Typography color="textSecondary" style={{ fontSize: '14px' }}>
+            <Box width="100%" padding={2}>
+               <Typography color="textSecondary" style={{ fontSize: 14 }}>
                   Description
                </Typography>
                <Divider style={{ margin: '8px 0' }} />
-               {item.symptom.description}
+               <Typography style={{ fontSize: 14 }}>
+                  {item.symptom.description}
+               </Typography>
             </Box>
          </Collapse>
       </Box>
