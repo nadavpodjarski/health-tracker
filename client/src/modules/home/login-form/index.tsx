@@ -72,14 +72,14 @@ const LoginForm = () => {
                      title="Log in with Facebook"
                   />
                </Grid>
-               <Grid item xs={12}>
+               {/* <Grid item xs={12}>
                   <SocialLoginButton
                      img={AnonymousIcon}
                      onClick={anonymousSignIn}
                      title="Log in Anonymous"
                      style={{ background: colors.yellow[700] }}
                   />
-               </Grid>
+               </Grid> */}
             </Grid>
          </Grid>
       </Grid>

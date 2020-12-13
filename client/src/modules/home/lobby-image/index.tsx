@@ -9,7 +9,7 @@ const LobbyImage: FC<{ height: number | string; width: number | string }> = ({
       <img
          src={lobbyImage}
          alt=""
-         style={{ maxHeight: height, maxWidth: width }}
+         style={{ maxHeight: height, maxWidth: width, width: '100%' }}
       />
    )
 }

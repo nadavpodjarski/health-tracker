@@ -5,6 +5,7 @@ import ProfileAvatar from '../../../common/components/profile-avatar'
 import ThemeSwitch from '../../../common/components/theme-switch'
 import AppLogo from '../../../common/components/app-logo'
 
+import Logo from '../../../resources/logo/logo.png'
 import MenuIcon from '@material-ui/icons/Menu'
 
 const useStyles = makeStyles((theme) => ({
@@ -60,7 +61,7 @@ const AppBar: FC<{ toggleDrawer: () => void }> = ({ toggleDrawer }) => {
                </IconButton>
             </Box>
             <Box display="flex" height="100%" alignItems="center">
-               <AppLogo size={36} />
+               <AppLogo size={36} src={Logo} />
                <Typography component="span">Mitummy</Typography>
             </Box>
             <Box display="flex" alignItems="center" justifyContent="flex-end">

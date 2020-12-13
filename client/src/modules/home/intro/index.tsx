@@ -4,8 +4,11 @@ import { makeStyles, Box, Typography, Button } from '@material-ui/core'
 const useStyles = makeStyles((theme) => ({
    textWrapper: {
       textAlign: 'left',
-      marginTop: 100,
-      padding: theme.spacing(0, 2)
+      marginTop: 80,
+      padding: theme.spacing(0, 2),
+      [theme.breakpoints.down('sm')]: {
+         marginTop: 50
+      }
    },
    readMoreButton: {
       textTransform: 'none',
