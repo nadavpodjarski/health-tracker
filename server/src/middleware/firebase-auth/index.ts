@@ -18,6 +18,7 @@ export const firebaseAuth = (
       .verifyIdToken(authHeader[1])
       .then((user) => {
          req.user = user
+         req.user.isAnonymous = !!user.provider_id
          return next()
       })
       .catch((err) => {

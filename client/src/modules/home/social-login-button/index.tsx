@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, CSSProperties } from 'react'
 import { Grid, Box, Typography, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
@@ -24,9 +24,6 @@ const useStyles = makeStyles((theme) => ({
       height: '100%',
       display: 'flex',
       alignItems: 'center'
-      // [theme.breakpoints.down('sm')]: {
-      //    display: 'none'
-      // }
    },
    socialLogoWrapper: {
       display: 'flex',
@@ -39,7 +36,8 @@ const SocialLoginButton: FC<{
    img: string
    onClick: () => void
    title: string
-}> = ({ img, title, onClick }) => {
+   style?: CSSProperties
+}> = ({ img, title, onClick, style }) => {
    const classes = useStyles()
    return (
       <Grid
@@ -47,6 +45,7 @@ const SocialLoginButton: FC<{
          alignItems="center"
          className={classes.socialLoginButton}
          onClick={onClick}
+         style={style}
       >
          <Grid item xs={3} md={3}>
             <Box className={classes.socialLogoWrapper}>

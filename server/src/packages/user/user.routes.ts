@@ -3,4 +3,4 @@ import * as UserController from './user.controller'
 
 export const userRouter = Router()
 
-userRouter.post('/add-user', UserController.addUser)
+userRouter.get('/get-profile', UserController.getProfile)

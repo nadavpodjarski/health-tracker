@@ -7,6 +7,7 @@ const UserSchema = new Schema({
    displayName: String,
    uid: String,
    picture: String,
+   isAnonymous: Boolean,
    createdAt: { type: Date, default: () => Date.now() }
 })
 

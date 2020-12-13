@@ -1,24 +1,28 @@
 import { Request, Response } from 'express'
 import { User } from './user.model'
 
-export const addUser = async (req: Request, res: Response) => {
+export const getProfile = async (req: Request, res: Response) => {
    const { email } = req.user
-   const { data } = req.body
    try {
       let user = await User.findOne({ email })
-      if (!user) {
-         const newUser = new User({
-            email: req.user.email,
-            displayName: req.user.name,
-            uid: req.user.uid,
-            picture: req.user.picture
-         })
-         user = await newUser.save()
+      let userProfile
+
+      if (user) {
+         userProfile = user.sanitizeObject()
+         return res.json(userProfile)
       }
 
-      const sanitizedUserObject = user.sanitizeObject()
+      const newUser = new User({
+         email: req.user.email,
+         displayName: req.user.name,
+         uid: req.user.uid,
+         picture: req.user.picture,
+         isAnonymous: req.user.isAnonymous
+      })
 
-      res.json(sanitizedUserObject)
+      await newUser.save()
+      userProfile = newUser.sanitizeObject()
+      return res.json(userProfile)
    } catch (err) {
       console.log(err.stack)
       res.status(500).json({ message: err.message })

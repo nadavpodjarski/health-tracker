@@ -12,12 +12,10 @@ import { routes } from './main/routes/constants'
 import { getTheme } from './main/theme/setCurrentTheme'
 import { ThemeProvider } from '@material-ui/core'
 
-import { IStore } from './types/redux'
-
 function App() {
    const dispatch = useDispatch()
 
-   const { theme } = useSelector((state: IStore) => state.ui)
+   const { theme } = useSelector((state) => state.ui)
    const history = useHistory()
 
    useEffect(() => {
@@ -26,15 +24,17 @@ function App() {
    }, [])
 
    return (
-      <ThemeProvider theme={getTheme(theme)}>
-         <div className="App">
-            <AppRoutes />
-            <SnackBar
-               position={{ vertical: 'bottom', horizontal: 'left' }}
-               duration={1500}
-            />
-         </div>
-      </ThemeProvider>
+      <>
+         <ThemeProvider theme={getTheme(theme)}>
+            <div className="App">
+               <AppRoutes />
+               <SnackBar
+                  position={{ vertical: 'bottom', horizontal: 'left' }}
+                  duration={1500}
+               />
+            </div>
+         </ThemeProvider>
+      </>
    )
 }
 export default App

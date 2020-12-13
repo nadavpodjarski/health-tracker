@@ -6,9 +6,9 @@ type User = {
    picture: string
 }
 
-export const addUser = async (): Promise<User> => {
+export const getProfile = async (): Promise<User> => {
    try {
-      const res = await axios.post('/api/user/add-user', {
+      const res = await axios.get('/api/user/get-profile', {
          data: {}
       })
       return res.data

@@ -1,61 +1,50 @@
 import React from 'react'
-import { Box, Typography, Grid, makeStyles } from '@material-ui/core'
-import Logo from '../../../common/components/app-logo'
+import { makeStyles, Box, Typography, Button } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
-   header: {
-      display: 'flex',
-      width: '100%',
-      alignItems: 'center',
-      padding: theme.spacing(2)
+   textWrapper: {
+      textAlign: 'left',
+      marginTop: 100,
+      padding: theme.spacing(0, 2)
    },
-   about: {
-      '& > p': {
-         fontSize: 22,
-         lineHeight: 1.6,
-         [theme.breakpoints.down('xs')]: {
-            fontSize: 16,
-            lineHeight: 1.4
-         }
-      },
-      width: '80%'
-   },
-   bottom: {
-      '& > p': {
-         fontSize: 22,
-         lineHeight: 1.6,
-         [theme.breakpoints.down('xs')]: {
-            fontSize: 16,
-            lineHeight: 1.4
-         }
-      },
-      width: '80%',
-      marginTop: '24px'
+   readMoreButton: {
+      textTransform: 'none',
+      background: theme.palette.primary.main,
+      color: theme.palette.common.white,
+      marginTop: 30,
+      width: 120,
+      borderRadius: 25,
+      '&:hover': {
+         background: theme.palette.primary.main,
+         color: theme.palette.common.white
+      }
    }
 }))
 
 const Intro = () => {
    const classes = useStyles()
    return (
-      <Grid container direction="column">
-         <Grid item xs>
-            <Box className={classes.header}>
-               <Box display="flex" alignItems="center">
-                  <Logo size={56} />
-               </Box>
-
-               <Typography
-                  variant="h4"
-                  style={{
-                     paddingLeft: 8,
-                     letterSpacing: 3
-                  }}
-               >
-                  Mitummy
-               </Typography>
-            </Box>
-         </Grid>
-      </Grid>
+      <Box height="100%" display="flex" width="100%">
+         <Box className={classes.textWrapper}>
+            <Typography
+               variant="h3"
+               style={{ fontWeight: 700, whiteSpace: 'nowrap' }}
+            >
+               Track Your
+            </Typography>
+            <Typography
+               variant="h3"
+               style={{ fontWeight: 700, whiteSpace: 'nowrap' }}
+            >
+               Food Intolerance
+            </Typography>
+            <Typography style={{ marginTop: 30, fontSize: 14 }}>
+               Mitummy aims to provide you tools to help track your food
+               intolerance and maitain a healthy mind and body
+            </Typography>
+            <Button className={classes.readMoreButton}>Read More</Button>
+         </Box>
+      </Box>
    )
 }
 

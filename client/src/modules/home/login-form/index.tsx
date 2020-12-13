@@ -1,17 +1,19 @@
 import React from 'react'
-import { Grid, makeStyles, Box, Typography } from '@material-ui/core'
+import { Grid, makeStyles, Box, colors } from '@material-ui/core'
 
 import { useFirebaseAuth } from '../../../main/firebase/useFirebaseAuth'
 
 import FacebookIcon from '../../../resources/images/social-logos/facebook.png'
 import GoogleIcon from '../../../resources/images/social-logos/google2.png'
+import AnonymousIcon from '../../../resources/images/social-logos/ano.png'
+
 import SocialLoginButton from '../social-login-button'
 
 const useStyles = makeStyles((theme) => ({
    socialButtonsContainer: {
-      width: '350px',
-      maxWidth: '80%',
-      margin: '16px 0'
+      background: 'white',
+      height: 400,
+      maxWidth: 350
    }
 }))
 
@@ -29,6 +31,11 @@ const LoginForm = () => {
    const facebooksignIn = async () => {
       await firebaseAuth().signInWithRedirect(faceBookProvider)
    }
+
+   const anonymousSignIn = async () => {
+      await firebaseAuth().signInAnonymously()
+   }
+
    return (
       <Grid
          container
@@ -43,30 +50,37 @@ const LoginForm = () => {
                padding: 8,
                color: 'black'
             }}
+         ></Box>
+         <Grid
+            container
+            justify="center"
+            alignItems="center"
+            style={{ flexGrow: 1 }}
          >
-            <Typography
-               variant="h3"
-               style={{
-                  fontWeight: 900,
-                  marginBottom: '24px'
-               }}
-            >
-               Try it Now
-            </Typography>
-         </Box>
-         <Grid item xs>
-            <SocialLoginButton
-               img={GoogleIcon}
-               onClick={googleSignIn}
-               title="Log in with Google"
-            />
-         </Grid>
-         <Grid item xs>
-            <SocialLoginButton
-               img={FacebookIcon}
-               onClick={facebooksignIn}
-               title="Log in with Facebook"
-            />
+            <Grid container spacing={2} item xs={12}>
+               <Grid item xs={12}>
+                  <SocialLoginButton
+                     img={GoogleIcon}
+                     onClick={googleSignIn}
+                     title="Log in with Google"
+                  />
+               </Grid>
+               <Grid item xs={12}>
+                  <SocialLoginButton
+                     img={FacebookIcon}
+                     onClick={facebooksignIn}
+                     title="Log in with Facebook"
+                  />
+               </Grid>
+               <Grid item xs={12}>
+                  <SocialLoginButton
+                     img={AnonymousIcon}
+                     onClick={anonymousSignIn}
+                     title="Log in Anonymous"
+                     style={{ background: colors.yellow[700] }}
+                  />
+               </Grid>
+            </Grid>
          </Grid>
       </Grid>
    )
