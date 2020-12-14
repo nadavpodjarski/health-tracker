@@ -16,6 +16,6 @@ export type ParsedDateRange = {
 }
 
 export interface IPrivateRoute {
-   isLoggedIn: boolean
+   isLoggedIn?: boolean
    redirectTo: string
 }

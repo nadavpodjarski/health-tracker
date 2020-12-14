@@ -3,7 +3,7 @@ import { useFirebaseAuth } from '../../../main/firebase/useFirebaseAuth'
 import { Dispatch } from 'react'
 import * as api from '../../../api/users'
 import * as apiUtils from '../../../utilities/api'
-
+import { IUser } from '../../../types/auth'
 const { firebaseAuth } = useFirebaseAuth()
 
 export const userLoggedIn = (user: any) => {
@@ -24,15 +24,15 @@ export const logout = () => {
    apiUtils.removeAuthToken()
 }
 
-export const onAuthStateChange = (history: any, route: string) => (
+export const onAuthStateChange = (cb: (user: IUser) => void) => (
    dispatch: Dispatch<any>
 ) => {
    firebaseAuth().onAuthStateChanged(async (user) => {
       if (user) {
          try {
-            const userProfile = await api.getProfile()
+            const userProfile: IUser = await api.getProfile()
             dispatch(userLoggedIn(userProfile))
-            history.push(route)
+            cb(userProfile)
          } catch (err) {
             console.log(err)
          }

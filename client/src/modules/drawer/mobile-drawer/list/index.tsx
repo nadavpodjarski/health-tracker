@@ -3,7 +3,7 @@ import { List, Divider } from '@material-ui/core'
 
 import DrawerMobileListItem from './list-item'
 
-import { routes } from '../../../../main/routes/constants'
+import { paths } from '../../../../main/routes/routes.config'
 
 import FastfoodIcon from '@material-ui/icons/Fastfood'
 import EmojiSymbolsIcon from '@material-ui/icons/EmojiSymbols'
@@ -14,12 +14,12 @@ const DrawerMobileList = () => {
       <List component="nav">
          <DrawerMobileListItem
             title={'Nutrition'}
-            route={routes.nutrition}
+            route={paths.NUTRITION}
             icon={FastfoodIcon}
          />
          <DrawerMobileListItem
             title={'Symptom'}
-            route={routes.symptoms}
+            route={paths.SYMPTOMS}
             icon={EmojiSymbolsIcon}
          />
          <Divider
@@ -29,7 +29,7 @@ const DrawerMobileList = () => {
          />
          <DrawerMobileListItem
             title={'Dashboard'}
-            route={routes.dashboard}
+            route={paths.DASHBOARD}
             icon={DashboardIcon}
          />
       </List>

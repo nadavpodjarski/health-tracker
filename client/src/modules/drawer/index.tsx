@@ -6,7 +6,7 @@ import Hidden from '@material-ui/core/Hidden'
 import Box from '@material-ui/core/Box'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
-import DrawerRoutes from '../../main/routes/drawerRoutes'
+import AppContent from '../../main/routes/app.content'
 import AppBar from './appbar'
 
 import DesktopDrawer from './desktop-drawer'
@@ -63,7 +63,7 @@ const HomeDrawer: FC = () => {
          </Hidden>
          <main className={classes.content}>
             <AppBar toggleDrawer={toggleDrawer} />
-            <DrawerRoutes />
+            <AppContent />
          </main>
       </Box>
    )

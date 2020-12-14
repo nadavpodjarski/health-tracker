@@ -2,9 +2,10 @@ import { Meals } from '../nutrition'
 import { Symptoms } from '../symptoms'
 import { ParsedDateRange } from '..'
 import { SnackBarAlert } from '../ui'
+import { IUser } from '../auth'
 
 export interface IAuth {
-   currentUser: any
+   currentUser: IUser | null
    isInitializing: boolean
 }
 

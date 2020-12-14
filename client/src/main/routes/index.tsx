@@ -1,38 +1,39 @@
-import React, { lazy, Suspense } from 'react'
-import { Route, Redirect, Switch } from 'react-router-dom'
-import { routes } from '../../main/routes/constants'
+import React, { useEffect, useState } from 'react'
+
+import { Redirect, Route, Switch } from 'react-router-dom'
+import { paths } from './routes.config'
 
 import { useSelector } from 'react-redux'
 
 import InitSpinner from '../../common/components/initialize-spinner'
 import PrivateRoute from '../../common/components/private-route'
 
-const Drawer = lazy(() => import('../../modules/drawer'))
-const Home = lazy(() => import('../../modules/home'))
+import Drawer from '../../modules/drawer'
+import Home from '../../modules/home'
 
 const AppRoutes = () => {
+   const [isLoggedIn, setIsLoggedIn] = useState<boolean>()
    const { currentUser, isInitializing } = useSelector((state) => state.auth)
+
+   useEffect(() => {
+      setIsLoggedIn(!!currentUser)
+   }, [currentUser])
 
    return (
       <>
-         {!isInitializing ? (
-            <Suspense fallback={<InitSpinner />}>
-               <Switch>
-                  <Route exact path={routes.home} component={Home} />
-                  <PrivateRoute
-                     redirectTo={routes.home}
-                     isLoggedIn={!!currentUser}
-                     path={routes.drawer}
-                     component={Drawer}
-                  />
-                  {/*Default Route*/}
-                  <Route>
-                     <Redirect to={routes.drawer} />
-                  </Route>
-               </Switch>
-            </Suspense>
-         ) : (
+         {isInitializing ? (
             <InitSpinner />
+         ) : (
+            <Switch>
+               <Route path={paths.HOME} component={Home} />
+               <PrivateRoute
+                  redirectTo={paths.HOME}
+                  isLoggedIn={isLoggedIn}
+                  component={Drawer}
+                  path={paths.DRAWER}
+               />
+               <Redirect to={paths.DRAWER} />
+            </Switch>
          )}
       </>
    )

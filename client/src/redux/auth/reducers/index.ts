@@ -23,6 +23,7 @@ export const authReducer = (
             currentUser: null,
             isInitializing: false
          }
+
       default:
          return state
    }

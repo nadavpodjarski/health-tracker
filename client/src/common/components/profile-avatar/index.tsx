@@ -33,7 +33,7 @@ const ProfileAvatar = () => {
    return (
       <>
          <Avatar
-            src={currentUser.picture}
+            src={currentUser?.picture}
             onClick={handleClick}
             style={{ cursor: 'pointer', width: '32px', height: '32px' }}
          />
@@ -57,13 +57,13 @@ const ProfileAvatar = () => {
             <Grid container style={{ padding: '12px' }}>
                <Grid item xs={12}>
                   <Typography style={{ fontSize: 'inherit' }}>
-                     {currentUser.displayName}
+                     {currentUser?.displayName}
                   </Typography>
                   <Typography
                      style={{ fontSize: '14px' }}
                      color="textSecondary"
                   >
-                     {currentUser.email}
+                     {currentUser?.email}
                   </Typography>
                </Grid>
                <Grid item xs={12}>

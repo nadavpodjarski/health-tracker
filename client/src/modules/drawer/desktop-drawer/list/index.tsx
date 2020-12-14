@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { List, Divider } from '@material-ui/core'
 
 import DrawerListItem from './list-item'
-import { routes } from '../../../../main/routes/constants'
+import { paths } from '../../../../main/routes/routes.config'
 
 import FastfoodIcon from '@material-ui/icons/Fastfood'
 import EmojiSymbolsIcon from '@material-ui/icons/EmojiSymbols'
@@ -14,13 +14,13 @@ const DrawerList: FC<{ open: boolean }> = ({ open }) => {
          <DrawerListItem
             title={'Nutrition'}
             open={open}
-            route={routes.nutrition}
+            route={paths.NUTRITION}
             icon={FastfoodIcon}
          />
          <DrawerListItem
             title={'Symptom'}
             open={open}
-            route={routes.symptoms}
+            route={paths.SYMPTOMS}
             icon={EmojiSymbolsIcon}
          />
          <Divider
@@ -31,7 +31,7 @@ const DrawerList: FC<{ open: boolean }> = ({ open }) => {
          <DrawerListItem
             title={'Dashboard'}
             open={open}
-            route={routes.dashboard}
+            route={paths.DASHBOARD}
             icon={DashboardIcon}
          />
       </List>

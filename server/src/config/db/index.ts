@@ -21,8 +21,3 @@ export const connectMongo = () => {
       }
    )
 }
-
-export const db = mongoose.connection.on('disconnect', (err) => {
-   console.log(err)
-   connectMongo()
-})
