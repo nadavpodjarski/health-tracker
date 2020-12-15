@@ -22,7 +22,6 @@ const ProfileAvatar = () => {
    const dispatch = useDispatch()
 
    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-      console.log(event.currentTarget)
       setAnchorEl(event.currentTarget)
    }
 

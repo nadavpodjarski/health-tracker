@@ -44,7 +44,7 @@ const DateRangePicker: FC<{
       }
    }, [startAt, endAt])
 
-   const onAcceptHandler = (date: DateRange) => {
+   const onAcceptHandler = (date: DateRange<Date>) => {
       if (date) {
          onChange(date)
          setValue(date)

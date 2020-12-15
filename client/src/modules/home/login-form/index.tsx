@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, makeStyles, Box, colors } from '@material-ui/core'
+import { Grid, makeStyles, Box, colors, Typography } from '@material-ui/core'
 
 import { useFirebaseAuth } from '../../../main/firebase/useFirebaseAuth'
 
@@ -48,9 +48,14 @@ const LoginForm = () => {
                width: '100%',
                textAlign: 'left',
                padding: 8,
-               color: 'black'
+               color: 'black',
+               height: 60,
+               display: 'flex',
+               alignItems: 'center'
             }}
-         ></Box>
+         >
+            <Typography>Login</Typography>
+         </Box>
          <Grid
             container
             justify="center"

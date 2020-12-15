@@ -7,7 +7,6 @@ const PrivateRoute: FC<IPrivateRoute & RouteProps> = ({
    isLoggedIn,
    ...rest
 }) => {
-   console.log('o')
    return isLoggedIn ? <Route {...rest} /> : <Redirect to={redirectTo} />
 }
 

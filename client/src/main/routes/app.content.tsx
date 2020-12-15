@@ -7,8 +7,15 @@ const DrawerRoutes = () => {
 
    return (
       <Switch>
-         {drawerRoutes.map((route) => {
-            return <Route exact path={route.path} component={route.component} />
+         {drawerRoutes.map((route, i) => {
+            return (
+               <Route
+                  key={`route_${route.name}_${i}`}
+                  exact
+                  path={route.path}
+                  component={route.component}
+               />
+            )
          })}
          <Route>
             <Redirect to={defaultPath} />

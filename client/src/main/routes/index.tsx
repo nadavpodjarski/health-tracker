@@ -32,7 +32,9 @@ const AppRoutes = () => {
                   component={Drawer}
                   path={paths.DRAWER}
                />
-               <Redirect to={paths.DRAWER} />
+               <Route>
+                  <Redirect to={paths.HOME} />
+               </Route>
             </Switch>
          )}
       </>

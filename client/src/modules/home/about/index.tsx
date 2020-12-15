@@ -1,7 +1,8 @@
 import React from 'react'
+import { Box } from '@material-ui/core'
 
 const About = () => {
-   return <div />
+   return <Box></Box>
 }
 
 export default About

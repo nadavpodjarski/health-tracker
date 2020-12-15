@@ -1,12 +1,14 @@
 import React from 'react'
 import { makeStyles, Theme, Grid, Box } from '@material-ui/core'
 
-import Intro from './intro'
 import LoginForm from './login-form'
 import Header from './header'
-import LobbyImage from './lobby-image'
+import LandingPage from './lp'
+import About from './about'
 
 import { useModal } from '../../common/hooks/useModal'
+
+import { Switch, Route } from 'react-router-dom'
 
 import { ThemeProvider } from '@material-ui/core'
 import { lightTheme } from '../../main/theme/light'
@@ -40,22 +42,7 @@ const Home = () => {
       <ThemeProvider theme={lightTheme}>
          <Box className={classes.root}>
             <Header loginFormModalToggler={loginFormModalToggler} />
-            <Grid container style={{ maxWidth: 1200, flex: 1 }}>
-               <Grid item xs={12} md={4}>
-                  <Intro />
-               </Grid>
-               <Grid
-                  item
-                  container
-                  justify="flex-end"
-                  alignItems="flex-end"
-                  xs={12}
-                  md={8}
-               >
-                  <LobbyImage width={800} height={600} />
-               </Grid>
-            </Grid>
-
+            <LandingPage />
             <LoginFormModal>
                <LoginForm />
             </LoginFormModal>
