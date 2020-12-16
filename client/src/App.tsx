@@ -1,46 +1,60 @@
 import React, { useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { onAuthStateChange } from './redux/auth/actions'
-
-import './App.css'
-
-import AppRoutes from './main/routes'
-import SnackBar from './common/components/snack-bar'
+import { onUserLogIn } from './redux/auth/actions'
 
 import { useHistory } from 'react-router-dom'
-import { paths } from './main/routes/routes.config'
 
-import { getTheme } from './main/theme/setCurrentTheme'
+import { Route, Switch, Redirect } from 'react-router-dom'
+import { mainAppPaths, homePaths } from './core/routes/routes.config'
+
+import InitSpinner from './common/components/initialize-spinner'
+import PrivateRoute from './common/components/private-route'
+
+import MainApp from './modules/main-app/'
+import Home from './modules/home'
+
 import { ThemeProvider } from '@material-ui/core'
+import { lightTheme } from './core/theme/light'
+
+import './App.css'
 
 function App() {
    const dispatch = useDispatch()
    const history = useHistory()
 
-   const { theme } = useSelector((state) => state.ui)
+   const { currentUser, isInitializing } = useSelector((state) => state.auth)
 
    useEffect(() => {
       dispatch(
-         onAuthStateChange(() => {
-            history.push(paths.DRAWER)
+         onUserLogIn((user) => {
+            history.push(mainAppPaths.MAIN_APP)
          })
       )
       // eslint-disable-next-line
    }, [])
 
    return (
-      <>
-         <ThemeProvider theme={getTheme(theme)}>
-            <div className="App">
-               <AppRoutes />
-               <SnackBar
-                  position={{ vertical: 'bottom', horizontal: 'left' }}
-                  duration={1500}
-               />
-            </div>
-         </ThemeProvider>
-      </>
+      <ThemeProvider theme={lightTheme}>
+         <div className="App">
+            {isInitializing ? (
+               <InitSpinner />
+            ) : (
+               <Switch>
+                  <PrivateRoute
+                     redirectTo={homePaths.HOME}
+                     isLoggedIn={!!currentUser}
+                     path={mainAppPaths.MAIN_APP}
+                     component={MainApp}
+                  />
+                  <Route>
+                     <Home />
+                  </Route>
+               </Switch>
+            )}
+         </div>
+      </ThemeProvider>
    )
 }
+
 export default App

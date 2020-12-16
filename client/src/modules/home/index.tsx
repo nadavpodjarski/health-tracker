@@ -1,17 +1,9 @@
 import React from 'react'
-import { makeStyles, Theme, Grid, Box } from '@material-ui/core'
+import { makeStyles, Theme, Box } from '@material-ui/core'
 
-import LoginForm from './login-form'
-import Header from './header'
-import LandingPage from './lp'
-import About from './about'
-
-import { useModal } from '../../common/hooks/useModal'
-
-import { Switch, Route } from 'react-router-dom'
-
-import { ThemeProvider } from '@material-ui/core'
-import { lightTheme } from '../../main/theme/light'
+import Navbar from './navbar'
+import HomeRoutes from '../../core/routes/routes.home'
+import { useLoginFormModal } from '../../common/hooks/useLoginModal'
 
 const useStyles = makeStyles((theme: Theme) => ({
    root: {
@@ -36,18 +28,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Home = () => {
    const classes = useStyles()
 
-   const [loginFormModalToggler, LoginFormModal] = useModal()
+   const [loginFormModalToggler, LoginFormModal] = useLoginFormModal()
 
    return (
-      <ThemeProvider theme={lightTheme}>
+      <>
          <Box className={classes.root}>
-            <Header loginFormModalToggler={loginFormModalToggler} />
-            <LandingPage />
-            <LoginFormModal>
-               <LoginForm />
-            </LoginFormModal>
+            <Navbar loginFormModalToggler={loginFormModalToggler} />
+            <HomeRoutes />
          </Box>
-      </ThemeProvider>
+         <LoginFormModal />
+      </>
    )
 }
 

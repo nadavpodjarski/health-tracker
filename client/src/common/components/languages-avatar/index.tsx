@@ -3,12 +3,12 @@ import React, { useState, useEffect } from 'react'
 import MenuItem from '@material-ui/core/MenuItem'
 import { Popover, Avatar, Icon } from '@material-ui/core'
 
-import languages from '../../../main/languages-not-in-use-yet/languagesMeta.json'
+import languages from '../../../core/languages-not-in-use-yet/languagesMeta.json'
 import { Typography } from '@material-ui/core'
 
 import { useDispatch, useSelector } from 'react-redux'
 import * as languagesActions from '../../../redux/languages/actions'
-import { flags } from '../../../main/languages-not-in-use-yet/languages-flags'
+import { flags } from '../../../core/languages-not-in-use-yet/languages-flags'
 
 export default function ControlledOpenSelect() {
    const [langs, setlangs] = useState<any>()

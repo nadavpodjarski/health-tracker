@@ -1,5 +1,5 @@
 import * as types from '../constants'
-import languages from '../../../main/languages-not-in-use-yet/languagesMeta.json'
+import languages from '../../../core/languages-not-in-use-yet/languagesMeta.json'
 import { Action } from '../../../types/redux'
 
 const initialState = {

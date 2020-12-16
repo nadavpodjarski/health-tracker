@@ -3,16 +3,20 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import { Provider } from 'react-redux'
-import store from './main/store'
+import store from './core/store'
 import * as serviceWorker from './serviceWorker'
-import { BrowserRouter } from 'react-router-dom'
+import { Router } from 'react-router-dom'
+
+import { createBrowserHistory } from 'history'
+
+const history = createBrowserHistory()
 
 ReactDOM.render(
    <React.StrictMode>
       <Provider store={store}>
-         <BrowserRouter>
+         <Router history={history}>
             <App />
-         </BrowserRouter>
+         </Router>
       </Provider>
    </React.StrictMode>,
    document.getElementById('root')

@@ -5,7 +5,6 @@ import * as middleware from './middleware'
 import compression from 'compression'
 import { api } from './api'
 import { connectMongo } from './config'
-import path from 'path'
 
 import admin, { ServiceAccount } from 'firebase-admin'
 import serviceAccount from '../secrets/firebase-service-account.json'
@@ -32,7 +31,6 @@ app.use(
 )
 
 const PORT = 8080
-
 app.listen(PORT, () => {
    console.log(`listening on port ${PORT}`)
 })

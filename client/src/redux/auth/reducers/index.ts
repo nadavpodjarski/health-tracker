@@ -1,7 +1,7 @@
 import * as types from '../constants'
 import { IAuth, Action } from '../../../types/redux'
 
-const initialState = {
+const initialState: IAuth = {
    currentUser: null,
    isInitializing: true
 }

@@ -1,9 +1,10 @@
 import * as types from '../constants'
-import { useFirebaseAuth } from '../../../main/firebase/useFirebaseAuth'
+import { useFirebaseAuth } from '../../../core/firebase/useFirebaseAuth'
 import { Dispatch } from 'react'
 import * as api from '../../../api/users'
 import * as apiUtils from '../../../utilities/api'
 import { IUser } from '../../../types/auth'
+
 const { firebaseAuth } = useFirebaseAuth()
 
 export const userLoggedIn = (user: any) => {
@@ -24,7 +25,7 @@ export const logout = () => {
    apiUtils.removeAuthToken()
 }
 
-export const onAuthStateChange = (cb: (user: IUser) => void) => (
+export const onUserLogIn = (cb: (user: IUser) => void) => (
    dispatch: Dispatch<any>
 ) => {
    firebaseAuth().onAuthStateChanged(async (user) => {

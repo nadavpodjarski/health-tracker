@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useFirebaseAuth } from '../main/firebase/useFirebaseAuth'
+import { useFirebaseAuth } from '../core/firebase/useFirebaseAuth'
 
 const { firebaseAuth } = useFirebaseAuth()
 
