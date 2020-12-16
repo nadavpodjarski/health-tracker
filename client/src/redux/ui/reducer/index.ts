@@ -3,7 +3,7 @@ import * as types from '../constants'
 
 const initialState: IUiState = {
    snackbar: { type: undefined, msg: '' },
-   theme: localStorage.getItem('MT_isDark') === 'true'
+   theme: JSON.parse(JSON.stringify(localStorage.getItem('MT_isDark')))
 }
 
 export const uiReducer = (state = initialState, action: Action): IUiState => {

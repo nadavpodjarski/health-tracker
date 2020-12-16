@@ -5,7 +5,7 @@ import { onUserLogIn } from './redux/auth/actions'
 
 import { useHistory } from 'react-router-dom'
 
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { mainAppPaths, homePaths } from './core/routes/routes.config'
 
 import InitSpinner from './common/components/initialize-spinner'
