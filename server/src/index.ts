@@ -3,7 +3,10 @@ import cors from 'cors'
 import helmet from 'helmet'
 import * as middleware from './middleware'
 import compression from 'compression'
+
 import { api } from './api'
+import { homeAPI } from './packages/home/home.routes'
+
 import { connectMongo } from './config'
 
 import admin, { ServiceAccount } from 'firebase-admin'
@@ -29,6 +32,8 @@ app.use(
    middleware.timeZone,
    api
 )
+
+app.use('/', homeAPI)
 
 const PORT = 8080
 app.listen(PORT, () => {

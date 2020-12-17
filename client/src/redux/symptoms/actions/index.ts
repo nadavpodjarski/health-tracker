@@ -1,12 +1,12 @@
 import { Dispatch } from 'react'
 
-import { Symptom } from '../../../../types/symptoms'
-import { ParsedDateRange } from '../../../../types'
+import { Symptom } from '../../../types/symptoms'
+import { ParsedDateRange } from '../../../types'
 import { DateRange } from '@material-ui/pickers/DateRangePicker/RangeTypes'
 
 import * as types from '../constants'
-import * as api from '../../../../api/symptoms'
-import * as uiActions from '../../../ui/actions'
+import * as api from '../../../api/symptoms'
+import * as uiActions from '../../ui/actions'
 
 // GET SYMPTOMS
 const createGetSymptoms = () => {

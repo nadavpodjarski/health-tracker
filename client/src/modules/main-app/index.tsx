@@ -17,8 +17,6 @@ import { ThemeProvider } from '@material-ui/core'
 
 import { useSelector } from 'react-redux'
 
-import SnackBar from '../../common/components/snack-bar'
-
 const useStyles = makeStyles((theme) => ({
    root: {
       display: 'flex',
@@ -77,10 +75,6 @@ const MainAPpDrawer: FC = () => {
                   <MainApp />
                </main>
             </Box>
-            <SnackBar
-               position={{ vertical: 'bottom', horizontal: 'left' }}
-               duration={1500}
-            />
          </ThemeProvider>
       </>
    )

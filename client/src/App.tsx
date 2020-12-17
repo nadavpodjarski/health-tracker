@@ -17,6 +17,8 @@ import Home from './modules/home'
 import { ThemeProvider } from '@material-ui/core'
 import { lightTheme } from './core/theme/light'
 
+import SnackBar from './common/components/snack-bar'
+
 import './App.css'
 
 function App() {
@@ -53,6 +55,10 @@ function App() {
                </Switch>
             )}
          </div>
+         <SnackBar
+            position={{ vertical: 'bottom', horizontal: 'left' }}
+            duration={1500}
+         />
       </ThemeProvider>
    )
 }

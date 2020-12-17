@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { useLayoutStyles } from './styles/layout'
 
-import * as nutritionActions from '../../../redux/trackers/nutrition/actions'
+import * as nutritionActions from '../../../redux/nutrition/actions'
 import * as nutritionUtils from '../../../utilities/nutrition'
 
 import { DateRange } from '@material-ui/pickers/DateRangePicker/RangeTypes'

@@ -50,8 +50,9 @@ const Intro = () => {
                Food Intolerance
             </Typography>
             <Typography style={{ marginTop: 30, fontSize: 14 }}>
-               Mitummy aims to provide you tools to help track your food
-               intolerance and maitain a healthy mind and body
+               Mitummy aims to provide you tools to help track your Gut healt
+               through food intolerance and allergies and maitain a healthy mind
+               and body
             </Typography>
             <Box className={classes.readMoreButtonWrapper}>
                <Link to={homePaths.ABOUT} className={classes.readMoreButton}>

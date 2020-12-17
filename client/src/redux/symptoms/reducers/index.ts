@@ -1,6 +1,6 @@
 import * as types from '../constants'
-import { ISymptoms, Action } from '../../../../types/redux'
-import * as appUtils from '../../../../utilities'
+import { ISymptoms, Action } from '../../../types/redux'
+import * as appUtils from '../../../utilities'
 
 const initialState: ISymptoms = {
    symptoms: [],

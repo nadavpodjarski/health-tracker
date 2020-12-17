@@ -24,8 +24,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      maxWidth: 1200,
-      padding: theme.spacing(2)
+      padding: theme.spacing(2, 0)
    },
    loginButton: {
       border: `1px solid ${theme.palette.primary.main}`,

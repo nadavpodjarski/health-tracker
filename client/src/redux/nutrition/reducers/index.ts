@@ -1,7 +1,7 @@
 import * as types from '../constants'
-import * as appUtils from '../../../../utilities'
+import * as appUtils from '../../../utilities'
 
-import { INutrition, Action } from '../../../../types/redux'
+import { INutrition, Action } from '../../../types/redux'
 
 const initialState: INutrition = {
    meals: [],

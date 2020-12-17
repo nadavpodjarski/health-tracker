@@ -1,11 +1,11 @@
 import { Dispatch } from 'react'
 
 import { DateRange } from '@material-ui/pickers/DateRangePicker/RangeTypes'
-import { ParsedDateRange } from '../../../../types'
-import { Meal } from '../../../../types/nutrition'
+import { ParsedDateRange } from '../../../types'
+import { Meal } from '../../../types/nutrition'
 
-import * as uiActions from '../../../ui/actions'
-import * as api from '../../../../api/nutrition'
+import * as uiActions from '../../ui/actions'
+import * as api from '../../../api/nutrition'
 import * as types from '../constants'
 
 // DELETE MEAL

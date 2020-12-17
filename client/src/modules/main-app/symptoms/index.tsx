@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { useModal } from '../../../common/hooks/useModal'
 import { useDispatch, useSelector } from 'react-redux'
 
-import * as symptomsActions from '../../../redux/trackers/symptoms/actions'
+import * as symptomsActions from '../../../redux/symptoms/actions'
 import * as symptomsUtils from '../../../utilities/symptoms'
 
 import { Symptom } from '../../../types/symptoms'

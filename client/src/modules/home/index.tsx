@@ -3,6 +3,7 @@ import { makeStyles, Theme, Box } from '@material-ui/core'
 
 import Navbar from './navbar'
 import HomeRoutes from '../../core/routes/routes.home'
+
 import { useLoginFormModal } from '../../common/hooks/useLoginModal'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -22,6 +23,13 @@ const useStyles = makeStyles((theme: Theme) => ({
          width: '100%',
          minWidth: 0
       }
+   },
+   content: {
+      maxWidth: 1200,
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      padding: theme.spacing(0, 2)
    }
 }))
 
@@ -33,8 +41,10 @@ const Home = () => {
    return (
       <>
          <Box className={classes.root}>
-            <Navbar loginFormModalToggler={loginFormModalToggler} />
-            <HomeRoutes />
+            <Box className={classes.content}>
+               <Navbar loginFormModalToggler={loginFormModalToggler} />
+               <HomeRoutes />
+            </Box>
          </Box>
          <LoginFormModal />
       </>

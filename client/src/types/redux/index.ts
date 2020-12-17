@@ -23,11 +23,17 @@ export interface ISymptoms {
    err: any
 }
 
+export interface IHome {
+   isSending: boolean
+   err: any
+}
+
 export interface IStore {
    auth: IAuth
    nutrition: INutrition
    ui: IUiState
    symptoms: ISymptoms
+   home: IHome
 }
 
 export type Action = {
