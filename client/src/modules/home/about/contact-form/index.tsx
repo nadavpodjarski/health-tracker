@@ -66,7 +66,13 @@ const ContactForm = () => {
    }
 
    return (
-      <Box display="flex" alignItems="center" flexDirection="column">
+      <Box
+         display="flex"
+         alignItems="center"
+         flexDirection="column"
+         justifyContent="center"
+         height="100%"
+      >
          <Box maxWidth="300px">
             <Box textAlign="left" padding="8px 0">
                <Typography>Feel free to contact</Typography>
