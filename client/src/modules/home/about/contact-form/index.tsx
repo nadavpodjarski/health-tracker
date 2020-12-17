@@ -31,6 +31,16 @@ const useStyles = makeStyles((theme) => ({
          background: 'lightgrey',
          color: theme.palette.secondary.main
       }
+   },
+   contantfomrWrapper: {
+      alignItems: 'flex-end',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      height: '100%',
+      [theme.breakpoints.down('sm')]: {
+         alignItems: 'center'
+      }
    }
 }))
 
@@ -66,13 +76,7 @@ const ContactForm = () => {
    }
 
    return (
-      <Box
-         display="flex"
-         alignItems="center"
-         flexDirection="column"
-         justifyContent="center"
-         height="100%"
-      >
+      <Box className={classes.contantfomrWrapper}>
          <Box maxWidth="300px">
             <Box textAlign="left" padding="8px 0">
                <Typography>Feel free to contact</Typography>
