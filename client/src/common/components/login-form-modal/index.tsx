@@ -45,39 +45,37 @@ const LoginForm = () => {
       >
          <Box
             style={{
-               width: '100%',
                textAlign: 'left',
                padding: 8,
                color: 'black',
-               height: 60,
+               height: 80,
                display: 'flex',
-               alignItems: 'center'
+               alignItems: 'center',
+               justifyContent: 'center'
             }}
          >
-            <Typography>Login</Typography>
+            <Typography style={{ fontSize: 28, fontWeight: 400 }}>
+               Login
+            </Typography>
          </Box>
-         <Grid
-            container
-            justify="center"
-            alignItems="center"
-            style={{ flexGrow: 1 }}
-         >
-            <Grid container spacing={2} item xs={12}>
-               <Grid item xs={12}>
-                  <SocialLoginButton
-                     img={GoogleIcon}
-                     onClick={googleSignIn}
-                     title="Log in with Google"
-                  />
-               </Grid>
-               <Grid item xs={12}>
-                  <SocialLoginButton
-                     img={FacebookIcon}
-                     onClick={facebooksignIn}
-                     title="Log in with Facebook"
-                  />
-               </Grid>
-               {/* <Grid item xs={12}>
+         <Grid container justify="center" style={{ marginTop: '16px' }}>
+            <Grid item xs={12}>
+               <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                     <SocialLoginButton
+                        img={GoogleIcon}
+                        onClick={googleSignIn}
+                        title="Log in with Google"
+                     />
+                  </Grid>
+                  <Grid item xs={12}>
+                     <SocialLoginButton
+                        img={FacebookIcon}
+                        onClick={facebooksignIn}
+                        title="Log in with Facebook"
+                     />
+                  </Grid>
+                  {/* <Grid item xs={12}>
                   <SocialLoginButton
                      img={AnonymousIcon}
                      onClick={anonymousSignIn}
@@ -85,6 +83,7 @@ const LoginForm = () => {
                      style={{ background: colors.yellow[700] }}
                   />
                </Grid> */}
+               </Grid>
             </Grid>
          </Grid>
       </Grid>
