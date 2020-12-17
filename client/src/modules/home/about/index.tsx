@@ -6,7 +6,6 @@ const useStyles = makeStyles((theme) => ({
    p: {
       margin: theme.spacing(3, 0),
       width: '100%'
-      // maxWidth: '500px'
    },
    pTitle: {
       fontWeight: 500

@@ -26,10 +26,7 @@ const useStyles = makeStyles((theme: Theme) => ({
    },
    content: {
       maxWidth: 1200,
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      padding: theme.spacing(0, 2)
+      height: '100%'
    }
 }))
 
@@ -42,8 +39,15 @@ const Home = () => {
       <>
          <Box className={classes.root}>
             <Box className={classes.content}>
-               <Navbar loginFormModalToggler={loginFormModalToggler} />
-               <HomeRoutes />
+               <Box
+                  display="flex"
+                  flexDirection="column"
+                  padding="0 16px"
+                  minHeight="100%"
+               >
+                  <Navbar loginFormModalToggler={loginFormModalToggler} />
+                  <HomeRoutes />
+               </Box>
             </Box>
          </Box>
          <LoginFormModal />
