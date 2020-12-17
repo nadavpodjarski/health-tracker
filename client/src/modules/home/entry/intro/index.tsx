@@ -9,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
    textWrapper: {
       textAlign: 'left',
       marginTop: 80,
-      padding: theme.spacing(0, 2),
       [theme.breakpoints.down('sm')]: {
          marginTop: 50
       }

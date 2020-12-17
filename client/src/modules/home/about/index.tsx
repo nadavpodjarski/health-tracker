@@ -59,7 +59,7 @@ const About = () => {
                </Typography>
                <Box display="inline-block">
                   <Typography component="span" style={{ fontSize: 14 }}>
-                     Create by
+                     Created by
                   </Typography>
                   <Typography
                      component="a"
