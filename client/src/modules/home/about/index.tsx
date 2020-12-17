@@ -21,8 +21,8 @@ const useStyles = makeStyles((theme) => ({
 const About = () => {
    const classes = useStyles()
    return (
-      <Box textAlign="left">
-         <Box marginTop={1}>
+      <Box textAlign="left" padding="16px 0">
+         <Box>
             <Typography variant="h5">Gut Microbiom/Flora</Typography>
             <Box className={classes.p}>
                <Typography className={classes.pTitle}>Definition</Typography>
