@@ -9,7 +9,6 @@ export type SnackBarAlert = {
 
 export type ModalOptions = {
    props?: any
-   width?: string | number
    style?: Pick<CSSProperties, 'background' | 'width'>
 }
 
