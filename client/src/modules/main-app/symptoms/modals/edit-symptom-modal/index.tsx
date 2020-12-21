@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 import { Box, Typography, Grid } from '@material-ui/core'
 
-import { Symptom } from '../../../../../types/symptoms'
+import { Symptom, SymptomDoc } from '../../../../../types/symptoms'
 import * as symptomsUtils from '../../../../../utilities/symptoms'
 
 import Duration from '../common/duration'
@@ -13,60 +13,66 @@ import ActionButtons from './action-buttons'
 
 import * as _ from 'lodash'
 
+import { useDispatch } from 'react-redux'
+import * as symptomActions from '../../../../../redux/symptoms/actions'
+import * as uiActions from '../../../../../redux/ui/actions'
+
 const AddSymptomModalContent: FC<{
-   onCancelEdit: () => void
-   onConfirmEdit: (symptom: Symptom) => Promise<any>
-   symptomToBeUpdated: Symptom
-   toggler: () => void
-}> = ({ onCancelEdit, onConfirmEdit, symptomToBeUpdated, toggler }) => {
-   const [state, setState] = useState(symptomToBeUpdated)
+   symptomDoc: SymptomDoc
+}> = ({ symptomDoc }) => {
+   const [symptom, updateSymptom] = useState<Symptom>(symptomDoc.symptom)
    const [isUpdating, setIsUpdating] = useState(false)
 
-   const [tempState] = useState(_.cloneDeep(symptomToBeUpdated))
+   const [tempState] = useState(_.cloneDeep(symptom))
+
+   const dispatch = useDispatch()
 
    const onChangeDuration = (duration: string | number) => {
-      setState((prevState) => ({
+      updateSymptom((prevState) => ({
          ...prevState,
          duration
       }))
    }
 
    const onChangeDescription = (description: string) => {
-      setState((prevState) => ({
+      updateSymptom((prevState) => ({
          ...prevState,
          description
       }))
    }
 
    const onChangeName = (name: string) => {
-      setState((prevState) => ({
+      updateSymptom((prevState) => ({
          ...prevState,
          name
       }))
    }
 
    const onAcceptTime = (date: Date) => {
-      setState((prevState) => ({
+      updateSymptom((prevState) => ({
          ...prevState,
          date
       }))
    }
 
    const onChangeScale = (scale: number) => {
-      setState((prevState) => ({
+      updateSymptom((prevState) => ({
          ...prevState,
          scale
       }))
    }
 
-   const onAdd = async () => {
-      if (_.isEqual(state, tempState)) return toggler()
+   const onConfirmEdit = async () => {
+      if (_.isEqual(symptomDoc, tempState))
+         return dispatch(uiActions.closeModal())
       setIsUpdating(true)
       try {
-         await onConfirmEdit(state)
+         await dispatch(symptomActions.editSymptom(symptom, symptomDoc.id))
       } catch (err) {
          console.log(err)
+      } finally {
          setIsUpdating(false)
+         dispatch(uiActions.closeModal())
       }
    }
 
@@ -82,37 +88,37 @@ const AddSymptomModalContent: FC<{
             <Grid item xs={12}>
                <Grid container spacing={2}>
                   <Grid item xs={12} sm={8}>
-                     <Name name={state.name} onChange={onChangeName} />
+                     <Name name={symptom.name} onChange={onChangeName} />
                   </Grid>
                   <Grid item xs={12} sm={4}>
                      <Duration
-                        duration={state.duration}
+                        duration={symptom.duration}
                         onChange={onChangeDuration}
                      />
                   </Grid>
                </Grid>
             </Grid>
             <Grid container item xs={12}>
-               <Scale scale={state.scale} onChange={onChangeScale} />
+               <Scale scale={symptom.scale} onChange={onChangeScale} />
             </Grid>
          </Grid>
 
          <Description
-            description={state.description}
+            description={symptom.description}
             onChange={onChangeDescription}
          />
 
          <DatePicker
-            date={state.date}
+            date={symptom.date}
             onAcceptTime={onAcceptTime}
             disabled={true}
          />
 
          <ActionButtons
             isUpdating={isUpdating}
-            onCancel={onCancelEdit}
-            isDisabled={!!symptomsUtils.isValidSymptom(state)}
-            onConfirm={onAdd}
+            onCancel={() => dispatch(uiActions.closeModal())}
+            isDisabled={!!symptomsUtils.isValidSymptom(symptom)}
+            onConfirm={onConfirmEdit}
          />
       </Box>
    )

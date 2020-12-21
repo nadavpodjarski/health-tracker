@@ -13,7 +13,7 @@ const MainAppRoutes = () => {
          <Route path={mainAppPaths.DASHBOARD} component={Dashboard} />
          <Route path={mainAppPaths.SYMPTOMS} component={Symptoms} />
          <Route>
-            <Redirect to={mainAppPaths.NUTRITION} />
+            <Redirect to={mainAppPaths.SYMPTOMS} />
          </Route>
       </Switch>
    )

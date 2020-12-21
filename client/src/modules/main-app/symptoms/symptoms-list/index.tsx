@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import {
    List,
    ListSubheader,
@@ -12,12 +12,7 @@ import {
 import Loader from '../../../../common/components/loader'
 import SymptomListItem from './list-item'
 
-import AddSymptomModalContent from '../modals/add-symptom-modal'
-import DeleteSymptomMdalContent from '../modals/delete-symptom-modal'
-import EditSymptomModalContent from '../modals/edit-symptom-modal'
-
 import { Symptom, SymptomDoc, Symptoms } from '../../../../types/symptoms'
-import { useModal } from '../../../../common/hooks/useModal'
 
 import * as _ from 'lodash'
 
@@ -66,7 +61,7 @@ const SymptomsList: FC<{
    symptoms: Symptoms
    onCopySymptom: (symptom: Symptom) => Promise<any>
    onDeleteSymptom: (docId: string) => Promise<any>
-   onEditSymptom: (symptom: Symptom, docId: string) => Promise<any>
+   onEditSymptom: (symptom: SymptomDoc) => Promise<any>
 }> = ({
    isLoading,
    symptoms,
@@ -74,60 +69,20 @@ const SymptomsList: FC<{
    onEditSymptom,
    onCopySymptom
 }) => {
-   const [symptomIdToBeDeleted, setSymptomIdToBeDeleted] = useState<string>('')
-   const [copiedSymptom, setCopiedSymptom] = useState<Symptom | null>()
-   const [
-      symptomDocToBeUpdated,
-      setSymptomDocToBeUpdated
-   ] = useState<SymptomDoc | null>(null)
-
-   const [editModalToggler, EditModal] = useModal()
-   const [deleteModalToggler, DeleteModal] = useModal()
-   const [copyModalToggler, CopyModal] = useModal()
-
    const classes = useStyles()
 
    const setDeleteSymptom = (docId: string) => {
-      setSymptomIdToBeDeleted(docId)
-      deleteModalToggler()
+      onDeleteSymptom(docId)
    }
 
-   const setEditSymptom = (item: SymptomDoc) => {
-      setSymptomDocToBeUpdated(_.cloneDeep(item))
-      editModalToggler()
+   const setEditSymptom = (symptomDoc: SymptomDoc) => {
+      onEditSymptom(_.cloneDeep(symptomDoc))
    }
 
    const setCopySymptom = (meal: Symptom) => {
       const newSymptom = _.cloneDeep(meal)
       newSymptom.date = new Date()
-      setCopiedSymptom(newSymptom)
-      copyModalToggler()
-   }
-
-   const onCancelDelete = () => {
-      setSymptomIdToBeDeleted('')
-      deleteModalToggler()
-   }
-
-   const onCancelEdit = () => {
-      setSymptomDocToBeUpdated(null)
-      editModalToggler()
-   }
-
-   const onConfirmDelete = async (docId: string) => {
-      try {
-         await onDeleteSymptom(docId)
-         setSymptomIdToBeDeleted('')
-         deleteModalToggler()
-      } catch (err) {}
-   }
-
-   const onConfirmEdit = async (symptom: Symptom) => {
-      if (symptomDocToBeUpdated?.id) {
-         await onEditSymptom(symptom, symptomDocToBeUpdated.id)
-         setSymptomDocToBeUpdated(null)
-         editModalToggler()
-      }
+      onCopySymptom(newSymptom)
    }
 
    return (
@@ -200,47 +155,6 @@ const SymptomsList: FC<{
             >
                <Loader title="Fetching Symptoms" withShadow />
             </ListItem>
-         )}
-
-         {/*Delete Modal*/}
-         {symptomIdToBeDeleted ? (
-            <DeleteModal width={500}>
-               <DeleteSymptomMdalContent
-                  onCancelDelete={onCancelDelete}
-                  onConfirmDelete={(event) =>
-                     onConfirmDelete(symptomIdToBeDeleted)
-                  }
-               />
-            </DeleteModal>
-         ) : (
-            ''
-         )}
-
-         {/*Edit Modal*/}
-         {symptomDocToBeUpdated ? (
-            <EditModal width={1200}>
-               <EditSymptomModalContent
-                  symptomToBeUpdated={symptomDocToBeUpdated.symptom}
-                  toggler={editModalToggler}
-                  onConfirmEdit={onConfirmEdit}
-                  onCancelEdit={onCancelEdit}
-               />
-            </EditModal>
-         ) : (
-            ''
-         )}
-
-         {/*Copy Modal*/}
-         {copiedSymptom ? (
-            <CopyModal width={1200}>
-               <AddSymptomModalContent
-                  symptom={copiedSymptom}
-                  onAddSymptom={onCopySymptom}
-                  modalToggler={copyModalToggler}
-               />
-            </CopyModal>
-         ) : (
-            ''
          )}
       </List>
    )

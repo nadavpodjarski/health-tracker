@@ -11,13 +11,15 @@ import DatePicker from '../common/date-picker'
 import Scale from '../common/scale'
 import ActionButtons from './action-buttons'
 
-const AddSymptomModalContent: FC<{
-   symptom: Symptom
-   modalToggler: () => void
-   onAddSymptom: (symptom: Symptom) => Promise<any>
-}> = ({ symptom, modalToggler, onAddSymptom }) => {
-   const [state, setState] = useState(symptom)
+import { useDispatch } from 'react-redux'
+import * as uiActions from '../../../../../redux/ui/actions'
+import * as symptomActions from '../../../../../redux/symptoms/actions'
+
+const AddSymptomModalContent: FC<{ symptom?: Symptom }> = ({ symptom }) => {
+   const [state, setState] = useState(symptom || symptomsUtils.makeNewSymptom())
    const [isSaving, setIsSaving] = useState(false)
+
+   const dispatch = useDispatch()
 
    const onChangeDuration = (duration: string | number) => {
       setState((prevState) => ({
@@ -57,11 +59,12 @@ const AddSymptomModalContent: FC<{
    const onAdd = async () => {
       try {
          setIsSaving(true)
-         await onAddSymptom(state)
-         modalToggler()
+         await dispatch(symptomActions.addSymptom(state))
          setIsSaving(false)
       } catch (err) {
          console.log(err)
+      } finally {
+         dispatch(uiActions.closeModal())
       }
    }
 
@@ -101,7 +104,7 @@ const AddSymptomModalContent: FC<{
 
          <ActionButtons
             isSaving={isSaving}
-            onCancel={modalToggler}
+            onCancel={() => dispatch(uiActions.closeModal())}
             isDisabled={!!symptomsUtils.isValidSymptom(state)}
             onConfirm={onAdd}
          />

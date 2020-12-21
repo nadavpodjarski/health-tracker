@@ -1,24 +1,23 @@
 import React, { useEffect } from 'react'
 
-import { useModal } from '../../../common/hooks/useModal'
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as symptomsActions from '../../../redux/symptoms/actions'
-import * as symptomsUtils from '../../../utilities/symptoms'
 
-import { Symptom } from '../../../types/symptoms'
+import { Symptom, SymptomDoc } from '../../../types/symptoms'
 
 import { Box, Grid } from '@material-ui/core'
 
 import { useLayoutStyles } from './styles/layout'
 
 import SymptomsList from './symptoms-list'
-import AddSymptomModalContent from './modals/add-symptom-modal'
 import FilterOptions from './filter-options'
 import Intro from './intro'
 import AddSymptomButton from './add-symptom-button'
 
 import { DateRange } from '@material-ui/pickers/DateRangePicker/RangeTypes'
+
+import * as uiActions from '../../../redux/ui/actions'
 
 const Symptoms = () => {
    const classes = useLayoutStyles()
@@ -40,28 +39,40 @@ const Symptoms = () => {
       //eslint-disable-next-line
    }, [])
 
-   const [addSymptomModalToggler, AddSymptomModal] = useModal()
-
    const onDateRangeChange = (date: DateRange) => {
       date[0] = date[0] || new Date()
       date[1] = date[1] || new Date()
       dispatch(symptomsActions.setSymptomsDateRange(date))
    }
 
-   const onAddSymptom = async (symptom: Symptom) => {
-      return dispatch(symptomsActions.addSymptom(symptom))
+   const onAddSymptomHandler = async () => {
+      dispatch(uiActions.setModal('add-symptom', { width: 1200 }))
    }
 
-   const onCopySymptom = async (symptom: Symptom) => {
-      return dispatch(symptomsActions.addSymptom(symptom))
+   const onCopySymptomHandler = async (symptom: Symptom) => {
+      dispatch(
+         uiActions.setModal('add-symptom', { props: { symptom }, width: 1200 })
+      )
    }
 
-   const onEditSymptom = async (symptom: Symptom, docId: string) => {
-      return dispatch(symptomsActions.editSymptom(symptom, docId))
+   const onEditSymptomHandler = async (symptomDoc: SymptomDoc) => {
+      return dispatch(
+         uiActions.setModal('edit-symptom', {
+            props: { symptomDoc },
+            width: 1200
+         })
+      )
    }
 
-   const onDeleteSymptom = async (docId: string) => {
-      return dispatch(symptomsActions.deleteSymptom(docId))
+   const onDeleteSymptomHandler = async (docId: string) => {
+      dispatch(
+         uiActions.setModal('delete-symptom', {
+            props: {
+               docId
+            },
+            width: 500
+         })
+      )
    }
 
    return (
@@ -75,7 +86,7 @@ const Symptoms = () => {
                   <Grid item xs={12} sm={4}>
                      <AddSymptomButton
                         className={classes.addSymptomlButton}
-                        onClick={addSymptomModalToggler}
+                        onClick={onAddSymptomHandler}
                      />
                   </Grid>
                   <Grid item xs={12}>
@@ -89,18 +100,11 @@ const Symptoms = () => {
             <SymptomsList
                isLoading={isLoading}
                symptoms={symptoms}
-               onCopySymptom={onCopySymptom}
-               onDeleteSymptom={onDeleteSymptom}
-               onEditSymptom={onEditSymptom}
+               onCopySymptom={onCopySymptomHandler}
+               onDeleteSymptom={onDeleteSymptomHandler}
+               onEditSymptom={onEditSymptomHandler}
             />
          </Box>
-         <AddSymptomModal width={1200}>
-            <AddSymptomModalContent
-               symptom={symptomsUtils.makeNewSymptom()}
-               modalToggler={addSymptomModalToggler}
-               onAddSymptom={onAddSymptom}
-            />
-         </AddSymptomModal>
       </div>
    )
 }

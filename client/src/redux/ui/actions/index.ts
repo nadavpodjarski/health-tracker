@@ -25,7 +25,6 @@ export const setTheme = (checked: boolean) => {
 }
 
 export const setModal = (modalType: ModalType, opt?: ModalOptions) => {
-   console.log(opt)
    return {
       type: types.SET_MODAL,
       payload: {

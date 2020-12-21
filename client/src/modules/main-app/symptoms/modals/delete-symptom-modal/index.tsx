@@ -2,23 +2,23 @@ import React, { FC, useState } from 'react'
 import { Grid, Button, Typography, Divider, useTheme } from '@material-ui/core'
 import Loader from '../../../../../common/components/loader'
 
-const DeleteModalContent: FC<{
-   onCancelDelete: (
-      event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-   ) => void
-   onConfirmDelete: (
-      event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-   ) => Promise<any>
-}> = ({ onCancelDelete, onConfirmDelete }) => {
+import { useDispatch } from 'react-redux'
+import * as uiActions from '../../../../../redux/ui/actions'
+import * as symptomActions from '../../../../../redux/symptoms/actions'
+
+const DeleteModalContent: FC<{ docId: string }> = ({ docId }) => {
    const [isDeleting, setIsDeleting] = useState<boolean>(false)
 
    const theme = useTheme()
+   const dispatch = useDispatch()
+
    const onConfirm = async (
       event: React.MouseEvent<HTMLButtonElement, MouseEvent>
    ) => {
       setIsDeleting(true)
-      await onConfirmDelete(event)
+      await dispatch(symptomActions.deleteSymptom(docId))
       setIsDeleting(false)
+      dispatch(uiActions.closeModal())
    }
 
    return (
@@ -39,7 +39,7 @@ const DeleteModalContent: FC<{
                      background: theme.palette.primary.main,
                      color: 'white'
                   }}
-                  onClick={onCancelDelete}
+                  onClick={() => dispatch(uiActions.closeModal())}
                >
                   Cancel
                </Button>
