@@ -4,8 +4,8 @@ import { makeStyles, Theme, Box } from '@material-ui/core'
 import Navbar from './navbar'
 import HomeRoutes from '../../core/routes/routes.home'
 
-import { ThemeProvider } from '@material-ui/core'
 import { lightTheme } from '../../core/theme/light'
+import { ThemeProvider } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: Theme) => ({
    root: {

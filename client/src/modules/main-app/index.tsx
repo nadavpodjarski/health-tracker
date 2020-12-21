@@ -12,9 +12,6 @@ import AppBar from './drawer/appbar'
 import DesktopDrawer from './drawer/desktop-drawer'
 import MobileDrawer from './drawer/mobile-drawer'
 
-import { getTheme } from '../../core/theme/setCurrentTheme'
-import { ThemeProvider } from '@material-ui/core'
-
 import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
@@ -51,31 +48,27 @@ const MainAPpDrawer: FC = () => {
       setIsDrawerOpen((prevState) => !prevState)
    }
 
-   const { theme } = useSelector((state) => state.ui)
-
    return (
       <>
-         <ThemeProvider theme={getTheme(theme)}>
-            <Box className={classes.root}>
-               <CssBaseline />
-               <Hidden smDown>
-                  <DesktopDrawer
-                     isDrawerOpen={isDrawerOpen}
-                     toggleDrawer={toggleDrawer}
-                  />
-               </Hidden>
-               <Hidden mdUp>
-                  <MobileDrawer
-                     isDrawerOpen={isDrawerOpen}
-                     toggleDrawer={toggleDrawer}
-                  />
-               </Hidden>
-               <main className={classes.content}>
-                  <AppBar toggleDrawer={toggleDrawer} />
-                  <MainApp />
-               </main>
-            </Box>
-         </ThemeProvider>
+         <Box className={classes.root}>
+            <CssBaseline />
+            <Hidden smDown>
+               <DesktopDrawer
+                  isDrawerOpen={isDrawerOpen}
+                  toggleDrawer={toggleDrawer}
+               />
+            </Hidden>
+            <Hidden mdUp>
+               <MobileDrawer
+                  isDrawerOpen={isDrawerOpen}
+                  toggleDrawer={toggleDrawer}
+               />
+            </Hidden>
+            <main className={classes.content}>
+               <AppBar toggleDrawer={toggleDrawer} />
+               <MainApp />
+            </main>
+         </Box>
       </>
    )
 }

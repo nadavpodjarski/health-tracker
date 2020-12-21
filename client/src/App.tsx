@@ -14,19 +14,17 @@ import PrivateRoute from './common/components/private-route'
 import MainApp from './modules/main-app/'
 import Home from './modules/home'
 
-import { ThemeProvider } from '@material-ui/core'
-
 import DynamicModal from './common/dynamic-modal'
 
 import SnackBar from './common/components/snack-bar'
 import './App.css'
+
 import { getTheme } from './core/theme/setCurrentTheme'
+import { ThemeProvider } from '@material-ui/core'
 
 function App() {
    const dispatch = useDispatch()
    const history = useHistory()
-
-   const { theme } = useSelector((state) => state.ui)
 
    const { currentUser, isInitializing } = useSelector((state) => state.auth)
 
@@ -38,6 +36,8 @@ function App() {
       )
       // eslint-disable-next-line
    }, [])
+
+   const { theme } = useSelector((state) => state.ui)
 
    return (
       <ThemeProvider theme={getTheme(theme)}>
