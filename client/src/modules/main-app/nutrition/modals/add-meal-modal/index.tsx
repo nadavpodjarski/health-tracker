@@ -9,15 +9,19 @@ import MealComments from '../common/comments'
 import MealDatePicker from '../common/date'
 import AddMealActionButtons from './action-buttons'
 
+import { useDispatch } from 'react-redux'
+import * as uiActions from '../../../../../redux/ui/actions'
+import * as nutritionActions from '../../../../../redux/nutrition/actions'
+
 import { Typography, Box } from '@material-ui/core'
 
-const AddMealModalContent: FC<{
-   modalToggler: () => void
-   onAddMeal: (meal: Meal) => Promise<any>
-   meal: Meal
-}> = ({ modalToggler, onAddMeal, meal }) => {
-   const [state, setState] = useState<Meal>(meal)
+const AddMealModalContent: FC<{ meal?: Meal }> = ({ meal }) => {
+   const [state, setState] = useState<Meal>(
+      meal || nutritionUtils.makeNewMeal()
+   )
    const [isSaving, setIsSaving] = useState<boolean>(false)
+
+   const dispatch = useDispatch()
 
    // Add Meal ingredient
    const onAddMealIngredient = () => {
@@ -30,7 +34,8 @@ const AddMealModalContent: FC<{
 
    // Delete Meal Ingredient
    const onDeleteMealIngredient = (id: string) => {
-      if (state.ingredients.length === 1) return modalToggler()
+      if (state.ingredients.length === 1)
+         return dispatch(uiActions.closeModal())
       setState((prevState) => ({
          ...prevState,
          ingredients: [...prevState.ingredients.filter((ing) => ing.id !== id)]
@@ -73,8 +78,8 @@ const AddMealModalContent: FC<{
    const onConfirm = async () => {
       setIsSaving(true)
       try {
-         await onAddMeal(state)
-         modalToggler()
+         await dispatch(nutritionActions.addMeal(state))
+         dispatch(uiActions.closeModal())
       } catch (err) {
          // TODO handle err
          console.log(err)
@@ -112,7 +117,7 @@ const AddMealModalContent: FC<{
          {/*Action Buttons*/}
          <AddMealActionButtons
             onConfirm={onConfirm}
-            onCancel={modalToggler}
+            onCancel={() => dispatch(uiActions.closeModal())}
             isSaving={isSaving}
             isDisabled={!!nutritionUtils.isValidMeal(state)}
          />

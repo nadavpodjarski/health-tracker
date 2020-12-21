@@ -16,6 +16,7 @@ import { getTheme } from '../../core/theme/setCurrentTheme'
 import { ThemeProvider } from '@material-ui/core'
 
 import { useSelector } from 'react-redux'
+import DynamicModal from '../../common/dynamic-modal'
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -75,6 +76,7 @@ const MainAPpDrawer: FC = () => {
                   <MainApp />
                </main>
             </Box>
+            <DynamicModal />
          </ThemeProvider>
       </>
    )

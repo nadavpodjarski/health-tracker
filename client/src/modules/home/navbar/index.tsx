@@ -6,6 +6,9 @@ import Logo from '../../../common/components/app-logo'
 import { Link } from 'react-router-dom'
 import { homePaths } from '../../../core/routes/routes.config'
 
+import { useDispatch } from 'react-redux'
+import * as uiActions from '../../../redux/ui/actions'
+
 const useStyles = makeStyles((theme) => ({
    header: {
       display: 'flex',
@@ -49,10 +52,14 @@ const useStyles = makeStyles((theme) => ({
    }
 }))
 
-const Header: FC<{ loginFormModalToggler: () => void }> = ({
-   loginFormModalToggler
-}) => {
+const Header: FC = () => {
    const classes = useStyles()
+   const dispatch = useDispatch()
+
+   const setUpModal = () => {
+      dispatch(uiActions.setModal('login-form'))
+   }
+
    return (
       <Box className={classes.header}>
          <Box className={classes.innerHeader}>
@@ -68,10 +75,7 @@ const Header: FC<{ loginFormModalToggler: () => void }> = ({
                </Typography>
             </Link>
             <Box className={classes.navLinksWrapper}>
-               <Button
-                  className={classes.loginButton}
-                  onClick={loginFormModalToggler}
-               >
+               <Button className={classes.loginButton} onClick={setUpModal}>
                   Login
                </Button>
             </Box>

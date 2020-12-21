@@ -1,28 +1,25 @@
 import React, { useEffect } from 'react'
 
-import AddMealModalContent from './modals/add-meal-modal'
 import MealsList from './meal-list'
 import FilterOptions from './filter-options'
 import AddMealButton from './add-meal-button'
 import Intro from './intro'
 
 import { Box, Grid } from '@material-ui/core'
-import { useModal } from '../../../common/hooks/useModal'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { useLayoutStyles } from './styles/layout'
 
 import * as nutritionActions from '../../../redux/nutrition/actions'
-import * as nutritionUtils from '../../../utilities/nutrition'
+import * as uiActions from '../../../redux/ui/actions'
 
 import { DateRange } from '@material-ui/pickers/DateRangePicker/RangeTypes'
-import { Meal } from '../../../types/nutrition'
+import { Meal, MealDoc } from '../../../types/nutrition'
 
 const Nutrition = () => {
    const { isLoading, meals, dateRange } = useSelector(
       (state) => state.nutrition
    )
-   const [addMealModalToggler, AddMealModal] = useModal()
 
    const classes = useLayoutStyles()
    const dispatch = useDispatch()
@@ -45,16 +42,34 @@ const Nutrition = () => {
       dispatch(nutritionActions.setMealsDateRange(date))
    }
 
-   const onAddMeal = async (meal: Meal) => {
-      return dispatch(nutritionActions.addMeal(meal))
+   const onAddMealHandler = async () => {
+      dispatch(uiActions.setModal('add-meal', { width: 1200 }))
    }
 
-   const onDeleteMeal = async (docId: string) => {
-      return dispatch(nutritionActions.deleteMeal(docId))
+   const onCopyMealHandler = async (meal: Meal) => {
+      dispatch(uiActions.setModal('add-meal', { props: { meal }, width: 1200 }))
    }
 
-   const onEditMeal = async (meal: Meal, docId: string) => {
-      return dispatch(nutritionActions.editMeal(meal, docId))
+   const onDeleteMealHandler = async (docId: string) => {
+      dispatch(
+         uiActions.setModal('delete-meal', {
+            props: {
+               docId
+            },
+            width: 500
+         })
+      )
+   }
+
+   const onEditMealHandler = async (mealDoc: MealDoc) => {
+      dispatch(
+         uiActions.setModal('edit-meal', {
+            props: {
+               mealDoc
+            },
+            width: 1200
+         })
+      )
    }
 
    return (
@@ -69,7 +84,7 @@ const Nutrition = () => {
                   <Grid item xs={12} sm={4}>
                      <AddMealButton
                         className={classes.addMealButton}
-                        onClick={addMealModalToggler}
+                        onClick={onAddMealHandler}
                      />
                   </Grid>
                   <Grid item xs={12}>
@@ -82,21 +97,13 @@ const Nutrition = () => {
             </Box>
 
             <MealsList
-               onCopyMeal={onAddMeal}
-               onDeleteMeal={onDeleteMeal}
-               onEditMeal={onEditMeal}
+               onCopyMeal={onCopyMealHandler}
+               onEditMeal={onEditMealHandler}
+               onDeleteMeal={onDeleteMealHandler}
                isLoading={isLoading}
                meals={meals}
             />
          </Box>
-
-         <AddMealModal width={1200}>
-            <AddMealModalContent
-               modalToggler={addMealModalToggler}
-               onAddMeal={onAddMeal}
-               meal={nutritionUtils.makeNewMeal()}
-            />
-         </AddMealModal>
       </Box>
    )
 }

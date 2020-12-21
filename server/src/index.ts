@@ -5,7 +5,6 @@ import * as middleware from './middleware'
 import compression from 'compression'
 
 import { api } from './api'
-import { homeAPI } from './packages/home/home.routes'
 
 import { connectMongo } from './config'
 
@@ -25,15 +24,7 @@ app.use(cors())
 app.use(compression())
 app.use(helmet())
 
-app.use(
-   '/api',
-   middleware.apiRateLimiter,
-   middleware.firebaseAuth,
-   middleware.timeZone,
-   api
-)
-
-app.use('/', homeAPI)
+app.use('/api', middleware.apiRateLimiter, api)
 
 const PORT = 8080
 app.listen(PORT, () => {

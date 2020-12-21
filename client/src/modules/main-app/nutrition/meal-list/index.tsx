@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import {
    List,
    ListSubheader,
@@ -12,12 +12,8 @@ import {
 import Loader from '../../../../common/components/loader'
 
 import MealListItem from './list-item'
-import DeleteModalContent from '../modals/delete-modal'
-import EditModalContent from '../modals/edit-meal-modal'
-import AddModalContent from '../modals/add-meal-modal'
 
 import { Meal, Meals, MealDoc } from '../../../../types/nutrition'
-import { useModal } from '../../../../common/hooks/useModal'
 
 import * as _ from 'lodash'
 
@@ -65,62 +61,23 @@ const MealsList: FC<{
    isLoading: boolean
    meals: Meals
    onCopyMeal: (meal: Meal) => Promise<any>
+   onEditMeal: (mealDoc: MealDoc) => Promise<any>
    onDeleteMeal: (docId: string) => Promise<any>
-   onEditMeal: (meal: Meal, docId: string) => Promise<any>
-}> = ({ isLoading, meals, onDeleteMeal, onEditMeal, onCopyMeal }) => {
-   const [mealIdToBeDeleted, setMealIdToBeDeleted] = useState<string>('')
-   const [copiedMeal, setCopiedMeal] = useState<Meal>()
-   const [mealDocToBeUpdated, setMealDocToBeUpdated] = useState<MealDoc | null>(
-      null
-   )
-
-   const [editModalToggler, EditModal] = useModal()
-   const [deleteModalToggler, DeleteModal] = useModal()
-   const [copyModalToggler, CopyModal] = useModal()
-
+}> = ({ isLoading, meals, onEditMeal, onCopyMeal, onDeleteMeal }) => {
    const classes = useStyles()
 
    const setDeleteMeal = (docId: string) => {
-      setMealIdToBeDeleted(docId)
-      deleteModalToggler()
+      onDeleteMeal(docId)
    }
 
-   const onCancelDelete = () => {
-      setMealIdToBeDeleted('')
-      deleteModalToggler()
-   }
-
-   const onCancelEdit = () => {
-      setMealDocToBeUpdated(null)
-      editModalToggler()
-   }
-
-   const setEditMeal = (item: MealDoc) => {
-      setMealDocToBeUpdated(_.cloneDeep(item))
-      editModalToggler()
+   const setEditMeal = (mealDoc: MealDoc) => {
+      onEditMeal(_.cloneDeep(mealDoc))
    }
 
    const setCopyMeal = (meal: Meal) => {
       const newMeal = _.cloneDeep(meal)
       newMeal.date = new Date()
-      setCopiedMeal(newMeal)
-      copyModalToggler()
-   }
-
-   const onConfirmDelete = async (docId: string) => {
-      try {
-         await onDeleteMeal(docId)
-         setMealIdToBeDeleted('')
-         deleteModalToggler()
-      } catch (err) {}
-   }
-
-   const onConfirmEdit = async (meal: Meal) => {
-      if (mealDocToBeUpdated?.id) {
-         await onEditMeal(meal, mealDocToBeUpdated.id)
-         setMealDocToBeUpdated(null)
-         editModalToggler()
-      }
+      onCopyMeal(newMeal)
    }
 
    return (
@@ -189,47 +146,6 @@ const MealsList: FC<{
             >
                <Loader title="Fetching Meals" withShadow />
             </ListItem>
-         )}
-
-         {/*Delete Modal*/}
-         {mealIdToBeDeleted ? (
-            <DeleteModal width={500}>
-               <DeleteModalContent
-                  onCancelDelete={onCancelDelete}
-                  onConfirmDelete={(event) =>
-                     onConfirmDelete(mealIdToBeDeleted)
-                  }
-               />
-            </DeleteModal>
-         ) : (
-            ''
-         )}
-
-         {/*Edit Modal*/}
-         {mealDocToBeUpdated ? (
-            <EditModal width={1200}>
-               <EditModalContent
-                  onCancelEdit={onCancelEdit}
-                  onConfirmEdit={onConfirmEdit}
-                  mealToBeUpdated={mealDocToBeUpdated.meal}
-                  toggler={editModalToggler}
-               />
-            </EditModal>
-         ) : (
-            ''
-         )}
-
-         {/*Copy Modal*/}
-         {copiedMeal ? (
-            <CopyModal width={1200}>
-               <AddModalContent
-                  onAddMeal={onCopyMeal}
-                  meal={copiedMeal as Meal}
-                  modalToggler={copyModalToggler}
-               />
-            </CopyModal>
-         ) : (
-            ''
          )}
       </List>
    )

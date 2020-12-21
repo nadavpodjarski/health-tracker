@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { mailer } from '../../config/mailer'
+import { mailer } from '../../config/'
 
 export const postContactForm = async (req: Request, res: Response) => {
    const {

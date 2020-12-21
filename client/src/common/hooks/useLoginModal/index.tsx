@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { useModal } from '../useModal'
-import LoginForm from '../../components/login-form-modal'
+import LoginForm from '../../components/login-form'
 
 export const useLoginFormModal = () => {
    const [modalToggler, Modal] = useModal()

@@ -39,7 +39,7 @@ const Toast: FC<{ position: SnackbarOrigin; duration: number }> = ({
          autoHideDuration={duration}
          anchorOrigin={{ vertical, horizontal }}
       >
-         <MuiAlert elevation={6} variant="filled" severity={type}>
+         <MuiAlert elevation={6} variant="standard" severity={type}>
             {msg}
          </MuiAlert>
       </Snackbar>

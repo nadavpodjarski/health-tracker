@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme) => ({
       '&:disabled': {
          background: 'lightgrey',
          color: theme.palette.secondary.main
-      }
+      },
+      height: 56
    },
    contantfomrWrapper: {
       alignItems: 'flex-end',

@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import * as HomeController from './home.controller'
 
-export const homeAPI = Router()
+export const homeRouter = Router()
 
-homeAPI.post('/send-contact-form', HomeController.postContactForm)
+homeRouter.post('/send-contact-form', HomeController.postContactForm)

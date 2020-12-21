@@ -18,7 +18,6 @@ import { ThemeProvider } from '@material-ui/core'
 import { lightTheme } from './core/theme/light'
 
 import SnackBar from './common/components/snack-bar'
-
 import './App.css'
 
 function App() {

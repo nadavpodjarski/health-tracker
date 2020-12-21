@@ -4,8 +4,6 @@ import { makeStyles, Theme, Box } from '@material-ui/core'
 import Navbar from './navbar'
 import HomeRoutes from '../../core/routes/routes.home'
 
-import { useLoginFormModal } from '../../common/hooks/useLoginModal'
-
 const useStyles = makeStyles((theme: Theme) => ({
    root: {
       background: 'white',
@@ -33,8 +31,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Home = () => {
    const classes = useStyles()
 
-   const [loginFormModalToggler, LoginFormModal] = useLoginFormModal()
-
    return (
       <>
          <Box className={classes.root}>
@@ -45,12 +41,11 @@ const Home = () => {
                   padding="0 16px"
                   minHeight="100%"
                >
-                  <Navbar loginFormModalToggler={loginFormModalToggler} />
+                  <Navbar />
                   <HomeRoutes />
                </Box>
             </Box>
          </Box>
-         <LoginFormModal />
       </>
    )
 }

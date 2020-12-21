@@ -1,12 +1,16 @@
-import { Action, IUiState } from '../../../types/redux'
+import { Action, IUIState } from '../../../types/redux'
 import * as types from '../constants'
 
-const initialState: IUiState = {
+const initialState: IUIState = {
    snackbar: { type: undefined, msg: '' },
-   theme: JSON.parse(JSON.stringify(localStorage.getItem('MT_isDark')))
+   theme: JSON.parse(localStorage.getItem('MT_isDark') as string),
+   modal: {
+      type: null,
+      options: {}
+   }
 }
 
-export const uiReducer = (state = initialState, action: Action): IUiState => {
+export const uiReducer = (state = initialState, action: Action): IUIState => {
    switch (action.type) {
       case types.SET_SNACKBAR:
          return {
@@ -23,6 +27,23 @@ export const uiReducer = (state = initialState, action: Action): IUiState => {
             ...state,
             theme: action.payload
          }
+      case types.SET_MODAL:
+         return {
+            ...state,
+            modal: {
+               type: action.payload.type,
+               options: action.payload.options
+            }
+         }
+
+      case types.CLOSE_MODAL:
+         return {
+            ...state,
+            modal: {
+               type: null
+            }
+         }
+
       default:
          return state
    }

@@ -2,24 +2,26 @@ import React, { FC, useState } from 'react'
 import { Grid, Button, Typography, Divider, useTheme } from '@material-ui/core'
 import Loader from '../../../../../common/components/loader'
 
+import { useDispatch } from 'react-redux'
+
+import * as nutritionActions from '../../../../../redux/nutrition/actions'
+import * as uiActions from '../../../../../redux/ui/actions'
+
 const DeleteModalContent: FC<{
-   onCancelDelete: (
-      event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-   ) => void
-   onConfirmDelete: (
-      event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-   ) => Promise<any>
-}> = ({ onCancelDelete, onConfirmDelete }) => {
+   docId: string
+}> = ({ docId }) => {
    const [isDeleting, setIsDeleting] = useState<boolean>(false)
 
+   const dispatch = useDispatch()
    const theme = useTheme()
 
    const onConfirm = async (
       event: React.MouseEvent<HTMLButtonElement, MouseEvent>
    ) => {
       setIsDeleting(true)
-      await onConfirmDelete(event)
+      await dispatch(nutritionActions.deleteMeal(docId))
       setIsDeleting(false)
+      dispatch(uiActions.closeModal())
    }
 
    return (
@@ -37,7 +39,7 @@ const DeleteModalContent: FC<{
                      background: theme.palette.primary.main,
                      color: 'white'
                   }}
-                  onClick={onCancelDelete}
+                  onClick={() => dispatch(uiActions.closeModal())}
                >
                   Cancel
                </Button>
