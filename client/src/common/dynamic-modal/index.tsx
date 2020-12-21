@@ -20,6 +20,7 @@ const DynamicModal: FC = () => {
          open={!!modal.type}
          closeModal={closeModal}
          width={modal?.options?.width}
+         style={modal.options?.style}
       >
          <ModalContent {...modal.options?.props} />
       </SpringModal>

@@ -5,8 +5,7 @@ const initialState: IUIState = {
    snackbar: { type: undefined, msg: '' },
    theme: JSON.parse(localStorage.getItem('MT_isDark') as string),
    modal: {
-      type: null,
-      options: {}
+      type: null
    }
 }
 
@@ -30,10 +29,7 @@ export const uiReducer = (state = initialState, action: Action): IUIState => {
       case types.SET_MODAL:
          return {
             ...state,
-            modal: {
-               type: action.payload.type,
-               options: action.payload.options
-            }
+            modal: action.payload.modal
          }
 
       case types.CLOSE_MODAL:

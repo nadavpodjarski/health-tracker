@@ -4,6 +4,9 @@ import { makeStyles, Theme, Box } from '@material-ui/core'
 import Navbar from './navbar'
 import HomeRoutes from '../../core/routes/routes.home'
 
+import { ThemeProvider } from '@material-ui/core'
+import { lightTheme } from '../../core/theme/light'
+
 const useStyles = makeStyles((theme: Theme) => ({
    root: {
       background: 'white',
@@ -32,7 +35,7 @@ const Home = () => {
    const classes = useStyles()
 
    return (
-      <>
+      <ThemeProvider theme={lightTheme}>
          <Box className={classes.root}>
             <Box className={classes.content}>
                <Box
@@ -46,7 +49,7 @@ const Home = () => {
                </Box>
             </Box>
          </Box>
-      </>
+      </ThemeProvider>
    )
 }
 

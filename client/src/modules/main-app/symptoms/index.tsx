@@ -46,12 +46,21 @@ const Symptoms = () => {
    }
 
    const onAddSymptomHandler = async () => {
-      dispatch(uiActions.setModal('add-symptom', { width: 1200 }))
+      dispatch(
+         uiActions.setModal('add-symptom', {
+            style: {
+               width: 1200
+            }
+         })
+      )
    }
 
    const onCopySymptomHandler = async (symptom: Symptom) => {
       dispatch(
-         uiActions.setModal('add-symptom', { props: { symptom }, width: 1200 })
+         uiActions.setModal('add-symptom', {
+            props: { symptom },
+            style: { width: 1200 }
+         })
       )
    }
 
@@ -59,7 +68,7 @@ const Symptoms = () => {
       return dispatch(
          uiActions.setModal('edit-symptom', {
             props: { symptomDoc },
-            width: 1200
+            style: { width: 1200 }
          })
       )
    }
@@ -70,7 +79,7 @@ const Symptoms = () => {
             props: {
                docId
             },
-            width: 500
+            style: { width: 500 }
          })
       )
    }

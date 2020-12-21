@@ -57,7 +57,14 @@ const Header: FC = () => {
    const dispatch = useDispatch()
 
    const setUpModal = () => {
-      dispatch(uiActions.setModal('login-form'))
+      dispatch(
+         uiActions.setModal('login-form', {
+            style: {
+               background: 'white',
+               width: 300
+            }
+         })
+      )
    }
 
    return (

@@ -15,14 +15,18 @@ import MainApp from './modules/main-app/'
 import Home from './modules/home'
 
 import { ThemeProvider } from '@material-ui/core'
-import { lightTheme } from './core/theme/light'
+
+import DynamicModal from './common/dynamic-modal'
 
 import SnackBar from './common/components/snack-bar'
 import './App.css'
+import { getTheme } from './core/theme/setCurrentTheme'
 
 function App() {
    const dispatch = useDispatch()
    const history = useHistory()
+
+   const { theme } = useSelector((state) => state.ui)
 
    const { currentUser, isInitializing } = useSelector((state) => state.auth)
 
@@ -36,7 +40,7 @@ function App() {
    }, [])
 
    return (
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={getTheme(theme)}>
          <div className="App">
             {isInitializing ? (
                <InitSpinner />
@@ -58,6 +62,7 @@ function App() {
             position={{ vertical: 'bottom', horizontal: 'left' }}
             duration={1500}
          />
+         <DynamicModal />
       </ThemeProvider>
    )
 }

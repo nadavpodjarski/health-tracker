@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Grid, makeStyles, Box, Typography } from '@material-ui/core'
 
 import { useFirebaseAuth } from '../../../core/firebase/useFirebaseAuth'
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
    }
 }))
 
-const LoginForm = () => {
+const LoginForm: FC = () => {
    const { firebaseAuth } = useFirebaseAuth()
    const classes = useStyles()
 

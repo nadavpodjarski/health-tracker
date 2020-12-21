@@ -28,8 +28,10 @@ export const setModal = (modalType: ModalType, opt?: ModalOptions) => {
    return {
       type: types.SET_MODAL,
       payload: {
-         type: modalType,
-         options: opt
+         modal: {
+            type: modalType,
+            options: opt
+         }
       }
    }
 }

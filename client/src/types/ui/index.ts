@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react'
+
 export type AlertType = 'success' | 'info' | 'warning' | 'error' | undefined
 
 export type SnackBarAlert = {
@@ -8,6 +10,7 @@ export type SnackBarAlert = {
 export type ModalOptions = {
    props?: any
    width?: string | number
+   style?: Pick<CSSProperties, 'background' | 'width'>
 }
 
 export type ModalType =

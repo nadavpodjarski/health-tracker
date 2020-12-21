@@ -43,11 +43,16 @@ const Nutrition = () => {
    }
 
    const onAddMealHandler = async () => {
-      dispatch(uiActions.setModal('add-meal', { width: 1200 }))
+      dispatch(uiActions.setModal('add-meal', { style: { width: 1200 } }))
    }
 
    const onCopyMealHandler = async (meal: Meal) => {
-      dispatch(uiActions.setModal('add-meal', { props: { meal }, width: 1200 }))
+      dispatch(
+         uiActions.setModal('add-meal', {
+            props: { meal },
+            style: { width: 1200 }
+         })
+      )
    }
 
    const onDeleteMealHandler = async (docId: string) => {
@@ -56,7 +61,9 @@ const Nutrition = () => {
             props: {
                docId
             },
-            width: 500
+            style: {
+               width: 500
+            }
          })
       )
    }
@@ -67,7 +74,9 @@ const Nutrition = () => {
             props: {
                mealDoc
             },
-            width: 1200
+            style: {
+               width: 1200
+            }
          })
       )
    }

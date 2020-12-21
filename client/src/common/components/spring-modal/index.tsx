@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, CSSProperties } from 'react'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { Dialog } from '@material-ui/core'
 import { useSpring, animated } from 'react-spring/web.cjs' // web.cjs is required for IE 11 support
@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) =>
          justifyContent: 'center'
       },
       paper: {
-         backgroundColor: theme.palette.background.paper,
+         backgroundColor: ({ bg }: any) => bg || theme.palette.background.paper,
          boxShadow: theme.shadows[5],
          padding: theme.spacing(2, 4, 3),
          overflow: 'none'
@@ -61,8 +61,11 @@ const SpringModal: FC<{
    open: boolean
    closeModal: () => void
    width?: number | string
-}> = ({ children, open, closeModal, width }) => {
-   const classes = useStyles({ width })
+   style?: CSSProperties
+}> = ({ children, open, closeModal, style }) => {
+   const width = style?.width
+   const bg = style?.background
+   const classes = useStyles({ width, bg })
 
    return (
       <Dialog
