@@ -50,7 +50,7 @@ const DynamicModal: FC = () => {
    return ModalContent ? (
       <SpringModal
          open={!!modal.type}
-         modalToggler={closeModal}
+         closeModal={closeModal}
          width={modal?.options?.width}
       >
          <ModalContent {...modal.options?.props} />
