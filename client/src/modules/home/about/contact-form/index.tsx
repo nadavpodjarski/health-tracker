@@ -27,10 +27,6 @@ const useStyles = makeStyles((theme) => ({
          color: theme.palette.common.white
       },
       width: '100%',
-      '&:disabled': {
-         background: 'lightgrey',
-         color: theme.palette.secondary.main
-      },
       height: 56
    },
    contantfomrWrapper: {
@@ -129,14 +125,11 @@ const ContactForm = () => {
                </Box>
                <Box className={classes.buttonWrapper}>
                   <Button
-                     endIcon={
-                        isSending ? <Loader size={12} color="black" /> : ''
-                     }
                      type="submit"
                      className={classes.button}
                      disabled={isSending}
                   >
-                     Send
+                     {isSending ? <Loader size={18} color="white" /> : 'Send'}
                   </Button>
                </Box>
             </form>

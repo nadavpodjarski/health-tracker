@@ -3,13 +3,14 @@ import { Box, makeStyles, Typography, Grid } from '@material-ui/core'
 import ContactForm from './contact-form'
 
 const useStyles = makeStyles((theme) => ({
-   p: {
+   pWrapper: {
       margin: theme.spacing(3, 0),
       width: '100%'
    },
    pTitle: {
       fontWeight: 500
    },
+   pContent: { fontSize: 14 },
    linkedinLink: {
       fontSize: 14,
       textDecoration: 'none',
@@ -25,9 +26,9 @@ const About = () => {
          <Grid item xs={12} md={8}>
             <Box>
                <Typography variant="h5">Gut Microbiom/Flora</Typography>
-               <Box className={classes.p}>
+               <Box className={classes.pWrapper}>
                   <Typography className={classes.pTitle}>Definition</Typography>
-                  <Typography>
+                  <Typography className={classes.pContent}>
                      The gut microbiome, as defined by molecular biologist
                      Joshua Lederberg, is the totality of microorganisms,
                      bacteria, viruses, protozoa, and fungi, and their
@@ -35,9 +36,9 @@ const About = () => {
                      tract
                   </Typography>
                </Box>
-               <Box className={classes.p}>
+               <Box className={classes.pWrapper}>
                   <Typography className={classes.pTitle}>Job</Typography>
-                  <Typography>
+                  <Typography className={classes.pContent}>
                      The gut microbiome plays a very important role in your
                      health by helping control digestion and benefiting your
                      immune system and many other aspects of health. An
@@ -46,11 +47,11 @@ const About = () => {
                      high cholesterol and other disorders.
                   </Typography>
                </Box>
-               <Box>
+               <Box className={classes.pWrapper}>
                   <Typography className={classes.pTitle}>
                      Counclusion
                   </Typography>
-                  <Typography>
+                  <Typography className={classes.pContent}>
                      Our gut microbiom can be taken out of balance by various
                      ways mainly by food and stress, sleep quality and more,
                      Mitummy aims to provide you tools that mirrors you your
