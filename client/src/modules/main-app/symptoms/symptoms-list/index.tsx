@@ -9,7 +9,7 @@ import {
    Typography
 } from '@material-ui/core'
 
-import Loader from '../../../../common/components/loader'
+import Loader from '../../../../shared/components/loader'
 import SymptomListItem from './list-item'
 
 import { Symptom, SymptomDoc, Symptoms } from '../../../../types/symptoms'

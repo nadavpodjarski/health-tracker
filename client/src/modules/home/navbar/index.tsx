@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Box, Typography, makeStyles, Button } from '@material-ui/core'
 
-import Logo from '../../../common/components/app-logo'
+import Logo from '../../../shared/components/app-logo'
 
 import { Link } from 'react-router-dom'
 import { homePaths } from '../../../core/routes/routes.config'

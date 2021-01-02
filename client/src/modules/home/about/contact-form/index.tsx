@@ -7,7 +7,7 @@ import {
    makeStyles
 } from '@material-ui/core'
 
-import Loader from '../../../../common/components/loader'
+import Loader from '../../../../shared/components/loader'
 
 import { useSelector, useDispatch } from 'react-redux'
 import * as homeActions from '../../../../redux/home/actions'

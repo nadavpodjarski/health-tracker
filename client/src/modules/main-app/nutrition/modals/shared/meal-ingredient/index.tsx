@@ -11,7 +11,7 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete'
 import { MealIngredient as Ingredient } from '../../../../../../types/nutrition'
 import * as utils from '../../../../../../utilities/nutrition'
-import InputNumberForamt from '../../../../../../common/components/input-number-format'
+import InputNumberForamt from '../../../../../../shared/components/input-number-format'
 
 const MealIngredient: FC<{
    ingredient: Ingredient

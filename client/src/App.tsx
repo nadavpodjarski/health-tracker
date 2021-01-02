@@ -8,15 +8,15 @@ import { useHistory } from 'react-router-dom'
 import { Route, Switch } from 'react-router-dom'
 import { mainAppPaths, homePaths } from './core/routes/routes.config'
 
-import InitSpinner from './common/components/initialize-spinner'
-import PrivateRoute from './common/components/private-route'
+import InitSpinner from './shared/components/initialize-spinner'
+import PrivateRoute from './shared/components/private-route'
 
 import MainApp from './modules/main-app/'
 import Home from './modules/home'
 
-import DynamicModal from './common/dynamic-modal'
+import DynamicModal from './shared/dynamic-modal'
 
-import SnackBar from './common/components/snack-bar'
+import SnackBar from './shared/components/snack-bar'
 import './App.css'
 
 import { getTheme } from './core/theme/setCurrentTheme'

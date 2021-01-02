@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import { Grid, Button, Typography, Divider, useTheme } from '@material-ui/core'
-import Loader from '../../../../../common/components/loader'
+import Loader from '../../../../../shared/components/loader'
 
 import { useDispatch } from 'react-redux'
 

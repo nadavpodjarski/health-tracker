@@ -8,10 +8,10 @@ import {
 } from '../../../../../types/nutrition'
 import * as nutritionUtils from '../../../../../utilities/nutrition'
 
-import SelectMealType from '../common/select-type'
-import MealIngredients from '../common/ingredients'
-import MealComments from '../common/comments'
-import MealDatePicker from '../common/date'
+import SelectMealType from '../shared/select-type'
+import MealIngredients from '../shared/ingredients'
+import MealComments from '../shared/comments'
+import MealDatePicker from '../shared/date'
 import EditMealActionButton from './action-buttons'
 
 import { Box, Typography } from '@material-ui/core'

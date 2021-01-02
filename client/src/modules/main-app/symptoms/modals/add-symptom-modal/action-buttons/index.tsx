@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { Grid, Button } from '@material-ui/core'
 import { useModalStyles } from '../../../styles/modals'
 
-import Loader from '../../../../../../common/components/loader'
+import Loader from '../../../../../../shared/components/loader'
 
 const AddMealActionButtons: FC<{
    onCancel: () => void

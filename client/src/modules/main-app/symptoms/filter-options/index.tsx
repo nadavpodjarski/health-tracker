@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { useDatePicker } from '../../../../common/hooks/useDatePicker'
+import { useDatePicker } from '../../../../shared/hooks/useDatePicker'
 import { makeStyles, Box } from '@material-ui/core'
 import { DateRange } from '@material-ui/pickers/DateRangePicker/RangeTypes'
 import { ParsedDateRange } from '../../../../types'

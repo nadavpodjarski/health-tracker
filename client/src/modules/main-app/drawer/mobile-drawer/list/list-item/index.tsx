@@ -5,7 +5,7 @@ import {
    ListItemIcon,
    makeStyles
 } from '@material-ui/core'
-import NavLink from '../../../../../../common/components/nav-link'
+import NavLink from '../../../../../../shared/components/nav-link'
 
 const useStyles = makeStyles((theme) => ({
    listItemIcon: {

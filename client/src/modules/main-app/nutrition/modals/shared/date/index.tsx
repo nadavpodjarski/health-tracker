@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Grid, Typography } from '@material-ui/core'
-import { useDatePicker } from '../../../../../../common/hooks/useDatePicker'
+import { useDatePicker } from '../../../../../../shared/hooks/useDatePicker'
 import { useModalStyles } from '../../../styles/modal'
 
 const MealDatePicker: FC<{

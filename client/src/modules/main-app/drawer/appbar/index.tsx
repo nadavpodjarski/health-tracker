@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 import { Box, makeStyles, Typography, IconButton } from '@material-ui/core'
 
-import ProfileAvatar from '../../../../common/components/profile-avatar'
-import ThemeSwitch from '../../../../common/components/theme-switch'
-import AppLogo from '../../../../common/components/app-logo'
+import ProfileAvatar from '../../../../shared/components/profile-avatar'
+import ThemeSwitch from '../../../../shared/components/theme-switch'
+import AppLogo from '../../../../shared/components/app-logo'
 
 import Logo from '../../../../resources/logo/logo.png'
 import MenuIcon from '@material-ui/icons/Menu'
