@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState, useEffect, useRef } from 'react'
 import { TextField, Divider, Box, makeStyles } from '@material-ui/core'
 
 import DateFnsUtils from '@material-ui/pickers/adapter/date-fns'
@@ -20,34 +20,23 @@ const useStyles = makeStyles((theme) => ({
    }
 }))
 
-const parseTimes = (startAt: Date, endAt: Date) => {
-   const parsedStart = moment(startAt).valueOf()
-   const parsedEnd = moment(endAt).valueOf()
-   return [parsedStart, parsedEnd]
-}
-
 const DateRangePicker: FC<{
-   onChange: (date: DateRange) => void
-   startAt: Date | null
-   endAt: Date | null
+   onAccept: (date: DateRange) => void
+   startAt: Date
+   endAt: Date
    className?: string
-}> = ({ onChange, startAt, endAt, className }) => {
-   const [value, setValue] = useState<any>(
-      parseTimes(startAt as Date, endAt as Date)
-   )
+}> = ({ onAccept, startAt, endAt, className }) => {
+   const [dateRange, setDateRange] = useState<DateRange<Date>>([null, null])
 
    const classes = useStyles()
 
    useEffect(() => {
-      if (startAt && endAt) {
-         setValue(parseTimes(startAt, endAt))
-      }
+      setDateRange([startAt, endAt])
    }, [startAt, endAt])
 
-   const onAcceptHandler = (date: DateRange<Date>) => {
+   const onAcceptHandler = (date: any) => {
       if (date) {
-         onChange(date)
-         setValue(date)
+         onAccept(date)
       }
    }
 
@@ -60,59 +49,63 @@ const DateRangePicker: FC<{
       <LocalizationProvider dateAdapter={DateFnsUtils}>
          <MobileDateRangePicker
             disableFuture
-            value={value}
+            value={dateRange}
             onAccept={(date: any) => onAcceptHandler(date)}
             inputFormat="dd/MM/yyyy"
             onChange={onChangeHandler}
             allowSameDateSelection={true}
             renderInput={(startProps, endProps) => (
-               <div
-                  style={{
-                     padding: '6px 6px 6px 12px',
-                     display: 'flex',
-                     alignItems: 'center',
-                     borderRadius: '25px'
-                  }}
-                  className={className}
-               >
-                  <Box padding="0 6px">
-                     <DateRangeIcon fontSize="small" />
-                  </Box>
-                  <TextField
-                     {...startProps}
-                     label=""
-                     variant="standard"
-                     helperText=""
-                     inputProps={{
-                        ...startProps.inputProps,
-                        className: classes.textFiled
-                     }}
-                     InputProps={{
-                        disableUnderline: true
-                     }}
-                  />
-                  <Divider
-                     orientation="vertical"
+               <>
+                  <div
                      style={{
-                        height: 'auto',
-                        margin: '0 8px',
-                        alignSelf: 'stretch'
+                        padding: '6px 6px 6px 12px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        borderRadius: '25px'
                      }}
-                  />
-                  <TextField
-                     {...endProps}
-                     label=""
-                     helperText=""
-                     variant="standard"
-                     inputProps={{
-                        ...endProps.inputProps,
-                        className: classes.textFiled
-                     }}
-                     InputProps={{
-                        disableUnderline: true
-                     }}
-                  />
-               </div>
+                     className={className}
+                  >
+                     <Box padding="0 6px">
+                        <DateRangeIcon fontSize="small" />
+                     </Box>
+                     <TextField
+                        {...startProps}
+                        label=""
+                        variant="standard"
+                        helperText=""
+                        inputProps={{
+                           ...startProps.inputProps,
+                           className: classes.textFiled,
+                           value: moment(dateRange[0]).format('DD/MM/YYYY')
+                        }}
+                        InputProps={{
+                           disableUnderline: true
+                        }}
+                     />
+                     <Divider
+                        orientation="vertical"
+                        style={{
+                           height: 'auto',
+                           margin: '0 8px',
+                           alignSelf: 'stretch'
+                        }}
+                     />
+                     <TextField
+                        {...endProps}
+                        label=""
+                        helperText=""
+                        variant="standard"
+                        inputProps={{
+                           ...endProps.inputProps,
+                           className: classes.textFiled,
+                           value: moment(dateRange[1]).format('DD/MM/YYYY')
+                        }}
+                        InputProps={{
+                           disableUnderline: true
+                        }}
+                     />
+                  </div>
+               </>
             )}
          />
       </LocalizationProvider>

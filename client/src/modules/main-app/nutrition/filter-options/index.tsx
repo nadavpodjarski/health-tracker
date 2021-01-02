@@ -29,7 +29,7 @@ const FilterOptions: FC<{
       <>
          <Box className={classes.root}>
             <DateRangePicker
-               onChange={onDateRangeChange}
+               onAccept={onDateRangeChange}
                startAt={dateRange.startAt}
                endAt={dateRange.endAt}
                className={classes.dateRange}
