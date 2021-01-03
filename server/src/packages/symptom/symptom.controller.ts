@@ -20,8 +20,11 @@ export const addSymptom = async (req: Request, res: Response) => {
          },
          symptom
       })
-      await newSymptom.save()
-      res.json({ message: 'Symptom Added Successfully' })
+      const savedSymptom = await newSymptom.save()
+      res.json({
+         symptom: savedSymptom.sanitizeObject(),
+         message: 'Symptom Added Successfully'
+      })
    } catch (err) {
       console.log(err.stack)
       res.status(500).json('There was an error while adding symptom')

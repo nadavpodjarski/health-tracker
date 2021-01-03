@@ -44,9 +44,10 @@ const createAddSymptom = () => {
 }
 
 const addSymptomSuccess = (data: any) => (dispatch: Dispatch<any>) => {
-   dispatch(uiActions.setSnackBar({ type: 'success', msg: data }))
+   dispatch(uiActions.setSnackBar({ type: 'success', msg: data.message }))
    dispatch({
-      type: types.ADD_SYMPTOM_SUCCESS
+      type: types.ADD_SYMPTOM_SUCCESS,
+      payload: data.symptom
    })
 }
 
@@ -59,13 +60,7 @@ export const addSymptom = (symptom: Symptom) => async (
    dispatch(createAddSymptom)
    try {
       const res = await api.postSymptom(symptom)
-      dispatch(addSymptomSuccess(res.message))
-      if (
-         symptom.date >= dateRange.startAt &&
-         symptom.date <= dateRange.endAt
-      ) {
-         dispatch(fetchSymptoms(dateRange))
-      }
+      dispatch(addSymptomSuccess(res))
    } catch (err) {
       dispatch(requestErr(err.message))
    }

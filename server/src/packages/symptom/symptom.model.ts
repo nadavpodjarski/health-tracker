@@ -19,14 +19,23 @@ interface ISymptom extends mongoose.Document {
    symptom: Object
    createdAt: Date
    verifyOwnership(uid: string): boolean
+   sanitizeObject(): Omit<ISymptom, 'author'>
 }
 
 interface ISymptomModel extends mongoose.Model<ISymptom> {
    verifyOwnership: (uid: string) => boolean
+   sanitizeObject: () => Omit<ISymptom, 'author'>
 }
 
 SymptomSchema.methods.verifyOwnership = function (uid: string) {
    return this.author.uid === uid
+}
+
+SymptomSchema.methods.sanitizeObject = function () {
+   return {
+      symptom: this.symptom,
+      id: this._id
+   }
 }
 
 export const Symptom: ISymptomModel = mongoose.model<ISymptom, ISymptomModel>(

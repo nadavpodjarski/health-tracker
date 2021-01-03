@@ -98,7 +98,6 @@ export const addMeal = (meal: Meal) => async (
    dispatch: Dispatch<any>,
    getStore: any
 ) => {
-   const { dateRange } = getStore().nutrition
    try {
       dispatch(createAddMeal())
       const res = await api.postMeal(meal)
