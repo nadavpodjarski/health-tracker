@@ -42,8 +42,11 @@ export const addMeal = async (req: Request, res: Response) => {
          },
          meal
       })
-      await newMeal.save()
-      return res.status(200).json({ message: 'Meal Added Successfully' })
+      const savedMeal = await newMeal.save()
+      const sanitizedMeal = savedMeal.sanitizeObject()
+      return res
+         .status(200)
+         .json({ meal: sanitizedMeal, message: 'Meal Added Successfully' })
    } catch (err) {
       console.log(err.stack)
       return res.status(500).json('There was an error while adding meal')
@@ -87,7 +90,6 @@ export const getMeals = async (req: Request, res: Response) => {
          },
          { $sort: { 'meals.meal.date': -1 } }
       ])
-
       return res.json(meals)
    } catch (err) {
       console.log(err.stack)

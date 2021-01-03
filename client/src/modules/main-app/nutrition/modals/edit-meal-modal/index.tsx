@@ -31,7 +31,6 @@ const EditMealModalContent: FC<{
 
    const dispatch = useDispatch()
 
-   // Add Meal ingredient
    const onAddMealIngredient = () => {
       const newIngredient = nutritionUtils.makeNewMealIngredient()
       updateMeal((prevState) => ({
@@ -40,7 +39,6 @@ const EditMealModalContent: FC<{
       }))
    }
 
-   // Delete Meal Ingredient
    const onDeleteMealIngredient = (id: string) => {
       if (meal.ingredients.length === 1) return dispatch(uiActions.closeModal())
       updateMeal((prevState) => ({
@@ -49,7 +47,6 @@ const EditMealModalContent: FC<{
       }))
    }
 
-   // onChange Meal Ingredient
    const onChangeMealIngredient = (ingredients: MealIngredient[]) => {
       updateMeal((prevState) => ({
          ...prevState,
@@ -57,7 +54,6 @@ const EditMealModalContent: FC<{
       }))
    }
 
-   // onChange Meal Comments
    const onChangeMealComments = (comments: string) => {
       updateMeal((prevState) => ({
          ...prevState,
@@ -65,7 +61,6 @@ const EditMealModalContent: FC<{
       }))
    }
 
-   // onChange Meal Type
    const onChangeMealType = (type: MealTypes) => {
       updateMeal((prevState) => ({
          ...prevState,
@@ -73,7 +68,6 @@ const EditMealModalContent: FC<{
       }))
    }
 
-   // onChange Meal Time
    const onChangeMealTime = (date: Date) => {
       updateMeal((prevState) => ({
          ...prevState,
@@ -81,15 +75,12 @@ const EditMealModalContent: FC<{
       }))
    }
 
-   // Confirm Add Meal
    const onConfirm = async () => {
       if (_.isEqual(tempState, meal)) return dispatch(uiActions.closeModal())
       setIsUpdating(true)
       try {
          await dispatch(nutritionActions.editMeal(meal, mealDoc.id))
       } catch (err) {
-         // TODO handle err
-         console.log(err)
          setIsUpdating(false)
       } finally {
          dispatch(uiActions.closeModal())
@@ -98,14 +89,12 @@ const EditMealModalContent: FC<{
 
    return (
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-         {/*Meal Type*/}
          <Box display="flex" padding="16px 0" justifyContent="space-between">
             <Typography variant="h4" style={{ fontWeight: 'bold' }}>
                Edit Meal
             </Typography>
             <SelectMealType type={meal.type} onChange={onChangeMealType} />
          </Box>
-         {/*Meal Ingredients*/}
          <MealIngredients
             ingredients={meal.ingredients}
             onAdd={onAddMealIngredient}
@@ -113,20 +102,17 @@ const EditMealModalContent: FC<{
             onChange={onChangeMealIngredient}
          />
 
-         {/*Meal Comments*/}
          <MealComments
             onChange={onChangeMealComments}
             comments={meal.comments}
          />
 
-         {/*Meal Date*/}
          <MealDatePicker
             onAcceptTime={onChangeMealTime}
             date={meal.date}
             disabled={true}
          />
 
-         {/*Action Buttons*/}
          <EditMealActionButton
             isDisabled={!!nutritionUtils.isValidMeal(meal)}
             onConfirm={onConfirm}

@@ -103,9 +103,6 @@ export const addMeal = (meal: Meal) => async (
       dispatch(createAddMeal())
       const res = await api.postMeal(meal)
       dispatch(addMealSuccess(res))
-      if (meal.date >= dateRange.startAt && meal.date <= dateRange.endAt) {
-         dispatch(fetchMeals(dateRange))
-      }
    } catch (err) {
       dispatch(requestErr(err.message))
    }

@@ -3,6 +3,10 @@ import * as appUtils from '../../../utilities'
 
 import { INutrition, Action } from '../../../types/redux'
 
+import { MealsByDate } from '../../../types/nutrition'
+
+import moment from 'moment'
+
 const initialState: INutrition = {
    meals: [],
    dateRange: appUtils.parseDateRange([new Date(), new Date()]),
@@ -18,7 +22,44 @@ export const nutritionReducer = (
       case types.DELETE_MEAL:
          return state
       case types.ADD_MEAL_SUCCESS:
-         return state
+         const mealDoc = action.payload
+
+         if (
+            !moment(mealDoc.meal.date).isBetween(
+               state.dateRange.startAt,
+               state.dateRange.endAt
+            )
+         ) {
+            return state
+         }
+
+         const mealDate = moment(mealDoc.meal.date).format('DD/MM/YYYY')
+         const mealsByDate = state.meals.find(
+            (mealByDate) => mealByDate._id === mealDate
+         )
+
+         if (mealsByDate) {
+            mealsByDate?.meals.push(mealDoc)
+            mealsByDate?.meals.sort((a, b) => {
+               return (
+                  new Date(a.meal.date).getTime() -
+                  new Date(b.meal.date).getTime()
+               )
+            })
+         } else {
+            const newMealsByDate: MealsByDate = {
+               _id: mealDate,
+               meals: [mealDoc]
+            }
+            state.meals.push(newMealsByDate)
+            state.meals.sort((a, b) => {
+               return new Date(b._id).getTime() - new Date(a._id).getTime()
+            })
+         }
+
+         return {
+            ...state
+         }
       case types.DELETE_MEAL_SUCCESS: {
          const meals = state.meals
             .map((mealsByDate) => {

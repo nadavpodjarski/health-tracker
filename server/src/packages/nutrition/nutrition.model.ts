@@ -21,15 +21,24 @@ interface INutrition extends mongoose.Document {
    createdAt: Date
    verifyOwnership(uid: string): boolean
    findSimilarMealType(newMealType: number, tz: string): Promise<INutrition>
+   sanitizeObject(): Omit<INutrition, 'author'>
 }
 
 interface INutritionModel extends mongoose.Model<INutrition> {
    verifyOwnership: (uid: string) => boolean
    findSimilarMealType: (newMealType: number, tz: string) => Promise<INutrition>
+   sanitizeObject: () => Omit<INutrition, 'author'>
 }
 
 NutritionSchema.methods.verifyOwnership = function (uid: string) {
    return this.author.uid === uid
+}
+
+NutritionSchema.methods.sanitizeObject = function () {
+   return {
+      meal: this.meal,
+      id: this._id
+   }
 }
 
 NutritionSchema.methods.findSimilarMealType = async function (
