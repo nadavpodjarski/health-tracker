@@ -52,11 +52,8 @@ const addSymptomSuccess = (data: any) => (dispatch: Dispatch<any>) => {
 }
 
 export const addSymptom = (symptom: Symptom) => async (
-   dispatch: Dispatch<any>,
-   getStore: any
+   dispatch: Dispatch<any>
 ) => {
-   const { dateRange } = getStore().symptoms
-
    dispatch(createAddSymptom)
    try {
       const res = await api.postSymptom(symptom)

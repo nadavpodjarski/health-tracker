@@ -94,10 +94,7 @@ const addMealSuccess = (data: any) => (dispatch: Dispatch<any>) => {
    dispatch(uiActions.setSnackBar({ type: 'success', msg: data.message }))
 }
 
-export const addMeal = (meal: Meal) => async (
-   dispatch: Dispatch<any>,
-   getStore: any
-) => {
+export const addMeal = (meal: Meal) => async (dispatch: Dispatch<any>) => {
    try {
       dispatch(createAddMeal())
       const res = await api.postMeal(meal)

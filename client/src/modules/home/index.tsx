@@ -27,7 +27,8 @@ const useStyles = makeStyles((theme: Theme) => ({
    },
    content: {
       maxWidth: 1200,
-      height: '100%'
+      height: '100%',
+      width: '100%'
    }
 }))
 

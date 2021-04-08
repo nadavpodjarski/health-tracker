@@ -7,7 +7,7 @@ import LobbyImage from './lobby-image'
 const Entry = () => {
    return (
       <Grid container style={{ flex: 1 }}>
-         <Grid item xs={12} md={4}>
+         <Grid item xs={12} md={4} style={{ zIndex: 9999999 }}>
             <Intro />
          </Grid>
          <Grid
