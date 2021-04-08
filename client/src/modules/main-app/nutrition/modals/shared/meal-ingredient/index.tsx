@@ -47,7 +47,7 @@ const MealIngredient: FC<{
          style={{ paddingTop: '8px' }}
          key={`ingredientModal_${ingredient.id}`}
       >
-         <Grid item xs={6} sm={6}>
+         <Grid item xs sm>
             <TextField
                onChange={onChangeHandler}
                name="item"
@@ -55,6 +55,7 @@ const MealIngredient: FC<{
                variant="outlined"
                placeholder="* Food"
                error={!ingredient.item}
+               fullWidth
             />
          </Grid>
          <Grid item xs={6} sm={3}>
